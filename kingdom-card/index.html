@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Country Card</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <main>
+      <ul class="kingdom-list">
+        <li class="kingdom-item">
+          <section class="kingdom-card">
+            <h2 class="kingdom-name">Kingdom of Eldrich</h2>
+
+            <p class="kingdom-detail">
+              <span class="label">Region:</span>
+              <span class="region-value">The Shattered Vale</span>
+            </p>
+
+            <p class="kingdom-detail">
+              <span class="label">Ruler:</span>
+              <span class="ruler-value">Queen Aria</span>
+            </p>
+
+            <p class="kingdom-detail">
+              <span class="label">Capital:</span>
+              <span class="capital-value">Moonspire</span>
+            </p>
+
+            <p class="kingdom-detail">
+              <span class="label">Threat level:</span>
+              <span class="threat-value">Low</span>
+            </p>
+
+            <p class="kingdom-detail">
+              <span class="label">Towns:</span>
+              <span class="towns-value">
+                Emberford, Frosthollow, Dawnridge
+              </span>
+            </p>
+          </section>
+
+          <div class="kingdom-controls">
+            <input
+              id="kingdom-input"
+              type="text"
+              placeholder="Type a new kingdom name"
+            />
+            <button id="kingdom-button" type="button">
+              Update Kingdom Name
+            </button>
+
+            <input
+              id="threat-input"
+              type="text"
+              placeholder="Enter threat level (Low / Medium / High)"
+            />
+            <button id="threat-button" type="button">
+              Update Threat Level
+            </button>
+
+            <input
+              id="region-input"
+              type="text"
+              placeholder="Type a new region"
+            />
+            <button id="region-button" type="button">
+              Update Region
+            </button>
+
+            <input
+              id="ruler-input"
+              type="text"
+              placeholder="Type a new ruler"
+            />
+            <button id="ruler-button" type="button">
+              Update Ruler
+            </button>
+
+            <input
+              id="capital-input"
+              type="text"
+              placeholder="Type a new capital"
+            />
+            <button id="capital-button" type="button">
+              Update Capital
+            </button>
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

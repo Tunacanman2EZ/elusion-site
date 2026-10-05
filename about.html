@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About • Elusion RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="contribute.html">Contribute</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html" class="active">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <header class="page-header">
+      <h1>About Elusion</h1>
+      <p>One developer, one world, and a stubborn refusal to stand still.</p>
+    </header>
+
+    <div class="about-stats">
+      <div class="about-stat"><div class="n">1</div><div class="l">solo developer</div></div>
+      <div class="about-stat"><div class="n">6,500+</div><div class="l">automated tests</div></div>
+      <div class="about-stat"><div class="n">6 · 4</div><div class="l">bosses · classes</div></div>
+      <div class="about-stat"><div class="n">Godot + Flask</div><div class="l">engine · server</div></div>
+    </div>
+
+    <div class="about-body">
+      <p>I'm <strong>Robert</strong>, and I build Elusion by myself. I came to it with
+        <strong>zero coding experience</strong> — no background, no team, no shortcut — and set out to ship
+        something <em>complete</em>: not a demo, but a real game with a real server behind it.</p>
+
+      <p>I was one of the first to enroll at <strong>Maestro University</strong>, back in September 2025 —
+        and I don't just take the lessons, I build with them. Elusion began only a few weeks in, and
+        everything I've learned since has gone straight into it, sharpened against a real project instead of
+        a worksheet. That's what keeps the work accurate and the pace honest: none of it is learning for its
+        own sake, all of it is load-bearing. And I've tried to bring my classmates with me the whole way —
+        leading from the front by shipping real work, not just talking about it. The more the game
+        grows, the more I go back and rebuild — and mixing the learning with the building has taught me more
+        than either could alone.</p>
+
+      <p>Elusion is a top-down action RPG made in <strong>Godot 4</strong> (GDScript), backed by a
+        <strong>Python / Flask</strong> server with a SQLite database. It runs a full loop — town, combat,
+        loot, pets, fishing, cooking, and player-to-player trading over a taxed economy — from the safe
+        streets out through a mysterious portal, into a world that only gets harder the deeper you go.</p>
+
+      <p>Where it's headed: right now that's Layer 1 — six elemental bosses and the Crowned Behemoth. Past
+        it, the game goes <strong>down</strong>. The deep is where Elusion stops being a solo climb and
+        becomes <strong>group raids</strong> — coordinated fights that punish a careless party and pay out
+        in score for the kingdom. That's the game I'm building toward.</p>
+
+      <p>What I care about most is treating it like real software. For a game with a server, that means
+        assuming the player is hostile: saves are <strong>server-authoritative</strong>, the gold economy is
+        double-entry, and a <strong>red-team bot attacks a live server</strong> to prove money, items, and
+        stats can't be forged. There are over <strong>6,500 automated tests</strong> behind it — 3,900 against
+        the server, 2,500 more running inside a real Godot instance — and I ran a
+        <strong>security self-audit against my own API</strong> — twenty findings, nineteen closed, the rest
+        named out in the open rather than hidden.</p>
+
+      <p>The test count is the least interesting part of that, though, and I'd rather say what it is actually
+        for. In September the game healed a character on the player's machine instead of asking the server,
+        and the server caught it — trimmed the health back to what regeneration could honestly produce, wrote
+        a line in the log saying so, and kept doing it every time anyone died until I finally read the log.
+        That is the whole idea. The tests and the audit aren't there to make a number go up; they're there so
+        the game notices when I am the one who got it wrong.</p>
+
+      <p>I use AI the way I was trained to in school — as a tool, not the wheel. Everything starts with an
+        idea and a few sharp questions; I lean on <strong>Claude</strong> to reinforce my notes and
+        pressure-test my thinking, then I read and edit what comes back, fact-check it, and test it more than
+        one way before it stays. When my reasoning and the running engine disagree, the engine wins and I
+        write down why. The proof is in the repo: a git history that explains its own decisions.</p>
+
+      <p>Underneath the engineering, Elusion is personal. It comes out of my own life — the challenges I've
+        come through, and a real love for art, music, and sound that I want people to feel in every corner of
+        it. Coming from where I have, this is the game I'm hoping will lift my life, and the one I want to
+        gather the most welcoming, positive community I can around. That's why the standard never drops.</p>
+
+      <p>Now the school is closing its doors — but I'm not closing this down. If anything it's pushed me
+        harder: I give Elusion everything I've got, every single day, and I keep going because I can't stand
+        still. This is what a year of that looks like.</p>
+
+      <p style="text-align:center; color:#8a939a; font-size:0.9rem; margin-top:26px;">
+        Solo-developed by <strong style="color:#cdd4d9;">Robert Clear</strong> — every line of it mine.
+        Character &amp; world art by <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener" style="color:#4fd1ff;">Ahvassa</a>;
+        item &amp; icon art by <a href="https://www.clockworkravenstudios.com/" target="_blank" rel="noopener" style="color:#4fd1ff;">Caio Carlos · Clockwork Raven Studios</a>.</p>
+
+      <div class="cta-row" style="justify-content:center; margin-top:26px;">
+        <a class="btn ghost" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">The game on GitHub</a>
+        <a class="btn primary" href="simulator.html">See the Boss Sim</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

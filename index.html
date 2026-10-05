@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elusion RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html" class="active">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="contribute.html">Contribute</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">In development · Solo-built in Godot</p>
+      <h1>ELUSION</h1>
+      <p class="tagline">A top-down action RPG set beyond a mysterious portal — four classes,
+        six elemental bosses, and a fight that only gets harder the deeper you go.</p>
+      <p class="sub">Built solo, from zero coding experience. Fishing, cooking, pets, and
+        player-to-player trading over a living, server-run economy.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://play.elusionrpg.com">Play in browser</a>
+        <a class="btn ghost" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn ghost" href="simulator.html">Explore the Boss Sim</a>
+      </div>
+      <p class="platform-note">A PC game: play in your browser with a keyboard and mouse. It isn't made for phones.</p>
+    </div>
+
+    <!-- the game screen. The game itself is at play.elusionrpg.com (its own
+         server; this page's CSP refuses frames, so it is a link, not an
+         embed). This panel runs an enemy showcase — each creature's real
+         in-game attack, rebuilt from the sprite sheets, crossfading on a loop. -->
+    <div class="game-screen">
+      <div class="screen-media enemy-slideshow" id="enemy-slideshow">
+        <img class="enemy-frame active" src="images/enemies/boss.gif"           alt="Crowned Behemoth" data-caption="Crowned Behemoth — Layer 1 boss" />
+        <img class="enemy-frame"        src="images/enemies/bushmage.gif"       alt="Bush Mage"   data-caption="Bush Mage" />
+        <img class="enemy-frame"        src="images/enemies/bushsniper.gif"     alt="Bush Sniper" data-caption="Bush Sniper" />
+        <img class="enemy-frame"        src="images/enemies/firesprite.gif"     alt="Fire Sprite" data-caption="Fire Sprite" />
+        <img class="enemy-frame"        src="images/enemies/electricsprite.gif" alt="Electric Sprite" data-caption="Electric Sprite" />
+        <img class="enemy-frame"        src="images/enemies/slime.gif"          alt="Poison Slime" data-caption="Poison Slime" />
+        <button class="enemy-arrow prev" id="enemy-prev" type="button" aria-label="Previous enemy">&#8249;</button>
+        <button class="enemy-arrow next" id="enemy-next" type="button" aria-label="Next enemy">&#8250;</button>
+        <span class="caption" id="enemy-caption">Crowned Behemoth — Layer 1 boss</span>
+        <div class="enemy-dots" id="enemy-dots" aria-hidden="true"></div>
+      </div>
+      <div class="playbar">
+        <span><span class="dot"></span>Play now at <a href="https://play.elusionrpg.com" style="color:#4fd1ff;">play.elusionrpg.com</a></span>
+        <span style="color:#6b7c84;">PC · keyboard &amp; mouse</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOSS SIM CROSS-LINK ===== -->
+  <div class="sim-callout">
+    <div class="t">
+      <h3>See the balance for yourself</h3>
+      <p>The Crowned Behemoth Balance Console models a full four-class party clearing all six bosses — live.</p>
+    </div>
+    <a class="btn primary" href="simulator.html">Open the Boss Sim</a>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>What's in the world</h2>
+      <p>More than a boss fight — a full run from town, through the portal, and back.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="ic">⚔</div>
+        <h3>Four classes</h3>
+        <p>Warrior, Mage, Healer, Tank — melee cleave, ranged burst, ten-shots-a-second spellfire,
+          and a damage aura. Each plays nothing like the others.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ic">♛</div>
+        <h3>Six elemental bosses</h3>
+        <p>The Crowned Behemoth in six flavors, with telegraphed bullet-hell patterns that erupt from the
+          ground. Read them, or get read.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ic">🎣</div>
+        <h3>A world to live in</h3>
+        <p>Fishing, cooking and pets, with a ten-key hotbar that holds what you carry. The game is
+          more than the fight.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ic">⚖</div>
+        <h3>Trade with anyone</h3>
+        <p>Put items and gold on the table face to face. The kingdom takes a small cut, and Accept
+          only ever agrees to the offer on your screen — no last-second swaps.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ic">🏰</div>
+        <h3>Guilds, friends and chat</h3>
+        <p>Found a guild, promote your officers, talk in guild chat, and see who is online —
+          every name in the colour its player chose.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ic">🛡</div>
+        <h3>Built to be fair</h3>
+        <p>Every skill, coin and item is server-owned, staff have a real moderation desk, and 6,500+
+          tests run the game as if every player is hostile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LATEST UPDATES ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Latest updates</h2>
+      <p>The road to launch, one build at a time.</p>
+    </div>
+    <div class="updates">
+      <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-10-04">Oct 4, 2026</time></div>
+        <p>You can play Elusion in your browser now, at
+          <a href="https://play.elusionrpg.com" style="color:#8fe38a; font-weight:600;">play.elusionrpg.com</a>.
+          Your characters live on the game's own server, not in your browser, so they're
+          there whenever you sign in again. Bring a keyboard and mouse.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-10-02">Oct 2, 2026</time></div>
+        <p>Every enemy in the game can now drop a mythic weapon, and the tougher it is, the better
+          your odds. The Crowned is about one in 150 kills. A light slime is one in two million, a
+          real lottery ticket. It's always your own class's weapon. When one drops, the bag lands
+          under a tall red pillar of light and the screen flashes red, and everyone online gets a
+          banner saying who found it and on what. The bag stays on the ground for five minutes, so a
+          boss fight can't cost you it.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-10-02">Oct 2, 2026</time></div>
+        <p>Three new weapons from
+          <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener" style="color:#8fe38a; font-weight:600;">Ahvassa</a>,
+          and each one changes how your class attacks. The mage's Meteorite brings a meteor down
+          where you aim. It comes in at an angle, its shadow grows until it lands, and it leaves a
+          crater. The warrior's Double Axe is thrown to a spot and spins there, cutting everything
+          near it, until you call it back. The tank's Dynamite replaces the aura with a lit stick on
+          a fuse. One meteor or throw in ten comes twice. They need level 22.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-10-01">Oct 1, 2026</time></div>
+        <p>I played Elusion as a brand-new player for the first time, and it was rough. Nothing told
+          me that Space attacks, Shift sprints or E opens the bank, nothing said which way the Field
+          was, and the bar along the bottom was fourteen tiny buttons. Now the first time you stand in
+          town, a welcome card shows you the way out and every key, and H brings the keys back whenever
+          you want them. The bar is down to eight: Friends, Players, Guild, Trade and the Kingdom board
+          live under Social, and Options and logging out under Menu.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-10-01">Oct 1, 2026</time></div>
+        <p>A round of polish. The bank's Deposit and Withdraw, the level on Character Stats and all
+          eight gear slots now use the same sockets as the hotbar, so the whole game reads as one set.
+          The cooking window used to open stuck in the top-left corner with twelve empty boxes; it
+          opens in the middle now, with one row of six, one per kind of fish. And Character Stats is
+          two columns with short numbers: 1M, not 1,007,892.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
+        <p>Trading got a proper overhaul, and testing it with two accounts found the nasty one:
+          whoever pressed Accept first could lose the item they'd just traded for, the next time
+          they so much as moved a potion. Their game never heard the trade had finished, so it saved
+          the old bag over the new one. Fixed. Accept now only agrees to the offer you actually saw,
+          so nobody can swap a sword for a stick at the last second. You're told when someone wants
+          to trade with you, items show their icons and worth, and your recent trades are listed.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
+        <p>Guild chat works. The tab said "Guilds are not in the game yet" long after guilds were in
+          the game — the server had guild chat the whole time, and the game never asked it. A player
+          typed "oi bruv" into it, nothing happened, and that was the bug report.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
+        <p>My mods have a proper desk now: every player's record, a log of every ban, kick and
+          warning, and staff-only notes, so whoever is on can pick up where the last person left off
+          when I'm not around. When somebody says they got scammed, staff can look up exactly what
+          was traded, with whom, and on which character.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
+        <p>The name colour you pick in Options finally shows everywhere — chat, friends, guilds and
+          the players list, not just over your own head. Rank became a badge instead (the crown, MOD,
+          DEV), because once colours are free, a colour can't prove anyone is staff. Guilds got a
+          cleaner panel too: online members first, what everyone is playing, and a short history of
+          who joined, got promoted or left.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
+        <p>I died, came back with full health, logged out, and logged back in on 52 HP out of 504.
+          My own server had been catching it for weeks and I hadn't looked — the client was healing
+          itself, and the check that watches for unexplained healing was trimming it back to what
+          regeneration could really produce. It was right. Accepting death was still a decision made
+          on the player's machine rather than a request the server had to agree to. Both ways out of
+          the death screen go through the server now, and the gold you were carrying is properly
+          destroyed rather than just vanishing off your screen and coming back at the next login.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
+        <p>A switch that makes me hostile. Flip it and the whole world is told — and it stays on
+          screen for as long as it's true, rather than scrolling away like any other message.
+          There's also a Players menu anyone can open: who is online, what they're playing, and
+          where they are. One day I want to be the world boss.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
+        <p>Every line of chat and every notice from the server now says when it happened, in your
+          own local time. That sounds small. It wasn't: the server had been sending the time all
+          along and the game was throwing it away, so anyone logging in was handed a week of old
+          announcements, every one of them claiming to be happening right now.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
+        <p>The Kingdom's Coffers counts every gold piece that leaves the world for good — and it
+          now says how much of a player's contribution was given and how much was simply lost when
+          they died. Deaths are counted too. Dying still climbs the board; the board just admits
+          what it's made of.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
+        <p>Elusion is getting a sound. It took me over a year of asking to get
+          <a href="https://www.youtube.com/@Horizon_Sounds" target="_blank" rel="noopener" style="color:#8fe38a; font-weight:600;">Horizon</a>
+          into my Discord — he's 17, has been writing music since he was 15, plays football, and is a genuinely
+          busy guy. He's working on the intro theme in secret and has assured me it's no problem. A placeholder
+          is in for now; the real track is on the way.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
+        <p>Every skill is now server-owned. Attack, defense, agility, magic, fishing and cooking
+          are granted and checked on the server — no client can claim or edit its way to level 99.</p>
+      </div>
+      <div class="update-row">
+        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
+        <p>Security pass across the board: saves, inventory, gold and the economy are all
+          reconciled against what the server actually granted, backed by 3,400+ automated tests.</p>
+      </div>
+      <div class="update-row soon">
+        <div class="update-when">Up next</div>
+        <p>Bosses the server tracks in real time — the backbone for real, coordinated raids.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMMUNITY ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Follow the journey</h2>
+      <p>Dev logs, updates, and the road to launch. Come say hi.</p>
+    </div>
+    <div class="follow-btns">
+      <a class="btn ghost" href="https://discord.gg/FW5PAPZQGZ" target="_blank" rel="noopener">Join the Discord</a>
+      <a class="btn ghost" href="https://x.com/Tunacancode" target="_blank" rel="noopener">Follow on X</a>
+      <a class="btn ghost" href="https://www.youtube.com/@TunacancodeElusionStudios" target="_blank" rel="noopener">Watch on YouTube</a>
+      <a class="btn ghost" href="https://www.facebook.com/tunacancode/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+    <p style="text-align:center; color:#8a939a; margin-top:26px; font-size:0.92rem;">
+      Thanks for being here — it genuinely means a lot. <span style="color:#4fd1ff;">— Robert</span>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

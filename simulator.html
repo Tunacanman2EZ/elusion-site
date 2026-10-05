@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boss Sim • Elusion RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ===== Boss Sim — scoped to .sim, themed to the site (dark + #4fd1ff) ===== */
+    .sim{
+      --accent:#4fd1ff; --accent-dim:#2f88a6; --accent-soft:#14323d;
+      --panel:#181818; --panel-2:#1e1e1e; --raise:#252b2e;
+      --line:#2b3238; --ink:#f5f5f5; --muted:#a6afb6; --faint:#727c83;
+      --good:#4bbf7a; --warn:#e0a13a; --crit:#e5544b;
+      --warrior:#e5544b; --mage:#3b82c4; --healer:#35a95c; --tank:#a978e0;
+      --el-light:#d9c56a; --el-wind:#4bbfa0; --el-water:#4a90d0;
+      --el-ice:#6cc5d9; --el-earth:#c98a3e; --el-fire:#e0663c;
+      --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+      color:var(--ink); line-height:1.5;
+    }
+    .sim *{box-sizing:border-box}
+    .sim .lead{color:var(--muted);max-width:66ch;margin:10px auto 0;font-size:15px}
+    .sim .byline{color:var(--faint);font-family:var(--mono);font-size:12.5px;margin-top:8px}
+    .sim .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+    .sim .uc{text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:700}
+
+    /* presets */
+    .sim .presets{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px 0 4px}
+    .sim .presets button{font-family:var(--mono);font-size:12px;color:var(--muted);
+      background:var(--panel);border:1px solid var(--line);border-radius:20px;
+      padding:6px 14px;cursor:pointer;transition:.15s}
+    .sim .presets button:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* controls */
+    .sim .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:16px;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;
+      padding:18px;margin:18px 0 22px}
+    .sim .ctl label{display:flex;justify-content:space-between;align-items:baseline;
+      color:var(--muted);margin-bottom:8px}
+    .sim .ctl label span{text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:700}
+    .sim .ctl label b{font-family:var(--mono);font-size:14px;color:var(--accent);font-weight:700}
+    .sim input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;
+      background:var(--line);border-radius:3px;outline:none;margin:8px 0 2px}
+    .sim input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;
+      border-radius:50%;background:var(--accent);border:2px solid #111;cursor:pointer}
+    .sim input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;
+      background:var(--accent);border:2px solid #111;cursor:pointer}
+    .sim .seg{display:flex;gap:4px;background:#0e0e0e;border:1px solid var(--line);border-radius:8px;padding:3px}
+    .sim .seg button{flex:1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+      color:var(--muted);background:transparent;border:none;border-radius:5px;padding:8px 4px;cursor:pointer;transition:.12s}
+    .sim .seg button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent);
+      box-shadow:inset 0 0 0 1px var(--accent-dim)}
+    .sim .hint{font-size:11.5px;color:var(--faint);margin-top:7px;min-height:1.2em}
+
+    /* tiles */
+    .sim .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
+    .sim .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 15px;position:relative;overflow:hidden}
+    .sim .tile .k{color:var(--faint);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:700}
+    .sim .tile .v{font-family:var(--mono);font-weight:700;font-size:27px;line-height:1.05;margin-top:6px}
+    .sim .tile .u{font-size:12px;color:var(--muted);margin-left:2px;font-weight:400}
+    .sim .tile.hero .v{color:var(--accent)}
+    .sim .tile .rail{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent-dim)}
+    .sim .tile.ok .rail{background:var(--good)} .sim .tile.bad .rail{background:var(--crit)}
+    .sim .tile.ok .v{color:var(--good)} .sim .tile.bad .v{color:var(--crit)}
+
+    /* chart cards */
+    .sim .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .sim .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+    .sim .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink);margin:0 0 16px;
+      display:flex;justify-content:space-between;align-items:baseline;font-weight:700}
+    .sim .card h2 small{font-family:var(--mono);font-size:11.5px;color:var(--faint);text-transform:none;letter-spacing:0;font-weight:400}
+
+    .sim .bossrow{display:grid;grid-template-columns:56px 1fr 46px;gap:10px;align-items:center;margin-bottom:11px}
+    .sim .bn{font-size:12.5px;font-weight:700;color:var(--ink)}
+    .sim .track{height:14px;background:#0e0e0e;border-radius:5px;overflow:hidden}
+    .sim .fill{height:100%;border-radius:5px;transition:width .35s cubic-bezier(.3,.9,.35,1);min-width:2px}
+    .sim .bt{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-align:right}
+    .sim .bt.dead{color:var(--crit)}
+
+    .sim .stack{height:24px;display:flex;gap:2px;border-radius:6px;overflow:hidden;margin-bottom:16px;background:#0e0e0e}
+    .sim .stack span{transition:width .35s cubic-bezier(.3,.9,.35,1);min-width:0}
+    .sim .legend{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}
+    .sim .lg{display:flex;align-items:center;gap:9px;font-size:13px}
+    .sim .dot{width:10px;height:10px;border-radius:3px;flex:0 0 auto}
+    .sim .lg .nm{color:var(--muted);flex:1}
+    .sim .lg .dp{font-family:var(--mono);font-size:11px;color:var(--faint)}
+    .sim .lg .pc{font-family:var(--mono);font-weight:700;color:var(--ink)}
+
+    .sim .classgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:22px}
+    .sim .cc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px;position:relative}
+    .sim .cc::before{content:"";position:absolute;left:0;top:13px;bottom:13px;width:3px;border-radius:3px;background:var(--cc)}
+    .sim .cc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+    .sim .cc .cn{font-weight:700;font-size:15px;color:var(--cc)}
+    .sim .cc .status{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;padding:3px 8px;border-radius:20px}
+    .sim .cc .status.ok{color:var(--good);background:#4bbf7a1a;box-shadow:inset 0 0 0 1px #4bbf7a55}
+    .sim .cc .status.down{color:var(--crit);background:#e5544b1a;box-shadow:inset 0 0 0 1px #e5544b66}
+    .sim .cc .role{font-size:12px;color:var(--faint);margin-bottom:12px;min-height:3em}
+    .sim .stat{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;color:var(--muted)}
+    .sim .stat b{font-family:var(--mono);color:var(--ink);font-weight:700}
+    .sim .manabar{height:6px;background:#0e0e0e;border-radius:4px;overflow:hidden;margin-top:4px}
+    .sim .manabar i{display:block;height:100%;border-radius:4px;transition:width .35s}
+
+    .sim .notes{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px}
+    .sim .notes h3{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-dim);margin:0 0 12px}
+    .sim .notes ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px}
+    .sim .notes li{margin-bottom:7px}
+    .sim .notes b{color:var(--ink)}
+    .sim .insight{border:1px solid var(--accent-dim);background:var(--accent-soft);border-radius:10px;
+      padding:12px 16px;margin-bottom:22px;font-size:13.5px;color:#dff4fb}
+    .sim .insight b{color:var(--accent)}
+
+    @media (max-width:720px){ .sim .grid2{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="contribute.html">Contribute</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html" class="active">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="sim">
+      <header class="page-header">
+        <h1>Crowned Behemoth — Balance Console</h1>
+        <p class="lead">A tick-by-tick simulation of a four-class party — Warrior, Mage, Healer, Tank —
+          clearing all six elemental Crowned Behemoths. Every base number comes straight from the game's data files.
+          Move the dials and watch the kill times, damage split, and mana attrition respond.</p>
+        <p class="byline">solo-built · Godot 4 + Flask · theorycrafting, not vibes</p>
+      </header>
+
+      <div class="presets">
+        <button data-preset="fresh">▸ Fresh party (naked · lvl 20)</button>
+        <button data-preset="clear">▸ Geared clear (cobalt · lvl 40)</button>
+        <button data-preset="speed">▸ BiS speedrun (ember · lvl 60)</button>
+        <button data-preset="swarm">▸ Add swarm (cobalt · 5 adds)</button>
+      </div>
+
+      <section class="controls" aria-label="Simulation controls">
+        <div class="ctl">
+          <label for="gear"><span>Gear tier</span><b id="gearVal">Cobalt</b></label>
+          <input type="range" id="gear" min="0" max="5" step="1" value="3">
+          <div class="hint" id="gearHint"></div>
+        </div>
+        <div class="ctl">
+          <label for="level"><span>Party level</span><b id="levelVal">40</b></label>
+          <input type="range" id="level" min="1" max="99" step="1" value="40">
+          <div class="hint" id="levelHint"></div>
+        </div>
+        <div class="ctl">
+          <label for="dodge"><span>Dodge skill</span><b id="dodgeVal">85%</b></label>
+          <input type="range" id="dodge" min="40" max="99" step="1" value="85">
+          <div class="hint" id="dodgeHint"></div>
+        </div>
+        <div class="ctl">
+          <label for="adds"><span>Adds in room</span><b id="addsVal">0</b></label>
+          <input type="range" id="adds" min="0" max="6" step="1" value="0">
+          <div class="hint" id="addsHint"></div>
+        </div>
+        <div class="ctl">
+          <label><span>Run style</span></label>
+          <div class="seg" role="group" aria-label="Run style">
+            <button id="mRest" aria-pressed="true">Playthrough</button>
+            <button id="mRush" aria-pressed="false">Boss Rush</button>
+          </div>
+          <div class="hint" id="modeHint"></div>
+        </div>
+      </section>
+
+      <section class="tiles" aria-label="Headline results">
+        <div class="tile hero"><span class="rail"></span><div class="k">Full clear time</div>
+          <div class="v"><span id="tTime">—</span><span class="u" id="tTimeU">total</span></div></div>
+        <div class="tile" id="tileVerdict"><span class="rail"></span><div class="k">Outcome</div>
+          <div class="v" id="tVerdict">—</div></div>
+        <div class="tile"><span class="rail"></span><div class="k">Party DPS</div>
+          <div class="v"><span id="tDps">—</span></div></div>
+        <div class="tile"><span class="rail"></span><div class="k">Bosses cleared</div>
+          <div class="v"><span id="tCleared">—</span><span class="u">/ 6</span></div></div>
+      </section>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>Kill time per boss <small id="totalHp">37,000 HP total</small></h2>
+          <div id="bossChart"></div>
+        </div>
+        <div class="card">
+          <h2>Damage share by class <small>who carries the fight</small></h2>
+          <div class="stack" id="dpsStack"></div>
+          <div class="legend" id="dpsLegend"></div>
+        </div>
+      </div>
+
+      <div class="insight" id="insight"></div>
+
+      <section class="classgrid" id="classCards" aria-label="Per-class breakdown"></section>
+
+      <section class="notes">
+        <h3>Model &amp; assumptions</h3>
+        <ul>
+          <li><b>Real numbers.</b> Boss HP (Light 4,576 → Fire 8,216), class base damage &amp; cadence,
+            weapon ladders, HP/mana pools and per-level scaling all come from the project's data files.</li>
+          <li><b>Damage.</b> <span class="mono">hit = round((class_base + weapon) × mult)</span>; <span class="mono">mult</span>
+            grows ~1% per combat-skill level. The +0.5%/pt off-stat bonus is omitted, so a real party is ~10–20% stronger than shown.</li>
+          <li><b>Adds.</b> The tank's aura hits the boss <em>and</em> every add each tick — that's why adds barely change the
+            boss kill time but send the tank's damage share climbing. The other three focus the boss; the tank holds the room.</li>
+          <li><b>Survival.</b> Telegraphed spike rings get denser each phase, plus stalkers and any adds. Nobody heals — the
+            "Healer" is pure offense — so the party rides on HP pools, dodging, and idle regen. Deterministic expected-value model.</li>
+        </ul>
+      </section>
+    </div><!-- .sim -->
+  </div><!-- .page-wrapper -->
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script>
+  (function(){
+    "use strict";
+    var GEARLABEL=["Naked","Iron","Jade","Cobalt","Amethyst","Ember"];
+    var WEAP={Warrior:[0,20,32,48,70,100],Mage:[0,8,12,18,26,38],Healer:[0,2,3,4,6,8],Tank:[0,3,5,8,12,17]};
+    var BASE={Warrior:24,Mage:9,Healer:3,Tank:4};
+    var PERIOD={Warrior:1.0,Mage:0.45,Healer:0.10,Tank:0.25};
+    var HP_B={Warrior:180,Mage:110,Tank:260,Healer:140}, HP_L={Warrior:12,Mage:5,Tank:22,Healer:7};
+    var MN_B={Warrior:180,Mage:250,Tank:200,Healer:220}, MN_L={Warrior:10,Mage:16,Tank:10,Healer:14};
+    var CLASSES=["Warrior","Mage","Healer","Tank"];
+    var CCOL={Warrior:"var(--warrior)",Mage:"var(--mage)",Healer:"var(--healer)",Tank:"var(--tank)"};
+    var ROLE={
+      Warrior:"Free melee + slashwave. Never falters — the sword swings even when mana's gone.",
+      Mage:"Top burst, deepest pool, squishiest body. First to run dry, first to fall.",
+      Healer:"Ten shots a second. Deep enough to last a gauntlet. Fragile up close.",
+      Tank:"Aura hits everything in range 4×/s. Weakest on one target, unmatched in a swarm."
+    };
+    var DEFTIERS=[[80,0.50],[60,0.40],[40,0.30],[20,0.20],[1,0.10]];
+    var BOSSES=[
+      {name:"Light",hp:4576,proj:19,col:"var(--el-light)"},
+      {name:"Wind", hp:4992,proj:21,col:"var(--el-wind)"},
+      {name:"Water",hp:5616,proj:24,col:"var(--el-water)"},
+      {name:"Ice",  hp:6188,proj:26,col:"var(--el-ice)"},
+      {name:"Earth",hp:7384,proj:31,col:"var(--el-earth)"},
+      {name:"Fire", hp:8216,proj:35,col:"var(--el-fire)"}
+    ];
+    var UPTIME=0.85, REGEN=0.0167, DT=0.1, SPIKE=34, ADD_HP=300, ADD_DMG=8;
+
+    function defMit(l){for(var i=0;i<DEFTIERS.length;i++){if(l>=DEFTIERS[i][0])return DEFTIERS[i][1];}return 0.10;}
+    function mult(l){var p=l,s=Math.round(l/2);return 1+(p-1)*0.01+(s-1)*0.01;}
+
+    function fightBoss(st,boss,hit,dmg,mit,dodge,numAdds){
+      var wave=Math.round(0.75*dmg.Warrior), bhp=boss.hp, t=0, cap=400;
+      var dealt={Warrior:0,Mage:0,Healer:0,Tank:0}; // total (boss+adds), for the share chart
+      var adds=[]; for(var a=0;a<numAdds;a++) adds.push(ADD_HP);
+      while(bhp>0 && t<cap){
+        var anyAlive=false; for(var c=0;c<4;c++){ if(st.alive[CLASSES[c]]) anyAlive=true; }
+        if(!anyAlive) break;
+        var frac=bhp/boss.hp, spikesPS, stalk;
+        if(frac>0.66){ spikesPS=4/2.2; stalk=0; }
+        else if(frac>0.33){ spikesPS=6/1.7; stalk=1; }
+        else { spikesPS=8/1.3; stalk=2; }
+        var living=[]; for(var c=0;c<4;c++){ var k=CLASSES[c]; if(st.alive[k]) living.push(k); }
+        var addsAlive=0; for(var a=0;a<adds.length;a++){ if(adds[a]>0) addsAlive++; }
+        // ---- damage ----
+        for(var c=0;c<4;c++){
+          var k=CLASSES[c]; if(!st.alive[k]) continue;
+          st.mana[k]=Math.min(st.manaMax[k], st.mana[k]+st.manaMax[k]*REGEN*(1-UPTIME)*DT);
+          st.hp[k]  =Math.min(st.hpMax[k],   st.hp[k]  +st.hpMax[k]*REGEN*(1-UPTIME)*DT);
+          if(k==="Tank"){
+            if(st.mana[k]>=1){
+              var td=(dmg.Tank/PERIOD.Tank)*UPTIME; st.mana[k]-=(2/0.5)*UPTIME*DT;
+              bhp-=td*DT; dealt[k]+=td*DT;                    // aura on the boss
+              for(var a=0;a<adds.length;a++){ if(adds[a]>0){ adds[a]-=td*DT; dealt[k]+=td*DT; } } // aura on every add
+            }
+          } else {
+            var dps=0;
+            if(k==="Warrior"){ dps=dmg.Warrior/PERIOD.Warrior;
+              if(st.mana[k]>=10){ dps+=wave/PERIOD.Warrior; st.mana[k]-=10*UPTIME*DT; } }
+            else if(k==="Mage"){ if(st.mana[k]>=15){ dps=dmg.Mage/PERIOD.Mage; st.mana[k]-=(15/PERIOD.Mage)*UPTIME*DT; } }
+            else if(k==="Healer"){ if(st.mana[k]>=1){ dps=dmg.Healer/PERIOD.Healer; st.mana[k]-=(1/PERIOD.Healer)*UPTIME*DT; } }
+            dps*=UPTIME; bhp-=dps*DT; dealt[k]+=dps*DT;       // focus the boss
+          }
+        }
+        // ---- incoming ----
+        if(living.length){
+          var perClass=(spikesPS*(1-dodge)/living.length)*DT;
+          for(var i=0;i<living.length;i++){ var k=living[i];
+            st.hp[k]-=perClass*hit*(1-mit[k]); if(st.hp[k]<=0) st.alive[k]=false; }
+          var liv2=[]; for(var c=0;c<4;c++){ if(st.alive[CLASSES[c]]) liv2.push(CLASSES[c]); }
+          if(stalk>0 && liv2.length){ var tg=st.alive.Tank?"Tank":liv2[0];
+            st.hp[tg]-=(stalk*(1-dodge)/0.6)*DT*hit*(1-mit[tg]); if(st.hp[tg]<=0) st.alive[tg]=false; }
+          // adds gnaw on a random-ish living target (spread evenly, deterministic)
+          if(addsAlive>0 && liv2.length){
+            var addPerClass=(addsAlive*ADD_DMG/liv2.length)*DT;
+            for(var i=0;i<liv2.length;i++){ var k=liv2[i];
+              st.hp[k]-=addPerClass*(1-mit[k]); if(st.hp[k]<=0) st.alive[k]=false; }
+          }
+        }
+        t+=DT;
+      }
+      return {time:t, cleared:bhp<=0, dealt:dealt};
+    }
+
+    function simulate(gi,level,dodge,rush,numAdds){
+      var m=mult(level), dmg={}, perhit={};
+      CLASSES.forEach(function(k){ perhit[k]=Math.round((BASE[k]+WEAP[k][gi])*m); dmg[k]=perhit[k]; });
+      var mit={Warrior:defMit(level),Mage:defMit(level),Healer:defMit(level),Tank:defMit(level+20)};
+      var st={hp:{},mana:{},hpMax:{},manaMax:{},alive:{}};
+      CLASSES.forEach(function(k){
+        st.hpMax[k]=HP_B[k]+HP_L[k]*(level-1); st.manaMax[k]=MN_B[k]+MN_L[k]*(level-1);
+        st.hp[k]=st.hpMax[k]; st.mana[k]=st.manaMax[k]; st.alive[k]=true;
+      });
+      var perBoss=[], total=0, cleared=0, wiped=false, dealtTot={Warrior:0,Mage:0,Healer:0,Tank:0};
+      for(var b=0;b<BOSSES.length;b++){
+        if(!rush){ CLASSES.forEach(function(k){ st.hp[k]=st.hpMax[k]; st.mana[k]=st.manaMax[k]; st.alive[k]=true; }); }
+        var boss=BOSSES[b], hit=Math.round((SPIKE+boss.proj)/2);
+        var r=fightBoss(st,boss,hit,dmg,mit,dodge,numAdds);
+        CLASSES.forEach(function(k){ dealtTot[k]+=r.dealt[k]; });
+        perBoss.push({name:boss.name,col:boss.col,time:r.time,cleared:r.cleared});
+        if(r.cleared){ cleared++; total+=r.time; } else { wiped=true; break; }
+      }
+      var down={}; CLASSES.forEach(function(k){ down[k]=!st.alive[k]; });
+      var totD=dealtTot.Warrior+dealtTot.Mage+dealtTot.Healer+dealtTot.Tank||1;
+      var share={}, dpsC={}; CLASSES.forEach(function(k){ share[k]=dealtTot[k]/totD; dpsC[k]=dealtTot[k]/Math.max(total,DT); });
+      return {perBoss:perBoss,total:total,cleared:cleared,wiped:wiped,perhit:perhit,
+        share:share,dpsC:dpsC,partyDps:totD/Math.max(total,DT),
+        endMana:st.mana,manaMax:st.manaMax,hpMax:st.hpMax,down:down};
+    }
+
+    var $=function(id){return document.getElementById(id);};
+    function fmt(n){return Math.round(n).toLocaleString();}
+    function cssvar(v){return v;}
+
+    function render(){
+      var gi=+$("gear").value, level=+$("level").value, dodge=+$("dodge").value/100, numAdds=+$("adds").value;
+      var rush=$("mRush").getAttribute("aria-pressed")==="true";
+      $("gearVal").textContent=GEARLABEL[gi];
+      $("levelVal").textContent=level;
+      $("dodgeVal").textContent=Math.round(dodge*100)+"%";
+      $("addsVal").textContent=numAdds;
+      $("gearHint").textContent=gi===0?"No weapon — class base only":
+        "sword "+WEAP.Warrior[gi]+" · staff "+WEAP.Mage[gi]+" · scepter "+WEAP.Healer[gi]+" · maul "+WEAP.Tank[gi];
+      $("levelHint").textContent="×"+mult(level).toFixed(2)+" dmg · "+Math.round(defMit(level)*100)+"% def (Tank "+Math.round(defMit(level+20)*100)+"%)";
+      $("dodgeHint").textContent=dodge>=0.8?"Competent — spikes rarely land":dodge>=0.65?"Sloppy — squishies eat hits":"Panic — the fragile get deleted";
+      $("addsHint").textContent=numAdds===0?"Boss only — the tank's worst case":numAdds+" extra target"+(numAdds>1?"s":"")+" for the tank's aura";
+      $("modeHint").textContent=rush?"No rest — mana drains across all six":"Regen between rooms — fresh each boss";
+
+      var r=simulate(gi,level,dodge,rush,numAdds);
+
+      $("tTime").textContent = r.wiped ? "WIPE" : (r.total<0.5?"—":r.total.toFixed(0)+"s");
+      $("tTimeU").textContent = r.wiped ? "" : "total ("+(r.total/60).toFixed(1)+" min)";
+      var vt=$("tileVerdict"), anyDown=CLASSES.some(function(k){return r.down[k];});
+      if(r.wiped){ $("tVerdict").textContent="Wiped"; vt.className="tile bad"; }
+      else if(anyDown){ $("tVerdict").textContent="Cleared*"; vt.className="tile ok"; }
+      else { $("tVerdict").textContent="Cleared"; vt.className="tile ok"; }
+      $("tDps").textContent=fmt(r.partyDps);
+      $("tCleared").textContent=r.cleared;
+
+      var maxT=1; r.perBoss.forEach(function(b){ if(b.cleared&&b.time>maxT)maxT=b.time; });
+      var html="";
+      for(var i=0;i<BOSSES.length;i++){
+        var b=r.perBoss[i];
+        if(b){
+          var w=b.cleared?Math.max(2,(b.time/maxT)*100):100;
+          var tip=b.cleared?BOSSES[i].name+" — "+b.time.toFixed(1)+"s ("+fmt(BOSSES[i].hp)+" HP)":BOSSES[i].name+" — wipe";
+          html+='<div class="bossrow" title="'+tip+'"><span class="bn">'+BOSSES[i].name+'</span>'+
+            '<div class="track"><div class="fill" style="width:'+w+'%;background:'+(b.cleared?BOSSES[i].col:"var(--crit)")+'"></div></div>'+
+            '<span class="bt'+(b.cleared?"":" dead")+'">'+(b.cleared?b.time.toFixed(0)+"s":"WIPE")+'</span></div>';
+        } else {
+          html+='<div class="bossrow"><span class="bn" style="color:var(--faint)">'+BOSSES[i].name+'</span>'+
+            '<div class="track"></div><span class="bt" style="color:var(--faint)">—</span></div>';
+        }
+      }
+      $("bossChart").innerHTML=html;
+
+      var stack="", leg="";
+      CLASSES.forEach(function(k){
+        var pc=Math.round(r.share[k]*100);
+        stack+='<span title="'+k+' — '+pc+'%" style="width:'+(r.share[k]*100)+'%;background:'+CCOL[k]+'"></span>';
+        leg+='<div class="lg"><span class="dot" style="background:'+CCOL[k]+'"></span>'+
+          '<span class="nm">'+k+'</span><span class="dp">'+fmt(r.dpsC[k])+' dps</span><span class="pc">'+pc+'%</span></div>';
+      });
+      $("dpsStack").innerHTML=stack; $("dpsLegend").innerHTML=leg;
+
+      // insight line — computed from the actual result, never overclaimed
+      var tankPc=Math.round(r.share.Tank*100);
+      var topClass=CLASSES.reduce(function(a,b){return r.share[a]>=r.share[b]?a:b;});
+      var ins;
+      if(r.wiped){ ins="<b>Wipe.</b> At this gear and dodge the run falls apart — the fragile classes drop faster than the boss does. Gear up, or steady the dodge."; }
+      else if(numAdds>0){
+        if(topClass==="Tank"){ ins="<b>The tank is now #1.</b> Its aura cleaves "+(numAdds+1)+" targets at once — "+tankPc+"% of all damage, past even the Warrior's swing. From worst single-target to first in a swarm: that's the whole class in one slider."; }
+        else { ins="<b>The tank climbs fast.</b> "+numAdds+" add"+(numAdds>1?"s":"")+" pull its share to "+tankPc+"% (from ~16% on the boss alone) as the aura cleaves them, while the others keep focusing the boss. Push the adds higher and it takes the lead."; }
+      }
+      else if(topClass==="Warrior"){ ins="<b>The Warrior carries single-target.</b> "+Math.round(r.share.Warrior*100)+"% from that big, slow swing — while the tank sits at its "+tankPc+"% floor. Add a few adds and watch that flip."; }
+      else { ins="<b>Balanced spread.</b> No single class runs away with it on the boss alone — the gear ladder, not the class, is setting the pace."; }
+      $("insight").innerHTML=ins;
+
+      var cc="";
+      CLASSES.forEach(function(k){
+        var manaPct=Math.round(r.endMana[k]/r.manaMax[k]*100), downed=r.down[k];
+        cc+='<div class="cc" style="--cc:'+CCOL[k]+'">'+
+          '<div class="top"><span class="cn">'+k+'</span>'+
+          '<span class="status '+(downed?"down":"ok")+'">'+(downed?"Downed":"Survived")+'</span></div>'+
+          '<div class="role">'+ROLE[k]+'</div>'+
+          '<div class="stat"><span>Per-hit damage</span><b>'+r.perhit[k]+'</b></div>'+
+          '<div class="stat"><span>Health pool</span><b>'+fmt(r.hpMax[k])+'</b></div>'+
+          '<div class="stat"><span>Mana at fight-end</span><b>'+manaPct+'%</b></div>'+
+          '<div class="manabar"><i style="width:'+manaPct+'%;background:'+CCOL[k]+'"></i></div></div>';
+      });
+      $("classCards").innerHTML=cc;
+    }
+
+    // presets
+    var PRESETS={
+      fresh:{gear:0,level:20,dodge:80,adds:0,rush:false},
+      clear:{gear:3,level:40,dodge:85,adds:0,rush:false},
+      speed:{gear:5,level:60,dodge:90,adds:0,rush:true},
+      swarm:{gear:3,level:40,dodge:80,adds:5,rush:false}
+    };
+    function applyPreset(p){
+      var s=PRESETS[p]; if(!s)return;
+      $("gear").value=s.gear; $("level").value=s.level; $("dodge").value=s.dodge; $("adds").value=s.adds;
+      setMode(s.rush);
+    }
+    function setMode(rush){
+      $("mRush").setAttribute("aria-pressed",rush?"true":"false");
+      $("mRest").setAttribute("aria-pressed",rush?"false":"true");
+      render();
+    }
+    ["gear","level","dodge","adds"].forEach(function(id){ $(id).addEventListener("input",render); });
+    $("mRest").addEventListener("click",function(){setMode(false);});
+    $("mRush").addEventListener("click",function(){setMode(true);});
+    Array.prototype.forEach.call(document.querySelectorAll(".presets button"),function(btn){
+      btn.addEventListener("click",function(){ applyPreset(btn.getAttribute("data-preset")); });
+    });
+    render();
+  })();
+  </script>
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

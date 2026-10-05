@@ -1,0 +1,16 @@
+{
+  "name": "elusion-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Elusion RPG website, and the one function behind its visitor counter.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

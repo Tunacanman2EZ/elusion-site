@@ -1,0 +1,19 @@
+# Installed, not authored.
+node_modules/
+
+# Built by build.mjs on every deploy. Committing it would mean two copies of
+# the site in the repo and no way to tell which one shipped.
+dist/
+
+# Netlify CLI's local state, including the local blob store when you run
+# `netlify dev`. Machine-specific.
+.netlify/
+
+# Windows and editor leftovers.
+Thumbs.db
+desktop.ini
+*.swp
+
+# Written by test_e2e.mjs so you can see the footer without deploying.
+shot_top.png
+shot_top_mobile.png

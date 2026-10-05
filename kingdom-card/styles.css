@@ -1,0 +1,54 @@
+.kingdom-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kingdom-item {
+  display: flex;           /* card + controls side by side */
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 1.5rem;         /* space inside the box */
+  border: 2px solid #444;  /* box around BOTH */
+  border-radius: 12px;
+  background-color: #a2aec9;  /* or any color you like */
+}
+
+/* Center the whole box */
+main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+/* Kingdom card shell */
+.kingdom-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  max-width: 320px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Label/value rows */
+.kingdom-detail {
+  margin: 4px 0;
+}
+
+.kingdom-detail .label {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.kingdom-detail .value {
+  opacity: 0.9;
+}
+
+.kingdom-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

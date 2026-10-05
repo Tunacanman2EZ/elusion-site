@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contribute • Elusion RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="contribute.html" class="active">Contribute</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <header class="page-header">
+      <h1>Contribute to Elusion RPG</h1>
+      <p>Help build the world beyond the portal and support ongoing development.</p>
+    </header>
+
+    <div class="support-wrapper">
+      <section class="contribute-options">
+        <div class="contribute-card">
+          <h2>Buy me a motivational hot chocolate</h2>
+          <p>A hot-cocoa tip, straight to me — for the late nights, not the game fund. Sometimes you
+            just want to tell someone: keep going. It still shows up on the ledger below, on its own
+            line and labelled for what it is, and you still go on the supporters wall.</p>
+          <a href="https://paypal.me/ElusionStudios" target="_blank" rel="noopener">
+            Buy a hot chocolate
+          </a>
+        </div>
+
+        <div class="contribute-card">
+          <h2>Non-Monetary Support</h2>
+          <p>Share the game, give feedback, or contribute skills — art, writing, and testing.</p>
+          <a href="join.html">Join the Team</a>
+        </div>
+      </section>
+
+      <section class="impact">
+        <h2>Where Your Contribution Goes</h2>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <h3>Art &amp; Assets</h3>
+            <p>Character art, environments, UI, and visual polish.</p>
+          </div>
+          <div class="impact-card">
+            <h3>Development</h3>
+            <p>Game systems, bug fixes, and new content updates.</p>
+          </div>
+          <div class="impact-card">
+            <h3>Community</h3>
+            <p>Server costs, moderation tools, and community events.</p>
+          </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #ccc;">
+          PayPal handles every payment securely — no card details ever touch my servers.
+        </p>
+      </section>
+    </div>
+
+    <!-- ===== TRANSPARENCY: pledge + running ledger ===== -->
+    <section class="transparency">
+      <h2>Where every dollar goes</h2>
+      <p class="pledge-lead"><strong>100% of everything you put toward the game goes into what's declared below.</strong></p>
+      <p class="pledge">
+        Art, servers, and the tools to build Elusion — and nothing else. I don't take a wage from the
+        project, not a cent. The one exception is the hot-cocoa tip up top, which is a personal thank-you
+        to me — and it is still <strong>on the ledger, on its own line, marked personal</strong>, because a
+        total that quietly left something out would defeat the point of having one. Everything else not yet
+        spent is held in the open for the next piece of art. The running total is below, kept honest and
+        updated as it comes in; if a number ever looks off,
+        <a href="mailto:ElusionStudios@gmail.com">email me</a> and I'll walk you through it.
+      </p>
+      <div class="ledger" id="ledger"></div>
+    </section>
+
+    <!-- ===== ART WISHLIST ===== -->
+    <section class="art-goals-section">
+      <div class="section-head">
+        <h2>Art I'd love to fund</h2>
+        <p>Art is the one thing I can't code. Every character and every corner of this world is drawn
+          by hand, a piece at a time, and I pay for it out of my own pocket — that's how it has worked
+          from the start and how it will keep working. <strong>This isn't a charity and nobody owes me
+          anything.</strong> But people keep asking where the money would actually go, so here it is,
+          to the dollar.</p>
+      </div>
+
+      <ul class="art-prices">
+        <li><span class="k">A character</span><span class="n">$200</span></li>
+        <li><span class="k">An enemy</span><span class="n">$200</span></li>
+        <li><span class="k">A prop</span><span class="n">$100</span></li>
+      </ul>
+      <p class="art-prices-note">
+        Real prices, not estimates — what a piece actually costs me with
+        <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener">Ahvassa</a>. Anything larger
+        than these — a raid boss, a whole tileset — is quoted with him rather than listed, because
+        I'm not going to publish a number I'd have to walk back.
+      </p>
+
+      <div class="art-goals" id="art-goals"></div>
+
+      <p class="art-goals-note">
+        <strong>Two ways to do it, and both are good ones.</strong>
+        Send it through <a href="https://paypal.me/ElusionStudios" target="_blank" rel="noopener">PayPal</a>
+        and say which piece — it gets commissioned in my name, so it goes exactly where it's needed and
+        arrives in the game properly licensed. The shout-out is yours: your name on the wall above, and
+        the artist hears whose it was.
+      </p>
+      <p class="art-goals-note">
+        <strong>Or hire <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener">Ahvassa</a>
+        yourself — genuinely, please do.</strong> He works hard for a lot of clients and Elusion is only
+        one of them; more work coming his way is good for him, and that's good by me. Commission him for
+        anything you like and just mention where you heard about him.
+      </p>
+      <p class="art-goals-note">
+        One thing only if the piece is <em>for the game</em>: <strong>talk to me before you order it.</strong>
+        Every asset in Elusion carries a rights assignment to Elusion Studios, and that gets agreed with him
+        up front rather than discovered afterwards, when the art is already drawn and in the build. It takes
+        one message to get right and it is genuinely awkward to fix later. Anything you commission for
+        yourself is yours and none of my business.
+      </p>
+    </section>
+
+    <!-- ===== SUPPORTERS WALL ===== -->
+    <section class="supporters">
+      <div class="section-head">
+        <h2>Supporters</h2>
+        <p>The people building this with me. Real backers, added by hand.</p>
+      </div>
+      <div class="supporter-featured" id="supporter-featured"></div>
+      <div class="supporter-grid" id="supporter-grid"></div>
+      <div class="supporters-empty" id="supporters-empty">
+        No names up yet — <strong>be the first</strong>. Back the game, leave a note below,
+        and once I've matched it to my records your name goes here.
+      </div>
+    </section>
+
+    <!-- ===== GET ON THE WALL (moderated Netlify form) ===== -->
+    <section class="section">
+      <div class="section-head">
+        <h2>Supported the game? Get on the wall</h2>
+        <p>Leave your name and a note. I check every one against my PayPal records before it
+          goes up — that's what keeps this wall real.</p>
+      </div>
+
+      <form class="apply-card" id="supporter-form" name="supporter-message" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="supporter-message" />
+        <p class="apply-hp"><label>Leave empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="apply-field">
+          <label for="s-name">Name to show <span class="req">*</span></label>
+          <input id="s-name" name="name" type="text" placeholder="however you want to appear on the wall" />
+          <p class="apply-error">Please enter a name.</p>
+        </div>
+
+        <div class="apply-field">
+          <label for="s-where">Where you supported <span class="req">*</span></label>
+          <input id="s-where" name="where" type="text" placeholder="the PayPal name or email you used — so I can match you" />
+          <p class="hint">Only I see this — it never appears on the wall.</p>
+          <p class="apply-error">I need this to match you to a real contribution.</p>
+        </div>
+
+        <div class="apply-field">
+          <label for="s-message">Your message</label>
+          <textarea id="s-message" name="message" placeholder="optional — a short note to show with your name"></textarea>
+        </div>
+
+        <label class="apply-agree" id="supporter-agree">
+          <input id="s-agree" name="agree" type="checkbox" value="yes" />
+          <span>I'm okay with my name and message being shown on the supporters wall.</span>
+        </label>
+
+        <div class="apply-actions">
+          <button type="submit" class="apply-submit">Send it</button>
+          <p class="apply-formerror" id="supporter-formerror"></p>
+        </div>
+      </form>
+
+      <section class="apply-success" id="supporter-success">
+        <h2>Got it — thank you</h2>
+        <p>I'll match this to my records and add you to the wall. Genuinely, thank you for
+          backing this. — Robert</p>
+      </section>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+  <script src="contribute-data.js"></script>
+  <script src="contribute.js"></script>
+</body>
+</html>

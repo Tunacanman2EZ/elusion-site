@@ -1,0 +1,79 @@
+# netlify.toml — Elusion RPG website
+# ---------------------------------------------------------------------------
+# Security headers, applied to every response Netlify serves.
+#
+# The Content-Security-Policy is the important one: it tells the browser
+# exactly which sources are allowed to load, so an injected <script> or a
+# framed clone of the page simply does not run. It is tuned to what the site
+# ACTUALLY uses, verified by reading every page:
+#   - inline <script> and <style> live only in the Boss Sim  -> 'unsafe-inline'
+#   - inline style="" attributes are used on a few pages      -> 'unsafe-inline' (style)
+#   - no external scripts, styles, fonts or images            -> everything else is 'self'
+#   - no eval / new Function                                  -> no 'unsafe-eval'
+#   - one fetch, to this site's own function                  -> connect-src 'self'
+#   - the Join form posts to Netlify on the same origin       -> form-action 'self'
+#
+# If you later add something the policy blocks (a Google Font, a YouTube embed,
+# an external script), you'll see it fail in the browser console with a clear
+# "refused to load" message naming the directive to widen. Widen only that one.
+#
+# THE VISITOR COUNTER NEEDED NO CHANGE HERE, and that is why it is built the way
+# it is. visits.js is served from this site and fetches
+# /.netlify/functions/hit on this site, so `script-src 'self'` and
+# `connect-src 'self'` already permit both. Every hosted analytics service
+# instead needs two new domains — one to load its script, one to receive the
+# beacon — against a policy that was written by reading every page. That trade
+# is what picked the design, not a preference for building things.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# BUILD
+# ---------------------------------------------------------------------------
+# THE PUBLISH DIRECTORY IS NOT THE REPOSITORY ROOT, and that is a security
+# decision rather than a tidiness one. Netlify deploys the publish directory and
+# nothing else, so publishing the root would publish node_modules, build.mjs and
+# the function's source next to the site. build.mjs stages only the files it
+# names into dist/ - see the list in that file, which is the definition of what
+# is public.
+#
+# THE BUILD COMMAND IS ALSO WHAT INSTALLS THE FUNCTION'S DEPENDENCY. A manual
+# drag-and-drop deploy runs no build command at all, which is exactly why the
+# counter could not be built on that workflow: @netlify/blobs would never be
+# installed and the function would never bundle. Deploying from git is the
+# change that made this possible.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'"
+
+    # Clickjacking: refuse to be shown inside a frame on any other site.
+    X-Frame-Options = "DENY"
+
+    # Stop the browser from guessing (and mis-running) a file's type.
+    X-Content-Type-Options = "nosniff"
+
+    # Don't leak the full URL to sites you link out to.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Turn off device features the site never uses.
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+
+    # Once a browser has seen the site over HTTPS, force HTTPS for a year.
+    # (No includeSubDomains/preload yet — add them once every subdomain,
+    #  including the API, is HTTPS-only and you're ready to commit.)
+    Strict-Transport-Security = "max-age=31536000"
+
+    # Isolate this page's browsing context from cross-origin windows.
+    Cross-Origin-Opener-Policy = "same-origin"
+
+    # The legacy XSS auditor is deprecated and can itself introduce bugs;
+    # modern guidance is to disable it and rely on the CSP above.
+    X-XSS-Protection = "0"

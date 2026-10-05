@@ -1,0 +1,31 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+#search-input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+#search-button {
+  padding: 8px 12px;
+}
+
+#results-list {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+#results-list li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}

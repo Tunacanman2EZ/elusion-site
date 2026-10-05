@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In • Elusion RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="lore.html">Lore</a>
+    <a href="contribute.html">Contribute</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="login-card">
+      <h2>Player accounts</h2>
+      <p>Elusion runs on a secure, server-authoritative account system — your character lives on the
+        server, not the client, so progress can't be forged or lost.</p>
+      <p>You make an account and sign in inside the game itself. Play in your browser at
+        play.elusionrpg.com.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a class="btn primary" href="https://play.elusionrpg.com">Play in browser</a>
+        <a class="btn ghost" href="https://discord.gg/FW5PAPZQGZ" target="_blank" rel="noopener">Ask in Discord</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

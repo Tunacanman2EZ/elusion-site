@@ -1,0 +1,913 @@
+/* Layout: make footer sit at bottom */
+html, body {
+  height: 100%;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: #111;
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* Main content grows, footer at bottom */
+.page-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  flex: 1;              /* NEW: lets this stretch and push footer down */
+}
+
+h1 {
+  color: #4fd1ff;
+}
+
+/* NAV */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  background: #111;
+  padding: 10px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.main-nav a {
+  color: #f5f5f5;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #4fd1ff;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.main-nav a:hover {
+  background: #4fd1ff;
+  color: #111;
+}
+
+/* HERO (home page) */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  background: #4fd1ff;
+  color: #111;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* PAGE HEADER (Follow, etc.) */
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* COMMUNITY STATS */
+.stats {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.stats h2 {
+  color: #4fd1ff;
+  margin-bottom: 20px;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  border: 1px solid #4fd1ff;
+  border-radius: 6px;
+  padding: 16px 24px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 8px 0 4px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* FOLLOW PAGE LINKS */
+.follow-grid {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.follow-card {
+  border: 1px solid #4fd1ff;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 10px;
+  max-width: 280px;
+  text-align: center;
+}
+
+.follow-card h2 {
+  color: #4fd1ff;
+  margin-top: 0;
+}
+
+/* Links inside follow cards */
+.follow-card a {
+  display: block;
+  margin: 8px auto 0;
+  max-width: 200px;
+  color: #111;
+  background: #4fd1ff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+/* CONTRIBUTE PAGE */
+.contribute-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 6px 0 24px;
+}
+
+.contribute-card {
+  border: 1px solid #4fd1ff;
+  border-radius: 140px;            /* oval, matching the impact cards below */
+  padding: 30px 46px;
+  max-width: 330px;
+  text-align: center;
+  background-color: #181818;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contribute-card h2 {
+  color: #4fd1ff;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.contribute-card p {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.contribute-card a {
+  display: inline-block;
+  margin-top: 4px;
+  color: #111;
+  background: #4fd1ff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contribute-card a:hover {
+  background: #7fe2ff;
+}
+
+/* Impact section */
+.impact {
+  max-width: 900px;
+  margin: 0 auto 1px;
+  text-align: center;
+  padding: 20px 20px 60px;
+}
+
+.impact h2 {
+  color: #4fd1ff;
+  margin-bottom: 20px;
+}
+
+.impact-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.impact-card {
+  border: 1px solid #4fd1ff;
+  border-radius: 222px;
+  padding: 16px 24px;
+  max-width: 260px;
+}
+
+/* Animated fire cursor.
+   A GIF used as a CSS `cursor:` is frozen on frame 1 by every browser, so the
+   flame can't flicker that way. Instead script.js hides the system cursor and
+   follows the mouse with a real <img>, which DOES play the animation. */
+body.fire-cursor-on,
+body.fire-cursor-on * { cursor: none !important; }
+
+#fire-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 100000;
+  opacity: 0;
+  will-change: left, top;
+}
+
+/* Footer centered at bottom */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid #333;
+}
+
+/* The visitor count, above the nav — the first thing on the page.
+
+   MUTED EVEN UP HERE. It sits above the navigation, which is the most valuable
+   strip on the site, so it earns that position by taking almost no height and
+   not competing with the links below it. A number in the hero's type size
+   would read as a boast; this reads as a fact.
+
+   It is `hidden` in the markup and visits.js reveals it only once a real figure
+   has arrived, so an unreachable counter costs no space at all rather than
+   leaving a gap where a number should be. */
+.visit-line {
+  margin: 0;
+  padding: 7px 20px 5px;
+  text-align: center;
+  color: #8a939a;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #0d0d0d;
+  border-bottom: 1px solid #222;
+}
+
+.visit-count {
+  color: #4fd1ff;
+  font-weight: 700;
+  /* Tabular figures so the strip does not jitter as the number grows. */
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.support-wrapper {
+  max-width: 780px;
+  margin: 20px auto 20px;
+  padding: 24px 24px 30px;
+  border: 1px solid #bfc7cf; /* chrome‑ish silver/blue */
+  border-radius: 10px;
+  background: linear-gradient(145deg, #181818, #222); /* subtle metal feel */
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+#applicants-list li {
+  list-style: none;
+  margin: 6px 0;
+}
+
+#applicants-list li button {
+  margin-left: 10px;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Applicants list area */
+#applicants-list {
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+#applicants-list li {
+  list-style: none;
+  margin: 6px 0;
+  padding: 6px 10px;
+  border: 1px solid #4fd1ff;
+  border-radius: 4px;
+  background-color: #181818;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#applicants-list li button {
+  margin-left: 10px;
+  background: #4fd1ff;
+  color: #111;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Done applicants */
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* =====================================================================
+   LANDING + SHARED TEMPLATE  (added in the tidy pass)
+   Theme stays: dark #111 ground, cyan #4fd1ff accent, Arial.
+   ===================================================================== */
+
+/* active nav link — marks the page you're on */
+.main-nav a.active {
+  background: #4fd1ff;
+  color: #111;
+  font-weight: bold;
+}
+
+/* generic content section + heading used across pages */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+.section-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.section-head h2 {
+  color: #4fd1ff;
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+}
+.section-head p {
+  color: #b8c0c6;
+  margin: 0 auto;
+  max-width: 60ch;
+}
+
+/* buttons (shared) */
+.btn {
+  display: inline-block;
+  padding: 11px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #4fd1ff;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+.btn.primary { background: #4fd1ff; color: #111; }
+.btn.primary:hover { background: #7fe2ff; }
+.btn.ghost { background: transparent; color: #4fd1ff; }
+.btn.ghost:hover { background: rgba(79, 209, 255, 0.12); }
+.btn.soon {
+  background: #181818; color: #6b7c84; border-color: #2c3b41;
+  cursor: default; position: relative;
+}
+.badge-soon {
+  display: inline-block; margin-left: 8px; font-size: 0.7rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: #2c3b41; color: #7fe2ff; padding: 2px 7px; border-radius: 20px;
+  vertical-align: middle;
+}
+
+/* ---- HERO ---- */
+.hero {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 44px 20px 20px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+}
+.hero-eyebrow {
+  color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: 0.72rem; font-weight: bold; margin: 0 0 12px;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 1;
+  margin: 0 0 14px;
+  color: #4fd1ff;
+  letter-spacing: 1px;
+}
+.hero .tagline {
+  font-size: 1.15rem; color: #e6ebee; line-height: 1.5;
+  margin: 0 0 10px; max-width: 40ch;
+}
+.hero .sub {
+  color: #9aa4ab; margin: 0 0 26px; max-width: 44ch; font-size: 0.98rem;
+}
+/* THE HERO COPY SITS IN A PANEL THAT MATCHES THE GAME SCREEN BESIDE IT.
+   Same border, radius, gradient and glow as .game-screen below, so on a wide
+   screen the two read as a matched pair rather than as loose text next to a
+   framed box — and on a narrow one the copy stops floating in the page. */
+.hero-text {
+  border: 1px solid #2c3b41;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  /* A shade softer than the game screen's glow. Two equally lit panels fight;
+     the screen is the one meant to draw the eye. */
+  box-shadow: 0 0 40px rgba(79, 209, 255, 0.06), inset 0 0 60px rgba(0, 0, 0, 0.5);
+  padding: 30px 28px;
+}
+
+/* CENTRED AS A BLOCK, NOT ONLY AS TEXT. Both of these are capped at 44ch, and a
+   capped block with no auto margins hugs the left edge however the text inside
+   it happens to be aligned — which is why the tagline read as off-centre while
+   every word in it was centred. */
+.hero .tagline,
+.hero .sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* justify-content DEFAULTS TO flex-start, and that is the whole bug in the
+   button row: two buttons fit on the first line and the third wrapped onto a
+   line of its own, hard against the left edge, under a centred heading. */
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* WHAT IT RUNS ON, under the buttons. Elusion grew into a PC game played with
+   a keyboard and mouse, and a phone visitor should learn that here rather than
+   from a game screen they cannot move in. */
+.hero .platform-note {
+  color: #9aa4ab; font-size: 0.85rem; text-align: center;
+  margin: 16px auto 0; max-width: 44ch;
+}
+
+/* the framed "game screen" — the play slot for the future web build */
+.game-screen {
+  border: 1px solid #2c3b41;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  box-shadow: 0 0 40px rgba(79, 209, 255, 0.08), inset 0 0 60px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+.game-screen .screen-media {
+  aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(79,209,255,0.06), transparent 60%),
+    #0b0b0b;
+  position: relative;
+  overflow: hidden;              /* keep sprites + effects clipped inside the box */
+}
+.game-screen .screen-media img {
+  width: 62%; height: auto; image-rendering: pixelated;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+}
+
+/* ---- ENEMY SLIDESHOW (home game-screen) ---- */
+/* Each frame is stacked and crossfaded. height:76% (not max-height) forces the
+   sprite to FILL the box regardless of its native pixel size — pixel art stays
+   crisp because of image-rendering: pixelated. This is what makes the small
+   sheets (sniper, slime) and the tall ones (electric sprite) all read the same
+   size in the frame. */
+.enemy-slideshow .enemy-frame {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: 70%;
+  max-width: 78%;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.6));
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+.enemy-slideshow .enemy-frame.active { opacity: 1; }
+
+/* prev / next arrows to step through the slides by hand */
+.enemy-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10, 10, 10, 0.5); border: 1px solid #2c3b41; color: #cfd6da;
+  font-size: 1.5rem; line-height: 0; padding-bottom: 3px;
+  cursor: pointer; z-index: 4;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.enemy-arrow:hover { background: rgba(10, 10, 10, 0.85); border-color: #4fd1ff; color: #4fd1ff; }
+.enemy-arrow.prev { left: 10px; }
+.enemy-arrow.next { right: 10px; }
+
+.enemy-dots {
+  position: absolute; bottom: 10px; right: 12px;
+  display: flex; gap: 6px; z-index: 2;
+}
+.enemy-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #3a4a52; cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.enemy-dot.active { background: #4fd1ff; transform: scale(1.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .enemy-slideshow .enemy-frame { transition: none; }
+}
+
+.game-screen .caption {
+  position: absolute; bottom: 10px; left: 12px;
+  font-size: 0.75rem; color: #9aa4ab;
+  background: rgba(0,0,0,0.5); padding: 3px 9px; border-radius: 5px;
+}
+.game-screen .playbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 14px; border-top: 1px solid #2c3b41; background: #141414;
+  font-size: 0.9rem; color: #cfd6da;
+}
+.game-screen .playbar .dot {
+  width: 9px; height: 9px; border-radius: 50%; background: #4fd1ff;
+  display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #4fd1ff;
+}
+
+/* ---- FEATURE GRID ---- */
+.feature-grid {
+  display: grid;
+  /* two-wide, forced — so each card is a WIDE stadium oval like the
+     contribute page rather than a tall egg. One column on a phone. */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .feature-grid { grid-template-columns: 1fr; }
+}
+.feature-card {
+  /* ovals, matching .impact-card — cyan ring, big radius, centered text.
+     No min-height: the oval hugs its content so there's no empty dead space
+     above and below, which is what keeps it a tight stadium and not an egg. */
+  border: 1px solid #4fd1ff;
+  border-radius: 140px;
+  background: #161616;
+  padding: 22px 52px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.feature-card .ic {
+  font-size: 1.5rem; margin-bottom: 4px; color: #4fd1ff;
+}
+.feature-card h3 { margin: 0 0 6px; color: #f5f5f5; font-size: 1.05rem; }
+.feature-card p {
+  margin: 0; color: #a8b0b6; font-size: 0.9rem; line-height: 1.45; max-width: 30ch;
+}
+
+/* ---- LATEST UPDATES (the devlog strip) ---- */
+/* a fixed-height box you scroll through as the list grows */
+.updates {
+  max-width: 760px;
+  margin: 0 auto;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px 20px;
+  border: 1px solid #2c3b41;
+  border-radius: 14px;
+  background: #141414;
+}
+.updates::-webkit-scrollbar { width: 8px; }
+.updates::-webkit-scrollbar-track { background: transparent; }
+.updates::-webkit-scrollbar-thumb { background: #2c3b41; border-radius: 4px; }
+.updates::-webkit-scrollbar-thumb:hover { background: #3a4a52; }
+/* Firefox */
+.updates { scrollbar-width: thin; scrollbar-color: #2c3b41 transparent; }
+.update-row {
+  display: flex; gap: 16px; align-items: flex-start;
+  border-left: 2px solid #2c3b41; padding: 10px 0 10px 18px; margin: 0 0 4px;
+}
+.update-row.latest { border-left-color: #4fd1ff; }
+.update-when {
+  color: #7fe2ff; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-weight: bold; white-space: nowrap; padding-top: 3px; min-width: 124px;
+}
+.update-row p { margin: 0; color: #cdd4d9; font-size: 0.95rem; line-height: 1.55; }
+.update-row.soon p { color: #8a939a; }
+.update-row.soon .update-when { color: #6b7c84; }
+/* on a phone the 124px date column squeezed each post into a 12-word-wide
+   strip; the date sits above the post instead */
+@media (max-width: 640px) {
+  .update-row { flex-direction: column; gap: 4px; }
+  .update-when { min-width: 0; padding-top: 0; }
+}
+
+/* ---- SIM CROSS-LINK CALLOUT ---- */
+.sim-callout {
+  max-width: 960px; margin: 10px auto 0;
+  border: 1px solid #4fd1ff; border-radius: 10px;
+  background: linear-gradient(135deg, rgba(79,209,255,0.08), rgba(79,209,255,0.02));
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.sim-callout .t h3 { margin: 0 0 4px; color: #4fd1ff; }
+.sim-callout .t p { margin: 0; color: #b8c0c6; font-size: 0.95rem; }
+
+/* ---- COMMUNITY / FOLLOW ---- */
+.follow-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- ABOUT ---- */
+.about-body {
+  max-width: 720px; margin: 0 auto; color: #cdd4d9; line-height: 1.65;
+}
+.about-body p { margin: 0 0 16px; }
+.about-body strong { color: #f5f5f5; }
+.about-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px; margin: 26px 0;
+}
+.about-stat {
+  border: 1px solid #2c3b41; border-radius: 10px; background: #161616;
+  padding: 16px; text-align: center;
+}
+.about-stat .n { font-size: 1.8rem; font-weight: bold; color: #4fd1ff; }
+.about-stat .l { font-size: 0.82rem; color: #9aa4ab; margin-top: 4px; }
+
+/* ---- LORE ---- */
+.lore-body { max-width: 720px; margin: 0 auto; color: #cdd4d9; line-height: 1.7; }
+.lore-body h2 { color: #4fd1ff; margin: 28px 0 10px; font-size: 1.25rem; }
+.lore-body p { margin: 0 0 16px; }
+.element-row {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;
+}
+.element-chip {
+  border: 1px solid #2c3b41; border-radius: 20px; padding: 6px 14px;
+  font-size: 0.85rem; color: #cdd4d9; background: #161616;
+}
+
+/* ---- LOGIN placeholder ---- */
+.login-card {
+  max-width: 420px; margin: 30px auto; text-align: center;
+  border: 1px solid #2c3b41; border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #101010);
+  padding: 32px 26px;
+}
+.login-card h2 { color: #4fd1ff; margin: 0 0 10px; }
+.login-card p { color: #a8b0b6; line-height: 1.55; margin: 0 0 18px; }
+
+/* ---- responsive ---- */
+.hero-text, .game-screen { min-width: 0; }
+
+@media (max-width: 760px) {
+  .hero { display: block; padding-top: 28px; }
+  .hero-text { margin-bottom: 26px; }
+  .hero .tagline, .hero .sub { max-width: none; }
+  .game-screen { max-width: 360px; margin: 0 auto; width: 100%; }
+  .cta-row .btn { flex: 1 1 auto; text-align: center; }
+  .sim-callout { flex-direction: column; align-items: stretch; text-align: center; }
+}
+
+/* =====================================================================
+   JOIN THE TEAM — application form
+   ===================================================================== */
+.apply-intro {
+  max-width: 640px; margin: 0 auto 4px; text-align: center;
+  color: #b8c0c6; line-height: 1.6;
+}
+.role-chips {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  margin: 16px auto 30px; max-width: 660px;
+}
+
+.apply-card {
+  max-width: 640px; margin: 0 auto 40px;
+  border: 1px solid #2c3b41; border-radius: 18px;
+  background: linear-gradient(160deg, #1a1a1a, #121212);
+  padding: 28px 28px 24px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+.apply-field { margin: 0 0 18px; }
+.apply-field label {
+  display: block; margin: 0 0 6px; color: #cdd4d9;
+  font-size: 0.9rem; font-weight: bold;
+}
+.apply-field .req { color: #4fd1ff; }
+.apply-field input[type="text"],
+.apply-field input[type="email"],
+.apply-field select,
+.apply-field textarea {
+  width: 100%; box-sizing: border-box;
+  background: #0e0e0e; color: #f5f5f5;
+  border: 1px solid #2c3b41; border-radius: 8px;
+  padding: 11px 13px; font-family: inherit; font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.apply-field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
+.apply-field input::placeholder,
+.apply-field textarea::placeholder { color: #6b7c84; }
+.apply-field input:focus,
+.apply-field select:focus,
+.apply-field textarea:focus {
+  outline: none; border-color: #4fd1ff;
+  box-shadow: 0 0 0 3px rgba(79, 209, 255, 0.15);
+}
+.apply-field .hint { color: #7c858c; font-size: 0.78rem; margin: 5px 0 0; }
+.apply-field.invalid input,
+.apply-field.invalid select,
+.apply-field.invalid textarea { border-color: #ff6b6b; }
+.apply-error { color: #ff8a8a; font-size: 0.8rem; margin: 5px 0 0; display: none; }
+.apply-field.invalid .apply-error { display: block; }
+
+.apply-agree {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: 6px 0 22px; color: #b8c0c6; font-size: 0.88rem; line-height: 1.5;
+}
+.apply-agree.invalid { color: #ff8a8a; }
+.apply-agree input { margin-top: 3px; accent-color: #4fd1ff; flex-shrink: 0; }
+.apply-agree a { color: #4fd1ff; }
+
+/* honeypot: kept in the DOM for Netlify, kept away from humans */
+.apply-hp { position: absolute; left: -6000px; top: -6000px; }
+
+.apply-actions { text-align: center; }
+.apply-submit {
+  display: inline-block; padding: 12px 30px; border-radius: 8px;
+  background: #4fd1ff; color: #111; font-weight: bold; font-size: 1rem;
+  border: 1px solid #4fd1ff; cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.apply-submit:hover { background: #7fe2ff; }
+.apply-submit:active { transform: translateY(1px); }
+.apply-submit:disabled { opacity: 0.6; cursor: default; }
+.apply-formerror { color: #ff8a8a; font-size: 0.85rem; margin: 12px 0 0; min-height: 1em; }
+
+.apply-success {
+  display: none; max-width: 640px; margin: 0 auto 40px;
+  border: 1px solid #4fd1ff; border-radius: 18px;
+  background: linear-gradient(135deg, rgba(79, 209, 255, 0.10), rgba(79, 209, 255, 0.02));
+  padding: 32px 28px; text-align: center;
+}
+.apply-success.show { display: block; }
+.apply-success h2 { color: #4fd1ff; margin: 0 0 8px; }
+.apply-success p { color: #cdd4d9; margin: 0 auto; max-width: 44ch; line-height: 1.6; }
+
+@media (max-width: 640px) {
+  .apply-card { padding: 22px 18px; }
+}
+
+/* =====================================================================
+   CONTRIBUTE — transparency ledger + supporters wall
+   ===================================================================== */
+
+/* ---- transparency pledge + ledger ---- */
+.transparency { max-width: 720px; margin: 10px auto 0; padding: 20px; text-align: center; }
+.transparency h2 { color: #4fd1ff; margin: 0 0 10px; }
+.pledge-lead {
+  color: #4fd1ff; font-size: 1.18rem; font-weight: bold; line-height: 1.4;
+  max-width: 60ch; margin: 0 auto 10px;
+}
+.pledge {
+  color: #cdd4d9; line-height: 1.65; max-width: 60ch; margin: 0 auto 22px;
+}
+.pledge strong { color: #f5f5f5; }
+
+.ledger {
+  max-width: 460px; margin: 0 auto;
+  border: 1px solid #2c3b41; border-radius: 14px;
+  background: #141414; padding: 6px 20px 14px; text-align: left;
+}
+.ledger-raised {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 16px 0 12px; border-bottom: 1px solid #2c3b41;
+}
+.ledger-raised .l { color: #b8c0c6; font-size: 0.9rem; }
+.ledger-raised .n { color: #4fd1ff; font-size: 1.7rem; font-weight: bold; }
+.ledger-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 0; font-size: 0.92rem; border-bottom: 1px solid #1e1e1e;
+}
+.ledger-row:last-child { border-bottom: 0; }
+.ledger-row .l { color: #cdd4d9; }
+.ledger-row .n { color: #e6ebee; font-variant-numeric: tabular-nums; }
+.ledger-updated { color: #7c858c; font-size: 0.76rem; margin: 12px 0 0; text-align: center; }
+.ledger-empty { color: #8a939a; text-align: center; padding: 16px 0; font-size: 0.92rem; }
+
+/* ---- supporters wall ---- */
+.supporters { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+.supporter-featured {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px; margin: 0 0 16px;
+}
+.supporter-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
+}
+.supporter-card {
+  border: 1px solid #2c3b41; border-radius: 14px; background: #161616;
+  padding: 16px 18px; text-align: left;
+}
+.supporter-card.featured {
+  border-color: #4fd1ff;
+  background: linear-gradient(150deg, rgba(79,209,255,0.10), rgba(79,209,255,0.02));
+}
+.supporter-name { color: #f5f5f5; font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+.supporter-badge {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: #111; background: #4fd1ff; padding: 2px 7px; border-radius: 20px; font-weight: bold;
+}
+.supporter-msg { color: #a8b0b6; font-size: 0.9rem; line-height: 1.5; margin: 8px 0 0; font-style: italic; }
+.supporter-msg::before { content: "\201C"; color: #4fd1ff; }
+.supporter-msg::after  { content: "\201D"; color: #4fd1ff; }
+.supporters-empty {
+  text-align: center; color: #9aa4ab; border: 1px dashed #2c3b41;
+  border-radius: 14px; padding: 26px 20px; max-width: 440px; margin: 0 auto; line-height: 1.6;
+}
+.supporters-empty strong { color: #4fd1ff; }
+
+/* ---- art wishlist ---- */
+.art-goals-section { max-width: 900px; margin: 0 auto; padding: 6px 20px 10px; }
+.art-goals {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;
+}
+.art-goal {
+  border: 1px solid #2c3b41; border-radius: 14px; background: #161616;
+  padding: 18px 20px; text-align: left; display: flex; flex-direction: column;
+}
+.art-goal-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 8px;
+}
+.art-goal-name { color: #f5f5f5; font-weight: bold; font-size: 1.02rem; }
+.art-goal-price { color: #4fd1ff; font-weight: bold; white-space: nowrap; }
+.art-goal-why { color: #a8b0b6; font-size: 0.9rem; line-height: 1.5; margin: 0 0 14px; flex: 1; }
+.art-goal-cta { align-self: flex-start; font-size: 0.85rem; color: #4fd1ff; text-decoration: none; font-weight: bold; }
+.art-goal-cta:hover { text-decoration: underline; }
+.art-goal.funded { opacity: 0.65; }
+.art-goal-funded-badge {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: #111; background: #7fd07f; padding: 2px 8px; border-radius: 20px; font-weight: bold; white-space: nowrap;
+}
+.art-goals-note {
+  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
+  margin: 18px auto 0; line-height: 1.55;
+}
+.art-goals-note a { color: #4fd1ff; }
+.art-goals-note strong { color: #cdd4d9; }
+
+/* What a piece costs, shown as three plain figures rather than buried in a
+   paragraph. These are the real prices, and they come from ONE place in
+   contribute-data.js — see the note at the top of that file. */
+.art-prices {
+  list-style: none; padding: 0; max-width: 560px;
+  margin: 0 auto 12px; display: flex; gap: 10px; flex-wrap: wrap;
+}
+.art-prices li {
+  flex: 1 1 150px; display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; border: 1px solid #2c3b41; border-radius: 10px;
+  background: #161616; padding: 11px 15px;
+}
+.art-prices .k { color: #cdd4d9; font-size: 0.9rem; }
+.art-prices .n { color: #4fd1ff; font-weight: bold; font-variant-numeric: tabular-nums; }
+.art-prices-note {
+  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
+  margin: 0 auto 20px; line-height: 1.55;
+}
+.art-prices-note a { color: #4fd1ff; }
+/* Smaller than a figure, because it is a word standing where a number goes. */
+.art-goal-quoted { font-size: 0.85rem; font-weight: 600; opacity: 0.9; cursor: help; }
+
+/* The hot chocolate line: present, so the total is complete — and visibly not
+   part of the game fund above it. */
+.ledger-personal { border-top: 1px solid #2c3b41; margin-top: 4px; }
+.ledger-personal .l { color: #8a939a; font-size: 0.84rem; }
+.ledger-personal .n { color: #a8b0b6; }
