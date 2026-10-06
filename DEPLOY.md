@@ -16,9 +16,21 @@ of those.
 
 ## One-time setup
 
-### 1. Make it a repository and push it
+**Done 6 October 2026.** The repository is `elusion-site` on GitHub, and the
+existing elusionrpg.com project on Netlify is linked to it; the first build from
+Git published commit `e504ecc`. The steps stay here for the day it has to be
+done again.
 
-From `Desktop\site`:
+### 1. Create the GitHub repository, then push to it
+
+**Create the repository on GitHub first**, at github.com/new: name it
+`elusion-site` and leave README, .gitignore and licence all off, so it starts
+empty. A push cannot create a repository, and when it is missing Git says only
+`Repository not found`. That is how this step went wrong the first time: the
+folder became a repository on 4 October, and its pushes went nowhere until the
+GitHub side was made on the 6th.
+
+Then, from `Desktop\site`:
 
 ```powershell
 git init
@@ -36,19 +48,31 @@ a public repo should not be in this folder. There is nothing secret in it today 
 no keys, no `.env` — and it is worth keeping that true. A private repo is fine
 too; Netlify builds either.
 
-### 2. Point Netlify at it
+### 2. Link the existing Netlify project to it
 
-In the Netlify dashboard: **Add new site → Import an existing project**, pick the
-repo, and **accept the defaults**. You do not need to type a build command or a
-publish directory — `netlify.toml` already declares both, and what is written in
-the file wins over what is typed in the UI.
+**Link the project that already has the domain; do not import a new one.**
+"Add new project → Import an existing project" makes a second project, and
+elusionrpg.com stays attached to the first. Instead, open the existing project
+and go to:
+
+**Project configuration → Developer settings → Continuous deployment →
+Repository → Link repository → GitHub**
+
+When GitHub asks where to install Netlify, choose **Only select repositories →
+elusion-site**, so Netlify cannot see the game or API repositories. Pick the
+branch `main` and **accept the defaults**. You do not need to type a build
+command or a publish directory — `netlify.toml` already declares both, and what
+is written in the file wins over what is typed in the UI.
+
+(Netlify calls sites "projects" now. Older guides, and older versions of this
+file, say "Site configuration" and "Build & deploy" for the same pages.)
 
 The first build takes a minute or two rather than the few seconds a drag took.
 It is installing one dependency and bundling one function.
 
 ### 3. Set the salt
 
-**Site configuration → Environment variables → Add a variable**
+**Project configuration → Environment variables → Add a variable**
 
 | key | value |
 |---|---|
@@ -63,7 +87,9 @@ have the salt — including anybody who somehow reaches the store.
 
 It falls back to Netlify's own site ID if you leave it unset, which is not
 public, so this is a "make it properly good" step rather than a "it is broken
-without it" step.
+without it" step. One way it stops being private: the "Deploy status badge"
+Netlify offers puts the site ID in the badge's URL, so adding that badge to a
+README publishes it. Set the salt before ever doing that.
 
 ### 4. Look at the footer
 
@@ -84,6 +110,14 @@ git push
 ```
 
 Netlify builds and publishes on the push. That is the whole workflow.
+
+**Every push is a paid deploy, so push in batches.** A published production
+deploy costs 15 of the free plan's 300 monthly credits, which is twenty pushes
+a month if nothing else used any (see "The one operational risk" below).
+Commit as often as you like; commits stay on this PC and cost nothing until
+they are pushed. Push when a batch of website changes is ready, and check the
+credits banner on the Netlify project page before pushing late in the month.
+A build that fails publishes nothing and costs nothing.
 
 ---
 
@@ -148,7 +182,20 @@ prevents a redundant request within the same tab.
 ### The one operational risk
 
 The free plan has a **hard 300-credit monthly cap that pauses the site** when it
-is reached. The counter is designed to be cheap — a returning visitor costs no
-write at all, and a second page view in the same tab is a read — but a public
-endpoint is a public endpoint. Netlify's usage page shows where you are. If the
-site ever pauses, that is where to look first.
+is reached: every project on the team shows "Site not available" until the
+credits reset at the start of the next billing cycle, and the free plan cannot
+buy more. Only the website is on Netlify — the game at play.elusionrpg.com and
+its server run on the droplet and are untouched by this.
+
+**Deploys are the big cost, not traffic.** Each published production deploy is
+15 credits. Deploy previews, branch
+deploys, failed builds and rollbacks are free. Bandwidth and requests are
+charged too, but this site is small: at the time of writing, an hour of traffic
+was a few dozen kilobytes. By 6 October 2026, after a run of drag-and-drop
+uploads, the month was down to 41 credits, and the first deploy from Git took
+15 of those.
+
+The counter is designed to be cheap — a returning visitor costs no write at
+all, and a second page view in the same tab is a read — but a public endpoint
+is a public endpoint. Netlify's usage page shows where you are. If the site
+ever pauses, that is where to look first.
