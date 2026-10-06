@@ -622,6 +622,10 @@ footer {
   color: #7fe2ff; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
   font-weight: bold; white-space: nowrap; padding-top: 3px; min-width: 124px;
 }
+.update-version {
+  display: block; margin-top: 4px; color: #8a939a; font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: none; font-weight: 600;
+}
 .update-row p { margin: 0; color: #cdd4d9; font-size: 0.95rem; line-height: 1.55; }
 .update-row.soon p { color: #8a939a; }
 .update-row.soon .update-when { color: #6b7c84; }
