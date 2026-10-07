@@ -510,7 +510,6 @@
       var ph = $("petHint");
       ph.className = "hint";
       if (!o.pet) ph.textContent = "Each player can bring one; the sim gives all four the same";
-      else if (o.pet === "petelectricsprite") { ph.textContent = "Its orb is so slow it only lands from beside the boss — the tank's and a sword warrior's"; ph.className = "hint warn"; }
       else ph.textContent = "≈" + fmt(S.petDps(o.pet, P.Tank, "melee")) + " damage a second each, beside the tank" + (o.pet === "petboss" ? " — puddles included" : "");
       $("dodgeVal").textContent = Math.round(o.dodge * 100) + "%";
       $("dodgeHint").textContent = "Rings land " + Math.round(Math.pow(1 - o.dodge, S.BOSS.light.tel) * 100) + "% (Light) to " +
@@ -666,7 +665,7 @@
         var p = D.pets[id];
         pe += "<tr><td>" + S.PETS[id] + "</td><td>" + p.damage + " × ½</td><td>" + p.melee.shots[0].toFixed(2) + "–" +
           p.melee.shots[p.melee.shots.length - 1].toFixed(2) + "</td><td>" +
-          (id === "petelectricsprite" ? "none from range" : p.melee.extra[0] > 0 ? "puddles ≈" + fmt(p.melee.extra[0]) + "/s" : "—") + "</td></tr>";
+          (p.melee.extra[0] > 0 ? "puddles ≈" + fmt(p.melee.extra[0]) + "/s" : "—") + "</td></tr>";
       });
       $("petTable").innerHTML = pe;
     }

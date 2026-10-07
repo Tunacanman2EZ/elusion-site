@@ -7,7 +7,7 @@
 // what dealt them, and what the boss put on the floor a minute. Per pet: shots
 // a second into a boss at five attack speeds, and anything else it dealt.
 globalThis.BOSSSIM_DATA = {
- "game": "0.11.4",
+ "game": "0.11.5",
  "measured": "2026-10-07",
  "seconds": {
   "boss": 300,
@@ -654,56 +654,6 @@ globalThis.BOSSSIM_DATA = {
     ]
    }
   },
-  "petelectricsprite": {
-   "damage": 40,
-   "cooldown": 2,
-   "melee": {
-    "haste": [
-     1,
-     1.25,
-     1.5,
-     1.75,
-     2
-    ],
-    "shots": [
-     0.492,
-     0.558,
-     0.617,
-     0.683,
-     0.742
-    ],
-    "extra": [
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   },
-   "range": {
-    "haste": [
-     1,
-     1.25,
-     1.5,
-     1.75,
-     2
-    ],
-    "shots": [
-     0,
-     0,
-     0,
-     0,
-     0
-    ],
-    "extra": [
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   }
-  },
   "petfiresprite": {
    "damage": 44,
    "cooldown": 2,
@@ -942,6 +892,56 @@ globalThis.BOSSSIM_DATA = {
      0.492,
      0.558,
      0.625,
+     0.683,
+     0.75
+    ],
+    "extra": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "petelectricsprite": {
+   "damage": 40,
+   "cooldown": 2,
+   "melee": {
+    "haste": [
+     1,
+     1.25,
+     1.5,
+     1.75,
+     2
+    ],
+    "shots": [
+     0.5,
+     0.558,
+     0.625,
+     0.683,
+     0.75
+    ],
+    "extra": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "range": {
+    "haste": [
+     1,
+     1.25,
+     1.5,
+     1.75,
+     2
+    ],
+    "shots": [
+     0.492,
+     0.558,
+     0.617,
      0.683,
      0.75
     ],

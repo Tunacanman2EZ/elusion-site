@@ -215,8 +215,11 @@ check("at base speed a pet fires about once per cooldown (or slower, held by its
 	Object.values(D.pets).every((p) => p.melee.shots[0] <= 1 / p.cooldown + 0.01));
 check("the Crowned pet leaves puddles; the others deal only their shot",
 	D.pets.petboss.melee.extra[0] > 0 && Object.keys(S.PETS).filter((id) => id !== "petboss").every((id) => D.pets[id].melee.extra.every((x) => x === 0)));
-check("FOUND: the Electric Sprite pet's orb (speed 20, 4 s) never reaches a boss from range",
-	D.pets.petelectricsprite.range.shots.every((x) => x === 0) && D.pets.petelectricsprite.melee.shots[0] > 0);
+// THE ELECTRIC SPRITE'S ORB, FIXED IN 0.11.5. Its scene flew it at 20 px/s for
+// 4 s, about 80 px, so from range it never landed; this check named that. It
+// now holds every pet to landing as often from range as from beside the boss.
+check("every pet lands its shot from range as often as from beside a boss",
+	Object.values(D.pets).every((p) => p.range.shots.every((x, i) => x > 0 && Math.abs(x - p.melee.shots[i]) <= 0.05)));
 
 // ---------------------------------------------------------------------------
 section("3. calibration: 0% dodging is the measured damage");
@@ -283,10 +286,10 @@ function invariants(o, r) {
 		if (!o.pet && s.pet !== 0) bad.push(k + " pet with no pet");
 		if (p.hpMax <= 0 || p.manaMax <= 0 || p.unit <= 0 || p.dps <= 0) bad.push(k + " stats");
 	}
-	// A pet that was chosen deals something (all but the Electric Sprite, which
-	// only lands from beside a boss, and only if anybody holds one).
+	// A pet that was chosen deals something - every one of them, since the
+	// Electric Sprite's orb reaches from range (0.11.5).
 	const petTotal = S.CLASSES.reduce((a, k) => a + r.st[k].pet, 0);
-	if (o.pet && o.pet !== "petelectricsprite" && r.time > 1 && !(petTotal > 0)) bad.push("pet dealt nothing");
+	if (o.pet && r.time > 1 && !(petTotal > 0)) bad.push("pet dealt nothing");
 	const sums = [r.share, r.takenShare].map((x) => S.CLASSES.reduce((a, k) => a + x[k], 0));
 	if (sums.some((x) => !(near(x, 1, 1e-9) || x === 0))) bad.push("shares " + sums);
 	return bad;

@@ -106,7 +106,7 @@ What it showed, and what the tests now hold the data to:
   range in the first phase), then Fire, then Earth and Dark, then Ice.
 
 Raw damage a second on the stand-in, before any armour (measured 2026-10-07,
-v0.11.4 — `bosssim-data.js` holds the current figures, and the page draws this
+v0.11.4, and unchanged in 0.11.5 — `bosssim-data.js` holds the current figures, and the page draws this
 table from it):
 
 | Boss | In reach (phase 1 / 2 / 3) | At range (phase 1 / 2 / 3) |
@@ -133,12 +133,14 @@ Two minutes each, 70 runs.
   **Small Slime** is slower (0.42–0.61), held back by its long attack animation.
 - The **Crowned pet** also leaves puddles: about 7–12 damage a second more, not
   scaled by the owner.
-- **Found: the Electric Sprite pet never hits a boss from range.** Its orb
-  (`petmagicprojectile.tscn`) flies at **20 px/s** — every other pet shot uses the
-  script's default of 300 — and lives 4 s, so it reaches about 80 px. It lands
-  from beside the boss and never from 90 px. That looks like a bug in the game
-  rather than a design; the sim shows it as it is, and the test names it so it is
-  noticed the day it is fixed.
+- **Every pet lands from range as often as from beside the boss.** The first
+  measurement (0.11.4) found the Electric Sprite pet never hit a boss from range:
+  its orb (`petmagicprojectile.tscn`) flew at **20 px/s** where every other pet
+  shot uses the script's default of 300, and lived 4 s, so it reached about
+  80 px. That was a bug in the game, fixed in **0.11.5** (the scene no longer
+  sets a speed, and the game's suite holds every pet's shot to the distance its
+  pet keeps a target at). Measured again after the fix, it lands every 2 s from
+  90 px like the others.
 
 ---
 
@@ -217,8 +219,8 @@ numbers are skipped and the run says so.
 2. **The measured data** — complete; every hit the size its attack deals; swings
    only in reach, one every 1.5 s; no stalker pillars before phase 2, more in phase
    3 than 2, stalkers every 9 then 5.5 s; no puddles from Light or Wind; the pillar
-   track only at range; every pet faster at higher speed; the Electric Sprite
-   finding.
+   track only at range; every pet faster at higher speed, and as quick from range
+   as from beside the boss.
 3. **Calibration** — at 0% dodging, exactly the measured damage; the dodging
    formula; a fast ring lets more through than a slow one.
 4. **Every option** — every combination of gear tier, weapons, stat rolls,
