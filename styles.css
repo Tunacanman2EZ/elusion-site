@@ -845,27 +845,9 @@ footer {
 .hero .sub strong { color: #cdd4d9; }
 
 /* ---- LORE ---- */
-/* The portal: a ring that breathes and a swirl that turns, three frames of
-   one spiral arm shown in turn - stepped, so it stays pixel art. */
-.portal-art { width: 62%; height: auto; filter: drop-shadow(0 0 10px rgba(79, 209, 255, 0.35)); animation: portal-breathe 4s ease-in-out infinite; }
-.portal-art .swirl { opacity: 0; animation: portal-turn 1.2s steps(1, end) infinite; }
-.portal-art .s1 { animation-delay: 0s; }
-.portal-art .s2 { animation-delay: 0.4s; }
-.portal-art .s3 { animation-delay: 0.8s; }
-.portal-art .spark { animation: portal-spark 2.4s ease-in-out infinite; opacity: 0; }
-.portal-art .k2 { animation-delay: 0.8s; }
-.portal-art .k3 { animation-delay: 1.6s; }
-@keyframes portal-turn { 0% { opacity: 1; } 33.34% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes portal-breathe {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(79, 209, 255, 0.30)); }
-  50% { filter: drop-shadow(0 0 18px rgba(139, 92, 246, 0.55)); }
-}
-@keyframes portal-spark { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  .portal-art, .portal-art .spark { animation: none; }
-  .portal-art .swirl { animation: none; }
-  .portal-art .s1, .portal-art .spark { opacity: 1; }
-}
+/* The portal, the game's own animation at six times its size: shown at that
+   size, never stretched, so every pixel of it stays square. */
+.portal-screen .screen-media img { width: 192px; max-width: 70%; height: auto; }
 
 /* The first paragraph, set like the opening of a book, under a small star. */
 .lore-opening {
