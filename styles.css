@@ -412,54 +412,159 @@ footer {
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
 }
 
-/* ---- ENEMY SLIDESHOW (home game-screen) ---- */
-/* Each frame is stacked and crossfaded. height:76% (not max-height) forces the
-   sprite to FILL the box regardless of its native pixel size — pixel art stays
-   crisp because of image-rendering: pixelated. This is what makes the small
-   sheets (sniper, slime) and the tall ones (electric sprite) all read the same
-   size in the frame. */
-.enemy-slideshow .enemy-frame {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  height: 70%;
-  max-width: 78%;
+/* THE TEXT PANEL BESIDE THE ARENA, framed to match it: the same dark
+   outline, bevel and hard shadow, in the room's slate (underground.png's
+   edge colours) where the screen has gold. Square, flat, no glow. Home only;
+   the other pages' heroes keep their panel. */
+.home-hero .hero-text {
+  border: 3px solid #1a1820;
+  border-radius: 0;
+  background: #18171c;
+  box-shadow: inset 3px 3px 0 #5c4f66, inset -3px -3px 0 #292637, 6px 6px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* ---- THE ARENA (home game screen) ---- */
+/* It was a web card: a rounded box, a soft cyan glow, round glass arrows, a
+   pill caption and a row of dots, with every monster blown up to the same
+   height. Now it is drawn the way the game draws things. The frame is the
+   hotbar slot's (art/images/hotbarslot.png) at three screen pixels to a game
+   pixel: dark outline, gold with its light top-left, dark again. The room is
+   the game's own floor and crypt (images/arena/stage.png, from
+   tools/arena_stage.py), the monsters stand on it at the same scale as each
+   other, each wears the game's health bar, and the type is Pixelify Sans, one
+   of the game's own fonts. No blur anywhere: hard edges and a hard shadow. */
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("fonts/pixelifysans/PixelifySans.ttf") format("truetype");
+  font-weight: 400 700;
+  font-display: swap;
+}
+.game-screen.arena-screen {
+  border: 3px solid #251c23;
+  border-radius: 0;
+  padding: 6px;
+  background: #251c23;
+  box-shadow: inset 3px 3px 0 #fde48f, inset -3px -3px 0 #f4c115, 6px 6px 0 rgba(0, 0, 0, 0.55);
+}
+.arena-screen .screen-media {
+  background: #3a3843;
+  /* the scale follows the BOX, not the window: three to one where the room
+     is 400px or wider, two to one below, so the tallest monster (the
+     Electric Sprite, 89 game pixels) always fits with its bar */
+  container: arena / inline-size;
+}
+.arena-stage {
+  --k: 2;
+  position: absolute; inset: 0;
+  background: #3a3843 url("images/arena/stage.png") center / calc(192px * var(--k)) auto no-repeat;
   image-rendering: pixelated;
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.6));
+}
+@container arena (min-width: 400px) {
+  .arena-stage { --k: 3; }
+}
+/* One monster. Its feet sit on the dirt patch's middle (the room's game
+   pixel 128, 32 below its centre); the GIFs carry 4 game pixels of space
+   below the feet, so the image's bottom sits 36 below the centre. The box is
+   square, so a percentage of its width is also one of its height. */
+.enemy-slide {
+  position: absolute; inset: 0;
+  display: flex; justify-content: center; align-items: flex-end;
+  padding-bottom: calc(50% - 36px * var(--k));
   opacity: 0;
-  transition: opacity 0.55s ease;
+  transition: opacity 0.36s steps(4, end);
   pointer-events: none;
 }
-.enemy-slideshow .enemy-frame.active { opacity: 1; }
+.enemy-slide.active { opacity: 1; }
+/* --gw, --gh: the GIF's size; --head: the top of the monster over all its
+   frames; --cx: how far the body's middle sits from the image's (even, so
+   the half-scale stays on whole pixels). All in GIF pixels, which are two to
+   a game pixel. The body is moved so the monster, not its image, is centred. */
+.enemy-body {
+  position: relative; display: block;
+  left: calc(var(--cx) * var(--k) * -0.5px);
+}
+.game-screen.arena-screen .screen-media img.enemy-sprite {
+  position: relative; display: block;
+  width: calc(var(--gw) * var(--k) * 0.5px); height: auto; max-width: none;
+  image-rendering: pixelated; filter: none;
+}
+.enemy-hp, .enemy-shadow {
+  position: absolute; left: 50%; display: block;
+  background: center / 100% 100% no-repeat; image-rendering: pixelated;
+}
+/* the bar three game pixels over the head, as in the game */
+.enemy-hp { bottom: calc((var(--gh) - var(--head)) * var(--k) * 0.5px + 3px * var(--k)); }
+.hp-monster {
+  width: calc(36px * var(--k)); height: calc(8px * var(--k));
+  margin-left: calc((var(--cx) * 0.5 - 18) * var(--k) * 1px);
+  background-image: url("images/arena/hp-monster.png");
+}
+.hp-boss {
+  width: calc(64px * var(--k)); height: calc(10px * var(--k));
+  margin-left: calc((var(--cx) * 0.5 - 32) * var(--k) * 1px);
+  background-image: url("images/arena/hp-boss.png");
+}
+/* the shadow centred on the feet, 4 game pixels up from the image's bottom */
+.shadow-s {
+  bottom: calc(1px * var(--k)); width: calc(30px * var(--k)); height: calc(6px * var(--k));
+  margin-left: calc((var(--cx) * 0.5 - 15) * var(--k) * 1px);
+  background-image: url("images/arena/shadow-s.png");
+}
+.shadow-l {
+  bottom: 0; width: calc(44px * var(--k)); height: calc(8px * var(--k));
+  margin-left: calc((var(--cx) * 0.5 - 22) * var(--k) * 1px);
+  background-image: url("images/arena/shadow-l.png");
+}
 
-/* prev / next arrows to step through the slides by hand */
-.enemy-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 34px; height: 34px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(10, 10, 10, 0.5); border: 1px solid #2c3b41; color: #cfd6da;
-  font-size: 1.5rem; line-height: 0; padding-bottom: 3px;
-  cursor: pointer; z-index: 4;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+/* Under the room: the monster's name and its line from the lore, and two
+   buttons drawn as small hotbar slots, pressed in when clicked. */
+.screen-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 12px 10px 14px; background: #1b1612; border-top: 3px solid #251c23;
 }
-.enemy-arrow:hover { background: rgba(10, 10, 10, 0.85); border-color: #4fd1ff; color: #4fd1ff; }
-.enemy-arrow.prev { left: 10px; }
-.enemy-arrow.next { right: 10px; }
+.screen-name { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 3px; text-align: left; }
+.screen-title, .screen-tag, .screen-count { font-family: "Pixelify Sans", Arial, sans-serif; }
+.screen-title { color: #fde48f; font-size: 1.25rem; font-weight: 600; line-height: 1.1; }
+.screen-tag { color: #b8a888; font-size: 0.88rem; line-height: 1.2; }
+.screen-ctrl { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.screen-count {
+  color: #8a7d6a; font-size: 0.95rem; min-width: 2.4em; text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.screen-btn {
+  width: 36px; height: 36px; padding: 0; margin: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 3px solid #251c23; border-radius: 0; background: #2a231d; color: #fde48f;
+  box-shadow: inset 3px 3px 0 #fde48f, inset -3px -3px 0 #f4c115, inset 0 0 0 6px #251c23;
+  cursor: pointer;
+}
+.screen-btn svg { fill: currentColor; display: block; }
+.screen-btn:hover { background: #3b3024; color: #fffefd; }
+.screen-btn:active {
+  box-shadow: inset 3px 3px 0 #f4c115, inset -3px -3px 0 #fde48f, inset 0 0 0 6px #251c23;
+  background: #1b1612;
+}
+.screen-btn:focus-visible { outline: 2px solid #4fd1ff; outline-offset: 2px; }
 
-.enemy-dots {
-  position: absolute; bottom: 10px; right: 12px;
-  display: flex; gap: 6px; z-index: 2;
+/* the play line, on the slot's darker brown, its dot a square */
+.game-screen.arena-screen { container: screen / inline-size; }
+/* A narrower screen keeps the longest name (Crowned Behemoth) on one line:
+   a smaller size first, then the count goes, the arrows stay. */
+@container screen (max-width: 380px) {
+  .screen-title { font-size: 1.08rem; }
+  .screen-bar { padding-left: 10px; padding-right: 8px; gap: 8px; }
+  .screen-ctrl { gap: 6px; }
 }
-.enemy-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #3a4a52; cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+@container screen (max-width: 300px) {
+  .screen-title { font-size: 1rem; }
+  .screen-count { display: none; }
 }
-.enemy-dot.active { background: #4fd1ff; transform: scale(1.15); }
+
+.arena-screen .playbar { background: #2a231d; border-top: 3px solid #251c23; color: #d8ccb4; }
+.arena-screen .playbar .dot { border-radius: 0; box-shadow: none; width: 8px; height: 8px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .enemy-slideshow .enemy-frame { transition: none; }
+  .enemy-slide { transition: none; }
 }
 
 .game-screen .caption {
@@ -1184,14 +1289,10 @@ footer {
    panel came out 650px wide on a 1280 screen. Home's sections fill the 960. */
 .section.wide { width: 100%; }
 
-/* A soft light behind the two hero panels, as if the screen were lit. */
+/* The hero's two panels carry their own hard-edged frames (see THE ARENA),
+   so no glow behind them and none on the title: the soft light read as a
+   template, not as the game. */
 .home-hero { position: relative; }
-.home-hero::before {
-  content: ""; position: absolute; z-index: -1; inset: 0;
-  background: radial-gradient(ellipse 60% 70% at 50% 45%, rgba(79, 209, 255, 0.09), transparent 70%);
-  pointer-events: none;
-}
-.home-hero h1 { text-shadow: 0 0 30px rgba(79, 209, 255, 0.35); }
 
 /* The numbers, a row of four under the hero, as wide as it. */
 .home-stats {

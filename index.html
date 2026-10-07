@@ -40,22 +40,70 @@
       <p class="platform-note">A PC game: play in your browser with a keyboard and mouse. It isn't made for phones.</p>
     </div>
 
-    <!-- the game screen. The game itself is at play.elusionrpg.com (its own
-         server; this page's CSP refuses frames, so it is a link, not an
-         embed). This panel runs an enemy showcase — each creature's real
-         in-game attack, rebuilt from the sprite sheets, crossfading on a loop. -->
-    <div class="game-screen">
+    <!-- THE GAME SCREEN, drawn the way the game draws it, not as a web card.
+         The room is the game's own tiles: the Field's floor and dirt from
+         art/tiles/underground.png, the crypt's walls, pillars, candles and
+         rubble from art/floordecoration/floorwalls.png (tools/arena_stage.py
+         builds images/arena/ from them). Every monster stands at ONE scale
+         on it, three screen pixels to a game pixel (two in a small box), so
+         a slime is slime-sized beside the Crowned, and each wears the game's
+         own health bar over its head (art/images/monsterhpfull.png and
+         bosshpfull.png). The frame is the hotbar slot's: dark outline, gold,
+         dark. The GIFs are each creature's real attack, from the sheets. -->
+    <div class="game-screen arena-screen">
       <div class="screen-media enemy-slideshow" id="enemy-slideshow">
-        <img class="enemy-frame active" src="images/enemies/boss.gif"           alt="Crowned Behemoth" data-caption="Crowned Behemoth — Layer 1 boss" />
-        <img class="enemy-frame"        src="images/enemies/bushmage.gif"       alt="Bush Mage"   data-caption="Bush Mage" />
-        <img class="enemy-frame"        src="images/enemies/bushsniper.gif"     alt="Bush Sniper" data-caption="Bush Sniper" />
-        <img class="enemy-frame"        src="images/enemies/firesprite.gif"     alt="Fire Sprite" data-caption="Fire Sprite" />
-        <img class="enemy-frame"        src="images/enemies/electricsprite.gif" alt="Electric Sprite" data-caption="Electric Sprite" />
-        <img class="enemy-frame"        src="images/enemies/slime.gif"          alt="Poison Slime" data-caption="Poison Slime" />
-        <button class="enemy-arrow prev" id="enemy-prev" type="button" aria-label="Previous enemy">&#8249;</button>
-        <button class="enemy-arrow next" id="enemy-next" type="button" aria-label="Next enemy">&#8250;</button>
-        <span class="caption" id="enemy-caption">Crowned Behemoth — Layer 1 boss</span>
-        <div class="enemy-dots" id="enemy-dots" aria-hidden="true"></div>
+        <div class="arena-stage">
+          <div class="enemy-slide active" data-caption="Crowned Behemoth" data-tag="Layer 1 boss" style="--gw:128;--gh:108;--head:8;--cx:-10">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-l"></span>
+              <img class="enemy-sprite" src="images/enemies/boss.gif" alt="Crowned Behemoth" width="128" height="108" />
+              <span class="enemy-hp hp-boss"></span>
+            </span>
+          </div>
+          <div class="enemy-slide" aria-hidden="true" data-caption="Bush Mage" data-tag="Raises thorns from the dirt" style="--gw:86;--gh:114;--head:8;--cx:2">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-s"></span>
+              <img class="enemy-sprite" src="images/enemies/bushmage.gif" alt="Bush Mage" width="86" height="114" />
+              <span class="enemy-hp hp-monster"></span>
+            </span>
+          </div>
+          <div class="enemy-slide" aria-hidden="true" data-caption="Bush Sniper" data-tag="Punishes a careless step" style="--gw:86;--gh:74;--head:8;--cx:-6">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-s"></span>
+              <img class="enemy-sprite" src="images/enemies/bushsniper.gif" alt="Bush Sniper" width="86" height="74" />
+              <span class="enemy-hp hp-monster"></span>
+            </span>
+          </div>
+          <div class="enemy-slide" aria-hidden="true" data-caption="Fire Sprite" data-tag="Spits fire" style="--gw:116;--gh:136;--head:8;--cx:6">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-s"></span>
+              <img class="enemy-sprite" src="images/enemies/firesprite.gif" alt="Fire Sprite" width="116" height="136" />
+              <span class="enemy-hp hp-monster"></span>
+            </span>
+          </div>
+          <div class="enemy-slide" aria-hidden="true" data-caption="Electric Sprite" data-tag="Spits lightning" style="--gw:98;--gh:178;--head:6;--cx:2">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-s"></span>
+              <img class="enemy-sprite" src="images/enemies/electricsprite.gif" alt="Electric Sprite" width="98" height="178" />
+              <span class="enemy-hp hp-monster"></span>
+            </span>
+          </div>
+          <div class="enemy-slide" aria-hidden="true" data-caption="Poison Slime" data-tag="Splits when struck" style="--gw:92;--gh:78;--head:8;--cx:-4">
+            <span class="enemy-body">
+              <span class="enemy-shadow shadow-s"></span>
+              <img class="enemy-sprite" src="images/enemies/slime.gif" alt="Poison Slime" width="92" height="78" />
+              <span class="enemy-hp hp-monster"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="screen-bar">
+        <p class="screen-name"><span class="screen-title" id="enemy-caption">Crowned Behemoth</span><span class="screen-tag" id="enemy-tag">Layer 1 boss</span></p>
+        <div class="screen-ctrl">
+          <button class="screen-btn" id="enemy-prev" type="button" aria-label="Previous monster"><svg viewBox="0 0 6 7" width="12" height="14" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="4" y="0" width="1" height="7"/><rect x="3" y="1" width="1" height="5"/><rect x="2" y="2" width="1" height="3"/><rect x="1" y="3" width="1" height="1"/><rect x="5" y="1" width="1" height="5"/></svg></button>
+          <span class="screen-count" id="enemy-count" aria-hidden="true">1/6</span>
+          <button class="screen-btn" id="enemy-next" type="button" aria-label="Next monster"><svg viewBox="0 0 6 7" width="12" height="14" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="1" y="0" width="1" height="7"/><rect x="2" y="1" width="1" height="5"/><rect x="3" y="2" width="1" height="3"/><rect x="4" y="3" width="1" height="1"/><rect x="0" y="1" width="1" height="5"/></svg></button>
+        </div>
       </div>
       <div class="playbar">
         <span><span class="dot"></span>Play now at <a href="https://play.elusionrpg.com" style="color:#4fd1ff;">play.elusionrpg.com</a></span>

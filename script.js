@@ -40,53 +40,56 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Enemy slideshow on the home game-screen. No-op on pages without it, so it's
-// safe to keep in the shared script. Each .enemy-frame is a GIF of that enemy's
-// real attack; we just crossfade which one is on top and update the caption.
+// The monster showcase on the home game screen. No-op on pages without it, so
+// it's safe to keep in the shared script. Each .enemy-slide is one monster in
+// the arena (its real attack as a GIF, its health bar, its shadow); we fade
+// which one is shown and write its name, its line and "n/6" under the room.
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('enemy-slideshow');
   if (!box) return;
 
-  const frames = Array.prototype.slice.call(box.querySelectorAll('.enemy-frame'));
-  if (frames.length < 2) return;
+  const slides = Array.prototype.slice.call(box.querySelectorAll('.enemy-slide'));
+  if (slides.length < 2) return;
 
-  const caption = document.getElementById('enemy-caption');
-  const dotsWrap = document.getElementById('enemy-dots');
+  const title = document.getElementById('enemy-caption');
+  const tag = document.getElementById('enemy-tag');
+  const count = document.getElementById('enemy-count');
   const HOLD_MS = 2600;
-
-  const dots = frames.map((_, i) => {
-    const d = document.createElement('span');
-    d.className = 'enemy-dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => { show(i); start(); });
-    if (dotsWrap) dotsWrap.appendChild(d);
-    return d;
-  });
 
   let idx = 0;
   let timer = null;
 
   function show(n) {
-    frames[idx].classList.remove('active');
-    if (dots[idx]) dots[idx].classList.remove('active');
-    idx = (n + frames.length) % frames.length;
-    frames[idx].classList.add('active');
-    if (dots[idx]) dots[idx].classList.add('active');
-    if (caption) caption.textContent = frames[idx].getAttribute('data-caption') || '';
+    slides[idx].classList.remove('active');
+    slides[idx].setAttribute('aria-hidden', 'true');
+    idx = (n + slides.length) % slides.length;
+    slides[idx].classList.add('active');
+    slides[idx].removeAttribute('aria-hidden');
+    if (title) title.textContent = slides[idx].getAttribute('data-caption') || '';
+    if (tag) tag.textContent = slides[idx].getAttribute('data-tag') || '';
+    if (count) count.textContent = (idx + 1) + '/' + slides.length;
   }
 
-  function start() { stop(); timer = setInterval(() => show(idx + 1), HOLD_MS); }
+  // NO AUTOPLAY FOR A VISITOR WHO ASKED FOR LESS MOTION: the arrows still
+  // step through, but nothing changes on its own.
+  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function start() { stop(); if (!still) timer = setInterval(() => show(idx + 1), HOLD_MS); }
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-  // Manual prev / next arrows. Each also restarts the timer so it doesn't jump
-  // a moment after you click.
+  // The arrows. Each also restarts the timer so it doesn't jump a moment
+  // after you click.
   const prev = document.getElementById('enemy-prev');
   const next = document.getElementById('enemy-next');
   if (prev) prev.addEventListener('click', () => { show(idx - 1); start(); });
   if (next) next.addEventListener('click', () => { show(idx + 1); start(); });
 
-  // Pause while the cursor is on the box, so a viewer can linger on one enemy.
-  box.addEventListener('mouseenter', stop);
-  box.addEventListener('mouseleave', start);
+  // Hold still while the cursor is on the room, or while the arrows have the
+  // keyboard, so a viewer can linger on one monster.
+  const screen = box.closest('.game-screen') || box;
+  screen.addEventListener('mouseenter', stop);
+  screen.addEventListener('mouseleave', start);
+  screen.addEventListener('focusin', stop);
+  screen.addEventListener('focusout', start);
 
   start();
 });

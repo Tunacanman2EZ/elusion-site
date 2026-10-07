@@ -40,6 +40,9 @@ const REQUIRED = [
 	"contribute-data.js",
 	"join.js",
 	"images",
+	// Pixelify Sans, one of the game's own fonts, with its OFL.txt beside it:
+	// the licence has to travel with the font.
+	"fonts",
 ];
 
 // Present today, and the site is fine without them — small side pages that
