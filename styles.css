@@ -587,6 +587,7 @@ footer {
 .lore-body { max-width: 720px; margin: 0 auto; color: #cdd4d9; line-height: 1.7; }
 .lore-body h2 { color: #4fd1ff; margin: 28px 0 10px; font-size: 1.25rem; }
 .lore-body p { margin: 0 0 16px; }
+.lore-body .lore-footnote { color: #8a939a; font-size: 0.9rem; margin-top: 26px; }
 .element-row {
   display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;
 }
