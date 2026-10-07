@@ -849,6 +849,24 @@ footer {
    size, never stretched, so every pixel of it stays square. */
 .portal-screen .screen-media img { width: 192px; max-width: 70%; height: auto; }
 
+/* In development: everything on the page may change. Amber, the colour the
+   game uses for "not final / not now", so it reads as a notice, not a feature. */
+.dev-notice {
+  display: flex; align-items: center; gap: 14px;
+  max-width: 680px; margin: 30px auto 0; padding: 12px 18px;
+  border: 1px solid rgba(255, 183, 77, 0.45); border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255, 183, 77, 0.10), rgba(255, 183, 77, 0.02));
+}
+.dev-notice p { margin: 0; color: #e6ebee; font-size: 0.95rem; line-height: 1.5; }
+.dev-badge {
+  flex-shrink: 0; padding: 4px 10px; border-radius: 20px;
+  border: 1px solid rgba(255, 183, 77, 0.7); color: #ffc46b;
+  font-size: 0.68rem; font-weight: bold; letter-spacing: 0.14em; text-transform: uppercase;
+}
+@media (max-width: 520px) {
+  .dev-notice { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
 /* The first paragraph, set like the opening of a book, under a small star. */
 .lore-opening {
   max-width: 660px; margin: 40px auto 6px; color: #dfe5e8; text-align: center;
