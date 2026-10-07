@@ -152,92 +152,17 @@ h1 {
   text-decoration: none;
 }
 
-/* CONTRIBUTE PAGE */
-.contribute-options {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin: 0 auto;
-  padding: 6px 0 24px;
-}
-
-.contribute-card {
-  border: 1px solid #4fd1ff;
-  border-radius: 140px;            /* oval, matching the impact cards below */
-  padding: 30px 46px;
-  max-width: 330px;
-  text-align: center;
-  background-color: #181818;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.contribute-card h2 {
-  color: #4fd1ff;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.contribute-card p {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-
-.contribute-card a {
-  display: inline-block;
-  margin-top: 4px;
-  color: #111;
-  background: #4fd1ff;
-  padding: 8px 14px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.contribute-card a:hover {
-  background: #7fe2ff;
-}
-
-/* Impact section */
-.impact {
-  max-width: 900px;
-  margin: 0 auto 1px;
-  text-align: center;
-  padding: 20px 20px 60px;
-}
-
-.impact h2 {
-  color: #4fd1ff;
-  margin-bottom: 20px;
-}
-
-.impact-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.impact-card {
-  border: 1px solid #4fd1ff;
-  border-radius: 222px;
-  padding: 16px 24px;
-  max-width: 260px;
-}
-
 /* Animated fire cursor.
    A GIF used as a CSS `cursor:` is frozen on frame 1 by every browser, so the
    flame can't flicker that way. Instead script.js hides the system cursor and
-   follows the mouse with a real <img>, which DOES play the animation. */
-body.fire-cursor-on,
-body.fire-cursor-on * { cursor: none !important; }
+   follows the mouse with a real <img>, which DOES play the animation.
+
+   ON <html>, NOT <body>. body is exactly one screen tall (html, body
+   { height: 100% }), so on any page longer than the window the empty space
+   below the first screen is <html>'s - and there the system arrow showed
+   beside the fire, about a quarter of the page. */
+html.fire-cursor-on,
+html.fire-cursor-on * { cursor: none !important; }
 
 #fire-cursor {
   position: fixed;
@@ -288,16 +213,6 @@ footer {
   /* Tabular figures so the strip does not jitter as the number grows. */
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
-}
-
-.support-wrapper {
-  max-width: 780px;
-  margin: 20px auto 20px;
-  padding: 24px 24px 30px;
-  border: 1px solid #bfc7cf; /* chrome‑ish silver/blue */
-  border-radius: 10px;
-  background: linear-gradient(145deg, #181818, #222); /* subtle metal feel */
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
 }
 
 .done {
@@ -574,7 +489,7 @@ footer {
   .feature-grid { grid-template-columns: 1fr; }
 }
 .feature-card {
-  /* ovals, matching .impact-card — cyan ring, big radius, centered text.
+  /* ovals — cyan ring, big radius, centered text.
      No min-height: the oval hugs its content so there's no empty dead space
      above and below, which is what keeps it a tight stadium and not an egg. */
   border: 1px solid #4fd1ff;
@@ -792,7 +707,7 @@ footer {
 }
 
 /* =====================================================================
-   CONTRIBUTE — transparency ledger + supporters wall
+   SUPPORT (contribute.html) — the art prices and the ledger
    ===================================================================== */
 
 /* ---- transparency pledge + ledger ---- */
@@ -806,6 +721,7 @@ footer {
   color: #cdd4d9; line-height: 1.65; max-width: 60ch; margin: 0 auto 22px;
 }
 .pledge strong { color: #f5f5f5; }
+.pledge a { color: #4fd1ff; }
 
 .ledger {
   max-width: 460px; margin: 0 auto;
@@ -828,90 +744,89 @@ footer {
 .ledger-updated { color: #7c858c; font-size: 0.76rem; margin: 12px 0 0; text-align: center; }
 .ledger-empty { color: #8a939a; text-align: center; padding: 16px 0; font-size: 0.92rem; }
 
-/* ---- supporters wall ---- */
-.supporters { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
-.supporter-featured {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px; margin: 0 0 16px;
-}
-.supporter-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
-}
-.supporter-card {
-  border: 1px solid #2c3b41; border-radius: 14px; background: #161616;
-  padding: 16px 18px; text-align: left;
-}
-.supporter-card.featured {
-  border-color: #4fd1ff;
-  background: linear-gradient(150deg, rgba(79,209,255,0.10), rgba(79,209,255,0.02));
-}
-.supporter-name { color: #f5f5f5; font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
-.supporter-badge {
-  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
-  color: #111; background: #4fd1ff; padding: 2px 7px; border-radius: 20px; font-weight: bold;
-}
-.supporter-msg { color: #a8b0b6; font-size: 0.9rem; line-height: 1.5; margin: 8px 0 0; font-style: italic; }
-.supporter-msg::before { content: "\201C"; color: #4fd1ff; }
-.supporter-msg::after  { content: "\201D"; color: #4fd1ff; }
-.supporters-empty {
-  text-align: center; color: #9aa4ab; border: 1px dashed #2c3b41;
-  border-radius: 14px; padding: 26px 20px; max-width: 440px; margin: 0 auto; line-height: 1.6;
-}
-.supporters-empty strong { color: #4fd1ff; }
-
-/* ---- art wishlist ---- */
-.art-goals-section { max-width: 900px; margin: 0 auto; padding: 6px 20px 10px; }
-.art-goals {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;
-}
-.art-goal {
-  border: 1px solid #2c3b41; border-radius: 14px; background: #161616;
-  padding: 18px 20px; text-align: left; display: flex; flex-direction: column;
-}
-.art-goal-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 8px;
-}
-.art-goal-name { color: #f5f5f5; font-weight: bold; font-size: 1.02rem; }
-.art-goal-price { color: #4fd1ff; font-weight: bold; white-space: nowrap; }
-.art-goal-why { color: #a8b0b6; font-size: 0.9rem; line-height: 1.5; margin: 0 0 14px; flex: 1; }
-.art-goal-cta { align-self: flex-start; font-size: 0.85rem; color: #4fd1ff; text-decoration: none; font-weight: bold; }
-.art-goal-cta:hover { text-decoration: underline; }
-.art-goal.funded { opacity: 0.65; }
-.art-goal-funded-badge {
-  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em;
-  color: #111; background: #7fd07f; padding: 2px 8px; border-radius: 20px; font-weight: bold; white-space: nowrap;
-}
-.art-goals-note {
-  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
-  margin: 18px auto 0; line-height: 1.55;
-}
-.art-goals-note a { color: #4fd1ff; }
-.art-goals-note strong { color: #cdd4d9; }
-
-/* What a piece costs, shown as three plain figures rather than buried in a
-   paragraph. These are the real prices, and they come from ONE place in
-   contribute-data.js — see the note at the top of that file. */
-.art-prices {
-  list-style: none; padding: 0; max-width: 560px;
-  margin: 0 auto 12px; display: flex; gap: 10px; flex-wrap: wrap;
-}
-.art-prices li {
-  flex: 1 1 150px; display: flex; align-items: baseline; justify-content: space-between;
-  gap: 12px; border: 1px solid #2c3b41; border-radius: 10px;
-  background: #161616; padding: 11px 15px;
-}
-.art-prices .k { color: #cdd4d9; font-size: 0.9rem; }
-.art-prices .n { color: #4fd1ff; font-weight: bold; font-variant-numeric: tabular-nums; }
-.art-prices-note {
-  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
-  margin: 0 auto 20px; line-height: 1.55;
-}
-.art-prices-note a { color: #4fd1ff; }
-/* Smaller than a figure, because it is a word standing where a number goes. */
-.art-goal-quoted { font-size: 0.85rem; font-weight: 600; opacity: 0.9; cursor: help; }
-
-/* The hot chocolate line: present, so the total is complete — and visibly not
-   part of the game fund above it. */
+/* The hot cocoa line: present, so the total is complete — and visibly not
+   part of the art money above it. */
 .ledger-personal { border-top: 1px solid #2c3b41; margin-top: 4px; }
 .ledger-personal .l { color: #8a939a; font-size: 0.84rem; }
 .ledger-personal .n { color: #a8b0b6; }
+
+/* ---- the hot cocoa: the home page's hero, holding one thing ---- */
+.support-hero h1 { font-size: clamp(2rem, 4.6vw, 2.9rem); }
+.cocoa-screen .screen-media { aspect-ratio: 4 / 3; }
+.cocoa-mug {
+  width: 56%; max-width: 230px; height: auto;
+  filter: drop-shadow(0 0 22px rgba(79, 209, 255, 0.14));
+}
+/* Three wisps of steam, a pixel wide, rising one after another. */
+.cocoa-mug .puff { animation: cocoa-steam 2.4s ease-in infinite; opacity: 0; }
+.cocoa-mug .p2 { animation-delay: 0.8s; }
+.cocoa-mug .p3 { animation-delay: 1.6s; }
+@keyframes cocoa-steam {
+  0%   { transform: translateY(2px);  opacity: 0; }
+  25%  { opacity: 0.9; }
+  100% { transform: translateY(-5px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cocoa-mug .puff { animation: none; opacity: 0.7; }
+}
+.game-screen .playbar .playbar-quiet { color: #6b7c84; }
+
+/* ---- the art: two artists, what a piece costs, a bigger gift ---- */
+.artist-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  max-width: 820px; margin: 0 auto 34px;
+}
+.artist-card {
+  border: 1px solid #2c3b41; border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  box-shadow: 0 0 30px rgba(79, 209, 255, 0.05);
+  padding: 20px 22px;
+}
+.artist-role {
+  color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: 0.68rem; font-weight: bold; margin: 0 0 6px;
+}
+.artist-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+.artist-card h3 a {
+  color: #f5f5f5; text-decoration: none;
+  border-bottom: 1px solid rgba(79, 209, 255, 0.5);
+}
+.artist-card h3 a:hover { color: #4fd1ff; }
+.artist-card p { color: #b8c0c6; font-size: 0.92rem; line-height: 1.5; margin: 0; }
+
+.prices-head { text-align: center; color: #e6ebee; font-size: 1.05rem; margin: 0 0 14px; }
+/* What a piece costs, as three tiles: the figure large, what it buys under it.
+   The figures come from ONE place, contribute-data.js. */
+.art-prices {
+  list-style: none; padding: 0; max-width: 640px; margin: 0 auto 10px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+}
+.art-prices li {
+  display: flex; flex-direction: column-reverse; align-items: center; gap: 4px;
+  border: 1px solid #2c3b41; border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  padding: 16px 10px;
+}
+.art-prices .n {
+  color: #4fd1ff; font-size: 1.6rem; font-weight: bold; font-variant-numeric: tabular-nums;
+}
+.art-prices .k { color: #9aa4ab; font-size: 0.85rem; }
+.art-prices-note {
+  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
+  margin: 0 auto; line-height: 1.55;
+}
+.art-callout { max-width: 820px; margin-top: 30px; flex-wrap: nowrap; }
+.art-callout .t { flex: 1 1 auto; }
+.art-callout .btn { flex: 0 0 auto; }
+.art-callout em { color: #e6ebee; }
+
+@media (max-width: 640px) {
+  .artist-grid { grid-template-columns: 1fr; }
+  .art-callout { flex-wrap: wrap; }
+}
+/* MINMAX(0, ...), NOT A 150px FLOOR: the page column sizes itself to its
+   content, and a grid that would not go below three tiles of 150 held the
+   whole page 554px wide on a phone. One column there instead. */
+@media (max-width: 520px) {
+  .art-prices { grid-template-columns: 1fr; }
+}

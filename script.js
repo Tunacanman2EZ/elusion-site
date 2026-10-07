@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   cur.alt = '';
   cur.setAttribute('aria-hidden', 'true');
   document.body.appendChild(cur);
-  document.body.classList.add('fire-cursor-on'); // hides the system cursor via CSS
+  // hides the system cursor via CSS - on <html>, the whole page, and not just
+  // <body>, which is one screen tall: below it the system arrow showed too.
+  document.documentElement.classList.add('fire-cursor-on');
 
   let lit = false;
 
