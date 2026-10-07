@@ -33,26 +33,19 @@
   }
 
   // ---- ledger --------------------------------------------------------------
+  // THE ROWS ARE ALWAYS DRAWN, even at $0: an empty ledger with its lines in
+  // place reads as a real account that hasn't had a deposit yet, where a lone
+  // sentence in an empty box read as something unfinished.
   function renderLedger() {
     var mount = document.getElementById("ledger");
     if (!mount || !data.ledger) return;
     var L = data.ledger;
     var allocs = L.allocations || [];
     var tips = Number(L.tips) || 0;
-    // TIPS COUNT TOWARD "IS THERE ANYTHING TO SHOW", even though they are not
-    // art money. Someone who bought a hot cocoa has contributed, and a ledger
-    // that answered "nothing yet" to them would be the page's one promise
-    // breaking on its first user.
     var total = (Number(L.raised) || 0) + tips +
       allocs.reduce(function (s, a) { return s + (Number(a.amount) || 0); }, 0);
 
     mount.innerHTML = "";
-
-    if (total === 0) {
-      mount.appendChild(el("p", "ledger-empty",
-        "The ledger opens with the first contribution — real numbers, updated as they come in."));
-      return;
-    }
 
     var raised = el("div", "ledger-raised");
     raised.appendChild(el("span", "l", "Given for art"));
@@ -69,13 +62,15 @@
     // THE HOT COCOA, ON ITS OWN LINE AND LABELLED AS PERSONAL. Leaving it out
     // would make the total quietly disagree with what actually came in, which
     // is the exact thing a ledger exists to prevent.
-    if (tips > 0) {
-      var tipRow = el("div", "ledger-row ledger-personal");
-      tipRow.appendChild(el("span", "l", "Hot cocoa — personal, not for art"));
-      tipRow.appendChild(el("span", "n", money(L.currency, tips)));
-      mount.appendChild(tipRow);
-    }
+    var tipRow = el("div", "ledger-row ledger-personal");
+    tipRow.appendChild(el("span", "l", "Hot cocoa — personal, not for art"));
+    tipRow.appendChild(el("span", "n", money(L.currency, tips)));
+    mount.appendChild(tipRow);
 
+    if (total === 0) {
+      mount.appendChild(el("p", "ledger-empty",
+        "Nothing in yet — the first contribution opens it."));
+    }
     if (L.updated) mount.appendChild(el("p", "ledger-updated", "Last updated " + L.updated));
   }
 

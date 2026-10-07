@@ -24,104 +24,343 @@
   </nav>
 
   <div class="page-wrapper">
-    <header class="page-header">
-      <h1>Beyond the Portal</h1>
-      <p>A brief telling of where Elusion begins — and how much deeper it goes.</p>
-    </header>
 
-    <div class="lore-body">
-      <p>It starts in town, where the streets are safe and the coin is honest. Then there's the
-        <strong>portal</strong>. No one agrees on what it is or where it goes — only that it's open, and
-        that it pulls. Step through, and the world past it does not welcome you: the farther you go, the
-        harder it gets — stranger ground, meaner things, less room for a single mistake.</p>
-
-      <h2>Seven Lands</h2>
-      <p>The world past the portal is made of seven lands, and each one has an element running through
-        everything that lives there. Light and wind are the gentlest, and the first places anyone learns
-        to fight. Water and ice come next, then earth, then fire. Deepest of all is <strong>dark</strong>,
-        where even the slimes are dangerous. Every land pays back what it costs you — iron gear from the
-        first two, then jade, cobalt and amethyst, and from the dark, rarely, <strong>ember</strong>.</p>
-      <div class="element-row">
-        <span class="element-chip">☀ Light</span>
-        <span class="element-chip">🜁 Wind</span>
-        <span class="element-chip">🜄 Water</span>
-        <span class="element-chip">❄ Ice</span>
-        <span class="element-chip">🜃 Earth</span>
-        <span class="element-chip">🔥 Fire</span>
-        <span class="element-chip">☾ Dark</span>
+    <!-- ===== THE PORTAL - the home page's hero, for the story ===== -->
+    <section class="hero lore-hero">
+      <div class="hero-text">
+        <p class="hero-eyebrow">The world of Elusion</p>
+        <h1>Beyond the Portal</h1>
+        <p class="tagline">A brief telling of where Elusion begins &mdash; and how much deeper it goes.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://play.elusionrpg.com">Step through &mdash; play free</a>
+          <a class="btn ghost" href="simulator.html">Explore the Boss Sim</a>
+        </div>
+        <p class="platform-note">Seven lands, four classes, and one great eye waiting at the end of Layer 1.</p>
       </div>
 
-      <h2>The Crowned</h2>
-      <p>The first great thing past the portal is the <strong>Crowned Behemoth</strong> — a beholder: one
-        great eye crowned like a king, ringed with lesser eyes on restless stalks. It does not chase. It
-        does not need to. It hangs in the air and turns the ground itself against you — rings of spikes
-        that erupt where you're about to stand, walls of them that close the room to a single gap.
-        Every eye watches a different death. Read the telegraphs and live; miss one and don't. And it
-        is only <strong>Layer 1</strong>.</p>
-      <p>It wears more than one crown. Six of them are bound to an element — light, wind, water, ice,
-        earth and fire — and each colors the Behemoth's patterns and its patience: the same eye seen
-        through six different lights. The seventh crown is bound to nothing at all, and that one is the
-        strongest of them.</p>
+      <!-- The portal, drawn here in pixels (inline SVG, like the support page's
+           cocoa): it turns slowly, and stands still for a visitor who prefers
+           less motion. -->
+      <div class="game-screen portal-screen">
+        <div class="screen-media">
+          <svg class="portal-art" viewBox="0 0 32 32" shape-rendering="crispEdges" role="img" aria-label="The portal">
+            <rect x="5" y="28" width="22" height="1" fill="#2c3b41"/>
+            <rect x="7" y="29" width="18" height="1" fill="#1c2629"/>
+            <rect x="9" y="27" width="14" height="1" fill="#3a4a51"/>
+            <rect x="15" y="2" width="2" height="1" fill="#1f7fa3"/>
+            <rect x="12" y="3" width="8" height="1" fill="#1f7fa3"/>
+            <rect x="10" y="4" width="12" height="1" fill="#1f7fa3"/>
+            <rect x="9" y="5" width="14" height="1" fill="#1f7fa3"/>
+            <rect x="9" y="6" width="14" height="1" fill="#1f7fa3"/>
+            <rect x="8" y="7" width="16" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="8" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="9" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="10" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="11" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="12" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="13" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="14" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="15" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="16" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="17" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="6" y="18" width="20" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="19" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="20" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="7" y="21" width="18" height="1" fill="#1f7fa3"/>
+            <rect x="8" y="22" width="16" height="1" fill="#1f7fa3"/>
+            <rect x="9" y="23" width="14" height="1" fill="#1f7fa3"/>
+            <rect x="9" y="24" width="14" height="1" fill="#1f7fa3"/>
+            <rect x="10" y="25" width="12" height="1" fill="#1f7fa3"/>
+            <rect x="12" y="26" width="8" height="1" fill="#1f7fa3"/>
+            <rect x="15" y="27" width="2" height="1" fill="#1f7fa3"/>
+            <rect x="14" y="3" width="4" height="1" fill="#4fd1ff"/>
+            <rect x="12" y="4" width="8" height="1" fill="#4fd1ff"/>
+            <rect x="11" y="5" width="10" height="1" fill="#4fd1ff"/>
+            <rect x="10" y="6" width="12" height="1" fill="#4fd1ff"/>
+            <rect x="9" y="7" width="14" height="1" fill="#4fd1ff"/>
+            <rect x="8" y="8" width="16" height="1" fill="#4fd1ff"/>
+            <rect x="8" y="9" width="16" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="10" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="11" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="12" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="13" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="14" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="15" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="16" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="17" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="18" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="7" y="19" width="18" height="1" fill="#4fd1ff"/>
+            <rect x="8" y="20" width="16" height="1" fill="#4fd1ff"/>
+            <rect x="8" y="21" width="16" height="1" fill="#4fd1ff"/>
+            <rect x="9" y="22" width="14" height="1" fill="#4fd1ff"/>
+            <rect x="10" y="23" width="12" height="1" fill="#4fd1ff"/>
+            <rect x="11" y="24" width="10" height="1" fill="#4fd1ff"/>
+            <rect x="12" y="25" width="8" height="1" fill="#4fd1ff"/>
+            <rect x="14" y="26" width="4" height="1" fill="#4fd1ff"/>
+            <rect x="14" y="4" width="4" height="1" fill="#a8ecff"/>
+            <rect x="12" y="5" width="8" height="1" fill="#a8ecff"/>
+            <rect x="11" y="6" width="10" height="1" fill="#a8ecff"/>
+            <rect x="10" y="7" width="12" height="1" fill="#a8ecff"/>
+            <rect x="9" y="8" width="14" height="1" fill="#a8ecff"/>
+            <rect x="9" y="9" width="14" height="1" fill="#a8ecff"/>
+            <rect x="8" y="10" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="11" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="12" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="13" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="14" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="15" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="16" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="17" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="18" width="16" height="1" fill="#a8ecff"/>
+            <rect x="8" y="19" width="16" height="1" fill="#a8ecff"/>
+            <rect x="9" y="20" width="14" height="1" fill="#a8ecff"/>
+            <rect x="9" y="21" width="14" height="1" fill="#a8ecff"/>
+            <rect x="10" y="22" width="12" height="1" fill="#a8ecff"/>
+            <rect x="11" y="23" width="10" height="1" fill="#a8ecff"/>
+            <rect x="12" y="24" width="8" height="1" fill="#a8ecff"/>
+            <rect x="14" y="25" width="4" height="1" fill="#a8ecff"/>
+            <rect x="14" y="5" width="4" height="1" fill="#1a1033"/>
+            <rect x="12" y="6" width="8" height="1" fill="#1a1033"/>
+            <rect x="11" y="7" width="10" height="1" fill="#1a1033"/>
+            <rect x="10" y="8" width="12" height="1" fill="#1a1033"/>
+            <rect x="10" y="9" width="12" height="1" fill="#1a1033"/>
+            <rect x="9" y="10" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="11" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="12" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="13" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="14" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="15" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="16" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="17" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="18" width="14" height="1" fill="#1a1033"/>
+            <rect x="9" y="19" width="14" height="1" fill="#1a1033"/>
+            <rect x="10" y="20" width="12" height="1" fill="#1a1033"/>
+            <rect x="10" y="21" width="12" height="1" fill="#1a1033"/>
+            <rect x="11" y="22" width="10" height="1" fill="#1a1033"/>
+            <rect x="12" y="23" width="8" height="1" fill="#1a1033"/>
+            <rect x="14" y="24" width="4" height="1" fill="#1a1033"/>
+            <rect x="14" y="7" width="4" height="1" fill="#24164a"/>
+            <rect x="13" y="8" width="6" height="1" fill="#24164a"/>
+            <rect x="12" y="9" width="8" height="1" fill="#24164a"/>
+            <rect x="11" y="10" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="11" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="12" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="13" width="10" height="1" fill="#24164a"/>
+            <rect x="10" y="14" width="12" height="1" fill="#24164a"/>
+            <rect x="10" y="15" width="12" height="1" fill="#24164a"/>
+            <rect x="11" y="16" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="17" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="18" width="10" height="1" fill="#24164a"/>
+            <rect x="11" y="19" width="10" height="1" fill="#24164a"/>
+            <rect x="12" y="20" width="8" height="1" fill="#24164a"/>
+            <rect x="13" y="21" width="6" height="1" fill="#24164a"/>
+            <rect x="14" y="22" width="4" height="1" fill="#24164a"/>
+            <rect x="15" y="10" width="2" height="1" fill="#33206b"/>
+            <rect x="14" y="11" width="4" height="1" fill="#33206b"/>
+            <rect x="13" y="12" width="6" height="1" fill="#33206b"/>
+            <rect x="13" y="13" width="6" height="1" fill="#33206b"/>
+            <rect x="13" y="14" width="6" height="1" fill="#33206b"/>
+            <rect x="13" y="15" width="6" height="1" fill="#33206b"/>
+            <rect x="13" y="16" width="6" height="1" fill="#33206b"/>
+            <rect x="13" y="17" width="6" height="1" fill="#33206b"/>
+            <rect x="14" y="18" width="4" height="1" fill="#33206b"/>
+            <rect x="15" y="19" width="2" height="1" fill="#33206b"/>
+            <g class="swirl s1"><rect x="20" y="15" width="1" height="1" fill="#8b5cf6"/><rect x="20" y="16" width="1" height="1" fill="#8b5cf6"/><rect x="20" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="18" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="20" width="1" height="1" fill="#8b5cf6"/><rect x="16" y="20" width="1" height="1" fill="#8b5cf6"/><rect x="15" y="20" width="1" height="1" fill="#8b5cf6"/><rect x="14" y="20" width="1" height="1" fill="#8b5cf6"/><rect x="14" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="13" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="13" y="18" width="1" height="1" fill="#8b5cf6"/><rect x="13" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="16" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="15" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="14" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="12" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="11" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="11" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="11" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="12" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="15" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="15" width="1" height="1" fill="#c4b5fd"/></g>
+            <g class="swirl s2"><rect x="13" y="20" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="18" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="11" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="11" y="16" width="1" height="1" fill="#8b5cf6"/><rect x="11" y="15" width="1" height="1" fill="#8b5cf6"/><rect x="11" y="14" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="13" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="12" width="1" height="1" fill="#8b5cf6"/><rect x="12" y="11" width="1" height="1" fill="#8b5cf6"/><rect x="13" y="11" width="1" height="1" fill="#8b5cf6"/><rect x="13" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="14" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="15" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="16" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="11" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="11" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="12" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="18" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="18" y="15" width="1" height="1" fill="#c4b5fd"/><rect x="18" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="18" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="15" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="14" width="1" height="1" fill="#c4b5fd"/></g>
+            <g class="swirl s3"><rect x="13" y="9" width="1" height="1" fill="#8b5cf6"/><rect x="14" y="9" width="1" height="1" fill="#8b5cf6"/><rect x="14" y="8" width="1" height="1" fill="#8b5cf6"/><rect x="15" y="8" width="1" height="1" fill="#8b5cf6"/><rect x="16" y="8" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="9" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="10" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="11" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="12" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="13" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="14" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="15" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="16" width="1" height="1" fill="#8b5cf6"/><rect x="19" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="17" width="1" height="1" fill="#8b5cf6"/><rect x="18" y="18" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="18" width="1" height="1" fill="#8b5cf6"/><rect x="17" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="16" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="15" y="19" width="1" height="1" fill="#8b5cf6"/><rect x="15" y="18" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="18" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="17" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="16" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="15" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="13" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="14" y="12" width="1" height="1" fill="#c4b5fd"/><rect x="15" y="12" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="12" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="13" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="17" y="14" width="1" height="1" fill="#c4b5fd"/><rect x="16" y="15" width="1" height="1" fill="#c4b5fd"/></g>
+            <rect x="15" y="14" width="2" height="2" fill="#f5f5f5" class="heart"/>
+            <rect class="spark k1" x="4" y="6" width="1" height="1" fill="#a8ecff"/>
+            <rect class="spark k2" x="27" y="11" width="1" height="1" fill="#a8ecff"/>
+            <rect class="spark k3" x="25" y="23" width="1" height="1" fill="#c4b5fd"/>
+          </svg>
+          <span class="caption">The portal &mdash; no one agrees where it goes</span>
+        </div>
+        <div class="playbar">
+          <span><span class="dot"></span>The portal is open</span>
+          <span class="playbar-quiet">Layer 1</span>
+        </div>
+      </div>
+    </section>
 
-      <h2>The Things Between</h2>
-      <p>The way down is not empty. Slimes that split when struck, sprites that spit fire and
-        lightning, mages that raise thorns from the dirt and snipers that punish a careless step — six
-        families of them, in every land's element. Clear them, and the world gives back: loot, coin, pets
-        that fight at your side, and quiet things to do between fights — a fishing line, a cook-fire, a
-        fair trade with another player.</p>
+    <p class="lore-opening">It starts in town, where the streets are safe and the coin is honest. Then there's the
+      <strong>portal</strong>. No one agrees on what it is or where it goes &mdash; only that it's open, and
+      that it pulls. Step through, and the world past it does not welcome you: the farther you go, the
+      harder it gets &mdash; stranger ground, meaner things, less room for a single mistake.</p>
 
-      <h2>What You Carry Out</h2>
-      <p>No two pieces of gear are quite alike. Every piece that drops — and every piece the shop sells —
-        is rolled when it's made: a little stronger here, a little weaker there. Once in a hundred, a piece
-        comes out <strong>Perfect</strong>, every number at its best, and it glows gold to prove it.</p>
-      <p>Armour carries something of the land it came from. Every piece is attuned to one of the seven
-        elements and turns aside a share of that element's harm — and pieces that share an element add up,
-        until a full set of fire-touched plate takes half the sting out of a fire sprite's spit. Weapons
-        never carry an element. What you hit for is your own strength and your own steel.</p>
-      <p>And somewhere out there are the <strong>mythic</strong> weapons: a falling
-        <strong>Meteorite</strong> for the mage, a <strong>Double Axe</strong> for the warrior, a stick of
-        <strong>Dynamite</strong> for the tank. Any monster might be carrying one. Most never are. When one
-        turns up, the whole realm hears about it.</p>
+    <!-- ===== THE CHAPTERS, down a line that darkens as it goes, the way the
+         world does. Each node on it is one chapter. ===== -->
+    <div class="lore-path">
 
-      <h2>Coin and the Kingdom</h2>
-      <p>Every coin in Elusion is real — earned, spent, and tracked on a server no client can lie to.
-        Wealth can't be conjured; it comes from somewhere, and it can leave you just as fast. Fall in a
-        fight and accept it, and you lose what you carried — the gold, the bag, the gear on your back. Only
-        what you bank is safe, unless you pay to be brought back. Money you can lose is money that means
-        something.</p>
-      <p>And the kingdom takes its cut. Every trade between players is taxed — but the tax isn't pocketed
-        by anyone, it's <strong>burned</strong>. The gold leaves the world entirely, and that is the whole
-        point: it's the only thing that keeps coin scarce and worth carrying, where a fee that simply
-        changed hands would leave the realm exactly as rich as before. The <strong>shops</strong> work the
-        same way — buy a potion or a blade and the coin doesn't line a merchant's purse, it's gone from the
-        world for good, the everyday sink that keeps gold flowing out as fast as you earn it. Sell back
-        what you've outgrown and the shop pays a twentieth of its worth — enough to clear a bag, never
-        enough to beat the hunt. So spending isn't loss — it's a contribution. The <strong>Kingdom Board</strong> keeps the tally: not what you hoard, but what
-        you've given the realm, ranked for all to see. Whoever has fed the kingdom most sits at the top
-        of it.</p>
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter I</p>
+        <h2>Seven Lands</h2>
+        <p>The world past the portal is made of seven lands, and each one has an element running through
+          everything that lives there. Light and wind are the gentlest, and the first places anyone learns
+          to fight. Water and ice come next, then earth, then fire. Deepest of all is <strong>dark</strong>,
+          where even the slimes are dangerous. Every land pays back what it costs you &mdash; iron gear from the
+          first two, then jade, cobalt and amethyst, and from the dark, rarely, <strong>ember</strong>.</p>
 
-      <h2>You Are Not Alone Out There</h2>
-      <p>Other adventurers walk the same fields you do. You see them as they move, fight beside them
-        against the same monsters, and each walk away with your own loot — what you earn is yours, and
-        what they earn is theirs. Form a guild, keep your friends close, trade what you don't need. And
-        the realm keeps count: every monster felled is written down, by name, along with who has felled
-        the most of them.</p>
+        <!-- The game's own element colours (src/shared/element.gd); dark is lifted
+             a shade, because the game's violet barely shows on black. -->
+        <div class="land-depth" aria-hidden="true"><span>Gentlest</span><span>Deepest</span></div>
+        <ol class="land-row" aria-label="The seven lands, gentlest to deepest">
+          <li class="land" style="--el:#FDE68A"><span class="g">&#9728;</span><span class="n">Light</span><span class="t">Iron</span></li>
+          <li class="land" style="--el:#A7F3D0"><span class="g">&#128769;</span><span class="n">Wind</span><span class="t">Iron</span></li>
+          <li class="land" style="--el:#3B82F6"><span class="g">&#128772;</span><span class="n">Water</span><span class="t">Jade</span></li>
+          <li class="land" style="--el:#67E8F9"><span class="g">&#10052;</span><span class="n">Ice</span><span class="t">Jade</span></li>
+          <li class="land" style="--el:#A16207"><span class="g">&#128771;</span><span class="n">Earth</span><span class="t">Cobalt</span></li>
+          <li class="land" style="--el:#FF6A1F"><span class="g">&#128293;</span><span class="n">Fire</span><span class="t">Amethyst</span></li>
+          <li class="land" style="--el:#8B5CF6"><span class="g">&#9790;</span><span class="n">Dark</span><span class="t">Rarely ember</span></li>
+        </ol>
+      </article>
 
-      <h2>Into the Deep</h2>
-      <p>Beating the Crowned Behemoth is not the end — it's the way down. Past it the world keeps going,
-        and stops being a solo climb. The deep doesn't play fair: its monsters hit harder, move smarter,
-        and never come one at a time. These are <strong>raids</strong> — fights no single player walks out
-        of, that demand a party who read the room, spend cooldowns like currency, and keep each other
-        alive. Every layer cleared feeds the <strong>kingdom's score</strong>. Go deeper, stay efficient,
-        come back richer — or don't come back.</p>
+      <article class="lore-chapter has-art">
+        <div class="lore-text">
+          <p class="eyebrow">Chapter II</p>
+          <h2>The Crowned</h2>
+          <p>The first great thing past the portal is the <strong>Crowned Behemoth</strong> &mdash; a beholder: one
+            great eye crowned like a king, ringed with lesser eyes on restless stalks. It does not chase. It
+            does not need to. It hangs in the air and turns the ground itself against you &mdash; rings of spikes
+            that erupt where you're about to stand, walls of them that close the room to a single gap.
+            Every eye watches a different death. Read the telegraphs and live; miss one and don't. And it
+            is only <strong>Layer 1</strong>.</p>
+          <p>It wears more than one crown. Six of them are bound to an element &mdash; light, wind, water, ice,
+            earth and fire &mdash; and each colors the Behemoth's patterns and its patience: the same eye seen
+            through six different lights. The seventh crown is bound to nothing at all, and that one is the
+            strongest of them.</p>
+        </div>
+        <figure class="lore-art">
+          <img src="images/enemies/boss.gif" alt="The Crowned Behemoth" />
+          <figcaption>The Crowned Behemoth</figcaption>
+        </figure>
+        <div class="crown-row" aria-label="Seven crowns: six elements, and one bound to nothing">
+          <span class="crown" style="--el:#FDE68A" title="Light">&#9819;</span>
+          <span class="crown" style="--el:#A7F3D0" title="Wind">&#9819;</span>
+          <span class="crown" style="--el:#3B82F6" title="Water">&#9819;</span>
+          <span class="crown" style="--el:#67E8F9" title="Ice">&#9819;</span>
+          <span class="crown" style="--el:#A16207" title="Earth">&#9819;</span>
+          <span class="crown" style="--el:#FF6A1F" title="Fire">&#9819;</span>
+          <span class="crown seventh" title="Bound to nothing">&#9819;</span>
+          <span class="crown-note">Six elements &middot; and the seventh, bound to nothing</span>
+        </div>
+      </article>
 
-      <h2>Your Part in It</h2>
-      <p>You arrive as one of four: a <strong>Warrior</strong> who closes the distance, a
-        <strong>Mage</strong> who never wants it closed, a <strong>Healer</strong> whose light comes ten
-        times a second, or a <strong>Tank</strong> who simply refuses to fall. However you're built,
-        the portal asks the same question four ways: how far down can you get, and can you get back?</p>
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter III</p>
+        <h2>The Things Between</h2>
+        <p>The way down is not empty. Slimes that split when struck, sprites that spit fire and
+          lightning, mages that raise thorns from the dirt and snipers that punish a careless step &mdash; six
+          families of them, in every land's element. Clear them, and the world gives back: loot, coin, pets
+          that fight at your side, and quiet things to do between fights &mdash; a fishing line, a cook-fire, a
+          fair trade with another player.</p>
+        <div class="monster-strip five" aria-label="Some of the things between">
+          <figure class="monster-tile"><img src="images/enemies/slime.gif" alt="Poison Slime" /><figcaption>Poison Slime</figcaption></figure>
+          <figure class="monster-tile"><img src="images/enemies/firesprite.gif" alt="Fire Sprite" /><figcaption>Fire Sprite</figcaption></figure>
+          <figure class="monster-tile"><img src="images/enemies/electricsprite.gif" alt="Electric Sprite" /><figcaption>Electric Sprite</figcaption></figure>
+          <figure class="monster-tile"><img src="images/enemies/bushmage.gif" alt="Bush Mage" /><figcaption>Bush Mage</figcaption></figure>
+          <figure class="monster-tile"><img src="images/enemies/bushsniper.gif" alt="Bush Sniper" /><figcaption>Bush Sniper</figcaption></figure>
+        </div>
+      </article>
 
-      <p class="lore-footnote">The world is still being written. This is where it stands today.</p>
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter IV</p>
+        <h2>What You Carry Out</h2>
+        <p>No two pieces of gear are quite alike. Every piece that drops &mdash; and every piece the shop sells &mdash;
+          is rolled when it's made: a little stronger here, a little weaker there. Once in a hundred, a piece
+          comes out <strong class="perfect">Perfect</strong>, every number at its best, and it glows gold to prove it.</p>
+        <p>Armour carries something of the land it came from. Every piece is attuned to one of the seven
+          elements and turns aside a share of that element's harm &mdash; and pieces that share an element add up,
+          until a full set of fire-touched plate takes half the sting out of a fire sprite's spit. Weapons
+          never carry an element. What you hit for is your own strength and your own steel.</p>
+        <p>And somewhere out there are the <strong>mythic</strong> weapons: a falling
+          <strong>Meteorite</strong> for the mage, a <strong>Double Axe</strong> for the warrior, a stick of
+          <strong>Dynamite</strong> for the tank. Any monster might be carrying one. Most never are. When one
+          turns up, the whole realm hears about it.</p>
+        <ul class="mythic-row" aria-label="The mythic weapons">
+          <li><span class="k">Mythic</span><span class="n">Meteorite</span><span class="c">Mage</span></li>
+          <li><span class="k">Mythic</span><span class="n">Double Axe</span><span class="c">Warrior</span></li>
+          <li><span class="k">Mythic</span><span class="n">Dynamite</span><span class="c">Tank</span></li>
+        </ul>
+      </article>
+
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter V</p>
+        <h2>Coin and the Kingdom</h2>
+        <p>Every coin in Elusion is real &mdash; earned, spent, and tracked on a server no client can lie to.
+          Wealth can't be conjured; it comes from somewhere, and it can leave you just as fast. Fall in a
+          fight and accept it, and you lose what you carried &mdash; the gold, the bag, the gear on your back. Only
+          what you bank is safe, unless you pay to be brought back. Money you can lose is money that means
+          something.</p>
+        <p>And the kingdom takes its cut. Every trade between players is taxed &mdash; but the tax isn't pocketed
+          by anyone, it's <strong>burned</strong>. The gold leaves the world entirely, and that is the whole
+          point: it's the only thing that keeps coin scarce and worth carrying, where a fee that simply
+          changed hands would leave the realm exactly as rich as before. The <strong>shops</strong> work the
+          same way &mdash; buy a potion or a blade and the coin doesn't line a merchant's purse, it's gone from the
+          world for good, the everyday sink that keeps gold flowing out as fast as you earn it. Sell back
+          what you've outgrown and the shop pays a twentieth of its worth &mdash; enough to clear a bag, never
+          enough to beat the hunt. So spending isn't loss &mdash; it's a contribution. The <strong>Kingdom Board</strong> keeps the tally: not what you hoard, but what
+          you've given the realm, ranked for all to see. Whoever has fed the kingdom most sits at the top
+          of it.</p>
+        <ul class="coin-flow" aria-label="Where the coin goes">
+          <li><span class="k">A trade's tax</span><span class="v">Burned</span></li>
+          <li><span class="k">A shop purchase</span><span class="v">Burned</span></li>
+          <li><span class="k">Selling back</span><span class="v">A twentieth</span></li>
+          <li><span class="k">The Kingdom Board</span><span class="v">Ranks the giving</span></li>
+        </ul>
+      </article>
+
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter VI</p>
+        <h2>You Are Not Alone Out There</h2>
+        <p>Other adventurers walk the same fields you do. You see them as they move, fight beside them
+          against the same monsters, and each walk away with your own loot &mdash; what you earn is yours, and
+          what they earn is theirs. Form a guild, keep your friends close, trade what you don't need. And
+          the realm keeps count: every monster felled is written down, by name, along with who has felled
+          the most of them.</p>
+        <div class="element-row lore-chips">
+          <span class="element-chip">Shared monsters</span>
+          <span class="element-chip">Your own loot</span>
+          <span class="element-chip">Guilds</span>
+          <span class="element-chip">Friends</span>
+          <span class="element-chip">Trading</span>
+          <span class="element-chip">The kill record</span>
+        </div>
+      </article>
+
+      <article class="lore-chapter deep">
+        <p class="eyebrow">Chapter VII &middot; Past Layer 1</p>
+        <h2>Into the Deep</h2>
+        <p>Beating the Crowned Behemoth is not the end &mdash; it's the way down. Past it the world keeps going,
+          and stops being a solo climb. The deep doesn't play fair: its monsters hit harder, move smarter,
+          and never come one at a time. These are <strong>raids</strong> &mdash; fights no single player walks out
+          of, that demand a party who read the room, spend cooldowns like currency, and keep each other
+          alive. Every layer cleared feeds the <strong>kingdom's score</strong>. Go deeper, stay efficient,
+          come back richer &mdash; or don't come back.</p>
+      </article>
+
+      <article class="lore-chapter">
+        <p class="eyebrow">Chapter VIII</p>
+        <h2>Your Part in It</h2>
+        <p>You arrive as one of four:</p>
+        <ul class="class-grid">
+          <li><span class="ic">&#9876;</span><h3>Warrior</h3><p>who closes the distance</p></li>
+          <li><span class="ic">&#10023;</span><h3>Mage</h3><p>who never wants it closed</p></li>
+          <li><span class="ic">&#10010;</span><h3>Healer</h3><p>whose light comes ten times a second</p></li>
+          <li><span class="ic">&#128737;</span><h3>Tank</h3><p>who simply refuses to fall</p></li>
+        </ul>
+        <p class="lore-question">However you're built, the portal asks the same question four ways: how far
+          down can you get, and can you get back?</p>
+      </article>
+    </div>
+
+    <p class="lore-footnote">The world is still being written. This is where it stands today.</p>
+
+    <div class="sim-callout lore-callout">
+      <div class="t">
+        <h3>The portal is open</h3>
+        <p>Free, in your browser &mdash; a PC game, played with a keyboard and mouse.</p>
+      </div>
+      <a class="btn primary" href="https://play.elusionrpg.com">Play now</a>
     </div>
   </div>
 

@@ -566,28 +566,7 @@ footer {
 /* ---- COMMUNITY / FOLLOW ---- */
 .follow-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-/* ---- ABOUT ---- */
-.about-body {
-  max-width: 720px; margin: 0 auto; color: #cdd4d9; line-height: 1.65;
-}
-.about-body p { margin: 0 0 16px; }
-.about-body strong { color: #f5f5f5; }
-.about-stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 14px; margin: 26px 0;
-}
-.about-stat {
-  border: 1px solid #2c3b41; border-radius: 10px; background: #161616;
-  padding: 16px; text-align: center;
-}
-.about-stat .n { font-size: 1.8rem; font-weight: bold; color: #4fd1ff; }
-.about-stat .l { font-size: 0.82rem; color: #9aa4ab; margin-top: 4px; }
-
 /* ---- LORE ---- */
-.lore-body { max-width: 720px; margin: 0 auto; color: #cdd4d9; line-height: 1.7; }
-.lore-body h2 { color: #4fd1ff; margin: 28px 0 10px; font-size: 1.25rem; }
-.lore-body p { margin: 0 0 16px; }
-.lore-body .lore-footnote { color: #8a939a; font-size: 0.9rem; margin-top: 26px; }
 .element-row {
   display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;
 }
@@ -621,15 +600,6 @@ footer {
 /* =====================================================================
    JOIN THE TEAM — application form
    ===================================================================== */
-.apply-intro {
-  max-width: 640px; margin: 0 auto 4px; text-align: center;
-  color: #b8c0c6; line-height: 1.6;
-}
-.role-chips {
-  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
-  margin: 16px auto 30px; max-width: 660px;
-}
-
 .apply-card {
   max-width: 640px; margin: 0 auto 40px;
   border: 1px solid #2c3b41; border-radius: 18px;
@@ -711,23 +681,13 @@ footer {
    SUPPORT (contribute.html) — the art prices and the ledger
    ===================================================================== */
 
-/* ---- transparency pledge + ledger ---- */
-.transparency { max-width: 720px; margin: 10px auto 0; padding: 20px; text-align: center; }
-.transparency h2 { color: #4fd1ff; margin: 0 0 10px; }
-.pledge-lead {
-  color: #4fd1ff; font-size: 1.18rem; font-weight: bold; line-height: 1.4;
-  max-width: 60ch; margin: 0 auto 10px;
-}
-.pledge {
-  color: #cdd4d9; line-height: 1.65; max-width: 60ch; margin: 0 auto 22px;
-}
-.pledge strong { color: #f5f5f5; }
-.pledge a { color: #4fd1ff; }
-
+/* ---- the ledger ---- */
 .ledger {
   max-width: 460px; margin: 0 auto;
   border: 1px solid #2c3b41; border-radius: 14px;
-  background: #141414; padding: 6px 20px 14px; text-align: left;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  box-shadow: 0 0 30px rgba(79, 209, 255, 0.06);
+  padding: 6px 20px 14px; text-align: left;
 }
 .ledger-raised {
   display: flex; align-items: baseline; justify-content: space-between;
@@ -743,7 +703,7 @@ footer {
 .ledger-row .l { color: #cdd4d9; }
 .ledger-row .n { color: #e6ebee; font-variant-numeric: tabular-nums; }
 .ledger-updated { color: #7c858c; font-size: 0.76rem; margin: 12px 0 0; text-align: center; }
-.ledger-empty { color: #8a939a; text-align: center; padding: 16px 0; font-size: 0.92rem; }
+.ledger-empty { color: #8a939a; text-align: center; padding: 12px 0 0; margin: 0; font-size: 0.85rem; }
 
 /* The hot cocoa line: present, so the total is complete — and visibly not
    part of the art money above it. */
@@ -830,4 +790,351 @@ footer {
    whole page 554px wide on a phone. One column there instead. */
 @media (max-width: 520px) {
   .art-prices { grid-template-columns: 1fr; }
+}
+
+/* ---- the support page's sections: an eyebrow over each heading ---- */
+.eyebrow {
+  color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: 0.72rem; font-weight: bold; margin: 0 0 8px;
+}
+
+/* Ahvassa's own monsters, in a row of small framed tiles. */
+.monster-strip {
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px;
+  max-width: 820px; margin: 0 auto 22px; padding: 0;
+}
+.monster-tile {
+  margin: 0; border: 1px solid #2c3b41; border-radius: 12px;
+  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.08), transparent 65%), #0b0b0b;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: 12px 6px 9px;
+}
+.monster-tile img {
+  height: 72px; width: auto; max-width: 92%; object-fit: contain;
+  image-rendering: pixelated;
+}
+.monster-tile figcaption {
+  color: #9aa4ab; font-size: 0.72rem; margin-top: 8px; text-align: center; line-height: 1.2;
+}
+
+/* Three promises beside the ledger they are about. */
+.trust-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px;
+  max-width: 860px; margin: 0 auto; align-items: start;
+}
+.trust-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.trust-points li { border-left: 3px solid #4fd1ff; padding: 2px 0 2px 16px; }
+.trust-points h3 { margin: 0 0 4px; color: #f5f5f5; font-size: 1.02rem; }
+.trust-points p { margin: 0; color: #b8c0c6; font-size: 0.92rem; line-height: 1.55; }
+.trust-points a { color: #4fd1ff; }
+.trust-grid .ledger { max-width: none; margin: 0; }
+
+@media (max-width: 760px) {
+  .trust-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .monster-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* =====================================================================
+   LORE, JOIN THE TEAM, ABOUT - the home page's look, carried through:
+   the same hero (a framed text panel beside a framed "screen"), an
+   eyebrow over each heading, and framed tiles for the things worth seeing.
+   ===================================================================== */
+.lore-hero h1, .join-hero h1, .about-hero h1 { font-size: clamp(2rem, 4.6vw, 2.9rem); }
+.hero .sub strong { color: #cdd4d9; }
+
+/* ---- LORE ---- */
+/* The portal: a ring that breathes and a swirl that turns, three frames of
+   one spiral arm shown in turn - stepped, so it stays pixel art. */
+.portal-art { width: 62%; height: auto; filter: drop-shadow(0 0 10px rgba(79, 209, 255, 0.35)); animation: portal-breathe 4s ease-in-out infinite; }
+.portal-art .swirl { opacity: 0; animation: portal-turn 1.2s steps(1, end) infinite; }
+.portal-art .s1 { animation-delay: 0s; }
+.portal-art .s2 { animation-delay: 0.4s; }
+.portal-art .s3 { animation-delay: 0.8s; }
+.portal-art .spark { animation: portal-spark 2.4s ease-in-out infinite; opacity: 0; }
+.portal-art .k2 { animation-delay: 0.8s; }
+.portal-art .k3 { animation-delay: 1.6s; }
+@keyframes portal-turn { 0% { opacity: 1; } 33.34% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes portal-breathe {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(79, 209, 255, 0.30)); }
+  50% { filter: drop-shadow(0 0 18px rgba(139, 92, 246, 0.55)); }
+}
+@keyframes portal-spark { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .portal-art, .portal-art .spark { animation: none; }
+  .portal-art .swirl { animation: none; }
+  .portal-art .s1, .portal-art .spark { opacity: 1; }
+}
+
+/* The first paragraph, set like the opening of a book, under a small star. */
+.lore-opening {
+  max-width: 660px; margin: 40px auto 6px; color: #dfe5e8; text-align: center;
+  font-size: 1.12rem; line-height: 1.75;
+}
+.lore-opening::before {
+  content: "\2726"; display: block; margin-bottom: 10px;
+  color: #4fd1ff; font-size: 1.1rem; text-shadow: 0 0 12px rgba(79, 209, 255, 0.6);
+}
+.lore-opening strong { color: #f5f5f5; }
+
+/* THE CHAPTERS HANG OFF ONE LINE THAT DARKENS AS IT GOES DOWN, the way the
+   world does: cyan at the portal, the dark land's violet at the bottom. Each
+   chapter is a node on it. */
+.lore-path { position: relative; max-width: 820px; margin: 26px auto 0; padding-left: 34px; }
+.lore-path::before {
+  content: ""; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px;
+  border-radius: 2px; background: linear-gradient(#4fd1ff, #2c3b41 55%, #8b5cf6);
+}
+.lore-chapter { position: relative; padding: 18px 0 24px; color: #cdd4d9; line-height: 1.7; }
+.lore-chapter::before {
+  content: ""; position: absolute; left: -32px; top: 19px; width: 12px; height: 12px;
+  border-radius: 50%; background: #111; border: 2px solid #4fd1ff;
+  box-shadow: 0 0 10px rgba(79, 209, 255, 0.5);
+}
+.lore-chapter .eyebrow { margin-bottom: 4px; }
+.lore-chapter h2 { color: #4fd1ff; margin: 0 0 12px; font-size: 1.45rem; }
+.lore-chapter p { margin: 0 0 16px; }
+.lore-chapter strong { color: #f5f5f5; }
+.lore-chapter strong.perfect { color: #ffd76a; text-shadow: 0 0 10px rgba(255, 200, 80, 0.55); }
+
+/* A chapter with a picture beside it. */
+.lore-chapter.has-art {
+  display: grid; grid-template-columns: minmax(0, 1fr) 210px; column-gap: 28px; align-items: start;
+}
+.lore-chapter.has-art .crown-row { grid-column: 1 / -1; }
+.lore-art {
+  margin: 30px 0 0; padding: 20px 14px 12px; text-align: center;
+  border: 1px solid #2c3b41; border-radius: 12px;
+  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.10), transparent 65%), #0b0b0b;
+  box-shadow: 0 0 40px rgba(79, 209, 255, 0.08);
+}
+.lore-art img {
+  width: 100%; height: auto; image-rendering: pixelated;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+}
+.lore-art figcaption { color: #9aa4ab; font-size: 0.78rem; margin-top: 8px; }
+
+/* The seven lands, gentlest to deepest, each in its element's colour. */
+.land-depth {
+  position: relative; display: flex; justify-content: space-between;
+  margin: 20px 2px 8px; color: #6b7c84;
+  font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.land-depth::after {
+  content: ""; position: absolute; left: 96px; right: 90px; top: 50%; height: 1px;
+  background: linear-gradient(90deg, #fde68a, #8b5cf6); opacity: 0.45;
+}
+.land-row {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px;
+}
+.land {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 12px 4px 10px; text-align: center;
+  border: 1px solid #2c3b41; border-top: 3px solid var(--el); border-radius: 10px;
+  background: #121212; box-shadow: inset 0 24px 30px -26px var(--el);
+}
+.land .g { color: var(--el); font-size: 1.3rem; line-height: 1.25; text-shadow: 0 0 12px var(--el); }
+.land .n { color: #f5f5f5; font-weight: bold; font-size: 0.9rem; }
+.land .t { color: #8a939a; font-size: 0.72rem; line-height: 1.3; }
+
+/* Seven crowns: six elements, and the seventh, bound to nothing. */
+.crown-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px;
+  margin: 2px 0 0; padding: 12px 16px;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+}
+.crown { color: var(--el); font-size: 1.5rem; line-height: 1; text-shadow: 0 0 10px var(--el); }
+.crown.seventh {
+  color: #f5f5f5; font-size: 2rem; margin-left: 6px;
+  text-shadow: 0 0 12px #ffffff, 0 0 26px rgba(79, 209, 255, 0.7);
+}
+.crown-note { color: #9aa4ab; font-size: 0.82rem; margin-left: auto; }
+
+.monster-strip.five { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: none; margin: 4px 0 0; }
+
+/* The three mythic weapons, in the red the game announces them in. */
+.mythic-row {
+  list-style: none; margin: 2px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+}
+.mythic-row li {
+  display: flex; flex-direction: column; gap: 2px; padding: 12px 10px; text-align: center;
+  border: 1px solid rgba(255, 90, 90, 0.45); border-radius: 10px;
+  background: linear-gradient(160deg, rgba(255, 70, 70, 0.10), rgba(255, 70, 70, 0.02)), #121212;
+  box-shadow: 0 0 22px rgba(255, 70, 70, 0.08);
+}
+.mythic-row .k { color: #ff8a8a; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: bold; }
+.mythic-row .n { color: #f5f5f5; font-weight: bold; font-size: 1.05rem; }
+.mythic-row .c { color: #9aa4ab; font-size: 0.8rem; }
+
+/* Where the coin goes, as four small tiles. */
+.coin-flow {
+  list-style: none; margin: 2px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+}
+.coin-flow li {
+  padding: 12px 10px; text-align: center;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+}
+.coin-flow .k { display: block; color: #9aa4ab; font-size: 0.78rem; line-height: 1.35; }
+.coin-flow .v { display: block; color: #ffd76a; font-weight: bold; margin-top: 4px; }
+
+.lore-chips { justify-content: flex-start; margin: 2px 0 0; }
+
+/* Into the Deep: the one chapter set apart, in the dark land's violet. */
+.lore-chapter.deep {
+  margin: 8px 0 18px; padding: 22px 24px 8px;
+  border: 1px solid #3b2a63; border-radius: 12px;
+  background:
+    radial-gradient(ellipse at 50% 130%, rgba(139, 92, 246, 0.22), transparent 70%),
+    linear-gradient(180deg, #141414, #0a0a0e);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.10);
+}
+.lore-chapter.deep::before { left: -33px; top: 26px; border-color: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.7); }
+.lore-chapter.deep .eyebrow { color: #a78bfa; }
+.lore-chapter.deep h2 { color: #c4b5fd; }
+
+/* The four classes. */
+.class-grid {
+  list-style: none; margin: 0 0 18px; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+}
+.class-grid li {
+  padding: 16px 12px 14px; text-align: center;
+  border: 1px solid #4fd1ff; border-radius: 12px; background: #161616;
+}
+.class-grid .ic { color: #4fd1ff; font-size: 1.5rem; line-height: 1.2; }
+.class-grid h3 { margin: 4px 0; color: #f5f5f5; font-size: 1.05rem; }
+.class-grid p { margin: 0; color: #a8b0b6; font-size: 0.86rem; line-height: 1.4; }
+.lore-chapter .lore-question {
+  max-width: 46ch; margin: 6px auto 0; text-align: center;
+  color: #e6ebee; font-size: 1.15rem; font-style: italic; line-height: 1.6;
+}
+.lore-footnote { color: #8a939a; font-size: 0.9rem; text-align: center; margin: 22px 0 6px; }
+.lore-callout, .about-callout { max-width: 820px; margin-top: 26px; }
+
+/* ---- JOIN THE TEAM ---- */
+/* The open roles, on a notice board where the game screen would be. */
+.board-screen .board {
+  padding: 22px 22px 18px;
+  background: radial-gradient(circle at 50% 0%, rgba(79, 209, 255, 0.07), transparent 60%), #0b0b0b;
+}
+.board-head {
+  color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: 0.68rem; font-weight: bold; margin: 0 0 12px;
+}
+.board-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.board-list li {
+  display: flex; align-items: center; gap: 12px; padding: 9px 12px;
+  border: 1px solid #2c3b41; border-radius: 8px; background: #141414;
+  color: #e6ebee; font-size: 0.95rem;
+}
+.board-list .ic { width: 1.6em; text-align: center; font-size: 1.1rem; }
+
+/* How it works, in three numbered steps. */
+.step-row {
+  list-style: none; margin: 0 auto; padding: 0; max-width: 860px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+}
+.step-row li {
+  padding: 20px 20px 18px;
+  border: 1px solid #2c3b41; border-radius: 12px;
+  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+}
+.step-n {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin-bottom: 10px; border-radius: 50%;
+  border: 1px solid #4fd1ff; color: #4fd1ff; font-weight: bold;
+  box-shadow: 0 0 10px rgba(79, 209, 255, 0.35);
+}
+.step-row h3 { margin: 0 0 6px; color: #f5f5f5; font-size: 1.05rem; }
+.step-row p { margin: 0; color: #b8c0c6; font-size: 0.92rem; line-height: 1.5; }
+
+/* The form: two short fields to a row, grouped under small headings. */
+#apply { scroll-margin-top: 12px; }
+#apply .apply-card, #apply .apply-success { max-width: 720px; }
+.req-mark { color: #4fd1ff; }
+.apply-group {
+  color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: 0.68rem; font-weight: bold;
+  margin: 2px 0 14px; padding-bottom: 8px; border-bottom: 1px solid #2c3b41;
+}
+.apply-field + .apply-group { margin-top: 26px; }
+.apply-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 16px; }
+
+/* ---- ABOUT ---- */
+/* The numbers, as four tiles where the game screen would be. */
+.stats-screen .stat-tiles {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 18px;
+  background: radial-gradient(circle at 50% 40%, rgba(79, 209, 255, 0.06), transparent 60%), #0b0b0b;
+}
+.stat-tile {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 104px; padding: 18px 10px; text-align: center;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+}
+.stat-tile .n {
+  font-size: 2rem; font-weight: bold; line-height: 1.1; color: #4fd1ff;
+  text-shadow: 0 0 16px rgba(79, 209, 255, 0.3);
+}
+.stat-tile .n.small { font-size: 1.25rem; }
+.stat-tile .l { font-size: 0.8rem; color: #9aa4ab; margin-top: 6px; }
+
+/* The story, a heading beside each part of it. */
+.about-chapters { max-width: 880px; margin: 34px auto 0; }
+.about-chapter {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px;
+  padding: 28px 0; border-top: 1px solid #222a2e;
+  color: #cdd4d9; line-height: 1.7;
+}
+.about-chapter:first-child { border-top: 0; }
+.about-side { position: sticky; top: 20px; align-self: start; }
+.about-side h2 { margin: 0; color: #4fd1ff; font-size: 1.35rem; line-height: 1.25; }
+.about-main p { margin: 0 0 16px; }
+.about-main p:last-child { margin-bottom: 0; }
+.about-main strong { color: #f5f5f5; }
+.about-story, .about-next {
+  margin-top: 18px; padding: 14px 18px;
+  border-left: 3px solid #4fd1ff; border-radius: 0 10px 10px 0;
+  background: linear-gradient(90deg, rgba(79, 209, 255, 0.07), transparent 75%);
+}
+.about-story .eyebrow, .about-next .eyebrow { margin-bottom: 6px; }
+/* What's next is the deep, so it wears the deep's violet, as on the lore page. */
+.about-next {
+  border-left-color: #8b5cf6;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.10), transparent 75%);
+}
+.about-next .eyebrow { color: #a78bfa; }
+.artist-grid.credit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 880px; }
+
+@media (max-width: 760px) {
+  .lore-chapter.has-art { display: block; }
+  .lore-art { max-width: 240px; margin: 0 auto 16px; }
+  .land-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .land-depth { display: none; }
+  .coin-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .class-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step-row { grid-template-columns: 1fr; }
+  .about-chapters { padding: 0 20px; }
+  .about-chapter { grid-template-columns: 1fr; gap: 10px; padding: 22px 0; }
+  .about-side { position: static; }
+  .artist-grid.credit-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .monster-strip.five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lore-opening { text-align: left; font-size: 1.05rem; }
+  .crown-note { margin-left: 0; flex-basis: 100%; }
+  .apply-pair { grid-template-columns: 1fr; }
+  .lore-path { padding-left: 26px; }
+  .lore-path::before { left: 5px; }
+  .lore-chapter::before { left: -28px; }
+  .lore-chapter.deep { padding: 18px 16px 4px; }
+  .lore-chapter.deep::before { left: -29px; }
+}
+@media (max-width: 420px) {
+  .mythic-row { gap: 8px; }
+  .mythic-row li { padding: 10px 4px; }
+  .mythic-row .n { font-size: 0.9rem; }
 }

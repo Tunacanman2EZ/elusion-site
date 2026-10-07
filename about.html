@@ -24,83 +24,166 @@
   </nav>
 
   <div class="page-wrapper">
-    <header class="page-header">
-      <h1>About Elusion</h1>
-      <p>One developer, one world, and a stubborn refusal to stand still.</p>
-    </header>
 
-    <div class="about-stats">
-      <div class="about-stat"><div class="n">1</div><div class="l">solo developer</div></div>
-      <div class="about-stat"><div class="n">8,000+</div><div class="l">automated tests</div></div>
-      <div class="about-stat"><div class="n">6 · 4</div><div class="l">bosses · classes</div></div>
-      <div class="about-stat"><div class="n">Godot + Flask</div><div class="l">engine · server</div></div>
-    </div>
-
-    <div class="about-body">
-      <p>I'm <strong>Robert</strong>, and I build Elusion by myself. I came to it with
-        <strong>zero coding experience</strong> — no background, no team, no shortcut — and set out to ship
-        something <em>complete</em>: not a demo, but a real game with a real server behind it.</p>
-
-      <p>I was one of the first to enroll at <strong>Maestro University</strong>, back in September 2025 —
-        and I don't just take the lessons, I build with them. Elusion began only a few weeks in, and
-        everything I've learned since has gone straight into it, sharpened against a real project instead of
-        a worksheet. That's what keeps the work accurate and the pace honest: none of it is learning for its
-        own sake, all of it is load-bearing. And I've tried to bring my classmates with me the whole way —
-        leading from the front by shipping real work, not just talking about it. The more the game
-        grows, the more I go back and rebuild — and mixing the learning with the building has taught me more
-        than either could alone.</p>
-
-      <p>Elusion is a top-down action RPG made in <strong>Godot 4</strong> (GDScript), backed by a
-        <strong>Python / Flask</strong> server with a SQLite database. It runs a full loop — town, combat,
-        loot, pets, fishing, cooking, other players right there with you, and player-to-player trading
-        over a taxed economy — from the safe
-        streets out through a mysterious portal, into a world that only gets harder the deeper you go.</p>
-
-      <p>Where it's headed: right now that's Layer 1 — six elemental bosses and the Crowned Behemoth. Past
-        it, the game goes <strong>down</strong>. The deep is where Elusion stops being a solo climb and
-        becomes <strong>group raids</strong> — coordinated fights that punish a careless party and pay out
-        in score for the kingdom. That's the game I'm building toward.</p>
-
-      <p>What I care about most is treating it like real software. For a game with a server, that means
-        assuming the player is hostile: saves are <strong>server-authoritative</strong>, the gold economy is
-        double-entry, and a <strong>red-team bot attacks a live server</strong> to prove money, items, and
-        stats can't be forged. There are over <strong>8,000 automated tests</strong> behind it — 4,700 against
-        the server, 3,300 more running inside a real Godot instance — and I ran a
-        <strong>security self-audit against my own API</strong> — twenty findings, nineteen closed, the rest
-        named out in the open rather than hidden.</p>
-
-      <p>The test count is the least interesting part of that, though, and I'd rather say what it is actually
-        for. In September the game healed a character on the player's machine instead of asking the server,
-        and the server caught it — trimmed the health back to what regeneration could honestly produce, wrote
-        a line in the log saying so, and kept doing it every time anyone died until I finally read the log.
-        That is the whole idea. The tests and the audit aren't there to make a number go up; they're there so
-        the game notices when I am the one who got it wrong.</p>
-
-      <p>I use AI the way I was trained to in school — as a tool, not the wheel. Everything starts with an
-        idea and a few sharp questions; I lean on <strong>Claude</strong> to reinforce my notes and
-        pressure-test my thinking, then I read and edit what comes back, fact-check it, and test it more than
-        one way before it stays. When my reasoning and the running engine disagree, the engine wins and I
-        write down why. The proof is in the repo: a git history that explains its own decisions.</p>
-
-      <p>Underneath the engineering, Elusion is personal. It comes out of my own life — the challenges I've
-        come through, and a real love for art, music, and sound that I want people to feel in every corner of
-        it. Coming from where I have, this is the game I'm hoping will lift my life, and the one I want to
-        gather the most welcoming, positive community I can around. That's why the standard never drops.</p>
-
-      <p>Now the school is closing its doors — but I'm not closing this down. If anything it's pushed me
-        harder: I give Elusion everything I've got, every single day, and I keep going because I can't stand
-        still. This is what a year of that looks like.</p>
-
-      <p style="text-align:center; color:#8a939a; font-size:0.9rem; margin-top:26px;">
-        Solo-developed by <strong style="color:#cdd4d9;">Robert Clear</strong> — every line of it mine.
-        Character &amp; world art by <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener" style="color:#4fd1ff;">Ahvassa</a>;
-        item &amp; icon art by <a href="https://www.clockworkravenstudios.com/" target="_blank" rel="noopener" style="color:#4fd1ff;">Caio Carlos · Clockwork Raven Studios</a>.</p>
-
-      <div class="cta-row" style="justify-content:center; margin-top:26px;">
-        <a class="btn ghost" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">The game on GitHub</a>
-        <a class="btn primary" href="simulator.html">See the Boss Sim</a>
+    <!-- ===== WHO - the home page's hero, with the numbers where the game
+         screen would be ===== -->
+    <section class="hero about-hero">
+      <div class="hero-text">
+        <p class="hero-eyebrow">About &middot; Solo-built</p>
+        <h1>About Elusion</h1>
+        <p class="tagline">One developer, one world, and a stubborn refusal to stand still.</p>
+        <p class="sub">I'm <strong>Robert</strong>, and I build Elusion by myself. I came to it with
+          <strong>zero coding experience</strong> &mdash; no background, no team, no shortcut &mdash; and set out to ship
+          something <em>complete</em>: not a demo, but a real game with a real server behind it.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">The game on GitHub</a>
+          <a class="btn ghost" href="simulator.html">See the Boss Sim</a>
+        </div>
       </div>
+
+      <div class="game-screen stats-screen">
+        <div class="stat-tiles">
+          <div class="stat-tile"><div class="n">1</div><div class="l">solo developer</div></div>
+          <div class="stat-tile"><div class="n">8,000+</div><div class="l">automated tests</div></div>
+          <div class="stat-tile"><div class="n">6 &middot; 4</div><div class="l">bosses &middot; classes</div></div>
+          <div class="stat-tile"><div class="n small">Godot + Flask</div><div class="l">engine &middot; server</div></div>
+        </div>
+        <div class="playbar">
+          <span><span class="dot"></span>Built in the open</span>
+          <span class="playbar-quiet">GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THE STORY, a heading beside each part ===== -->
+    <div class="about-chapters">
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">The developer</p>
+          <h2>Learning by building</h2>
+        </div>
+        <div class="about-main">
+          <p>I was one of the first to enroll at <strong>Maestro University</strong>, back in September 2025 &mdash;
+            and I don't just take the lessons, I build with them. Elusion began only a few weeks in, and
+            everything I've learned since has gone straight into it, sharpened against a real project instead of
+            a worksheet. That's what keeps the work accurate and the pace honest: none of it is learning for its
+            own sake, all of it is load-bearing. And I've tried to bring my classmates with me the whole way &mdash;
+            leading from the front by shipping real work, not just talking about it. The more the game
+            grows, the more I go back and rebuild &mdash; and mixing the learning with the building has taught me more
+            than either could alone.</p>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">The game</p>
+          <h2>What Elusion is</h2>
+        </div>
+        <div class="about-main">
+          <p>Elusion is a top-down action RPG made in <strong>Godot 4</strong> (GDScript), backed by a
+            <strong>Python / Flask</strong> server with a SQLite database. It runs a full loop &mdash; town, combat,
+            loot, pets, fishing, cooking, other players right there with you, and player-to-player trading
+            over a taxed economy &mdash; from the safe
+            streets out through a mysterious portal, into a world that only gets harder the deeper you go.</p>
+          <div class="about-next">
+            <p class="eyebrow">Where it's headed</p>
+            <p>Right now that's Layer 1 &mdash; six elemental bosses and the Crowned Behemoth. Past
+              it, the game goes <strong>down</strong>. The deep is where Elusion stops being a solo climb and
+              becomes <strong>group raids</strong> &mdash; coordinated fights that punish a careless party and pay out
+              in score for the kingdom. That's the game I'm building toward.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">The engineering</p>
+          <h2>Built like real software</h2>
+        </div>
+        <div class="about-main">
+          <p>What I care about most is treating it like real software. For a game with a server, that means
+            assuming the player is hostile: saves are <strong>server-authoritative</strong>, the gold economy is
+            double-entry, and a <strong>red-team bot attacks a live server</strong> to prove money, items, and
+            stats can't be forged. There are over <strong>8,000 automated tests</strong> behind it &mdash; 4,700 against
+            the server, 3,300 more running inside a real Godot instance &mdash; and I ran a
+            <strong>security self-audit against my own API</strong> &mdash; twenty findings, nineteen closed, the rest
+            named out in the open rather than hidden.</p>
+          <div class="about-story">
+            <p class="eyebrow">What the tests are for</p>
+            <p>The test count is the least interesting part of that, though, and I'd rather say what it is actually
+              for. In September the game healed a character on the player's machine instead of asking the server,
+              and the server caught it &mdash; trimmed the health back to what regeneration could honestly produce, wrote
+              a line in the log saying so, and kept doing it every time anyone died until I finally read the log.
+              That is the whole idea. The tests and the audit aren't there to make a number go up; they're there so
+              the game notices when I am the one who got it wrong.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">How I work</p>
+          <h2>A tool, not the wheel</h2>
+        </div>
+        <div class="about-main">
+          <p>I use AI the way I was trained to in school &mdash; as a tool, not the wheel. Everything starts with an
+            idea and a few sharp questions; I lean on <strong>Claude</strong> to reinforce my notes and
+            pressure-test my thinking, then I read and edit what comes back, fact-check it, and test it more than
+            one way before it stays. When my reasoning and the running engine disagree, the engine wins and I
+            write down why. The proof is in the repo: a git history that explains its own decisions.</p>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">Why</p>
+          <h2>It's personal</h2>
+        </div>
+        <div class="about-main">
+          <p>Underneath the engineering, Elusion is personal. It comes out of my own life &mdash; the challenges I've
+            come through, and a real love for art, music, and sound that I want people to feel in every corner of
+            it. Coming from where I have, this is the game I'm hoping will lift my life, and the one I want to
+            gather the most welcoming, positive community I can around. That's why the standard never drops.</p>
+          <p>Now the school is closing its doors &mdash; but I'm not closing this down. If anything it's pushed me
+            harder: I give Elusion everything I've got, every single day, and I keep going because I can't stand
+            still. This is what a year of that looks like.</p>
+        </div>
+      </section>
     </div>
+
+    <!-- ===== CREDITS ===== -->
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Credits</p>
+        <h2>Who made it</h2>
+      </div>
+      <div class="artist-grid credit-grid">
+        <div class="artist-card">
+          <p class="artist-role">Code, design &amp; server</p>
+          <h3>Robert Clear</h3>
+          <p>Solo-developed &mdash; every line of it mine.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">Characters &amp; the world</p>
+          <h3><a href="https://ahvassa.itch.io/" target="_blank" rel="noopener">Ahvassa</a></h3>
+          <p>Character &amp; world art.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">Items &amp; icons</p>
+          <h3><a href="https://www.clockworkravenstudios.com/" target="_blank" rel="noopener">Clockwork Raven Studios</a></h3>
+          <p>Item &amp; icon art by Caio Carlos.</p>
+        </div>
+      </div>
+
+      <div class="sim-callout about-callout">
+        <div class="t">
+          <h3>Want to build it with me?</h3>
+          <p>Art, music, writing, testing, code or community &mdash; tell me a little about you.</p>
+        </div>
+        <a class="btn primary" href="join.html">Join the Team</a>
+      </div>
+    </section>
   </div>
 
   <footer>

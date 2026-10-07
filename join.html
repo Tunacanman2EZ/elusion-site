@@ -25,107 +25,167 @@
     </nav>
 
     <div class="page-wrapper">
-        <header class="page-header">
-            <h1>Join the Elusion RPG Team</h1>
-            <p>Elusion is solo-built — but not everything is a one-person job. If you want to
-               help shape the world beyond the portal, tell me a little about you.</p>
-        </header>
 
-        <p class="apply-intro">Right now I'm especially looking for:</p>
-        <div class="role-chips">
-            <span class="element-chip">Pixel &amp; character art</span>
-            <span class="element-chip">Music &amp; sound</span>
-            <span class="element-chip">Writing &amp; lore</span>
-            <span class="element-chip">Testing &amp; feedback</span>
-            <span class="element-chip">Programming</span>
-            <span class="element-chip">Community &amp; moderation</span>
-        </div>
-
-        <!-- Netlify Forms: submissions land in your Netlify dashboard (Forms tab).
-             name + data-netlify + the hidden form-name are what register it. -->
-        <form class="apply-card" id="apply-form" name="team-application" method="POST"
-              data-netlify="true" netlify-honeypot="bot-field">
-
-            <input type="hidden" name="form-name" value="team-application" />
-            <p class="apply-hp">
-                <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
-            </p>
-
-            <div class="apply-field">
-                <label for="name">Name <span class="req">*</span></label>
-                <input id="name" name="name" type="text" autocomplete="name" />
-                <p class="apply-error">Please enter your name.</p>
+        <!-- ===== THE ASK - the home page's hero, with the open roles where
+             the game screen would be, like a notice board ===== -->
+        <section class="hero join-hero">
+            <div class="hero-text">
+                <p class="hero-eyebrow">Elusion RPG &middot; Now looking</p>
+                <h1>Join the Team</h1>
+                <p class="tagline">Elusion is solo-built &mdash; but not everything is a one-person job. If you want to
+                   help shape the world beyond the portal, tell me a little about you.</p>
+                <p class="sub">I read every one of these myself, and I'll reach out if it's a fit.</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="#apply">Apply now</a>
+                    <a class="btn ghost" href="mailto:ElusionStudios@gmail.com">Email me</a>
+                </div>
+                <p class="platform-note">The team lives on Discord.</p>
             </div>
 
-            <div class="apply-field">
-                <label for="email">Email <span class="req">*</span></label>
-                <input id="email" name="email" type="email" autocomplete="email"
-                       placeholder="so I can actually reach you" />
-                <p class="apply-error">Please enter a valid email.</p>
+            <div class="game-screen board-screen">
+                <div class="board">
+                    <p class="board-head">Right now I'm especially looking for</p>
+                    <ul class="board-list">
+                        <li><span class="ic" aria-hidden="true">&#127912;</span>Pixel &amp; character art</li>
+                        <li><span class="ic" aria-hidden="true">&#127925;</span>Music &amp; sound</li>
+                        <li><span class="ic" aria-hidden="true">&#128220;</span>Writing &amp; lore</li>
+                        <li><span class="ic" aria-hidden="true">&#129514;</span>Testing &amp; feedback</li>
+                        <li><span class="ic" aria-hidden="true">&#9000;</span>Programming</li>
+                        <li><span class="ic" aria-hidden="true">&#128737;</span>Community &amp; moderation</li>
+                    </ul>
+                </div>
+                <div class="playbar">
+                    <span><span class="dot"></span>Applications open</span>
+                    <span class="playbar-quiet">Six roles</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="section">
+            <div class="section-head">
+                <p class="eyebrow">How it works</p>
+                <h2>Three steps</h2>
+            </div>
+            <ol class="step-row">
+                <li>
+                    <span class="step-n">1</span>
+                    <h3>Tell me about you</h3>
+                    <p>A few questions below. If you make things, link them &mdash; it says more than words.</p>
+                </li>
+                <li>
+                    <span class="step-n">2</span>
+                    <h3>I read it myself</h3>
+                    <p>Every application comes to me, and I read every one of them.</p>
+                </li>
+                <li>
+                    <span class="step-n">3</span>
+                    <h3>We talk</h3>
+                    <p>If it's a fit, I'll reach out &mdash; by email, or on Discord, where the team lives.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== THE FORM ===== -->
+        <section class="section" id="apply">
+            <div class="section-head">
+                <p class="eyebrow">Apply</p>
+                <h2>Tell me a little about you</h2>
+                <p>Fields marked <span class="req-mark">*</span> are the ones I need.</p>
             </div>
 
-            <div class="apply-field">
-                <label for="discord">Discord handle</label>
-                <input id="discord" name="discord" type="text" placeholder="optional — the team lives on Discord" />
-            </div>
+            <!-- Netlify Forms: submissions land in your Netlify dashboard (Forms tab).
+                 name + data-netlify + the hidden form-name are what register it. -->
+            <form class="apply-card" id="apply-form" name="team-application" method="POST"
+                  data-netlify="true" netlify-honeypot="bot-field">
 
-            <div class="apply-field">
-                <label for="role">How would you like to help? <span class="req">*</span></label>
-                <select id="role" name="role">
-                    <option value="">Choose one…</option>
-                    <option>Pixel &amp; character art</option>
-                    <option>Music &amp; sound</option>
-                    <option>Writing &amp; lore</option>
-                    <option>Testing &amp; feedback</option>
-                    <option>Programming</option>
-                    <option>Community &amp; moderation</option>
-                    <option>Something else</option>
-                </select>
-                <p class="apply-error">Please pick how you'd like to help.</p>
-            </div>
+                <input type="hidden" name="form-name" value="team-application" />
+                <p class="apply-hp">
+                    <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                </p>
 
-            <div class="apply-field">
-                <label for="portfolio">Portfolio / links</label>
-                <input id="portfolio" name="portfolio" type="text"
-                       placeholder="itch.io, ArtStation, GitHub, SoundCloud…" />
-                <p class="hint">If you make things, show me — it says more than words.</p>
-            </div>
+                <p class="apply-group">You</p>
+                <div class="apply-pair">
+                    <div class="apply-field">
+                        <label for="name">Name <span class="req">*</span></label>
+                        <input id="name" name="name" type="text" autocomplete="name" />
+                        <p class="apply-error">Please enter your name.</p>
+                    </div>
 
-            <div class="apply-field">
-                <label for="ambition">Your ambition in games <span class="req">*</span></label>
-                <textarea id="ambition" name="ambition"
-                          placeholder="What are you actually chasing?"></textarea>
-                <p class="apply-error">Tell me a little about what drives you.</p>
-            </div>
+                    <div class="apply-field">
+                        <label for="email">Email <span class="req">*</span></label>
+                        <input id="email" name="email" type="email" autocomplete="email"
+                               placeholder="so I can actually reach you" />
+                        <p class="apply-error">Please enter a valid email.</p>
+                    </div>
+                </div>
 
-            <div class="apply-field">
-                <label for="goals">What draws you to Elusion? <span class="req">*</span></label>
-                <textarea id="goals" name="goals"
-                          placeholder="Why this game, and not another?"></textarea>
-                <p class="apply-error">Tell me what pulls you to this one.</p>
-            </div>
+                <div class="apply-pair">
+                    <div class="apply-field">
+                        <label for="discord">Discord handle</label>
+                        <input id="discord" name="discord" type="text" placeholder="optional — the team lives on Discord" />
+                    </div>
 
-            <div class="apply-field">
-                <label for="notes">Anything else I should know?</label>
-                <textarea id="notes" name="notes" placeholder="optional"></textarea>
-            </div>
+                    <div class="apply-field">
+                        <label for="role">How would you like to help? <span class="req">*</span></label>
+                        <select id="role" name="role">
+                            <option value="">Choose one…</option>
+                            <option>Pixel &amp; character art</option>
+                            <option>Music &amp; sound</option>
+                            <option>Writing &amp; lore</option>
+                            <option>Testing &amp; feedback</option>
+                            <option>Programming</option>
+                            <option>Community &amp; moderation</option>
+                            <option>Something else</option>
+                        </select>
+                        <p class="apply-error">Please pick how you'd like to help.</p>
+                    </div>
+                </div>
 
-            <label class="apply-agree" id="apply-agree">
-                <input id="agree" name="agree" type="checkbox" value="yes" />
-                <span>I'm okay with Robert reading this and reaching out. Questions?
-                    <a href="mailto:ElusionStudios@gmail.com">ElusionStudios@gmail.com</a>.</span>
-            </label>
+                <div class="apply-field">
+                    <label for="portfolio">Portfolio / links</label>
+                    <input id="portfolio" name="portfolio" type="text"
+                           placeholder="itch.io, ArtStation, GitHub, SoundCloud…" />
+                    <p class="hint">If you make things, show me — it says more than words.</p>
+                </div>
 
-            <div class="apply-actions">
-                <button type="submit" class="apply-submit">Send application</button>
-                <p class="apply-formerror" id="apply-formerror"></p>
-            </div>
-        </form>
+                <p class="apply-group">What drives you</p>
+                <div class="apply-field">
+                    <label for="ambition">Your ambition in games <span class="req">*</span></label>
+                    <textarea id="ambition" name="ambition"
+                              placeholder="What are you actually chasing?"></textarea>
+                    <p class="apply-error">Tell me a little about what drives you.</p>
+                </div>
 
-        <section class="apply-success" id="apply-success">
-            <h2>Application sent</h2>
-            <p>Thanks for wanting to build this with me — it genuinely means a lot. I read every
-               one of these myself, and I'll reach out if it's a fit. — Robert</p>
+                <div class="apply-field">
+                    <label for="goals">What draws you to Elusion? <span class="req">*</span></label>
+                    <textarea id="goals" name="goals"
+                              placeholder="Why this game, and not another?"></textarea>
+                    <p class="apply-error">Tell me what pulls you to this one.</p>
+                </div>
+
+                <div class="apply-field">
+                    <label for="notes">Anything else I should know?</label>
+                    <textarea id="notes" name="notes" placeholder="optional"></textarea>
+                </div>
+
+                <label class="apply-agree" id="apply-agree">
+                    <input id="agree" name="agree" type="checkbox" value="yes" />
+                    <span>I'm okay with Robert reading this and reaching out. Questions?
+                        <a href="mailto:ElusionStudios@gmail.com">ElusionStudios@gmail.com</a>.</span>
+                </label>
+
+                <div class="apply-actions">
+                    <button type="submit" class="apply-submit">Send application</button>
+                    <p class="apply-formerror" id="apply-formerror"></p>
+                </div>
+            </form>
+
+            <section class="apply-success" id="apply-success">
+                <h2>Application sent</h2>
+                <p>Thanks for wanting to build this with me — it genuinely means a lot. I read every
+                   one of these myself, and I'll reach out if it's a fit. — Robert</p>
+            </section>
         </section>
     </div>
 
