@@ -31,6 +31,8 @@ const REQUIRED = [
 	"lore.html",
 	"login.html",
 	"simulator.html",
+	"bosssim.js",
+	"bosssim-data.js",
 	"styles.css",
 	"script.js",
 	"visits.js",

@@ -125,7 +125,7 @@ A build that fails publishes nothing and costs nothing.
 
 ```powershell
 npm install
-node test_counter.mjs     # 73 checks — the function, the build, the policy
+node test_counter.mjs     # the function, the build, the policy
 ```
 
 `test_counter.mjs` needs nothing but the project's own dependency. It runs the
@@ -134,7 +134,7 @@ real function against the same local blob server `netlify dev` uses.
 ```powershell
 npm i --no-save playwright
 npx playwright install chromium
-node test_e2e.mjs         # 20 checks — the built site in a real browser
+node test_e2e.mjs         # the built site in a real browser
 ```
 
 `test_e2e.mjs` serves `dist/` **with the Content-Security-Policy read out of
@@ -142,6 +142,17 @@ node test_e2e.mjs         # 20 checks — the built site in a real browser
 claim the counter's design rests on: that the policy permits the fetch. It also
 writes `shot_footer.png` and `shot_footer_mobile.png` so you can see what it
 looks like without deploying.
+
+```powershell
+node build.mjs
+node test_bosssim.mjs     # the Boss Sim: its numbers, its data, every option, the page
+$env:GAME = "<path to the game folder>"; node test_bosssim.mjs   # and every number against the game
+```
+
+`test_bosssim.mjs` is the Boss Sim's suite; `BOSSSIM.md` says what it checks, where
+every number in the sim comes from, and how to re-measure the bosses when the game
+changes. Each suite prints how many checks it ran — no count is written down here,
+because a count in a document is wrong the day a check is added.
 
 Playwright is deliberately **not** a dependency in `package.json`. Netlify
 installs devDependencies on every build and a browser driver download per deploy
