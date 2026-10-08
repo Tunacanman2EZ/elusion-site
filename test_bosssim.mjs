@@ -98,11 +98,13 @@ if (!GAME) {
 	const constOf = (src, name) => { const m = src.match(new RegExp("^const " + name + " := ([0-9.]+)", "m")); return m ? +m[1] : NaN; };
 	const craterSrc = await read("src/projectiles/burningcrater.gd");
 	const stickSrc = await read("src/projectiles/dynamite.gd");
-	check("the Meteorite's burn and Dynamite's fuse and chain are the game's, as exported",
+	check("the Meteorite's burn and Dynamite's fuse, chain and smoulder are the game's, as exported",
 		near(constOf(craterSrc, "BURN_SHARE"), S.METEOR_BURN_SHARE) && near(constOf(craterSrc, "BURN_EVERY"), S.METEOR_BURN_EVERY)
 		&& near(combat.classes.mage.meteor_burn_share, S.METEOR_BURN_SHARE) && near(combat.classes.mage.meteor_burn_every, S.METEOR_BURN_EVERY)
 		&& near(constOf(stickSrc, "FUSE_SECONDS"), S.DYNAMITE_FUSE) && near(constOf(stickSrc, "CHAIN_BONUS"), S.CHAIN_BONUS)
-		&& near(combat.classes.tank.dynamite_chain_bonus, S.CHAIN_BONUS),
+		&& near(combat.classes.tank.dynamite_chain_bonus, S.CHAIN_BONUS)
+		&& near(constOf(stickSrc, "FIELD_SHARE"), S.FIELD_SHARE) && near(constOf(stickSrc, "FIELD_EVERY"), S.FIELD_EVERY)
+		&& near(combat.classes.tank.dynamite_field_share, S.FIELD_SHARE) && near(combat.classes.tank.dynamite_field_every, S.FIELD_EVERY),
 		[constOf(craterSrc, "BURN_SHARE"), constOf(craterSrc, "BURN_EVERY"), constOf(stickSrc, "FUSE_SECONDS"), constOf(stickSrc, "CHAIN_BONUS")]);
 	const axeSrc = await read("src/projectiles/spinningaxe.gd");
 	const axeConst = (name) => { const m = axeSrc.match(new RegExp("^const " + name + " := ([0-9.]+)", "m")); return m ? +m[1] : NaN; };

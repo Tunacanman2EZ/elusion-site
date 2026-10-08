@@ -56,6 +56,7 @@ in that file is typed.
 | Mythic weapons | Double Axe 140, Meteorite 53, Dynamite 23; +15%; level 22 (raised in game 0.11.9) | `gamedata.json` `items` |
 | The Meteorite's crater | burns 0.2 of a hit every 0.5 s on the boss in it, one fire at a time (game 0.12.0) | `burningcrater.gd` `BURN_SHARE`, `BURN_EVERY`; `combat.classes.mage.meteor_burn_*` |
 | Dynamite's chain | fuse 1.2 s; thrown at one spot, sticks go up in groups of 1 + floor(fuse / throw period), all but the first 25% harder (game 0.12.0) | `dynamite.gd` `FUSE_SECONDS`, `CHAIN_BONUS`; `combat.classes.tank.dynamite_chain_bonus` |
+| Dynamite's smoulder | each blast's scorch bites 0.15 of a stick every 0.5 s on the boss in it (game 0.13.0) | `dynamite.gd` `FIELD_SHARE`, `FIELD_EVERY`; `combat.classes.tank.dynamite_field_*` |
 | The Double Axe spinning | a swing a second, climbing to 2 over 4 s on one target; a new target starts again | `spinningaxe.gd` `SPIN_MAX_RATE`, `SPIN_RAMP_SECONDS`; `combat.classes.warrior.axe_spin_max_rate` |
 | Weapon roll | ±25% (`damage_spread`); the sim uses the middle | `items` |
 | Stat rolls | every stat at 85%, 100% or 120% (Perfect), integer arithmetic halving up | `constants.quality_*`; `ItemRegistry.scale_stat` |

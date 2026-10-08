@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.12.0";
+  var VERSION = "0.13.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -59,6 +59,9 @@
   // every period, a stick's fuse outlasts the next throw, so sticks go up in
   // groups of 1 + floor(fuse / period), all but the first chained.
   var DYNAMITE_FUSE = 1.2, CHAIN_BONUS = 0.25;
+  // And every blast leaves its scorch smouldering: FIELD_SHARE of a stick
+  // every FIELD_EVERY seconds on the boss in it (dynamite.gd FIELD_*; 0.13.0).
+  var FIELD_SHARE = 0.15, FIELD_EVERY = 0.5;
   var MYTHIC_LEVEL = 22;
   var WEAPON_SPREAD = 0.25;   // damage_spread on every weapon
   // Worn pieces, tiers 1-5: [armour, health, mana, damage %].
@@ -209,7 +212,7 @@
       else if (g.mythic) {
         attack = "dynamite"; period = 1.0 / haste; unit = round(unit * DYNAMITE_TICKS);
         var group = 1 + Math.floor(DYNAMITE_FUSE / period + 1e-9);
-        dps = unit * (1 + DOUBLE_CHANCE) / period * (1 + CHAIN_BONUS * (group - 1) / group);
+        dps = unit * (1 + DOUBLE_CHANCE) / period * (1 + CHAIN_BONUS * (group - 1) / group) + unit * FIELD_SHARE / FIELD_EVERY;
       } else { attack = "aura"; dps = unit / period; }
       out[k] = {
         gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack,
@@ -403,7 +406,7 @@
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP,
     METEOR_BURN_SHARE: METEOR_BURN_SHARE, METEOR_BURN_EVERY: METEOR_BURN_EVERY,
-    DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS,
+    DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS, FIELD_SHARE: FIELD_SHARE, FIELD_EVERY: FIELD_EVERY,
     PIECES: PIECES, POTIONS: POTIONS, POTION_AT: POTION_AT, RESIST_CAP: RESIST_CAP,
     RESIST_ELEMENTS: RESIST_ELEMENTS, PETS: PETS, PUDDLES: PUDDLES, PUDDLE_CHANCE: PUDDLE_CHANCE,
     PUDDLE_LIFE_SCALE: PUDDLE_LIFE_SCALE, PUDDLE_TICK_EVERY: PUDDLE_TICK_EVERY, DEFENSE_TIERS: DEFENSE_TIERS, CAP: CAP, DT: DT
