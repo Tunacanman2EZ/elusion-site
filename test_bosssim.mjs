@@ -95,6 +95,12 @@ if (!GAME) {
 	const wrongMyth = Object.entries(myth).filter(([k, id]) => items[id].damage !== S.MYTHIC[k].dmg ||
 		items[id].bonus_damage_percent !== S.MYTHIC[k].pct || items[id].required_level !== S.MYTHIC_LEVEL);
 	check("the three mythic weapons' damage, damage % and level are the catalogue's", !wrongMyth.length, wrongMyth);
+	const axeSrc = await read("src/projectiles/spinningaxe.gd");
+	const axeConst = (name) => { const m = axeSrc.match(new RegExp("^const " + name + " := ([0-9.]+)", "m")); return m ? +m[1] : NaN; };
+	check("the Double Axe climbs to the game's top spin rate, over the game's seconds, as exported",
+		near(axeConst("SPIN_MAX_RATE"), S.AXE_SPIN_MAX) && near(axeConst("SPIN_RAMP_SECONDS"), S.AXE_SPIN_RAMP)
+		&& near(combat.classes.warrior.axe_spin_max_rate, S.AXE_SPIN_MAX),
+		[axeConst("SPIN_MAX_RATE"), axeConst("SPIN_RAMP_SECONDS"), combat.classes.warrior.axe_spin_max_rate]);
 	const POT = ["greater", "large", "medium", "small", "tiny"];
 	const wrongPot = S.POTIONS.filter((p, i) => {
 		const h = items[POT[i] + "healthpotion"], m = items[POT[i] + "manapotion"];

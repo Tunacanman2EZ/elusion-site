@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.11.4";
+  var VERSION = "0.11.9";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -42,10 +42,14 @@
   };
   var WEAPON_NAME = { Warrior: "sword", Mage: "staff", Healer: "scepter", Tank: "maul" };
   var MYTHIC = {
-    Warrior: { name: "Double Axe", dmg: 110, pct: 9 },
-    Mage:    { name: "Meteorite", dmg: 41, pct: 9 },
-    Tank:    { name: "Dynamite", dmg: 18, pct: 9 }
+    Warrior: { name: "Double Axe", dmg: 140, pct: 15 },
+    Mage:    { name: "Meteorite", dmg: 53, pct: 15 },
+    Tank:    { name: "Dynamite", dmg: 23, pct: 15 }
   };
+  // The Double Axe left spinning climbs from a swing a second to AXE_SPIN_MAX
+  // swings a second over AXE_SPIN_RAMP seconds (spinningaxe.gd SPIN_MAX_RATE,
+  // SPIN_RAMP_SECONDS; game 0.11.9). A new target is a new throw, back at 1x.
+  var AXE_SPIN_MAX = 2.0, AXE_SPIN_RAMP = 4.0;
   var MYTHIC_LEVEL = 22;
   var WEAPON_SPREAD = 0.25;   // damage_spread on every weapon
   // Worn pieces, tiers 1-5: [armour, health, mana, damage %].
@@ -256,7 +260,7 @@
     var st = {};
     CLASSES.forEach(function (k) {
       st[k] = { hp: P[k].hpMax, mana: P[k].manaMax, alive: true, potH: opts.potions, potM: opts.potions,
-        usedH: 0, usedM: 0, dealt: 0, pet: 0, taken: 0, downAt: null, dryAt: null };
+        usedH: 0, usedM: 0, dealt: 0, pet: 0, taken: 0, downAt: null, dryAt: null, axeOn: null, spun: 0 };
     });
     // The game's own per-hit sum (Player.damage_taken): each share off what
     // the one before left, floored to a whole number, never under 1.
@@ -299,7 +303,9 @@
             d = p.unit / p.period;
             if (s.mana >= COST.wave) { d += round(WAVE_RATIO * p.unit) / p.period; s.mana -= COST.wave / p.period * step; }
           } else if (a === "axe") {
-            d = p.dps;
+            if (s.axeOn !== focus) { s.axeOn = focus; s.spun = 0; }
+            d = p.dps * (1 + (AXE_SPIN_MAX - 1) * Math.min(1, s.spun / AXE_SPIN_RAMP));
+            s.spun += step;
           } else if (a === "staff" || a === "meteor") {
             if (s.mana >= COST.spell) { d = p.dps; s.mana -= COST.spell / p.period * step; }
           } else if (a === "scepter") {
@@ -381,6 +387,7 @@
     wearableTier: wearableTier, phaseOf: phaseOf, spike: spike, melee: melee, trail: trail, scaleStat: scaleStat,
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
+    AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP,
     PIECES: PIECES, POTIONS: POTIONS, POTION_AT: POTION_AT, RESIST_CAP: RESIST_CAP,
     RESIST_ELEMENTS: RESIST_ELEMENTS, PETS: PETS, PUDDLES: PUDDLES, PUDDLE_CHANCE: PUDDLE_CHANCE,
     PUDDLE_LIFE_SCALE: PUDDLE_LIFE_SCALE, PUDDLE_TICK_EVERY: PUDDLE_TICK_EVERY, DEFENSE_TIERS: DEFENSE_TIERS, CAP: CAP, DT: DT

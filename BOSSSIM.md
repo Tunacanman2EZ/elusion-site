@@ -53,7 +53,8 @@ in that file is typed.
 | Double cast | 10% | `combat.double_chance` |
 | Skills and agility | +1% damage a level of attack and of magic; cooldowns ÷ (1 + 1% a level of agility), at most ×2 | `combat.skill_step`, `agility_step`, `agility_cap` |
 | Weapons, armour, rings, amulets, iron to ember | damage, damage %, armour, health, mana, level | `gamedata.json` `items` |
-| Mythic weapons | Double Axe 110, Meteorite 41, Dynamite 18; +9%; level 22 | `gamedata.json` `items` |
+| Mythic weapons | Double Axe 140, Meteorite 53, Dynamite 23; +15%; level 22 (raised in game 0.11.9) | `gamedata.json` `items` |
+| The Double Axe spinning | a swing a second, climbing to 2 over 4 s on one target; a new target starts again | `spinningaxe.gd` `SPIN_MAX_RATE`, `SPIN_RAMP_SECONDS`; `combat.classes.warrior.axe_spin_max_rate` |
 | Weapon roll | ±25% (`damage_spread`); the sim uses the middle | `items` |
 | Stat rolls | every stat at 85%, 100% or 120% (Perfect), integer arithmetic halving up | `constants.quality_*`; `ItemRegistry.scale_stat` |
 | Defense tiers | 10% (skill 1), 20% (20), 30% (40), 40% (60), 50% (80) | `src/characters/playerstats.gd` `DEFENSE_TIERS` |

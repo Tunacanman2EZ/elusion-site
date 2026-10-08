@@ -403,8 +403,8 @@
           <p><span class="mono">hit = round((class base + weapon) × skills × gear %)</span>: skills add 1% a level
             for attack and for magic, agility shortens every cooldown (up to twice as fast), gear adds its damage
             percent. Weapons hit at the middle of their ±25% roll. The <b>Warrior</b> swings once a second and adds
-            a slash wave for 10 mana; the <b>Double Axe</b> spins in place for a swing a second, no wave, no mana,
-            from out of the bosses' reach. The <b>Mage</b> casts every 0.45 s for 15 mana; the Meteorite casts
+            a slash wave for 10 mana; the <b>Double Axe</b> spins in place for a swing a second, climbing to two a
+            second over four seconds left on one boss, no wave, no mana, from out of the bosses' reach. The <b>Mage</b> casts every 0.45 s for 15 mana; the Meteorite casts
             twice one time in ten. The <b>Healer</b> fires ten shots a second at 1 mana each and heals nobody. The
             <b>Tank</b>'s aura ticks four times a second for 2 mana every half second; a stick of <b>Dynamite</b>
             is four ticks, thrown once a second for 4 mana, twice one time in ten.</p>
@@ -623,7 +623,7 @@
       } else {
         msg2 += "The " + top + " carries " + Math.round(r.share[top] * 100) + "% of the damage. ";
       }
-      if (P.Warrior.attack === "axe") msg2 += "The Double Axe hits for less than a sword with its slash wave, but costs no mana and keeps the warrior out of reach of the swings.";
+      if (P.Warrior.attack === "axe") msg2 += "The Double Axe, left spinning on a boss, climbs to two swings a second, costs no mana and keeps the warrior out of reach of the swings.";
       else if (st.Mage.dryAt !== null) msg2 += "The Mage runs dry " + st.Mage.dryAt.toFixed(0) + "s into the run" + (st.Mage.usedM ? " and lives on mana potions." : " and stops casting.");
       else msg2 += "Nobody runs out of mana.";
       return msg2;
