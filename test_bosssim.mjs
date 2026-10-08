@@ -95,6 +95,15 @@ if (!GAME) {
 	const wrongMyth = Object.entries(myth).filter(([k, id]) => items[id].damage !== S.MYTHIC[k].dmg ||
 		items[id].bonus_damage_percent !== S.MYTHIC[k].pct || items[id].required_level !== S.MYTHIC_LEVEL);
 	check("the three mythic weapons' damage, damage % and level are the catalogue's", !wrongMyth.length, wrongMyth);
+	const constOf = (src, name) => { const m = src.match(new RegExp("^const " + name + " := ([0-9.]+)", "m")); return m ? +m[1] : NaN; };
+	const craterSrc = await read("src/projectiles/burningcrater.gd");
+	const stickSrc = await read("src/projectiles/dynamite.gd");
+	check("the Meteorite's burn and Dynamite's fuse and chain are the game's, as exported",
+		near(constOf(craterSrc, "BURN_SHARE"), S.METEOR_BURN_SHARE) && near(constOf(craterSrc, "BURN_EVERY"), S.METEOR_BURN_EVERY)
+		&& near(combat.classes.mage.meteor_burn_share, S.METEOR_BURN_SHARE) && near(combat.classes.mage.meteor_burn_every, S.METEOR_BURN_EVERY)
+		&& near(constOf(stickSrc, "FUSE_SECONDS"), S.DYNAMITE_FUSE) && near(constOf(stickSrc, "CHAIN_BONUS"), S.CHAIN_BONUS)
+		&& near(combat.classes.tank.dynamite_chain_bonus, S.CHAIN_BONUS),
+		[constOf(craterSrc, "BURN_SHARE"), constOf(craterSrc, "BURN_EVERY"), constOf(stickSrc, "FUSE_SECONDS"), constOf(stickSrc, "CHAIN_BONUS")]);
 	const axeSrc = await read("src/projectiles/spinningaxe.gd");
 	const axeConst = (name) => { const m = axeSrc.match(new RegExp("^const " + name + " := ([0-9.]+)", "m")); return m ? +m[1] : NaN; };
 	check("the Double Axe climbs to the game's top spin rate, over the game's seconds, as exported",

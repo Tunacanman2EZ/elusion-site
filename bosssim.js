@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.11.9";
+  var VERSION = "0.12.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -50,6 +50,15 @@
   // swings a second over AXE_SPIN_RAMP seconds (spinningaxe.gd SPIN_MAX_RATE,
   // SPIN_RAMP_SECONDS; game 0.11.9). A new target is a new throw, back at 1x.
   var AXE_SPIN_MAX = 2.0, AXE_SPIN_RAMP = 4.0;
+  // The Meteorite's crater burns METEOR_BURN_SHARE of a hit every
+  // METEOR_BURN_EVERY seconds on what stands in it, one fire at a time
+  // (burningcrater.gd; game 0.12.0) - a boss being hit stands in it.
+  var METEOR_BURN_SHARE = 0.2, METEOR_BURN_EVERY = 0.5;
+  // Dynamite: a blast sets off every lit stick near it, CHAIN_BONUS harder
+  // (dynamite.gd CHAIN_BONUS, FUSE_SECONDS; game 0.12.0). Thrown at one spot
+  // every period, a stick's fuse outlasts the next throw, so sticks go up in
+  // groups of 1 + floor(fuse / period), all but the first chained.
+  var DYNAMITE_FUSE = 1.2, CHAIN_BONUS = 0.25;
   var MYTHIC_LEVEL = 22;
   var WEAPON_SPREAD = 0.25;   // damage_spread on every weapon
   // Worn pieces, tiers 1-5: [armour, health, mana, damage %].
@@ -192,10 +201,15 @@
       if (k === "Warrior") {
         if (g.mythic) { attack = "axe"; dps = unit / period; }
         else { attack = "sword"; dps = (unit + round(WAVE_RATIO * unit)) / period; }
-      } else if (k === "Mage") { attack = g.mythic ? "meteor" : "staff"; dps = unit / period * (g.mythic ? 1 + DOUBLE_CHANCE : 1); }
+      } else if (k === "Mage") {
+        attack = g.mythic ? "meteor" : "staff";
+        dps = unit / period * (g.mythic ? 1 + DOUBLE_CHANCE : 1) + (g.mythic ? unit * METEOR_BURN_SHARE / METEOR_BURN_EVERY : 0);
+      }
       else if (k === "Healer") { attack = "scepter"; dps = unit / period; }
       else if (g.mythic) {
-        attack = "dynamite"; period = 1.0 / haste; unit = round(unit * DYNAMITE_TICKS); dps = unit * (1 + DOUBLE_CHANCE) / period;
+        attack = "dynamite"; period = 1.0 / haste; unit = round(unit * DYNAMITE_TICKS);
+        var group = 1 + Math.floor(DYNAMITE_FUSE / period + 1e-9);
+        dps = unit * (1 + DOUBLE_CHANCE) / period * (1 + CHAIN_BONUS * (group - 1) / group);
       } else { attack = "aura"; dps = unit / period; }
       out[k] = {
         gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack,
@@ -388,6 +402,8 @@
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP,
+    METEOR_BURN_SHARE: METEOR_BURN_SHARE, METEOR_BURN_EVERY: METEOR_BURN_EVERY,
+    DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS,
     PIECES: PIECES, POTIONS: POTIONS, POTION_AT: POTION_AT, RESIST_CAP: RESIST_CAP,
     RESIST_ELEMENTS: RESIST_ELEMENTS, PETS: PETS, PUDDLES: PUDDLES, PUDDLE_CHANCE: PUDDLE_CHANCE,
     PUDDLE_LIFE_SCALE: PUDDLE_LIFE_SCALE, PUDDLE_TICK_EVERY: PUDDLE_TICK_EVERY, DEFENSE_TIERS: DEFENSE_TIERS, CAP: CAP, DT: DT
