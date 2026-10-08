@@ -66,8 +66,11 @@ if (!GAME) {
 	}
 	check("each class's health, mana, base damage and cadence are gamedata.json's", !wrongClass.length, wrongClass);
 	check("the warrior's slash wave is wave_ratio of a swing", near(combat.classes.warrior.wave_ratio, 0.75));
-	check("Dynamite's fuse and the double cast are the exported ones",
-		near(combat.classes.tank.dynamite_cooldown, 1.0) && near(combat.double_chance, 0.10));
+	check("Dynamite's throw, stick, bundle and the double cast are the exported ones (0.14.0)",
+		near(combat.classes.tank.dynamite_cooldown, S.DYNAMITE_COOLDOWN) && near(combat.double_chance, S.DOUBLE_CHANCE)
+		&& near(combat.classes.tank.dynamite_stick_ticks, S.DYNAMITE_STICK_TICKS)
+		&& combat.classes.tank.dynamite_bundle_every === S.BUNDLE_EVERY && combat.classes.tank.dynamite_bundle_sticks === S.BUNDLE_STICKS,
+		combat.classes.tank);
 	check("a pet's shot is pet_share of its owner's multiplier", near(combat.pet_share, 0.5));
 	check("skills add skill_step a level, agility agility_step to the cap",
 		near(combat.skill_step, 0.01) && near(combat.agility_step, 0.01) && near(combat.agility_cap, 2.0));
@@ -112,6 +115,15 @@ if (!GAME) {
 		near(axeConst("SPIN_MAX_RATE"), S.AXE_SPIN_MAX) && near(axeConst("SPIN_RAMP_SECONDS"), S.AXE_SPIN_RAMP)
 		&& near(combat.classes.warrior.axe_spin_max_rate, S.AXE_SPIN_MAX),
 		[axeConst("SPIN_MAX_RATE"), axeConst("SPIN_RAMP_SECONDS"), combat.classes.warrior.axe_spin_max_rate]);
+	const bleedSrc = await read("src/projectiles/bleed.gd");
+	check("the Double Axe's bleed is the game's, as exported (0.14.0)",
+		near(constOf(bleedSrc, "BLEED_SHARE"), S.AXE_BLEED_SHARE) && near(constOf(bleedSrc, "BLEED_EVERY"), S.AXE_BLEED_EVERY)
+		&& near(combat.classes.warrior.axe_bleed_share, S.AXE_BLEED_SHARE) && near(combat.classes.warrior.axe_bleed_every, S.AXE_BLEED_EVERY),
+		[constOf(bleedSrc, "BLEED_SHARE"), constOf(bleedSrc, "BLEED_EVERY")]);
+	const tankSrc = await read("src/characters/tank.gd");
+	check("Dynamite's bundle is tank.gd's", constOf(tankSrc, "DYNAMITE_BUNDLE_EVERY") === S.BUNDLE_EVERY
+		&& constOf(tankSrc, "DYNAMITE_BUNDLE_STICKS") === S.BUNDLE_STICKS,
+		[constOf(tankSrc, "DYNAMITE_BUNDLE_EVERY"), constOf(tankSrc, "DYNAMITE_BUNDLE_STICKS")]);
 	const POT = ["greater", "large", "medium", "small", "tiny"];
 	const wrongPot = S.POTIONS.filter((p, i) => {
 		const h = items[POT[i] + "healthpotion"], m = items[POT[i] + "manapotion"];
@@ -159,7 +171,9 @@ if (!GAME) {
 		["aura tick", await exp("src/characters/tank.gd", "aura_tick"), 0.25],
 		["aura drain every", await exp("src/characters/tank.gd", "mana_drain_tick"), 0.5],
 		["aura drain", await exp("src/characters/tank.gd", "mana_drain_cost"), 2],
-		["dynamite", await exp("src/characters/tank.gd", "dynamite_mana_cost"), 4],
+		["dynamite", await exp("src/characters/tank.gd", "dynamite_mana_cost"), S.COST.dynamite],
+		["dynamite cadence", await exp("src/characters/tank.gd", "dynamite_cooldown"), S.DYNAMITE_COOLDOWN],
+		["dynamite stick", await exp("src/characters/tank.gd", "dynamite_stick_ticks"), S.DYNAMITE_STICK_TICKS],
 	].filter(([, game, sim]) => !near(game, sim));
 	check("every mana cost and cadence is the class scripts' @export", !costs.length, costs);
 
@@ -409,6 +423,27 @@ for (let i = 0; i < 1500; i++) {
 check(`${randN} random parties hold together`, !randBad.length, randBad);
 check("every one of them gets the same answer twice", !randDet.length, randDet);
 check("and no single improvement to any of them makes its run worse", !randWorse.length, randWorse);
+
+// 4d. The mythics' own arithmetic (0.14.0).
+const MY = S.party({ ...BASE, mythic: true }), PL = S.party({ ...BASE, mythic: false });
+const haste4 = MY.Tank.haste;
+check("a Dynamite tank's ring burns as well: its rate is the ring's, a tick every quarter second with the Dynamite in it, plus the sticks'",
+	MY.Tank.attack === "dynamite" && MY.Tank.ring > 0 && MY.Tank.dps > MY.Tank.ring * 1.5
+	&& near(MY.Tank.ring, Math.round((S.CLASS.Tank.base + MY.Tank.gear.weapon) * MY.Tank.mult) / (S.CLASS.Tank.cd / haste4), 1e-9),
+	[MY.Tank.ring, MY.Tank.dps]);
+check("  a stick is DYNAMITE_STICK_TICKS ring ticks, a throw every DYNAMITE_COOLDOWN",
+	MY.Tank.unit === Math.round(Math.round((S.CLASS.Tank.base + MY.Tank.gear.weapon) * MY.Tank.mult) * S.DYNAMITE_STICK_TICKS)
+	&& near(MY.Tank.period, S.DYNAMITE_COOLDOWN / haste4, 1e-9), [MY.Tank.unit, MY.Tank.period]);
+check("  and at the throws' mana a second the ring costs nothing more",
+	near(S.COST.dynamite / S.DYNAMITE_COOLDOWN, S.COST.aura / S.COST.auraEvery, 1e-9));
+check("a Double Axe's bleed is a quarter of a swing every half second, not hastened",
+	MY.Warrior.attack === "axe" && near(MY.Warrior.bleed, MY.Warrior.unit * S.AXE_BLEED_SHARE / S.AXE_BLEED_EVERY, 1e-9)
+	&& near(MY.Warrior.dps, MY.Warrior.unit / MY.Warrior.period + MY.Warrior.bleed, 1e-9), MY.Warrior);
+const ratios = ["Warrior", "Mage", "Tank"].map((k) => MY[k].dps / PL[k].dps);
+check("every mythic out-damages its class's Ember weapon on one boss", ratios.every((x) => x > 1), ratios);
+const spun = S.simulate({ ...BASE, mythic: true, hold: true }), plain = S.simulate({ ...BASE, mythic: false, hold: true });
+check("and a mythic party clears no slower than an Ember one", spun.cleared >= plain.cleared
+	&& (spun.cleared < 7 || plain.cleared < 7 || spun.time <= plain.time), [spun.cleared, plain.cleared, spun.time, plain.time]);
 
 let threw = 0;
 for (const bad of [{ tier: 9 }, { quality: 90 }, { resistEl: "Lightning" }, { pet: "dragon" }, { dodge: 1.5 }, { level: 0 }, { hold: "yes" }, { skills: NaN }]) {

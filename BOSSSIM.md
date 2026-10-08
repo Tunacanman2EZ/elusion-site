@@ -49,7 +49,7 @@ in that file is typed.
 | Class health and mana (base, per level) | warrior 180+12 / 180+10, mage 110+5 / 250+16, healer 140+7 / 220+14, tank 260+22 / 200+10 | `data/gamedata.json` `classes` |
 | Class base damage and cadence | warrior 24 / 1.0 s, mage 9 / 0.45 s, healer 3 / 0.1 s, tank 4 / 0.25 s | `gamedata.json` `combat.classes` |
 | Slash wave | 0.75 of a swing, 10 mana | `combat.classes.warrior.wave_ratio`; `warrior.gd` `slashwave_mana_cost` |
-| Spell, shot, aura, Dynamite | 15 mana; 1 mana; 2 mana every 0.5 s; 4 mana, 1 s fuse | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
+| Spell, shot, aura, Dynamite | 15 mana; 1 mana; 2 mana every 0.5 s; 3 mana a throw, every 0.75 s (game 0.14.0) | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
 | Double cast | 10% | `combat.double_chance` |
 | Skills and agility | +1% damage a level of attack and of magic; cooldowns ÷ (1 + 1% a level of agility), at most ×2 | `combat.skill_step`, `agility_step`, `agility_cap` |
 | Weapons, armour, rings, amulets, iron to ember | damage, damage %, armour, health, mana, level | `gamedata.json` `items` |
@@ -57,7 +57,9 @@ in that file is typed.
 | The Meteorite's crater | burns 0.2 of a hit every 0.5 s on the boss in it, one fire at a time (game 0.12.0) | `burningcrater.gd` `BURN_SHARE`, `BURN_EVERY`; `combat.classes.mage.meteor_burn_*` |
 | Dynamite's chain | fuse 1.2 s; thrown at one spot, sticks go up in groups of 1 + floor(fuse / throw period), all but the first 25% harder (game 0.12.0) | `dynamite.gd` `FUSE_SECONDS`, `CHAIN_BONUS`; `combat.classes.tank.dynamite_chain_bonus` |
 | Dynamite's smoulder | each blast's scorch bites 0.15 of a stick every 0.5 s on the boss in it (game 0.13.0) | `dynamite.gd` `FIELD_SHARE`, `FIELD_EVERY`; `combat.classes.tank.dynamite_field_*` |
+| Dynamite's stick, bundle and ring | a stick is 1.5 ring ticks; every 5th throw is 3 sticks (no double on top), so a throw is ((5 - 1) x 1.1 + 3) / 5 sticks; the ring burns while throwing, lit by the throws, no mana of its own, and reaches every boss on the tank (game 0.14.0) | `tank.gd` `dynamite_stick_ticks`, `DYNAMITE_BUNDLE_EVERY`, `DYNAMITE_BUNDLE_STICKS`; `combat.classes.tank.dynamite_stick_ticks`, `dynamite_bundle_*` |
 | The Double Axe spinning | a swing a second, climbing to 2 over 4 s on one target; a new target starts again | `spinningaxe.gd` `SPIN_MAX_RATE`, `SPIN_RAMP_SECONDS`; `combat.classes.warrior.axe_spin_max_rate` |
+| The Double Axe's bleed | every cut leaves a wound: 0.25 of a swing every 0.5 s, one at a time, on its own clock (not hastened, not by the spin) (game 0.14.0) | `bleed.gd` `BLEED_SHARE`, `BLEED_EVERY`; `combat.classes.warrior.axe_bleed_*` |
 | Weapon roll | ±25% (`damage_spread`); the sim uses the middle | `items` |
 | Stat rolls | every stat at 85%, 100% or 120% (Perfect), integer arithmetic halving up | `constants.quality_*`; `ItemRegistry.scale_stat` |
 | Defense tiers | 10% (skill 1), 20% (20), 30% (40), 40% (60), 50% (80) | `src/characters/playerstats.gd` `DEFENSE_TIERS` |
@@ -153,7 +155,8 @@ Two minutes each, 70 runs.
 Ten times a second, for each wave in turn:
 
 1. **The party attacks.** Single-target attacks go into the living boss with the
-   least health. The tank's aura reaches every boss standing on the tank. Each
+   least health. The tank's aura (or, with Dynamite, its ring) reaches every
+   boss standing on the tank. Each
    attack costs its mana; an attack with no mana to pay does nothing. Each player
    attacks for the share of the time set by *Time attacking*. Pets fight all the
    time, into the same boss.
@@ -195,8 +198,9 @@ the game meet; everything above it is the dodging dial.
 - The holder **takes every swing**; nobody steps out of reach mid-wind-up.
 - In a **spread** party the bosses' attacks are split evenly; in the game the
   nearest player takes them, and that moves.
-- Everyone focuses the **weakest boss**; only the tank's aura reaches more than
-  one, and only bosses holding on the tank.
+- Everyone focuses the **weakest boss**; only the tank's aura or ring reaches
+  more than one, and only bosses holding on the tank. Dynamite's sticks go into
+  the focused boss; their bigger blast is not counted on a second one.
 - Weapons hit at the **middle of their roll**.
 - Each player **drinks on time**, at 40% health or an empty bar.
 - Every player brings the **same pet**, and pets fire at the boss everyone is on.

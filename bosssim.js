@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.13.0";
+  var VERSION = "0.14.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -25,10 +25,14 @@
     Healer:  { base: 3,  cd: 0.10, hp: [140, 7],  mana: [220, 14], wear: "cloth" },
     Tank:    { base: 4,  cd: 0.25, hp: [260, 22], mana: [200, 10], wear: "plate" }
   };
-  var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2, dynamite: 4 };
+  var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2, dynamite: 3 };
   var WAVE_RATIO = 0.75;      // warrior wave_ratio
   var DOUBLE_CHANCE = 0.10;   // combat.double_chance: Meteorite and Dynamite
-  var DYNAMITE_TICKS = 4;     // dynamite_cooldown / aura tick (1.0 / 0.25)
+  // Dynamite since game 0.14.0 (tank.gd, DYNAMITE SETTINGS): a throw every
+  // DYNAMITE_COOLDOWN, a stick worth DYNAMITE_STICK_TICKS ring ticks, every
+  // BUNDLE_EVERY-th throw BUNDLE_STICKS sticks (and no double on top), and the
+  // ring lit by the throws, burning no mana of its own.
+  var DYNAMITE_COOLDOWN = 0.75, DYNAMITE_STICK_TICKS = 1.5, BUNDLE_EVERY = 5, BUNDLE_STICKS = 3;
   var SKILL_STEP = 0.01, AGILITY_STEP = 0.01, AGILITY_CAP = 2.0;
 
   var TIER_NAMES = ["Naked", "Iron", "Jade", "Cobalt", "Amethyst", "Ember"];
@@ -50,6 +54,10 @@
   // swings a second over AXE_SPIN_RAMP seconds (spinningaxe.gd SPIN_MAX_RATE,
   // SPIN_RAMP_SECONDS; game 0.11.9). A new target is a new throw, back at 1x.
   var AXE_SPIN_MAX = 2.0, AXE_SPIN_RAMP = 4.0;
+  // And every cut leaves a wound that bites AXE_BLEED_SHARE of a swing every
+  // AXE_BLEED_EVERY seconds, one wound at a time (bleed.gd; game 0.14.0) -
+  // on its own clock, so not hastened, and not by the spin.
+  var AXE_BLEED_SHARE = 0.25, AXE_BLEED_EVERY = 0.5;
   // The Meteorite's crater burns METEOR_BURN_SHARE of a hit every
   // METEOR_BURN_EVERY seconds on what stands in it, one fire at a time
   // (burningcrater.gd; game 0.12.0) - a boss being hit stands in it.
@@ -200,9 +208,9 @@
     CLASSES.forEach(function (k) {
       var c = CLASS[k], g = loadout(k, opts);
       var m = skills * (1 + g.pct / 100);
-      var unit = round((c.base + g.weapon) * m), period = c.cd / haste, dps, attack;
+      var unit = round((c.base + g.weapon) * m), period = c.cd / haste, dps, attack, bleed = 0, ring = 0;
       if (k === "Warrior") {
-        if (g.mythic) { attack = "axe"; dps = unit / period; }
+        if (g.mythic) { attack = "axe"; bleed = unit * AXE_BLEED_SHARE / AXE_BLEED_EVERY; dps = unit / period + bleed; }
         else { attack = "sword"; dps = (unit + round(WAVE_RATIO * unit)) / period; }
       } else if (k === "Mage") {
         attack = g.mythic ? "meteor" : "staff";
@@ -210,12 +218,16 @@
       }
       else if (k === "Healer") { attack = "scepter"; dps = unit / period; }
       else if (g.mythic) {
-        attack = "dynamite"; period = 1.0 / haste; unit = round(unit * DYNAMITE_TICKS);
+        // The ring, a tick every period, then the sticks: unit and period
+        // become a stick and a throw.
+        attack = "dynamite"; ring = unit / period;
+        period = DYNAMITE_COOLDOWN / haste; unit = round(unit * DYNAMITE_STICK_TICKS);
         var group = 1 + Math.floor(DYNAMITE_FUSE / period + 1e-9);
-        dps = unit * (1 + DOUBLE_CHANCE) / period * (1 + CHAIN_BONUS * (group - 1) / group) + unit * FIELD_SHARE / FIELD_EVERY;
+        var perThrow = ((BUNDLE_EVERY - 1) * (1 + DOUBLE_CHANCE) + BUNDLE_STICKS) / BUNDLE_EVERY;
+        dps = ring + unit * perThrow / period * (1 + CHAIN_BONUS * (group - 1) / group) + unit * FIELD_SHARE / FIELD_EVERY;
       } else { attack = "aura"; dps = unit / period; }
       out[k] = {
-        gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack,
+        gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack, bleed: bleed, ring: ring,
         hpMax: c.hp[0] + c.hp[1] * (opts.level - 1) + g.hp,
         manaMax: c.mana[0] + c.mana[1] * (opts.level - 1) + g.mana,
         def: def[1], defName: def[2], arm: g.armour / (g.armour + ARMOUR_HALF_POINT), haste: haste
@@ -321,14 +333,20 @@
             if (s.mana >= COST.wave) { d += round(WAVE_RATIO * p.unit) / p.period; s.mana -= COST.wave / p.period * step; }
           } else if (a === "axe") {
             if (s.axeOn !== focus) { s.axeOn = focus; s.spun = 0; }
-            d = p.dps * (1 + (AXE_SPIN_MAX - 1) * Math.min(1, s.spun / AXE_SPIN_RAMP));
+            d = (p.dps - p.bleed) * (1 + (AXE_SPIN_MAX - 1) * Math.min(1, s.spun / AXE_SPIN_RAMP)) + p.bleed;
             s.spun += step;
           } else if (a === "staff" || a === "meteor") {
             if (s.mana >= COST.spell) { d = p.dps; s.mana -= COST.spell / p.period * step; }
           } else if (a === "scepter") {
             if (s.mana >= COST.shot) { d = p.dps; s.mana -= COST.shot / p.period * step; }
           } else if (a === "dynamite") {
-            if (s.mana >= COST.dynamite) { d = p.dps; s.mana -= COST.dynamite / p.period * step; }
+            // The throws pay for the ring; with no mana to throw, both stop.
+            // The ring reaches every boss standing on the tank, the sticks
+            // the one being focused.
+            if (s.mana >= COST.dynamite) {
+              d = p.dps - p.ring; s.mana -= COST.dynamite / p.period * step;
+              (holder === "Tank" ? live : [focus]).forEach(function (x) { x.hp -= p.ring * step; s.dealt += p.ring * step; });
+            }
           } else if (s.mana > 0) {
             // The aura burns 2 mana every half second while it is up and
             // reaches every boss standing on the tank.
@@ -404,7 +422,9 @@
     wearableTier: wearableTier, phaseOf: phaseOf, spike: spike, melee: melee, trail: trail, scaleStat: scaleStat,
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
-    AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP,
+    AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP, AXE_BLEED_SHARE: AXE_BLEED_SHARE, AXE_BLEED_EVERY: AXE_BLEED_EVERY,
+    DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS, BUNDLE_EVERY: BUNDLE_EVERY, BUNDLE_STICKS: BUNDLE_STICKS,
+    COST: COST, DOUBLE_CHANCE: DOUBLE_CHANCE,
     METEOR_BURN_SHARE: METEOR_BURN_SHARE, METEOR_BURN_EVERY: METEOR_BURN_EVERY,
     DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS, FIELD_SHARE: FIELD_SHARE, FIELD_EVERY: FIELD_EVERY,
     PIECES: PIECES, POTIONS: POTIONS, POTION_AT: POTION_AT, RESIST_CAP: RESIST_CAP,

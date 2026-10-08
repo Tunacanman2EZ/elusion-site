@@ -404,13 +404,16 @@
             for attack and for magic, agility shortens every cooldown (up to twice as fast), gear adds its damage
             percent. Weapons hit at the middle of their ±25% roll. The <b>Warrior</b> swings once a second and adds
             a slash wave for 10 mana; the <b>Double Axe</b> spins in place for a swing a second, climbing to two a
-            second over four seconds left on one boss, no wave, no mana, from out of the bosses' reach. The <b>Mage</b> casts every 0.45 s for 15 mana; the Meteorite casts
+            second over four seconds left on one boss, no wave, no mana, from out of the bosses' reach, and every
+            cut leaves the boss bleeding for a quarter of a swing every half second. The <b>Mage</b> casts every 0.45 s for 15 mana; the Meteorite casts
             twice one time in ten, and its crater burns a fifth of a hit every half second on the boss standing
             in it. The <b>Healer</b> fires ten shots a second at 1 mana each and heals nobody. The
-            <b>Tank</b>'s aura ticks four times a second for 2 mana every half second; a stick of <b>Dynamite</b>
-            is four ticks, thrown once a second for 4 mana, twice one time in ten; a stick that lands while
-            the last one still burns goes up with it, a quarter harder, and every blast leaves its scorch
-            smouldering for 15% of a stick every half second.</p>
+            <b>Tank</b>'s aura ticks four times a second for 2 mana every half second, and on every boss standing
+            on it. With <b>Dynamite</b> the ring burns too, lit by the throws: a stick is a tick and a half,
+            thrown every 0.75 s for 3 mana (the ring's own rate, so the ring costs nothing more), two one time
+            in ten and a bundle of three every fifth throw; a stick that lands while the last one still burns
+            goes up with it, a quarter harder, and every blast leaves its scorch smouldering for 15% of a stick
+            every half second.</p>
           <p><b>What gets through:</b> the defense tier (10–50% from the skill), then armour
             (<span class="mono">armour ÷ (armour + 200)</span>), then resistance to that boss's element, each off
             what the one before left, floored to a whole number — the game's order. Stat rolls scale every stat on
@@ -620,13 +623,13 @@
       }
       var top = CLASSES.reduce(function(a, b){ return r.share[a] >= r.share[b] ? a : b; });
       var msg2 = "<b>Cleared in " + r.time.toFixed(0) + "s.</b> ";
-      if (o.hold && st.Tank.alive && P.Tank.attack === "aura" && r.heldMost > 1) {
-        msg2 += "In wave 3 the tank holds all " + r.heldMost + " bosses and its aura hits every one of them — " +
-          Math.round(r.share.Tank * 100) + "% of the damage from the weakest single-target class. ";
+      if (o.hold && st.Tank.alive && (P.Tank.attack === "aura" || P.Tank.attack === "dynamite") && r.heldMost > 1) {
+        msg2 += "In wave 3 the tank holds all " + r.heldMost + " bosses and its " + (P.Tank.attack === "dynamite" ? "ring" : "aura") + " hits every one of them — " +
+          Math.round(r.share.Tank * 100) + "% of the damage" + (P.Tank.attack === "aura" ? " from the weakest single-target class. " : ". ");
       } else {
         msg2 += "The " + top + " carries " + Math.round(r.share[top] * 100) + "% of the damage. ";
       }
-      if (P.Warrior.attack === "axe") msg2 += "The Double Axe, left spinning on a boss, climbs to two swings a second, costs no mana and keeps the warrior out of reach of the swings.";
+      if (P.Warrior.attack === "axe") msg2 += "The Double Axe, left spinning on a boss, climbs to two swings a second, leaves it bleeding, costs no mana and keeps the warrior out of reach of the swings.";
       else if (st.Mage.dryAt !== null) msg2 += "The Mage runs dry " + st.Mage.dryAt.toFixed(0) + "s into the run" + (st.Mage.usedM ? " and lives on mana potions." : " and stops casting.");
       else msg2 += "Nobody runs out of mana.";
       return msg2;
