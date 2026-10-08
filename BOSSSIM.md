@@ -1,7 +1,7 @@
 # The Boss Sim
 
-`simulator.html` — the Crowned Behemoth Balance Console. A four-class party runs
-the boss arena's three waves and then the Crowned Behemoth, ten ticks a second,
+`simulator.html` — the Crowned Beholder Balance Console. A four-class party runs
+the boss arena's three waves and then the Crowned Beholder, ten ticks a second,
 and the page shows how long it takes, who carries it, where the hits land and
 where it breaks. This file is everything behind it: where each number comes
 from, what was measured and how, every assumption the model makes, what the
