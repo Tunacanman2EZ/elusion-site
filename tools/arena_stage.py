@@ -2,9 +2,13 @@
 #
 #   python tools/arena_stage.py <your-path>/Elusion_RPG
 #
-# Writes images/arena/: the room the monsters stand in (stage.png), the two
-# health bars and the two shadows. Not published itself (build.mjs ships only
-# what it names); run it again if the game's floor, crypt props or bars change.
+# Writes images/arena/: the room the monsters stand in (stage.png) and the
+# three shadows. Not published itself (build.mjs ships only what it names); run
+# it again if the game's floor or crypt props change.
+#
+# The health bars it used to copy are drawn in the death strips now
+# (images/deaths/, recorded from the game), where they drop with each hit and
+# go when the monster does.
 #
 # Everything here is Elusion Studios' own art (assetlicense.md: commissioned
 # from Ahvassa with rights assigned). Nothing is taken from art/pack/, which is
@@ -13,7 +17,6 @@
 # The room is drawn at the game's own size, one pixel per game pixel. The page
 # shows it at three screen pixels to one (two in a small box), the same scale
 # as the monsters, so they stand on it at their true size.
-import shutil
 import sys
 from pathlib import Path
 
@@ -80,12 +83,9 @@ put(part(crypt, 39, 136, 6, 5), 60, 182)
 put(part(crypt, 199, 175, 11, 8), 34, 176)
 stage.save(OUT / "stage.png")
 
-# The health bars, as the game draws them over a monster's head (full).
-shutil.copyfile(ART / "images" / "monsterhpfull.png", OUT / "hp-monster.png")
-shutil.copyfile(ART / "images" / "bosshpfull.png", OUT / "hp-boss.png")
-
 # A shadow under each monster: a hard-edged ellipse, no blur, like the art.
-for name, (w, h) in {"shadow-s": (30, 6), "shadow-l": (44, 8)}.items():
+# xs is the small slime's.
+for name, (w, h) in {"shadow-xs": (18, 4), "shadow-s": (30, 6), "shadow-l": (44, 8)}.items():
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     ImageDraw.Draw(img).ellipse((0, 0, w - 1, h - 1), fill=(10, 8, 14, 110))
     img.save(OUT / f"{name}.png")

@@ -41,9 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // The monster showcase on the home game screen. No-op on pages without it, so
-// it's safe to keep in the shared script. Each .enemy-slide is one monster in
-// the arena (its real attack as a GIF, its health bar, its shadow); we fade
-// which one is shown and write its name, its line and "n/6" under the room.
+// it's safe to keep in the shared script. Each .enemy-slide is one creature's
+// death, recorded from the game: a strip of frames (its .enemy-anim) and a
+// data-timeline saying which frame shows for how long, in thirtieths of a
+// second. A slide plays from the start every time it is shown - standing,
+// struck, struck down, its death, gone - and the show moves on when it has
+// played through. While the cursor or the keyboard is on the room it plays
+// the same one over. Under the room: its name, its line and "n/6".
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('enemy-slideshow');
   if (!box) return;
@@ -54,42 +58,94 @@ document.addEventListener('DOMContentLoaded', () => {
   const title = document.getElementById('enemy-caption');
   const tag = document.getElementById('enemy-tag');
   const count = document.getElementById('enemy-count');
-  const HOLD_MS = 2600;
+  const TICK_MS = 1000 / 30;
+
+  // "frame:ticks,frame:ticks,..." -> [[frame, ticks], ...]
+  const plays = slides.map((slide) => {
+    const steps = (slide.getAttribute('data-timeline') || '').split(',')
+      .map((pair) => pair.split(':').map(Number))
+      .filter((p) => p.length === 2 && p[0] >= 0 && p[1] > 0);
+    const gone = Number(slide.getAttribute('data-gone'));
+    return {
+      anim: slide.querySelector('.enemy-anim'),
+      steps: steps,
+      ticks: steps.reduce((sum, p) => sum + p[1], 0),
+      gone: isFinite(gone) ? gone : -1,
+    };
+  });
+
+  function draw(n, tick) {
+    const play = plays[n];
+    let left = tick;
+    let frame = play.steps.length ? play.steps[0][0] : 0;
+    for (let i = 0; i < play.steps.length; i++) {
+      frame = play.steps[i][0];
+      if (left < play.steps[i][1]) break;
+      left -= play.steps[i][1];
+    }
+    if (play.anim) play.anim.style.setProperty('--f', frame);
+    slides[n].classList.toggle('gone', play.gone >= 0 && tick >= play.gone);
+  }
 
   let idx = 0;
-  let timer = null;
+  let held = false;
+  let started = 0;
+  let last = 0;
+  let raf = 0;
+
+  // NO MOTION FOR A VISITOR WHO ASKED FOR LESS: each creature stands still on
+  // its first frame, alive, and the arrows still step through.
+  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function show(n) {
+    // The one leaving goes to its last frame, the empty room, rather than
+    // fading out frozen halfway through its death when an arrow is clicked.
+    draw(idx, Math.max(plays[idx].ticks - 1, 0));
     slides[idx].classList.remove('active');
     slides[idx].setAttribute('aria-hidden', 'true');
     idx = (n + slides.length) % slides.length;
+    draw(idx, 0);
     slides[idx].classList.add('active');
     slides[idx].removeAttribute('aria-hidden');
     if (title) title.textContent = slides[idx].getAttribute('data-caption') || '';
     if (tag) tag.textContent = slides[idx].getAttribute('data-tag') || '';
     if (count) count.textContent = (idx + 1) + '/' + slides.length;
+    started = last = performance.now();
   }
 
-  // NO AUTOPLAY FOR A VISITOR WHO ASKED FOR LESS MOTION: the arrows still
-  // step through, but nothing changes on its own.
-  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function start() { stop(); if (!still) timer = setInterval(() => show(idx + 1), HOLD_MS); }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function frame(now) {
+    // A tab in the background gets no frames; coming back, carry on from
+    // where it was rather than counting the time away as played.
+    if (now - last > 250) started += now - last;
+    last = now;
+    let tick = Math.floor((now - started) / TICK_MS);
+    if (tick >= plays[idx].ticks) {
+      if (held) {
+        started = now;
+        tick = 0;
+      } else {
+        show(idx + 1);
+        tick = 0;
+      }
+    }
+    draw(idx, tick);
+    raf = requestAnimationFrame(frame);
+  }
 
-  // The arrows. Each also restarts the timer so it doesn't jump a moment
-  // after you click.
+  // The arrows. Each starts the creature it lands on from the beginning.
   const prev = document.getElementById('enemy-prev');
   const next = document.getElementById('enemy-next');
-  if (prev) prev.addEventListener('click', () => { show(idx - 1); start(); });
-  if (next) next.addEventListener('click', () => { show(idx + 1); start(); });
+  if (prev) prev.addEventListener('click', () => show(idx - 1));
+  if (next) next.addEventListener('click', () => show(idx + 1));
 
-  // Hold still while the cursor is on the room, or while the arrows have the
-  // keyboard, so a viewer can linger on one monster.
+  // Stay on this one while the cursor is on the room, or while the arrows
+  // have the keyboard, so a viewer can watch it again.
   const screen = box.closest('.game-screen') || box;
-  screen.addEventListener('mouseenter', stop);
-  screen.addEventListener('mouseleave', start);
-  screen.addEventListener('focusin', stop);
-  screen.addEventListener('focusout', start);
+  screen.addEventListener('mouseenter', () => { held = true; });
+  screen.addEventListener('mouseleave', () => { held = false; });
+  screen.addEventListener('focusin', () => { held = true; });
+  screen.addEventListener('focusout', () => { held = false; });
 
-  start();
+  show(0);
+  if (!still) raf = requestAnimationFrame(frame);
 });

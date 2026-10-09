@@ -431,8 +431,9 @@ footer {
    pixel: dark outline, gold with its light top-left, dark again. The room is
    the game's own floor and crypt (images/arena/stage.png, from
    tools/arena_stage.py), the monsters stand on it at the same scale as each
-   other, each wears the game's health bar, and the type is Pixelify Sans, one
-   of the game's own fonts. No blur anywhere: hard edges and a hard shadow. */
+   other, each dies there as the game draws it, and the type is Pixelify
+   Sans, one of the game's own fonts. No blur anywhere: hard edges and a hard
+   shadow. */
 @font-face {
   font-family: "Pixelify Sans";
   src: url("fonts/pixelifysans/PixelifySans.ttf") format("truetype");
@@ -449,8 +450,8 @@ footer {
 .arena-screen .screen-media {
   background: #3a3843;
   /* the scale follows the BOX, not the window: three to one where the room
-     is 400px or wider, two to one below, so the tallest monster (the
-     Electric Sprite, 89 game pixels) always fits with its bar */
+     is 400px or wider, two to one below, so the tallest death (the Crowned's,
+     69 game pixels with its bar) always fits */
   container: arena / inline-size;
 }
 .arena-stage {
@@ -462,57 +463,55 @@ footer {
 @container arena (min-width: 400px) {
   .arena-stage { --k: 3; }
 }
-/* One monster. Its feet sit on the dirt patch's middle (the room's game
-   pixel 128, 32 below its centre); the GIFs carry 4 game pixels of space
-   below the feet, so the image's bottom sits 36 below the centre. The box is
-   square, so a percentage of its width is also one of its height. */
+/* One monster's death, facing down (images/deaths/, recorded from the game;
+   index.html says how). The strip's frames sit side by side and script.js
+   picks one by setting --f; everything is in game pixels times --k, so a
+   frame is drawn at exactly the room's scale. --ax/--ay is where the feet are
+   in a frame, and the feet stand on the dirt patch's middle: the room's game
+   pixel 128, 32 below its centre. The box is square, so a percentage of its
+   width is also one of its height. */
 .enemy-slide {
   position: absolute; inset: 0;
-  display: flex; justify-content: center; align-items: flex-end;
-  padding-bottom: calc(50% - 36px * var(--k));
   opacity: 0;
   transition: opacity 0.36s steps(4, end);
   pointer-events: none;
 }
 .enemy-slide.active { opacity: 1; }
-/* --gw, --gh: the GIF's size; --head: the top of the monster over all its
-   frames; --cx: how far the body's middle sits from the image's (even, so
-   the half-scale stays on whole pixels). All in GIF pixels, which are two to
-   a game pixel. The body is moved so the monster, not its image, is centred. */
-.enemy-body {
-  position: relative; display: block;
-  left: calc(var(--cx) * var(--k) * -0.5px);
+.enemy-anim, .enemy-shadow {
+  position: absolute; display: block;
+  left: 50%; top: calc(50% + 32px * var(--k));
+  background-repeat: no-repeat; image-rendering: pixelated;
 }
-.game-screen.arena-screen .screen-media img.enemy-sprite {
-  position: relative; display: block;
-  width: calc(var(--gw) * var(--k) * 0.5px); height: auto; max-width: none;
-  image-rendering: pixelated; filter: none;
+.enemy-anim {
+  width: calc(var(--fw) * var(--k) * 1px); height: calc(var(--fh) * var(--k) * 1px);
+  margin-left: calc(var(--ax) * var(--k) * -1px);
+  margin-top: calc(var(--ay) * var(--k) * -1px);
+  background-size: calc(var(--fw) * var(--fn) * var(--k) * 1px) 100%;
+  background-position: calc(var(--f, 0) * var(--fw) * var(--k) * -1px) 0;
 }
-.enemy-hp, .enemy-shadow {
-  position: absolute; left: 50%; display: block;
-  background: center / 100% 100% no-repeat; image-rendering: pixelated;
+.death-boss { background-image: url("images/deaths/boss.png"); }
+.death-bushmage { background-image: url("images/deaths/bushmage.png"); }
+.death-bushsniper { background-image: url("images/deaths/bushsniper.png"); }
+.death-firesprite { background-image: url("images/deaths/firesprite.png"); }
+.death-electricsprite { background-image: url("images/deaths/electricsprite.png"); }
+.death-slime { background-image: url("images/deaths/slime.png"); }
+/* The shadow is the page's, not the game's (the game draws none): a hard
+   ellipse centred on the feet, gone when the body is (.gone, script.js). */
+.enemy-shadow { background-position: center; background-size: 100% 100%; transition: opacity 0.2s steps(2, end); }
+.enemy-slide.gone .enemy-shadow { opacity: 0; }
+.shadow-xs {
+  width: calc(18px * var(--k)); height: calc(4px * var(--k));
+  margin: calc(-2px * var(--k)) 0 0 calc(-9px * var(--k));
+  background-image: url("images/arena/shadow-xs.png");
 }
-/* the bar three game pixels over the head, as in the game */
-.enemy-hp { bottom: calc((var(--gh) - var(--head)) * var(--k) * 0.5px + 3px * var(--k)); }
-.hp-monster {
-  width: calc(36px * var(--k)); height: calc(8px * var(--k));
-  margin-left: calc((var(--cx) * 0.5 - 18) * var(--k) * 1px);
-  background-image: url("images/arena/hp-monster.png");
-}
-.hp-boss {
-  width: calc(64px * var(--k)); height: calc(10px * var(--k));
-  margin-left: calc((var(--cx) * 0.5 - 32) * var(--k) * 1px);
-  background-image: url("images/arena/hp-boss.png");
-}
-/* the shadow centred on the feet, 4 game pixels up from the image's bottom */
 .shadow-s {
-  bottom: calc(1px * var(--k)); width: calc(30px * var(--k)); height: calc(6px * var(--k));
-  margin-left: calc((var(--cx) * 0.5 - 15) * var(--k) * 1px);
+  width: calc(30px * var(--k)); height: calc(6px * var(--k));
+  margin: calc(-3px * var(--k)) 0 0 calc(-15px * var(--k));
   background-image: url("images/arena/shadow-s.png");
 }
 .shadow-l {
-  bottom: 0; width: calc(44px * var(--k)); height: calc(8px * var(--k));
-  margin-left: calc((var(--cx) * 0.5 - 22) * var(--k) * 1px);
+  width: calc(44px * var(--k)); height: calc(8px * var(--k));
+  margin: calc(-4px * var(--k)) 0 0 calc(-22px * var(--k));
   background-image: url("images/arena/shadow-l.png");
 }
 
