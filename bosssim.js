@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.14.0";
+  var VERSION = "0.18.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -27,12 +27,14 @@
   };
   var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2, dynamite: 3 };
   var WAVE_RATIO = 0.75;      // warrior wave_ratio
-  var DOUBLE_CHANCE = 0.10;   // combat.double_chance: Meteorite and Dynamite
+  var DOUBLE_CHANCE = 0.10;   // combat.double_chance: the Meteorite
   // Dynamite since game 0.14.0 (tank.gd, DYNAMITE SETTINGS): a throw every
-  // DYNAMITE_COOLDOWN, a stick worth DYNAMITE_STICK_TICKS ring ticks, every
-  // BUNDLE_EVERY-th throw BUNDLE_STICKS sticks (and no double on top), and the
-  // ring lit by the throws, burning no mana of its own.
-  var DYNAMITE_COOLDOWN = 0.75, DYNAMITE_STICK_TICKS = 1.5, BUNDLE_EVERY = 5, BUNDLE_STICKS = 3;
+  // DYNAMITE_COOLDOWN, a stick worth DYNAMITE_STICK_TICKS ring ticks, and the
+  // ring lit by the throws, burning no mana of its own. Since game 0.18.0 every
+  // throw rolls (tank.gd, THE ROLL): BUNDLE_CHANCE of them are BUNDLE_STICKS
+  // sticks, BARRAGE_CHANCE are BARRAGE_STICKS, the rest one - no double.
+  var DYNAMITE_COOLDOWN = 0.75, DYNAMITE_STICK_TICKS = 1.5;
+  var BUNDLE_CHANCE = 0.10, BUNDLE_STICKS = 3, BARRAGE_CHANCE = 0.01, BARRAGE_STICKS = 5;
   var SKILL_STEP = 0.01, AGILITY_STEP = 0.01, AGILITY_CAP = 2.0;
 
   var TIER_NAMES = ["Naked", "Iron", "Jade", "Cobalt", "Amethyst", "Ember"];
@@ -223,7 +225,7 @@
         attack = "dynamite"; ring = unit / period;
         period = DYNAMITE_COOLDOWN / haste; unit = round(unit * DYNAMITE_STICK_TICKS);
         var group = 1 + Math.floor(DYNAMITE_FUSE / period + 1e-9);
-        var perThrow = ((BUNDLE_EVERY - 1) * (1 + DOUBLE_CHANCE) + BUNDLE_STICKS) / BUNDLE_EVERY;
+        var perThrow = 1 + BUNDLE_CHANCE * (BUNDLE_STICKS - 1) + BARRAGE_CHANCE * (BARRAGE_STICKS - 1);
         dps = ring + unit * perThrow / period * (1 + CHAIN_BONUS * (group - 1) / group) + unit * FIELD_SHARE / FIELD_EVERY;
       } else { attack = "aura"; dps = unit / period; }
       out[k] = {
@@ -423,7 +425,8 @@
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP, AXE_BLEED_SHARE: AXE_BLEED_SHARE, AXE_BLEED_EVERY: AXE_BLEED_EVERY,
-    DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS, BUNDLE_EVERY: BUNDLE_EVERY, BUNDLE_STICKS: BUNDLE_STICKS,
+    DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS,
+    BUNDLE_CHANCE: BUNDLE_CHANCE, BUNDLE_STICKS: BUNDLE_STICKS, BARRAGE_CHANCE: BARRAGE_CHANCE, BARRAGE_STICKS: BARRAGE_STICKS,
     COST: COST, DOUBLE_CHANCE: DOUBLE_CHANCE,
     METEOR_BURN_SHARE: METEOR_BURN_SHARE, METEOR_BURN_EVERY: METEOR_BURN_EVERY,
     DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS, FIELD_SHARE: FIELD_SHARE, FIELD_EVERY: FIELD_EVERY,

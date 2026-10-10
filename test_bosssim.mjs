@@ -66,10 +66,11 @@ if (!GAME) {
 	}
 	check("each class's health, mana, base damage and cadence are gamedata.json's", !wrongClass.length, wrongClass);
 	check("the warrior's slash wave is wave_ratio of a swing", near(combat.classes.warrior.wave_ratio, 0.75));
-	check("Dynamite's throw, stick, bundle and the double cast are the exported ones (0.14.0)",
+	check("Dynamite's throw, stick and roll, and the Meteorite's double cast, are the exported ones (game 0.18.0)",
 		near(combat.classes.tank.dynamite_cooldown, S.DYNAMITE_COOLDOWN) && near(combat.double_chance, S.DOUBLE_CHANCE)
 		&& near(combat.classes.tank.dynamite_stick_ticks, S.DYNAMITE_STICK_TICKS)
-		&& combat.classes.tank.dynamite_bundle_every === S.BUNDLE_EVERY && combat.classes.tank.dynamite_bundle_sticks === S.BUNDLE_STICKS,
+		&& near(combat.classes.tank.dynamite_bundle_chance, S.BUNDLE_CHANCE) && combat.classes.tank.dynamite_bundle_sticks === S.BUNDLE_STICKS
+		&& near(combat.classes.tank.dynamite_barrage_chance, S.BARRAGE_CHANCE) && combat.classes.tank.dynamite_barrage_sticks === S.BARRAGE_STICKS,
 		combat.classes.tank);
 	check("a pet's shot is pet_share of its owner's multiplier", near(combat.pet_share, 0.5));
 	check("skills add skill_step a level, agility agility_step to the cap",
@@ -121,9 +122,11 @@ if (!GAME) {
 		&& near(combat.classes.warrior.axe_bleed_share, S.AXE_BLEED_SHARE) && near(combat.classes.warrior.axe_bleed_every, S.AXE_BLEED_EVERY),
 		[constOf(bleedSrc, "BLEED_SHARE"), constOf(bleedSrc, "BLEED_EVERY")]);
 	const tankSrc = await read("src/characters/tank.gd");
-	check("Dynamite's bundle is tank.gd's", constOf(tankSrc, "DYNAMITE_BUNDLE_EVERY") === S.BUNDLE_EVERY
-		&& constOf(tankSrc, "DYNAMITE_BUNDLE_STICKS") === S.BUNDLE_STICKS,
-		[constOf(tankSrc, "DYNAMITE_BUNDLE_EVERY"), constOf(tankSrc, "DYNAMITE_BUNDLE_STICKS")]);
+	check("Dynamite's roll is tank.gd's", near(constOf(tankSrc, "DYNAMITE_BUNDLE_CHANCE"), S.BUNDLE_CHANCE)
+		&& constOf(tankSrc, "DYNAMITE_BUNDLE_STICKS") === S.BUNDLE_STICKS
+		&& near(constOf(tankSrc, "DYNAMITE_BARRAGE_CHANCE"), S.BARRAGE_CHANCE)
+		&& constOf(tankSrc, "DYNAMITE_BARRAGE_STICKS") === S.BARRAGE_STICKS,
+		[constOf(tankSrc, "DYNAMITE_BUNDLE_CHANCE"), constOf(tankSrc, "DYNAMITE_BARRAGE_CHANCE")]);
 	const POT = ["greater", "large", "medium", "small", "tiny"];
 	const wrongPot = S.POTIONS.filter((p, i) => {
 		const h = items[POT[i] + "healthpotion"], m = items[POT[i] + "manapotion"];
