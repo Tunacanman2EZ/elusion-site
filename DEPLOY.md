@@ -144,6 +144,14 @@ writes `shot_footer.png` and `shot_footer_mobile.png` so you can see what it
 looks like without deploying.
 
 ```powershell
+node test_seo.mjs         # what Google and link previews read
+```
+
+`test_seo.mjs` needs nothing installed. It holds the pages' canonical tags,
+`sitemap.xml`, `robots.txt` and `build.mjs` to each other, and checks the share
+picture and the icon are the sizes the tags say.
+
+```powershell
 node build.mjs
 node test_bosssim.mjs     # the Boss Sim: its numbers, its data, every option, the page
 $env:GAME = "<path to the game folder>"; node test_bosssim.mjs   # and every number against the game
@@ -157,6 +165,37 @@ because a count in a document is wrong the day a check is added.
 Playwright is deliberately **not** a dependency in `package.json`. Netlify
 installs devDependencies on every build and a browser driver download per deploy
 is a cost the visitor counter has no business imposing.
+
+---
+
+## How Google sees the site
+
+Added 11 October 2026, so a search for "elusion rpg" finds the site and a
+link to it shows a picture.
+
+**What the pages say.** Each page's `<head>` has a SEARCH AND SHARING block: a
+description (the grey text under the link, at most 160 characters), a canonical
+address, the icon, and the Open Graph tags that make a link pasted into Discord,
+X or LinkedIn show `images/social-card.png` with a title. The home page also
+carries a small `WebSite` block naming the site "Elusion RPG", which is what
+Google reads for the name above the link. `login.html` and the three old
+practice folders (`test`, `book-search`, `kingdom-card`) say `noindex`.
+
+**One address.** Every canonical, the sitemap and robots.txt use
+`https://www.elusionrpg.com`. If Netlify's primary domain is ever changed to the
+bare `elusionrpg.com`, change them all together - `test_seo.mjs` reads the
+address from one constant, `BASE`, and fails until they agree.
+
+**Adding a page:** put it in `build.mjs`, give it the block (copy one from
+`lore.html` and change the words and the two URLs), add it to `sitemap.xml`,
+and run `node test_seo.mjs`.
+
+**Google Search Console** (search.google.com/search-console) is where the site
+is told to Google and where it reports back. Verify the site there once, as a
+Domain property with a DNS record, which covers www, the bare domain and
+play.elusionrpg.com together. The sitemap is submitted there once; Google
+re-reads it on its own after that. A changed page can be pushed with URL
+Inspection, then Request indexing. None of it is instant: days to a few weeks.
 
 ---
 

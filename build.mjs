@@ -43,12 +43,19 @@ const REQUIRED = [
 	// Pixelify Sans, one of the game's own fonts, with its OFL.txt beside it:
 	// the licence has to travel with the font.
 	"fonts",
+	// What search engines read: the list of pages, the crawl rules, and the
+	// icon Google shows beside the site's name. Required since the pages'
+	// canonical tags and robots.txt point at them - a missing one would be a
+	// 404 that only Google ever sees. test_seo.mjs holds them to the pages.
+	"sitemap.xml",
+	"robots.txt",
+	"favicon.ico",
 ];
 
 // Present today, and the site is fine without them — small side pages that
 // predate the rest. Named here so they keep shipping, but their absence is not
 // a build failure.
-const OPTIONAL = ["book-search", "kingdom-card", "test", "robots.txt", "favicon.ico"];
+const OPTIONAL = ["book-search", "kingdom-card", "test"];
 
 async function exists(path) {
 	try {

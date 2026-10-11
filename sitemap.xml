@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The pages Elusion RPG wants in search results, one <loc> each. Every
+     <loc> is the same URL as that page's <link rel="canonical">, and every
+     page with a canonical is listed here: test_seo.mjs holds the two
+     together. Pages marked noindex (login, the old practice pages) are
+     left out on purpose. Change <lastmod> when a page's words change. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.elusionrpg.com/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://www.elusionrpg.com/lore.html</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://www.elusionrpg.com/simulator.html</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://www.elusionrpg.com/about.html</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://www.elusionrpg.com/contribute.html</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://www.elusionrpg.com/join.html</loc><lastmod>2026-10-11</lastmod></url>
+</urlset>

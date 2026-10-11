@@ -1,0 +1,11 @@
+# Every page may be crawled. The ones that should not appear in results say so
+# themselves with <meta name="robots" content="noindex">, which a crawler can
+# only read if it is allowed to fetch the page - so they are NOT blocked here.
+#
+# /.netlify/ is the visitor counter's function. A crawler rendering a page
+# would call it; the counter already refuses to count bots, and this keeps
+# them from asking at all.
+User-agent: *
+Disallow: /.netlify/
+
+Sitemap: https://www.elusionrpg.com/sitemap.xml
