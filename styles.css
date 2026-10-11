@@ -1455,8 +1455,12 @@ footer {
 }
 .team-card p { color: #b8c0c6; font-size: 0.92rem; line-height: 1.55; margin: 0; }
 .team-card a { color: #4fd1ff; }
+/* The real names sit on one line across the two cards, whatever the text
+   above them runs to: the card is a column and the name takes the slack. */
+.team-card { display: flex; flex-direction: column; }
+.team-card p:not(.team-role):not(.team-real) { margin-bottom: 14px; }
 .team-card p.team-real {
-  margin-top: 14px; padding-top: 10px; border-top: 1px solid #2c3b41;
+  margin-top: auto; padding-top: 10px; border-top: 1px solid #2c3b41;
   color: #8b959c; font-size: 0.82rem; letter-spacing: 0.04em;
 }
 .team-story {
