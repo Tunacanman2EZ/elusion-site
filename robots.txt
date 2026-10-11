@@ -8,4 +8,4 @@
 User-agent: *
 Disallow: /.netlify/
 
-Sitemap: https://www.elusionrpg.com/sitemap.xml
+Sitemap: https://elusionrpg.com/sitemap.xml

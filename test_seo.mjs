@@ -13,7 +13,7 @@
 
 import { readFile, stat } from "node:fs/promises";
 
-const BASE = "https://www.elusionrpg.com";
+const BASE = "https://elusionrpg.com";
 
 let passed = 0;
 let failed = 0;
@@ -56,7 +56,7 @@ function decode(s) {
 	return s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&amp;/g, "&");
 }
 function localPath(url) {
-	// https://www.elusionrpg.com/lore.html -> lore.html ; .../ -> index.html
+	// https://elusionrpg.com/lore.html -> lore.html ; .../ -> index.html
 	const path = url.slice(BASE.length).replace(/^\//, "");
 	return path === "" ? "index.html" : path;
 }

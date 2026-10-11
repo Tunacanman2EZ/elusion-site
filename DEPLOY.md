@@ -182,9 +182,12 @@ Google reads for the name above the link. `login.html` and the three old
 practice folders (`test`, `book-search`, `kingdom-card`) say `noindex`.
 
 **One address.** Every canonical, the sitemap and robots.txt use
-`https://www.elusionrpg.com`. If Netlify's primary domain is ever changed to the
-bare `elusionrpg.com`, change them all together - `test_seo.mjs` reads the
-address from one constant, `BASE`, and fails until they agree.
+`https://elusionrpg.com`, the bare domain, because that is the address the site
+is served at: a browser that asks for it stays there rather than being sent to
+www. They first said www (11 October), which pointed Google away from the
+address the site actually answers on. If Netlify's primary domain is ever
+changed, change them all together - `test_seo.mjs` reads the address from one
+constant, `BASE`, and fails until they agree.
 
 **Adding a page:** put it in `build.mjs`, give it the block (copy one from
 `lore.html` and change the words and the two URLs), add it to `sitemap.xml`,
@@ -193,8 +196,11 @@ and run `node test_seo.mjs`.
 **Google Search Console** (search.google.com/search-console) is where the site
 is told to Google and where it reports back. Verify the site there once, as a
 Domain property with a DNS record, which covers www, the bare domain and
-play.elusionrpg.com together. The sitemap is submitted there once; Google
-re-reads it on its own after that. A changed page can be pushed with URL
+play.elusionrpg.com together (done 11 October 2026, a TXT record at
+Namecheap, which runs the domain's DNS - keep it). The sitemap is submitted
+there once, as the full address `https://elusionrpg.com/sitemap.xml` (a Domain
+property refuses a bare `sitemap.xml`); Google re-reads it on its own after
+that. A changed page can be pushed with URL
 Inspection, then Request indexing. None of it is instant: days to a few weeks.
 
 ---
