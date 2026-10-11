@@ -689,6 +689,32 @@ footer {
   .update-when { min-width: 0; padding-top: 0; flex-direction: row; align-items: center; gap: 8px; }
   .update-version { margin-top: 0; }
 }
+/* ---- ALLMIND'S PUSHES: the same strip in the co-owner's gold ----
+   The gold the game paints a co-owner's name and badge (Api.RANK_COLOURS
+   "coowner"), the same gold as his team card. Only the colours change; the
+   rows, the line and the phone layout are the changelog's own. */
+.section-head.coowner-head .eyebrow { color: #ffd88a; }
+.section-head.coowner-head h2 { color: #ffc759; text-shadow: 0 0 14px rgba(255, 199, 89, 0.3); }
+.updates.coowner-log {
+  border-color: rgba(255, 199, 89, 0.35);
+  box-shadow: 0 0 22px rgba(255, 199, 89, 0.08);
+  background:
+    linear-gradient(#141414 30%, rgba(20, 20, 20, 0)) center top / 100% 36px no-repeat local,
+    linear-gradient(rgba(20, 20, 20, 0), #141414 70%) center bottom / 100% 36px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(255, 199, 89, 0.24), transparent) center top / 100% 22px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(255, 199, 89, 0.24), transparent) center bottom / 100% 22px no-repeat scroll,
+    #141414;
+  scrollbar-color: #4a3d22 transparent;
+}
+.updates.coowner-log::-webkit-scrollbar-thumb { background: #4a3d22; }
+.updates.coowner-log::-webkit-scrollbar-thumb:hover { background: #5e4d2a; }
+.coowner-log .update-when { color: #ffd88a; }
+.coowner-log .update-row.latest { border-left-color: #ffc759; }
+.coowner-log .update-row.latest::before {
+  background: #ffc759; border-color: #ffc759; box-shadow: 0 0 10px rgba(255, 199, 89, 0.8);
+}
+.coowner-log .update-row.latest .update-version { border-color: rgba(255, 199, 89, 0.55); color: #ffc759; }
+.coowner-log .update-row.soon .update-when { color: #a78bfa; }
 
 /* ---- SIM CROSS-LINK CALLOUT ---- */
 .sim-callout {
