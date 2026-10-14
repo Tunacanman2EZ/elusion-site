@@ -222,7 +222,7 @@
 
       <div class="presets">
         <button type="button" data-preset="fresh">▸ Fresh to the arena (Jade · Lv 8)</button>
-        <button type="button" data-preset="wall">▸ The wave-3 wall (Amethyst · Lv 18)</button>
+        <button type="button" data-preset="wall">▸ The wave-3 wall (Amethyst · Lv 18, no potions)</button>
         <button type="button" data-preset="clear">▸ Geared clear (Ember · Lv 22)</button>
         <button type="button" data-preset="perfect">▸ Perfect rolls + fire resist</button>
         <button type="button" data-preset="mythic">▸ Mythic party</button>
@@ -421,12 +421,17 @@
           <summary>The party — damage, gear, potions, pets</summary>
           <p><span class="mono">hit = round((class base + weapon) × skills × gear %)</span>: skills add 1% a level
             for attack and for magic, agility shortens every cooldown (up to twice as fast), gear adds its damage
-            percent. Weapons hit at the middle of their ±25% roll. The <b>Warrior</b> swings once a second and adds
-            a slash wave for 10 mana; the <b>Double Axe</b> spins in place for a swing a second, climbing to two a
+            percent. Weapons hit at the middle of their ±25% roll. The <b>Warrior</b> swings once a second, and
+            each swing flings three steel orbs off the blade for a tenth of the swing each; for 10 mana it adds a
+            slash wave, and every third wave is the gold <b>finisher</b>, half again as strong, with no orbs off the
+            blade (its own gold orbs fly wide of the boss, and its burst never goes back into it). The <b>Double Axe</b> spins in place for a swing a second, climbing to two a
             second over four seconds left on one boss, no wave, no mana, from out of the bosses' reach, and every
             cut leaves the boss bleeding for a quarter of a swing every half second. The <b>Mage</b> casts every 0.45 s for 15 mana; the Meteorite casts
             twice one time in ten, and its crater burns a fifth of a hit every half second on the boss standing
-            in it. The <b>Healer</b> fires ten shots a second at 1 mana each and heals nobody. The
+            in it. The <b>Healer</b> fires ten shots a second at 1 mana each, and one in five hits for double; the two orbs
+            it throws to the sides every fifth shot fly straight and miss a boss from range. Every 8 seconds, for
+            25 mana, it drops its <b>aura</b> on the boss: everyone gets back a quarter of their health, and the
+            boss takes four ticks of two shots each. The
             <b>Tank</b>'s aura ticks four times a second for 2 mana every half second, and on every boss standing
             on it. With <b>Dynamite</b> the ring burns too, lit by the throws: a stick is a tick and a half,
             thrown every 0.75 s for 3 mana (the ring's own rate, so the ring costs nothing more), a bundle of
@@ -437,8 +442,9 @@
             (<span class="mono">armour ÷ (armour + 200)</span>), then resistance to that boss's element, each off
             what the one before left, floored to a whole number — the game's order. Stat rolls scale every stat on
             every piece; armour above your level is worn at the best your level allows.</p>
-          <p><b>Potions:</b> health and mana do not come back during a fight, so potions do — the best your level
-            can drink, taken below 40% health or when a cast cannot be paid for. A downed player is out for the
+          <p><b>Potions:</b> mana does not come back during a fight, and health only from the healer's aura, so
+            potions do — the best your level can drink, taken below 40% health or when a cast cannot be paid for.
+            Cloth wearers hold the tier's <b>wand</b> in the off hand (a tome trades its damage for armour). A downed player is out for the
             run: a revive lands in town. <b>Pets</b> fight beside their owner, each shot half the owner's damage
             multiplier, at the rate measured in the game:</p>
           <table class="doctable" id="petTable"></table>
@@ -451,7 +457,8 @@
             combination of options, every value of every dial and thousands of random parties — nothing that
             should help a party may ever make its run worse.</p>
           <p><b>Not in it:</b> where exactly anyone stands, a boss walking, and luck — this is the average, worked
-            out ten times a second. It assumes everyone attacks for the time you set and drinks on time.</p>
+            out ten times a second. It assumes everyone attacks for the time you set, drinks on time, and stands where the healer's aura
+            reaches them.</p>
         </details>
       </section>
     </div><!-- .sim -->
@@ -472,9 +479,9 @@
     var S = window.BossSim, D = S.data(), CLASSES = S.CLASSES;
     var CCOL = {Warrior:"var(--warrior)",Mage:"var(--mage)",Healer:"var(--healer)",Tank:"var(--tank)"};
     var ROLE = {
-      Warrior:"A big free swing, and a slash wave for 10 mana. Stands beside the tank, so it eats the bosses' swings too.",
+      Warrior:"A big free swing that flings three steel orbs, a slash wave for 10 mana, and every third wave the gold finisher. Stands beside the tank, so it eats the bosses' swings too.",
       Mage:"Top burst, deepest pool, softest body. 15 mana a cast — first to run dry.",
-      Healer:"Ten shots a second at 1 mana each. No heals — pure offense, and steady for it.",
+      Healer:"Ten shots a second at 1 mana each, one in five doubled — and every 8 s an aura that gives everyone a quarter of their health back.",
       Tank:"The aura hits every boss standing on it, four times a second. Holds them all, takes it all."
     };
     var $ = function(id){ return document.getElementById(id); };
@@ -511,7 +518,7 @@
       }
       var wh = $("weaponHint");
       if (o.mythic && o.level < S.MYTHIC_LEVEL) { wh.textContent = "Mythics need level " + S.MYTHIC_LEVEL + " — tier weapons until then"; wh.className = "hint warn"; }
-      else { wh.className = "hint"; wh.textContent = o.mythic ? "Double Axe · Meteorite · Dynamite — the healer keeps its scepter" : worn ? "Sword, staff, scepter and maul of the tier" : "No weapon"; }
+      else { wh.className = "hint"; wh.textContent = o.mythic ? "Double Axe · Meteorite · Dynamite — the healer keeps its scepter" : worn ? "Sword, staff, scepter and maul of the tier, and a wand in the mage's and healer's off hand" : "No weapon"; }
       $("qualityHint").textContent = o.quality === 120 ? "Every stat on every piece at 120% — one drop in a hundred" :
         o.quality === 85 ? "Every stat at the bottom of its roll" : "Every stat at the catalogue number";
       var res = Math.min(S.RESIST_CAP, o.resist), target = null;
@@ -615,6 +622,7 @@
           '<div class="stat"><span>Per hit</span><b>' + fmt(p.unit) + '</b></div>' +
           '<div class="stat"><span>On one target</span><b>' + fmt(p.dps) + ' dps</b></div>' +
           (o.pet ? '<div class="stat"><span>Pet dealt</span><b>' + fmt(s.pet) + '</b></div>' : '') +
+          (k === "Healer" ? '<div class="stat"><span>Health given back</span><b>' + fmt(s.mended) + '</b></div>' : '') +
           '<div class="stat"><span>Health</span><b>' + fmt(p.hpMax) + '</b></div>' +
           '<div class="stat"><span>Damage cut by</span><b>' + off + '%</b></div>' +
           '<div class="stat"><span>Potions drunk</span><b>' + s.usedH + ' + ' + s.usedM + '</b></div>' +
@@ -651,6 +659,7 @@
       if (P.Warrior.attack === "axe") msg2 += "The Double Axe, left spinning on a boss, climbs to two swings a second, leaves it bleeding, costs no mana and keeps the warrior out of reach of the swings.";
       else if (st.Mage.dryAt !== null) msg2 += "The Mage runs dry " + st.Mage.dryAt.toFixed(0) + "s into the run" + (st.Mage.usedM ? " and lives on mana potions." : " and stops casting.");
       else msg2 += "Nobody runs out of mana.";
+      if (st.Healer.mended >= 1) msg2 += " The healer's aura gave back " + fmt(st.Healer.mended) + " health along the way.";
       return msg2;
     }
 
@@ -697,7 +706,7 @@
 
     var PRESETS = {
       fresh:   {gear:2, level:8,  skills:10, quality:"qAvg",  mythic:false, dodge:75, uptime:85, potions:0, pet:"", resistEl:"",     resist:0,  hold:true, rest:true},
-      wall:    {gear:4, level:18, skills:25, quality:"qAvg",  mythic:false, dodge:85, uptime:85, potions:3, pet:"", resistEl:"",     resist:0,  hold:true, rest:true},
+      wall:    {gear:4, level:18, skills:25, quality:"qAvg",  mythic:false, dodge:85, uptime:85, potions:0, pet:"", resistEl:"",     resist:0,  hold:true, rest:true},
       clear:   {gear:5, level:22, skills:30, quality:"qAvg",  mythic:false, dodge:85, uptime:85, potions:3, pet:"", resistEl:"",     resist:0,  hold:true, rest:true},
       perfect: {gear:5, level:22, skills:35, quality:"qPerf", mythic:false, dodge:85, uptime:85, potions:3, pet:"", resistEl:"Fire", resist:30, hold:true, rest:true},
       mythic:  {gear:5, level:22, skills:40, quality:"qAvg",  mythic:true,  dodge:90, uptime:85, potions:3, pet:"petboss", resistEl:"", resist:0, hold:true, rest:true}

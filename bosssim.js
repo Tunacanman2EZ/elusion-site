@@ -14,7 +14,7 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.18.0";
+  var VERSION = "0.42.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -27,6 +27,26 @@
   };
   var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2, dynamite: 3 };
   var WAVE_RATIO = 0.75;      // warrior wave_ratio
+  // The sword since game 0.38.0-0.41.0 (warrior.gd, THE WARRIOR'S BLOWS): every
+  // FINISHER_EVERY-th swing's wave is the gold finisher, FINISHER_MULT its
+  // damage; every other swing flings SWORD_FAN_ORBS steel orbs off the blade,
+  // each SWORD_FAN_SHARE of the swing, no mana. Beside a boss all three land
+  // (18 degrees apart, from 8 px in front, on a 13 px body 28 px away). The
+  // finisher's own gold orbs leave from its crescent's tips, 28 px either side
+  // of a wave aimed at the boss, and its burst never goes back into the boss
+  // it cut: neither lands on the boss the wave hit.
+  var FINISHER_EVERY = 3, FINISHER_MULT = 1.5, SWORD_FAN_ORBS = 3, SWORD_FAN_SHARE = 0.1;
+  // The healer since game 0.37.0 (healer.gd, THE DOUBLE): each main orb hits
+  // for DOUBLE_HIT on HEALER_DOUBLE_CHANCE. Its fan (every 5th shot, two orbs
+  // 16 degrees either side, flying straight) reaches a boss's 13 px body only
+  // from within about 75 px; the healer fights from range, so it is not counted.
+  var HEALER_DOUBLE_CHANCE = 0.2, DOUBLE_HIT = 2;
+  // And since 0.40.0 its aura (healer.gd THE AURA, healaura.gd): AURA_MANA
+  // mana, back after AURA_COOLDOWN seconds (its own clock, not hastened). Every
+  // player in it, or within its reach, gets back AURA_HEAL_SHARE of their
+  // health, in AURA_TICKS ticks of ceil(health x share / ticks); the monster
+  // under it takes AURA_TICKS ticks of round(a shot x AURA_DAMAGE_SHARE).
+  var AURA_COOLDOWN = 8.0, AURA_MANA = 25, AURA_TICKS = 4, AURA_HEAL_SHARE = 0.25, AURA_DAMAGE_SHARE = 2.0;
   var DOUBLE_CHANCE = 0.10;   // combat.double_chance: the Meteorite
   // Dynamite since game 0.14.0 (tank.gd, DYNAMITE SETTINGS): a throw every
   // DYNAMITE_COOLDOWN, a stick worth DYNAMITE_STICK_TICKS ring ticks, and the
@@ -74,7 +94,9 @@
   var FIELD_SHARE = 0.15, FIELD_EVERY = 0.5;
   var MYTHIC_LEVEL = 22;
   var WEAPON_SPREAD = 0.25;   // damage_spread on every weapon
-  // Worn pieces, tiers 1-5: [armour, health, mana, damage %].
+  // Worn pieces, tiers 1-5: [armour, health, mana, damage %]. The off hand is
+  // the plate classes' shield and, since game 0.32.0, the cloth classes' wand
+  // (data/items/armour/<tier>wand.tres; the tome trades its damage for armour).
   var PIECES = {
     plate: [
       [[4, 0, 0, 0], [7, 3, 0, 0], [11, 6, 0, 0], [16, 10, 0, 0], [23, 16, 0, 0]],   // helm
@@ -87,7 +109,8 @@
       [[2, 0, 0, 0], [4, 0, 5, 0], [7, 0, 10, 0], [10, 0, 16, 0], [14, 0, 25, 0]],   // hood
       [[5, 0, 0, 0], [8, 0, 8, 0], [13, 0, 16, 0], [19, 0, 26, 0], [28, 0, 40, 0]],  // robe
       [[4, 0, 0, 0], [6, 0, 6, 0], [10, 0, 12, 0], [14, 0, 20, 0], [20, 0, 30, 0]],  // trousers
-      [[2, 0, 0, 0], [3, 0, 5, 0], [5, 0, 10, 0], [7, 0, 16, 0], [10, 0, 25, 0]]     // slippers
+      [[2, 0, 0, 0], [3, 0, 5, 0], [5, 0, 10, 0], [7, 0, 16, 0], [10, 0, 25, 0]],    // slippers
+      [[0, 0, 3, 1], [0, 0, 6, 2], [0, 0, 10, 3], [0, 0, 14, 4], [0, 0, 20, 6]]      // wand (off hand, game 0.32.0)
     ],
     jewels: [
       [[1, 3, 3, 1], [2, 6, 8, 1], [4, 10, 12, 1], [6, 15, 20, 2], [9, 20, 25, 3]], // ring
@@ -211,14 +234,31 @@
       var c = CLASS[k], g = loadout(k, opts);
       var m = skills * (1 + g.pct / 100);
       var unit = round((c.base + g.weapon) * m), period = c.cd / haste, dps, attack, bleed = 0, ring = 0;
+      var blade = 0, wave = 0, aura = 0, auraHit = 0;
       if (k === "Warrior") {
         if (g.mythic) { attack = "axe"; bleed = unit * AXE_BLEED_SHARE / AXE_BLEED_EVERY; dps = unit / period + bleed; }
-        else { attack = "sword"; dps = (unit + round(WAVE_RATIO * unit)) / period; }
+        else {
+          // A second of swings: the sword and its orbs (no mana), and the
+          // waves, the finisher's among them (10 mana a swing). The game
+          // truncates the wave and each orb (int()).
+          var plain = (FINISHER_EVERY - 1) / FINISHER_EVERY;
+          attack = "sword";
+          blade = (unit + plain * SWORD_FAN_ORBS * Math.max(1, Math.floor(unit * SWORD_FAN_SHARE))) / period;
+          wave = (plain * Math.floor(unit * WAVE_RATIO) + Math.floor(unit * WAVE_RATIO * FINISHER_MULT) / FINISHER_EVERY) / period;
+          dps = blade + wave;
+        }
       } else if (k === "Mage") {
         attack = g.mythic ? "meteor" : "staff";
         dps = unit / period * (g.mythic ? 1 + DOUBLE_CHANCE : 1) + (g.mythic ? unit * METEOR_BURN_SHARE / METEOR_BURN_EVERY : 0);
       }
-      else if (k === "Healer") { attack = "scepter"; dps = unit / period; }
+      else if (k === "Healer") {
+        // The stream, its doubles counted in, and the aura's ticks on the boss
+        // under it, once every AURA_COOLDOWN.
+        attack = "scepter";
+        auraHit = Math.max(1, round(unit * AURA_DAMAGE_SHARE));
+        aura = AURA_TICKS * auraHit / AURA_COOLDOWN;
+        dps = unit * (1 + HEALER_DOUBLE_CHANCE * (DOUBLE_HIT - 1)) / period + aura;
+      }
       else if (g.mythic) {
         // The ring, a tick every period, then the sticks: unit and period
         // become a stick and a throw.
@@ -228,9 +268,13 @@
         var perThrow = 1 + BUNDLE_CHANCE * (BUNDLE_STICKS - 1) + BARRAGE_CHANCE * (BARRAGE_STICKS - 1);
         dps = ring + unit * perThrow / period * (1 + CHAIN_BONUS * (group - 1) / group) + unit * FIELD_SHARE / FIELD_EVERY;
       } else { attack = "aura"; dps = unit / period; }
+      var hpMax = c.hp[0] + c.hp[1] * (opts.level - 1) + g.hp;
       out[k] = {
         gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack, bleed: bleed, ring: ring,
-        hpMax: c.hp[0] + c.hp[1] * (opts.level - 1) + g.hp,
+        blade: blade, wave: wave, aura: aura, auraHit: auraHit,
+        // What the healer's aura gives this player back a second.
+        mend: AURA_TICKS * Math.max(1, Math.ceil(hpMax * AURA_HEAL_SHARE / AURA_TICKS)) / AURA_COOLDOWN,
+        hpMax: hpMax,
         manaMax: c.mana[0] + c.mana[1] * (opts.level - 1) + g.mana,
         def: def[1], defName: def[2], arm: g.armour / (g.armour + ARMOUR_HALF_POINT), haste: haste
       };
@@ -291,7 +335,8 @@
     var st = {};
     CLASSES.forEach(function (k) {
       st[k] = { hp: P[k].hpMax, mana: P[k].manaMax, alive: true, potH: opts.potions, potM: opts.potions,
-        usedH: 0, usedM: 0, dealt: 0, pet: 0, taken: 0, downAt: null, dryAt: null, axeOn: null, spun: 0 };
+        usedH: 0, usedM: 0, dealt: 0, pet: 0, taken: 0, healed: 0, mended: 0,
+        downAt: null, dryAt: null, axeOn: null, spun: 0 };
     });
     // The game's own per-hit sum (Player.damage_taken): each share off what
     // the one before left, floored to a whole number, never under 1.
@@ -331,8 +376,8 @@
           var s = st[k], p = P[k], d = 0, targets = [focus];
           var a = p.attack, step = up * DT;
           if (a === "sword") {
-            d = p.unit / p.period;
-            if (s.mana >= COST.wave) { d += round(WAVE_RATIO * p.unit) / p.period; s.mana -= COST.wave / p.period * step; }
+            d = p.blade;
+            if (s.mana >= COST.wave) { d += p.wave; s.mana -= COST.wave / p.period * step; }
           } else if (a === "axe") {
             if (s.axeOn !== focus) { s.axeOn = focus; s.spun = 0; }
             d = (p.dps - p.bleed) * (1 + (AXE_SPIN_MAX - 1) * Math.min(1, s.spun / AXE_SPIN_RAMP)) + p.bleed;
@@ -340,7 +385,21 @@
           } else if (a === "staff" || a === "meteor") {
             if (s.mana >= COST.spell) { d = p.dps; s.mana -= COST.spell / p.period * step; }
           } else if (a === "scepter") {
-            if (s.mana >= COST.shot) { d = p.dps; s.mana -= COST.shot / p.period * step; }
+            // THE AURA, as a rate like every other attack here: a cast every
+            // AURA_COOLDOWN for as long as there is mana, whether or not the
+            // healer is shooting - everyone standing gets their share of
+            // health back, and the boss under it its ticks. Both are paid for
+            // out of the mana the healer had as the moment began.
+            var shoots = s.mana >= COST.shot;
+            if (s.mana > 0) {
+              s.mana -= AURA_MANA / AURA_COOLDOWN * DT;
+              team.forEach(function (j) {
+                var got = Math.min(P[j].hpMax - st[j].hp, P[j].mend * DT);
+                st[j].hp += got; st[j].healed += got; s.mended += got;
+              });
+              focus.hp -= p.aura * DT; s.dealt += p.aura * DT;
+            }
+            if (shoots) { d = p.dps - p.aura; s.mana -= COST.shot / p.period * step; }
           } else if (a === "dynamite") {
             // The throws pay for the ring; with no mana to throw, both stop.
             // The ring reaches every boss standing on the tank, the sticks
@@ -427,7 +486,10 @@
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP, AXE_BLEED_SHARE: AXE_BLEED_SHARE, AXE_BLEED_EVERY: AXE_BLEED_EVERY,
     DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS,
     BUNDLE_CHANCE: BUNDLE_CHANCE, BUNDLE_STICKS: BUNDLE_STICKS, BARRAGE_CHANCE: BARRAGE_CHANCE, BARRAGE_STICKS: BARRAGE_STICKS,
-    COST: COST, DOUBLE_CHANCE: DOUBLE_CHANCE,
+    COST: COST, DOUBLE_CHANCE: DOUBLE_CHANCE, WAVE_RATIO: WAVE_RATIO,
+    FINISHER_EVERY: FINISHER_EVERY, FINISHER_MULT: FINISHER_MULT, SWORD_FAN_ORBS: SWORD_FAN_ORBS, SWORD_FAN_SHARE: SWORD_FAN_SHARE,
+    HEALER_DOUBLE_CHANCE: HEALER_DOUBLE_CHANCE, DOUBLE_HIT: DOUBLE_HIT,
+    AURA_COOLDOWN: AURA_COOLDOWN, AURA_MANA: AURA_MANA, AURA_TICKS: AURA_TICKS, AURA_HEAL_SHARE: AURA_HEAL_SHARE, AURA_DAMAGE_SHARE: AURA_DAMAGE_SHARE,
     METEOR_BURN_SHARE: METEOR_BURN_SHARE, METEOR_BURN_EVERY: METEOR_BURN_EVERY,
     DYNAMITE_FUSE: DYNAMITE_FUSE, CHAIN_BONUS: CHAIN_BONUS, FIELD_SHARE: FIELD_SHARE, FIELD_EVERY: FIELD_EVERY,
     PIECES: PIECES, POTIONS: POTIONS, POTION_AT: POTION_AT, RESIST_CAP: RESIST_CAP,

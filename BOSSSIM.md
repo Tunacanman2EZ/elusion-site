@@ -48,11 +48,16 @@ in that file is typed.
 |---|---|---|
 | Class health and mana (base, per level) | warrior 180+12 / 180+10, mage 110+5 / 250+16, healer 140+7 / 220+14, tank 260+22 / 200+10 | `data/gamedata.json` `classes` |
 | Class base damage and cadence | warrior 24 / 1.0 s, mage 9 / 0.45 s, healer 3 / 0.1 s, tank 4 / 0.25 s | `gamedata.json` `combat.classes` |
-| Slash wave | 0.75 of a swing, 10 mana | `combat.classes.warrior.wave_ratio`; `warrior.gd` `slashwave_mana_cost` |
+| Slash wave | 0.75 of a swing, 10 mana, truncated | `combat.classes.warrior.wave_ratio`; `warrior.gd` `slashwave_mana_cost` |
+| The sword's orbs and finisher | every third swing's wave is the gold finisher, 1.5× (game 0.38.0); every other swing flings 3 steel orbs off the blade, 0.1 of the swing each, truncated, no mana (0.39.0; none on the finisher since 0.41.0) | `warrior.gd` `FINISHER_EVERY`, `FINISHER_MULT`, `SWORD_FAN_ORBS`, `SWORD_FAN_SHARE`; `combat.classes.warrior.finisher_*`, `sword_fan_*` |
+| Which orbs reach a boss | a boss's body is a 13 px circle. The sword's side orbs (18° apart, from 8 px ahead, a 3.5 px orb) pass 6.5 px from its middle at 28 px: all three land. The finisher's four gold orbs leave 28 px to either side and fly wider, and its burst never goes back into the boss it cut: none land on it. The healer's fan (16° either side, an 8 px orb, flying straight) reaches a boss only from within about 75 px; the healer fights from range, so it is not counted | `bossenemy.tscn` hurtbox; `bladeorb.gd` `RADIUS`; `warrior.gd` `SWORD_FAN_*`, `FINISHER_FAN_TIP`; `slashwave.gd`; `turretprojectile.tscn`; `healer.gd` `FAN_SPREAD_DEGREES` |
+| The healer's double | one main orb in five hits 2× (game 0.37.0) | `healer.gd` `DOUBLE_HIT_CHANCE`, `DOUBLE_HIT`; `combat.classes.healer.double_*` |
+| The healer's aura | 25 mana, every 8 s on its own clock: everyone it reaches gets a quarter of their health back (4 ticks of ceil(health × 0.25 ÷ 4)), and the boss under it takes 4 ticks of round(a shot × 2) (game 0.40.0) | `healer.gd` `AURA_*`; `healaura.gd` `HEAL_SHARE`, `TICK_FRAMES`; `combat.classes.healer.aura_*` |
 | Spell, shot, aura, Dynamite | 15 mana; 1 mana; 2 mana every 0.5 s; 3 mana a throw, every 0.75 s (game 0.14.0) | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
 | The Meteorite's double cast | 10% | `combat.double_chance` |
 | Skills and agility | +1% damage a level of attack and of magic; cooldowns ÷ (1 + 1% a level of agility), at most ×2 | `combat.skill_step`, `agility_step`, `agility_cap` |
 | Weapons, armour, rings, amulets, iron to ember | damage, damage %, armour, health, mana, level | `gamedata.json` `items` |
+| The cloth classes' off hand | the tier's wand: mana 3 / 6 / 10 / 14 / 20 and damage 1 / 2 / 3 / 4 / 6% (game 0.32.0; the mage's and the healer's since 0.32.1). The tome, armour and mana instead of damage, is not offered | `data/items/armour/<tier>wand.tres` |
 | Mythic weapons | Double Axe 140, Meteorite 53, Dynamite 23; +15%; level 22 (raised in game 0.11.9) | `gamedata.json` `items` |
 | The Meteorite's crater | burns 0.2 of a hit every 0.5 s on the boss in it, one fire at a time (game 0.12.0) | `burningcrater.gd` `BURN_SHARE`, `BURN_EVERY`; `combat.classes.mage.meteor_burn_*` |
 | Dynamite's chain | fuse 1.2 s; thrown at one spot, sticks go up in groups of 1 + floor(fuse / throw period), all but the first 25% harder (game 0.12.0) | `dynamite.gd` `FUSE_SECONDS`, `CHAIN_BONUS`; `combat.classes.tank.dynamite_chain_bonus` |
@@ -111,19 +116,21 @@ What it showed, and what the tests now hold the data to:
 - **Light and Wind leave no puddles.** Water leaves the most (about 680 a minute at
   range in the first phase), then Fire, then Earth and Dark, then Ice.
 
-Raw damage a second on the stand-in, before any armour (measured 2026-10-07,
-v0.11.4, and unchanged in 0.11.5 — `bosssim-data.js` holds the current figures, and the page draws this
-table from it):
+Raw damage a second on the stand-in, before any armour (measured 2026-10-14 on
+v0.42.0 — `bosssim-data.js` holds the current figures, and the page draws this
+table from it). The first measurement (2026-10-07, v0.11.4) came out within a
+few points of every figure: the bosses have not changed, and the rest is the
+patterns' own randomness.
 
 | Boss | In reach (phase 1 / 2 / 3) | At range (phase 1 / 2 / 3) |
 |---|---|---|
-| Light | 34 / 58 / 74 | 25 / 46 / 58 |
-| Wind | 31 / 50 / 63 | 19 / 37 / 46 |
-| Water | 45 / 70 / 88 | 32 / 52 / 65 |
-| Ice | 46 / 78 / 94 | 32 / 58 / 70 |
-| Earth | 75 / 146 / 186 | 59 / 123 / 149 |
-| Fire | 100 / 158 / 199 | 76 / 125 / 154 |
-| Crowned | 135 / 224 / 284 | 99 / 174 / 220 |
+| Light | 34 / 58 / 75 | 25 / 45 / 58 |
+| Wind | 31 / 50 / 63 | 20 / 37 / 46 |
+| Water | 46 / 70 / 88 | 31 / 51 / 66 |
+| Ice | 46 / 77 / 95 | 31 / 59 / 72 |
+| Earth | 74 / 149 / 185 | 59 / 126 / 148 |
+| Fire | 99 / 157 / 201 | 75 / 126 / 157 |
+| Crowned | 135 / 223 / 287 | 99 / 175 / 226 |
 
 ### The pets — `tools/petmeasure.gd`
 
@@ -159,7 +166,10 @@ Ten times a second, for each wave in turn:
    boss standing on the tank. Each
    attack costs its mana; an attack with no mana to pay does nothing. Each player
    attacks for the share of the time set by *Time attacking*. Pets fight all the
-   time, into the same boss.
+   time, into the same boss. The healer's aura is a rate like the rest: while it
+   has mana, a quarter of everyone's health back every 8 seconds, and its ticks
+   into the focused boss, whatever the time attacking. The healer's shot and
+   aura are both paid for out of the mana it had as the moment began.
 2. **The bosses attack.** Each boss deals, a second, what it was measured dealing
    a player who never moves — in reach if someone holds it, at range if not — for
    its current phase. Each hit is cut by the target's defense tier, armour and
@@ -177,7 +187,8 @@ Ten times a second, for each wave in turn:
    *Spread out*, or nobody left to hold: the bosses cast instead of swinging, and
    their attacks fall evenly across the living party as their target moves.
 4. **Potions.** Below 40% health a player drinks the best health potion their
-   level allows; when an attack cannot be paid for, the best mana potion.
+   level allows; when an attack cannot be paid for, the best mana potion. Mana
+   never comes back on its own, and health only from the healer's aura.
 5. **Down is out.** A player at 0 health is out for the rest of the run — a
    revive in the game lands in town.
 6. **Waves.** A wave ends when its last boss falls and the next opens at once. The
@@ -202,6 +213,14 @@ the game meet; everything above it is the dodging dial.
   more than one, and only bosses holding on the tank. Dynamite's sticks go into
   the focused boss; their bigger blast is not counted on a second one.
 - Weapons hit at the **middle of their roll**.
+- **The sword warrior stands beside the boss** (28 px, where the boss's swing was
+  measured), so the blade's three orbs land; **the healer fights from range**, so
+  its fan's side orbs do not. Which orbs land is worked out from the shapes in the
+  table above, not measured.
+- **The healer's aura reaches everyone**: it is dropped on the boss, with the
+  holder in the ring and everyone else within its 200 px. It is cast whenever it is
+  back and paid for, whether or not anyone needs it.
+- Mages and healers hold the **wand**, not the tome.
 - Each player **drinks on time**, at 40% health or an empty bar.
 - Every player brings the **same pet**, and pets fire at the boss everyone is on.
 - **The Crowned's dark rings are dim** (`ring_alpha` 0.22) and harder to read.
@@ -249,7 +268,10 @@ a wrong boss number, a potion that hurts, dodging backwards, mana below zero, a
 random choice, a boss in the wrong wave, a pet dealing NaN, a hand-edited rate, the
 page dropping the pet, the page rounding its own way, a wrong defense tier, a wrong
 level for ember, controls overflowing a phone, a control without a name, and bad
-options let through.
+options let through. And for game 0.42.0, ten more: a finisher no stronger than a wave, no orbs off the
+blade, orbs off the finisher's blade too, no golden double, an aura that heals past
+full health, an aura that costs nothing, an aura that mends half, a tank that heals,
+a wrong wand, and the aura back in 6 seconds instead of 8.
 
 ---
 

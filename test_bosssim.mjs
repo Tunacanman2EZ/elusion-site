@@ -77,7 +77,7 @@ if (!GAME) {
 		near(combat.skill_step, 0.01) && near(combat.agility_step, 0.01) && near(combat.agility_cap, 2.0));
 
 	const wrongGear = [];
-	const PLATE = ["helm", "chest", "legs", "boots", "shield"], CLOTH = ["hood", "robe", "trousers", "slippers"];
+	const PLATE = ["helm", "chest", "legs", "boots", "shield"], CLOTH = ["hood", "robe", "trousers", "slippers", "wand"];
 	TIER_IDS.forEach((t, i) => {
 		for (const k of S.CLASSES) {
 			const w = Object.values(items).find((it) => it.tier === i + 1 && it.equip_slot_name === "WEAPON" &&
@@ -94,7 +94,10 @@ if (!GAME) {
 		piece("ring", S.PIECES.jewels[0][i]);
 		piece("amulet", S.PIECES.jewels[1][i]);
 	});
-	check("every weapon, plate and cloth piece, ring and amulet, iron to ember, is the catalogue's", !wrongGear.length, wrongGear);
+	check("every weapon, plate and cloth piece (the wand in the cloth classes' off hand), ring and amulet, iron to ember, is the catalogue's", !wrongGear.length, wrongGear);
+	const wandsFor = TIER_IDS.map((t) => (items[t + "wand"] || {}).required_classes || []);
+	check("  the wand is the mage's and the healer's, in the shield's square (game 0.32.1)",
+		wandsFor.every((c) => JSON.stringify([...c].sort()) === JSON.stringify(["healer", "mage"])) && TIER_IDS.every((t) => items[t + "wand"].equip_slot_name === "SHIELD"), wandsFor);
 	const myth = { Warrior: "doubleaxe", Mage: "meteorite", Tank: "dynamite" };
 	const wrongMyth = Object.entries(myth).filter(([k, id]) => items[id].damage !== S.MYTHIC[k].dmg ||
 		items[id].bonus_damage_percent !== S.MYTHIC[k].pct || items[id].required_level !== S.MYTHIC_LEVEL);
@@ -179,6 +182,46 @@ if (!GAME) {
 		["dynamite stick", await exp("src/characters/tank.gd", "dynamite_stick_ticks"), S.DYNAMITE_STICK_TICKS],
 	].filter(([, game, sim]) => !near(game, sim));
 	check("every mana cost and cadence is the class scripts' @export", !costs.length, costs);
+
+	// The sword since 0.38.0-0.41.0, and what the sim says of which orbs land.
+	const warriorSrc = await read("src/characters/warrior.gd"), wc = combat.classes.warrior;
+	check("the finisher and the sword's orbs are warrior.gd's, as exported (0.38.0-0.41.0)",
+		constOf(warriorSrc, "FINISHER_EVERY") === S.FINISHER_EVERY && near(constOf(warriorSrc, "FINISHER_MULT"), S.FINISHER_MULT)
+		&& constOf(warriorSrc, "SWORD_FAN_ORBS") === S.SWORD_FAN_ORBS && near(constOf(warriorSrc, "SWORD_FAN_SHARE"), S.SWORD_FAN_SHARE)
+		&& wc.finisher_every === S.FINISHER_EVERY && near(wc.finisher_mult, S.FINISHER_MULT)
+		&& wc.sword_fan_orbs === S.SWORD_FAN_ORBS && near(wc.sword_fan_share, S.SWORD_FAN_SHARE)
+		&& /if not _finisher:\n\t+fling_sword_fan\(\)/.test(warriorSrc), wc);
+	// Which orbs reach a boss: its hurtbox is a 13 px circle; a blade orb is
+	// 3.5 px, a healer's orb 8. Beside a boss (28 px, where its swing was
+	// measured) the sword's side orbs pass 20 x tan 18 = 6.5 px from its middle;
+	// the finisher's leave 28 px to either side and fly wider; the healer's fan
+	// passes 90 x sin 16 = 25 px from it at range.
+	const bossScene = await read("scene/enemy/bossenemy.tscn");
+	const hurt = Number((bossScene.match(/CapsuleShape2D_hurtbox"\]\nheight = ([0-9.]+)\nradius = ([0-9.]+)/) || [0, 0, NaN])[2]);
+	const bladeR = constOf(await read("src/projectiles/bladeorb.gd"), "RADIUS");
+	const healerOrbR = Number(((await read("scene/projectiles/turretprojectile.tscn")).match(/CircleShape2D[^\]]*\]\nradius = ([0-9.]+)/) || [])[1]);
+	const healerSrc = await read("src/characters/healer.gd");
+	const rad = (d) => d * Math.PI / 180;
+	const sideMiss = (28 - constOf(warriorSrc, "SWORD_FAN_FROM")) * Math.tan(rad(constOf(warriorSrc, "SWORD_FAN_SPREAD_DEGREES")));
+	check("  the sword's three orbs land on a boss beside it; the finisher's fan and burst do not",
+		sideMiss < hurt + bladeR && constOf(warriorSrc, "FINISHER_FAN_TIP") > hurt + bladeR
+		&& /never back into that monster|never back into/.test(await read("src/projectiles/slashwave.gd")),
+		{ sideMiss, hurt, bladeR, tip: constOf(warriorSrc, "FINISHER_FAN_TIP") });
+	const healerReach = (hurt + healerOrbR) / Math.sin(rad(constOf(healerSrc, "FAN_SPREAD_DEGREES")));
+	check("  the healer's fan reaches a boss only from within about 75 px, short of where it fights (90)",
+		healerReach > 60 && healerReach < 90, healerReach);
+
+	// The healer since 0.37.0 and 0.40.0.
+	const hc = combat.classes.healer, auraSrc = await read("src/projectiles/healaura.gd");
+	const ticks = ((auraSrc.match(/^const TICK_FRAMES: Array\[int\] = \[([0-9, ]+)\]/m) || [])[1] || "").split(",").filter((x) => x.trim()).length;
+	check("the healer's double and its aura are healer.gd's and healaura.gd's, as exported (0.37.0, 0.40.0)",
+		near(constOf(healerSrc, "DOUBLE_HIT_CHANCE"), S.HEALER_DOUBLE_CHANCE) && constOf(healerSrc, "DOUBLE_HIT") === S.DOUBLE_HIT
+		&& near(hc.double_chance, S.HEALER_DOUBLE_CHANCE) && near(hc.double_hit, S.DOUBLE_HIT)
+		&& near(constOf(healerSrc, "AURA_COOLDOWN"), S.AURA_COOLDOWN) && constOf(healerSrc, "AURA_MANA_COST") === S.AURA_MANA
+		&& near(constOf(healerSrc, "AURA_DAMAGE_SHARE"), S.AURA_DAMAGE_SHARE) && near(constOf(auraSrc, "HEAL_SHARE"), S.AURA_HEAL_SHARE)
+		&& ticks === S.AURA_TICKS && near(hc.aura_cooldown, S.AURA_COOLDOWN) && hc.aura_ticks === S.AURA_TICKS
+		&& near(hc.aura_heal_share, S.AURA_HEAL_SHARE) && near(hc.aura_damage_share, S.AURA_DAMAGE_SHARE),
+		{ hc, ticks });
 
 	const arena = await read("scene/bossarena.tscn");
 	const gateWave = {};
@@ -316,7 +359,8 @@ function invariants(o, r) {
 		if (s.mana < -1e-9 || s.mana > p.manaMax + 1e-9) bad.push(k + " mana");
 		if (s.usedH > o.potions || s.usedM > o.potions || s.usedH < 0 || s.usedM < 0) bad.push(k + " potions");
 		if (!s.alive && (s.hp !== 0 || s.downAt === null)) bad.push(k + " down");
-		if (s.dealt < 0 || s.taken < 0 || s.pet < 0 || s.pet > s.dealt + 1e-9) bad.push(k + " totals");
+		if (s.dealt < 0 || s.taken < 0 || s.pet < 0 || s.pet > s.dealt + 1e-9 || s.healed < 0 || s.mended < 0) bad.push(k + " totals");
+		if (k !== "Healer" && s.mended !== 0) bad.push(k + " healed someone");
 		if (!o.pet && s.pet !== 0) bad.push(k + " pet with no pet");
 		if (p.hpMax <= 0 || p.manaMax <= 0 || p.unit <= 0 || p.dps <= 0) bad.push(k + " stats");
 	}
@@ -442,8 +486,28 @@ check("  and at the throws' mana a second the ring costs nothing more",
 check("a Double Axe's bleed is a quarter of a swing every half second, not hastened",
 	MY.Warrior.attack === "axe" && near(MY.Warrior.bleed, MY.Warrior.unit * S.AXE_BLEED_SHARE / S.AXE_BLEED_EVERY, 1e-9)
 	&& near(MY.Warrior.dps, MY.Warrior.unit / MY.Warrior.period + MY.Warrior.bleed, 1e-9), MY.Warrior);
-const ratios = ["Warrior", "Mage", "Tank"].map((k) => MY[k].dps / PL[k].dps);
-check("every mythic out-damages its class's Ember weapon on one boss", ratios.every((x) => x > 1), ratios);
+// On one boss the axe is left spinning: past AXE_SPIN_RAMP it swings
+// AXE_SPIN_MAX times as often (the bleed keeps its own clock).
+const onOne = (P, k) => k === "Warrior" && P[k].attack === "axe" ? (P[k].dps - P[k].bleed) * S.AXE_SPIN_MAX + P[k].bleed : P[k].dps;
+const ratios = ["Warrior", "Mage", "Tank"].map((k) => onOne(MY, k) / onOne(PL, k));
+check("every mythic out-damages its class's Ember weapon on one boss (the axe spun up)", ratios.every((x) => x > 1), ratios);
+
+// 4e. The sword's and the healer's own arithmetic (0.38.0-0.42.0).
+const W = PL.Warrior, H = PL.Healer, plainSwings = (S.FINISHER_EVERY - 1) / S.FINISHER_EVERY;
+check("a sword's second: the swing, and on two swings in three its three orbs of a tenth each, truncated",
+	W.attack === "sword" && near(W.blade, (W.unit + plainSwings * S.SWORD_FAN_ORBS * Math.max(1, Math.floor(W.unit * S.SWORD_FAN_SHARE))) / W.period, 1e-9), W);
+check("  and its waves for 10 mana a swing, every third the finisher's, half again",
+	near(W.wave, (plainSwings * Math.floor(W.unit * S.WAVE_RATIO) + Math.floor(W.unit * S.WAVE_RATIO * S.FINISHER_MULT) / S.FINISHER_EVERY) / W.period, 1e-9)
+	&& near(W.dps, W.blade + W.wave, 1e-9), W);
+check("the healer's stream doubles one orb in five, and its aura is four ticks of two shots every eight seconds",
+	H.attack === "scepter" && near(H.aura, S.AURA_TICKS * Math.max(1, Math.round(H.unit * S.AURA_DAMAGE_SHARE)) / S.AURA_COOLDOWN, 1e-9)
+	&& near(H.dps, H.unit * (1 + S.HEALER_DOUBLE_CHANCE * (S.DOUBLE_HIT - 1)) / H.period + H.aura, 1e-9), H);
+check("  and gives each player a quarter of their health every eight seconds",
+	S.CLASSES.every((k) => near(PL[k].mend, S.AURA_TICKS * Math.ceil(PL[k].hpMax * S.AURA_HEAL_SHARE / S.AURA_TICKS) / S.AURA_COOLDOWN, 1e-9)), S.CLASSES.map((k) => PL[k].mend));
+const held = S.simulate({ ...BASE, tier: 4, level: 18, skills: 25 });
+check("  a party that is hit is given health back, all of it by the healer, none past anyone's most",
+	held.st.Healer.mended > 0 && near(held.st.Healer.mended, S.CLASSES.reduce((a, k) => a + held.st[k].healed, 0), 1e-6)
+	&& S.CLASSES.every((k) => held.st[k].hp <= held.party[k].hpMax + 1e-9), [held.st.Healer.mended, held.cleared]);
 const spun = S.simulate({ ...BASE, mythic: true, hold: true }), plain = S.simulate({ ...BASE, mythic: false, hold: true });
 check("and a mythic party clears no slower than an Ember one", spun.cleared >= plain.cleared
 	&& (spun.cleared < 7 || plain.cleared < 7 || spun.time <= plain.time), [spun.cleared, plain.cleared, spun.time, plain.time]);

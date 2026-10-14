@@ -7,8 +7,8 @@
 // what dealt them, and what the boss put on the floor a minute. Per pet: shots
 // a second into a boss at five attack speeds, and anything else it dealt.
 globalThis.BOSSSIM_DATA = {
- "game": "0.11.5",
- "measured": "2026-10-07",
+ "game": "0.42.0",
+ "measured": "2026-10-14",
  "seconds": {
   "boss": 300,
   "pet": 120
@@ -24,11 +24,11 @@ globalThis.BOSSSIM_DATA = {
    "melee": [
     {
      "swing": 0.663,
-     "spike": 0.657,
+     "spike": 0.653,
      "pillar": 0,
      "puddle": 0,
      "floor": {
-      "spikes": 345,
+      "spikes": 346,
       "pillars": 0,
       "stalkers": 0,
       "puddles": 0
@@ -36,11 +36,11 @@ globalThis.BOSSSIM_DATA = {
     },
     {
      "swing": 0.663,
-     "spike": 0.707,
+     "spike": 0.697,
      "pillar": 1.403,
      "puddle": 0,
      "floor": {
-      "spikes": 610,
+      "spikes": 615,
       "pillars": 84,
       "stalkers": 7,
       "puddles": 0
@@ -48,11 +48,11 @@ globalThis.BOSSSIM_DATA = {
     },
     {
      "swing": 0.663,
-     "spike": 0.817,
+     "spike": 0.84,
      "pillar": 2.26,
      "puddle": 0,
      "floor": {
-      "spikes": 745,
+      "spikes": 738,
       "pillars": 136,
       "stalkers": 11,
       "puddles": 0
@@ -62,11 +62,11 @@ globalThis.BOSSSIM_DATA = {
    "range": [
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 1.023,
      "pillar": 0,
      "puddle": 0,
      "floor": {
-      "spikes": 343,
+      "spikes": 347,
       "pillars": 929,
       "stalkers": 0,
       "puddles": 0
@@ -74,24 +74,24 @@ globalThis.BOSSSIM_DATA = {
     },
     {
      "swing": 0,
-     "spike": 1.037,
+     "spike": 1.023,
      "pillar": 1.293,
      "puddle": 0,
      "floor": {
-      "spikes": 599,
-      "pillars": 907,
+      "spikes": 619,
+      "pillars": 923,
       "stalkers": 7,
       "puddles": 0
      }
     },
     {
      "swing": 0,
-     "spike": 1.02,
+     "spike": 1.03,
      "pillar": 2.083,
      "puddle": 0,
      "floor": {
-      "spikes": 749,
-      "pillars": 980,
+      "spikes": 735,
+      "pillars": 984,
       "stalkers": 11,
       "puddles": 0
      }
@@ -112,7 +112,7 @@ globalThis.BOSSSIM_DATA = {
      "pillar": 0,
      "puddle": 0,
      "floor": {
-      "spikes": 348,
+      "spikes": 338,
       "pillars": 0,
       "stalkers": 0,
       "puddles": 0
@@ -120,11 +120,11 @@ globalThis.BOSSSIM_DATA = {
     },
     {
      "swing": 0.663,
-     "spike": 0.72,
+     "spike": 0.7,
      "pillar": 1.403,
      "puddle": 0,
      "floor": {
-      "spikes": 592,
+      "spikes": 596,
       "pillars": 84,
       "stalkers": 7,
       "puddles": 0
@@ -132,11 +132,11 @@ globalThis.BOSSSIM_DATA = {
     },
     {
      "swing": 0.663,
-     "spike": 0.787,
+     "spike": 0.81,
      "pillar": 2.26,
      "puddle": 0,
      "floor": {
-      "spikes": 722,
+      "spikes": 714,
       "pillars": 136,
       "stalkers": 11,
       "puddles": 0
@@ -146,36 +146,36 @@ globalThis.BOSSSIM_DATA = {
    "range": [
     {
      "swing": 0,
-     "spike": 1.02,
+     "spike": 1.027,
      "pillar": 0,
      "puddle": 0,
      "floor": {
-      "spikes": 357,
-      "pillars": 929,
+      "spikes": 349,
+      "pillars": 925,
       "stalkers": 0,
       "puddles": 0
      }
     },
     {
      "swing": 0,
-     "spike": 1.037,
+     "spike": 1.047,
      "pillar": 1.293,
      "puddle": 0,
      "floor": {
-      "spikes": 587,
-      "pillars": 901,
+      "spikes": 585,
+      "pillars": 928,
       "stalkers": 7,
       "puddles": 0
      }
     },
     {
      "swing": 0,
-     "spike": 1.013,
+     "spike": 1.007,
      "pillar": 2.083,
      "puddle": 0,
      "floor": {
-      "spikes": 721,
-      "pillars": 993,
+      "spikes": 726,
+      "pillars": 983,
       "stalkers": 11,
       "puddles": 0
      }
@@ -194,74 +194,74 @@ globalThis.BOSSSIM_DATA = {
      "swing": 0.663,
      "spike": 0.65,
      "pillar": 0,
-     "puddle": 0.95,
+     "puddle": 1.25,
      "floor": {
-      "spikes": 353,
+      "spikes": 351,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 187
+      "puddles": 184
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.707,
+     "spike": 0.71,
      "pillar": 1.4,
      "puddle": 1.533,
      "floor": {
-      "spikes": 599,
+      "spikes": 579,
       "pillars": 84,
       "stalkers": 7,
-      "puddles": 323
+      "puddles": 319
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.83,
+     "spike": 0.857,
      "pillar": 2.253,
-     "puddle": 1.787,
+     "puddle": 1.75,
      "floor": {
-      "spikes": 721,
+      "spikes": 732,
       "pillars": 136,
       "stalkers": 11,
-      "puddles": 379
+      "puddles": 368
      }
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.023,
-     "pillar": 0,
-     "puddle": 2.623,
-     "floor": {
-      "spikes": 353,
-      "pillars": 925,
-      "stalkers": 0,
-      "puddles": 677
-     }
-    },
-    {
-     "swing": 0,
      "spike": 1.033,
-     "pillar": 1.29,
-     "puddle": 2.433,
+     "pillar": 0,
+     "puddle": 2.207,
      "floor": {
-      "spikes": 597,
-      "pillars": 900,
-      "stalkers": 7,
-      "puddles": 731
+      "spikes": 342,
+      "pillars": 929,
+      "stalkers": 0,
+      "puddles": 663
      }
     },
     {
      "swing": 0,
-     "spike": 1.013,
-     "pillar": 2.077,
-     "puddle": 2.88,
+     "spike": 1.01,
+     "pillar": 1.29,
+     "puddle": 2.183,
      "floor": {
-      "spikes": 756,
-      "pillars": 987,
+      "spikes": 596,
+      "pillars": 924,
+      "stalkers": 7,
+      "puddles": 743
+     }
+    },
+    {
+     "swing": 0,
+     "spike": 1.04,
+     "pillar": 2.077,
+     "puddle": 2.633,
+     "floor": {
+      "spikes": 763,
+      "pillars": 1007,
       "stalkers": 11,
-      "puddles": 862
+      "puddles": 847
      }
     }
    ]
@@ -276,76 +276,76 @@ globalThis.BOSSSIM_DATA = {
    "melee": [
     {
      "swing": 0.663,
-     "spike": 0.647,
+     "spike": 0.653,
      "pillar": 0,
-     "puddle": 1.03,
+     "puddle": 1.103,
      "floor": {
-      "spikes": 357,
+      "spikes": 335,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 103
+      "puddles": 93
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.937,
+     "spike": 0.89,
      "pillar": 1.4,
-     "puddle": 1.26,
+     "puddle": 1.24,
      "floor": {
-      "spikes": 620,
+      "spikes": 568,
       "pillars": 84,
       "stalkers": 7,
-      "puddles": 176
+      "puddles": 157
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.977,
+     "spike": 1.033,
      "pillar": 2.253,
-     "puddle": 1.467,
+     "puddle": 1.353,
      "floor": {
-      "spikes": 709,
+      "spikes": 716,
       "pillars": 136,
       "stalkers": 11,
-      "puddles": 199
+      "puddles": 202
      }
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.033,
+     "spike": 1.027,
      "pillar": 0,
-     "puddle": 1.903,
+     "puddle": 1.63,
      "floor": {
-      "spikes": 339,
-      "pillars": 929,
+      "spikes": 355,
+      "pillars": 935,
       "stalkers": 0,
-      "puddles": 355
+      "puddles": 345
      }
     },
     {
      "swing": 0,
-     "spike": 1.21,
+     "spike": 1.223,
      "pillar": 1.29,
-     "puddle": 1.707,
+     "puddle": 1.843,
      "floor": {
-      "spikes": 599,
-      "pillars": 910,
+      "spikes": 609,
+      "pillars": 919,
       "stalkers": 7,
-      "puddles": 388
+      "puddles": 409
      }
     },
     {
      "swing": 0,
-     "spike": 1.14,
+     "spike": 1.237,
      "pillar": 2.077,
-     "puddle": 1.743,
+     "puddle": 1.82,
      "floor": {
-      "spikes": 710,
-      "pillars": 972,
+      "spikes": 730,
+      "pillars": 988,
       "stalkers": 11,
-      "puddles": 429
+      "puddles": 449
      }
     }
    ]
@@ -360,23 +360,23 @@ globalThis.BOSSSIM_DATA = {
    "melee": [
     {
      "swing": 0.663,
-     "spike": 0.657,
+     "spike": 0.65,
      "pillar": 0,
-     "puddle": 0.72,
+     "puddle": 0.543,
      "floor": {
-      "spikes": 332,
+      "spikes": 347,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 119
+      "puddles": 124
      }
     },
     {
      "swing": 0.663,
-     "spike": 1.117,
+     "spike": 1.163,
      "pillar": 1.4,
-     "puddle": 0.63,
+     "puddle": 0.697,
      "floor": {
-      "spikes": 598,
+      "spikes": 601,
       "pillars": 84,
       "stalkers": 7,
       "puddles": 207
@@ -386,50 +386,50 @@ globalThis.BOSSSIM_DATA = {
      "swing": 0.663,
      "spike": 1.28,
      "pillar": 2.253,
-     "puddle": 0.99,
+     "puddle": 0.813,
      "floor": {
-      "spikes": 744,
+      "spikes": 735,
       "pillars": 136,
       "stalkers": 11,
-      "puddles": 263
+      "puddles": 262
      }
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.03,
+     "spike": 1.027,
      "pillar": 0,
-     "puddle": 1.07,
+     "puddle": 1.1,
      "floor": {
-      "spikes": 344,
-      "pillars": 929,
+      "spikes": 343,
+      "pillars": 935,
       "stalkers": 0,
-      "puddles": 442
+      "puddles": 447
      }
     },
     {
      "swing": 0,
-     "spike": 1.4,
+     "spike": 1.467,
      "pillar": 1.29,
-     "puddle": 1.177,
+     "puddle": 1.003,
      "floor": {
-      "spikes": 588,
-      "pillars": 940,
+      "spikes": 586,
+      "pillars": 920,
       "stalkers": 7,
-      "puddles": 498
+      "puddles": 495
      }
     },
     {
      "swing": 0,
-     "spike": 1.413,
+     "spike": 1.377,
      "pillar": 2.077,
-     "puddle": 0.94,
+     "puddle": 1,
      "floor": {
-      "spikes": 725,
-      "pillars": 1002,
+      "spikes": 729,
+      "pillars": 997,
       "stalkers": 11,
-      "puddles": 554
+      "puddles": 548
      }
     }
    ]
@@ -444,76 +444,76 @@ globalThis.BOSSSIM_DATA = {
    "melee": [
     {
      "swing": 0.663,
-     "spike": 0.653,
+     "spike": 0.647,
      "pillar": 0,
-     "puddle": 1.773,
+     "puddle": 1.66,
      "floor": {
-      "spikes": 339,
+      "spikes": 351,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 148
+      "puddles": 164
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.707,
+     "spike": 0.703,
      "pillar": 1.4,
-     "puddle": 1.733,
+     "puddle": 1.547,
      "floor": {
-      "spikes": 583,
+      "spikes": 593,
       "pillars": 84,
       "stalkers": 7,
-      "puddles": 263
+      "puddles": 265
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.843,
+     "spike": 0.857,
      "pillar": 2.253,
-     "puddle": 1.703,
+     "puddle": 1.907,
      "floor": {
-      "spikes": 729,
+      "spikes": 728,
       "pillars": 136,
       "stalkers": 11,
-      "puddles": 335
+      "puddles": 328
      }
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.023,
+     "spike": 1.03,
      "pillar": 0,
-     "puddle": 2.913,
+     "puddle": 2.573,
      "floor": {
-      "spikes": 353,
-      "pillars": 929,
+      "spikes": 336,
+      "pillars": 925,
       "stalkers": 0,
-      "puddles": 586
+      "puddles": 568
      }
     },
     {
      "swing": 0,
-     "spike": 1.033,
+     "spike": 1.03,
      "pillar": 1.29,
-     "puddle": 2.62,
+     "puddle": 2.853,
      "floor": {
-      "spikes": 597,
-      "pillars": 920,
+      "spikes": 594,
+      "pillars": 910,
       "stalkers": 7,
-      "puddles": 649
+      "puddles": 654
      }
     },
     {
      "swing": 0,
-     "spike": 1.007,
+     "spike": 1.04,
      "pillar": 2.077,
-     "puddle": 2.577,
+     "puddle": 2.68,
      "floor": {
-      "spikes": 747,
-      "pillars": 974,
+      "spikes": 724,
+      "pillars": 1001,
       "stalkers": 11,
-      "puddles": 737
+      "puddles": 704
      }
     }
    ]
@@ -528,76 +528,76 @@ globalThis.BOSSSIM_DATA = {
    "melee": [
     {
      "swing": 0.663,
-     "spike": 0.647,
+     "spike": 0.643,
      "pillar": 0,
-     "puddle": 0.707,
+     "puddle": 0.823,
      "floor": {
-      "spikes": 356,
+      "spikes": 346,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 121
+      "puddles": 118
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.71,
+     "spike": 0.7,
      "pillar": 1.4,
-     "puddle": 0.947,
+     "puddle": 0.92,
      "floor": {
-      "spikes": 620,
+      "spikes": 617,
       "pillars": 84,
       "stalkers": 7,
-      "puddles": 226
+      "puddles": 200
      }
     },
     {
      "swing": 0.663,
-     "spike": 0.81,
+     "spike": 0.847,
      "pillar": 2.253,
-     "puddle": 1.043,
+     "puddle": 1.063,
      "floor": {
-      "spikes": 735,
+      "spikes": 763,
       "pillars": 136,
       "stalkers": 11,
-      "puddles": 260
+      "puddles": 270
      }
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 1.03,
      "pillar": 0,
-     "puddle": 1.297,
+     "puddle": 1.423,
      "floor": {
-      "spikes": 350,
+      "spikes": 342,
       "pillars": 925,
       "stalkers": 0,
-      "puddles": 438
+      "puddles": 426
      }
     },
     {
      "swing": 0,
-     "spike": 1.01,
+     "spike": 1.033,
      "pillar": 1.29,
-     "puddle": 1.533,
+     "puddle": 1.32,
      "floor": {
-      "spikes": 623,
-      "pillars": 941,
+      "spikes": 597,
+      "pillars": 937,
       "stalkers": 7,
-      "puddles": 525
+      "puddles": 503
      }
     },
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 1.067,
      "pillar": 2.077,
-     "puddle": 1.097,
+     "puddle": 1.613,
      "floor": {
-      "spikes": 704,
-      "pillars": 990,
+      "spikes": 759,
+      "pillars": 994,
       "stalkers": 11,
-      "puddles": 538
+      "puddles": 557
      }
     }
    ]
@@ -623,11 +623,11 @@ globalThis.BOSSSIM_DATA = {
      0.75
     ],
     "extra": [
-     7.125,
-     8.333,
-     10.083,
-     9.583,
-     11.667
+     7.5,
+     8.458,
+     10.458,
+     10.292,
+     10.917
     ]
    },
    "range": {
@@ -646,11 +646,61 @@ globalThis.BOSSSIM_DATA = {
      0.75
     ],
     "extra": [
-     5.75,
-     9.25,
-     9.25,
-     11.125,
-     9.875
+     7.417,
+     7.792,
+     8.333,
+     10.042,
+     10.833
+    ]
+   }
+  },
+  "petelectricsprite": {
+   "damage": 40,
+   "cooldown": 2,
+   "melee": {
+    "haste": [
+     1,
+     1.25,
+     1.5,
+     1.75,
+     2
+    ],
+    "shots": [
+     0.5,
+     0.558,
+     0.625,
+     0.683,
+     0.75
+    ],
+    "extra": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "range": {
+    "haste": [
+     1,
+     1.25,
+     1.5,
+     1.75,
+     2
+    ],
+    "shots": [
+     0.492,
+     0.558,
+     0.617,
+     0.683,
+     0.75
+    ],
+    "extra": [
+     0,
+     0,
+     0,
+     0,
+     0
     ]
    }
   },
@@ -892,56 +942,6 @@ globalThis.BOSSSIM_DATA = {
      0.492,
      0.558,
      0.625,
-     0.683,
-     0.75
-    ],
-    "extra": [
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   }
-  },
-  "petelectricsprite": {
-   "damage": 40,
-   "cooldown": 2,
-   "melee": {
-    "haste": [
-     1,
-     1.25,
-     1.5,
-     1.75,
-     2
-    ],
-    "shots": [
-     0.5,
-     0.558,
-     0.625,
-     0.683,
-     0.75
-    ],
-    "extra": [
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   },
-   "range": {
-    "haste": [
-     1,
-     1.25,
-     1.5,
-     1.75,
-     2
-    ],
-    "shots": [
-     0.492,
-     0.558,
-     0.617,
      0.683,
      0.75
     ],
