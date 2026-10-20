@@ -177,11 +177,19 @@ if (!GAME) {
 		["aura tick", await exp("src/characters/tank.gd", "aura_tick"), 0.25],
 		["aura drain every", await exp("src/characters/tank.gd", "mana_drain_tick"), 0.5],
 		["aura drain", await exp("src/characters/tank.gd", "mana_drain_cost"), 2],
-		["dynamite", await exp("src/characters/tank.gd", "dynamite_mana_cost"), S.COST.dynamite],
 		["dynamite cadence", await exp("src/characters/tank.gd", "dynamite_cooldown"), S.DYNAMITE_COOLDOWN],
 		["dynamite stick", await exp("src/characters/tank.gd", "dynamite_stick_ticks"), S.DYNAMITE_STICK_TICKS],
 	].filter(([, game, sim]) => !near(game, sim));
 	check("every mana cost and cadence is the class scripts' @export", !costs.length, costs);
+	// Dynamite's mana since game 0.59.0 (tank.gd, DYNAMITE'S MANA): a share of
+	// the level's bar, before gear, rounded up.
+	const tankPriced = await read("src/characters/tank.gd");
+	check("a Dynamite throw costs the tank's level bar over DYNAMITE_THROWS_PER_BAR, rounded up, as tank.gd prices it (0.59.0)",
+		constOf(tankPriced, "DYNAMITE_THROWS_PER_BAR") === S.DYNAMITE_THROWS_PER_BAR
+		&& /return dynamite_mana_cost_at\(mana_base, mana_per_lvl, level\)/.test(tankPriced)
+		&& /PlayerStats\.max_for\(class_mana_base, class_mana_per_level, maxi\(at_level, 1\)\)/.test(tankPriced)
+		&& /return maxi\(1, ceili\(float\(bar\) \/ float\(DYNAMITE_THROWS_PER_BAR\)\)\)/.test(tankPriced),
+		constOf(tankPriced, "DYNAMITE_THROWS_PER_BAR"));
 
 	// The sword since 0.38.0-0.41.0, and what the sim says of which orbs land.
 	const warriorSrc = await read("src/characters/warrior.gd"), wc = combat.classes.warrior;
@@ -402,10 +410,19 @@ const DIALS = {
 	dodge: Array.from({ length: 60 }, (_, i) => +(0.40 + i * 0.01).toFixed(2)),
 	resist: Array.from({ length: 51 }, (_, i) => i), uptime: Array.from({ length: 11 }, (_, i) => +(0.5 + i * 0.05).toFixed(2)),
 };
-function noWorse(a, b) {
+function noWorse(a, b, dial) {
 	// b is a party that is better in one way than a. It must down at least as
 	// many bosses, and, if both clear, not take longer.
 	if (b.cleared < a.cleared) return false;
+	// ONE KNOWN EXCEPTION (game 0.59.0, tank.gd DYNAMITE'S MANA): a Dynamite
+	// throw costs a fifth of the tank's bar AT ITS LEVEL, and a mana potion
+	// restores a fixed amount - so a level up keeps five throws a bar and makes
+	// each potion worth fewer; and where the bar is what runs out, a skill's
+	// haste only spends it sooner (the ring burns while the tank throws). So a
+	// Dynamite party a level or a skill better may take a little longer, when
+	// its tank's mana is what ran short; it never downs fewer bosses (above).
+	const barBound = b.party.Tank.attack === "dynamite" && (b.st.Tank.dryAt !== null || b.st.Tank.usedM > 0);
+	if (barBound && (dial === "level" || dial === "skills")) return true;
 	if (a.cleared === 7 && b.cleared === 7 && b.time > a.time + 1e-9) return false;
 	return true;
 }
@@ -419,7 +436,7 @@ for (const [name, start] of Object.entries(STARTS)) {
 			const r = run(o);
 			const inv = invariants(o, r);
 			if (inv.length) bad.push([dial, v, inv]);
-			if (prev && !noWorse(prev.r, r)) worse.push([dial, prev.v, v, prev.r.cleared, r.cleared, +prev.r.time.toFixed(2), +r.time.toFixed(2)]);
+			if (prev && !noWorse(prev.r, r, dial)) worse.push([dial, prev.v, v, prev.r.cleared, r.cleared, +prev.r.time.toFixed(2), +r.time.toFixed(2)]);
 			prev = { r, v };
 		}
 	}
@@ -464,7 +481,7 @@ for (let i = 0; i < 1500; i++) {
 		const better = step(o);
 		if (!better) continue;
 		const rb = run(better);
-		if (!noWorse(r, rb) && randWorse.length < 8) randWorse.push([name, o, r.cleared, rb.cleared, +r.time.toFixed(2), +rb.time.toFixed(2)]);
+		if (!noWorse(r, rb, name) && randWorse.length < 8) randWorse.push([name, o, r.cleared, rb.cleared, +r.time.toFixed(2), +rb.time.toFixed(2)]);
 	}
 }
 check(`${randN} random parties hold together`, !randBad.length, randBad);
@@ -481,8 +498,13 @@ check("a Dynamite tank's ring burns as well: its rate is the ring's, a tick ever
 check("  a stick is DYNAMITE_STICK_TICKS ring ticks, a throw every DYNAMITE_COOLDOWN",
 	MY.Tank.unit === Math.round(Math.round((S.CLASS.Tank.base + MY.Tank.gear.weapon) * MY.Tank.mult) * S.DYNAMITE_STICK_TICKS)
 	&& near(MY.Tank.period, S.DYNAMITE_COOLDOWN / haste4, 1e-9), [MY.Tank.unit, MY.Tank.period]);
-check("  and at the throws' mana a second the ring costs nothing more",
-	near(S.COST.dynamite / S.DYNAMITE_COOLDOWN, S.COST.aura / S.COST.auraEvery, 1e-9));
+check("  a throw costs a fifth of the tank's bar at its level, before gear - 82 at 22 - so a full bar is five throws (0.59.0)",
+	S.DYNAMITE_THROWS_PER_BAR === 5 && S.dynamiteCost(22) === 82 && MY.Tank.throwCost === S.dynamiteCost(BASE.level)
+	&& [1, 22, 47, 99].every((lv) => Math.floor((S.CLASS.Tank.mana[0] + S.CLASS.Tank.mana[1] * (lv - 1)) / S.dynamiteCost(lv)) === 5),
+	[S.dynamiteCost(22), MY.Tank.throwCost]);
+const dryRun = S.simulate({ ...BASE, mythic: true, potions: 0 }), wetRun = S.simulate({ ...BASE, mythic: true, potions: 20 });
+check("  so a Dynamite tank with no mana potions runs dry in the fight, and one with them drinks them",
+	dryRun.st.Tank.dryAt !== null && wetRun.st.Tank.usedM > 0, [dryRun.st.Tank.dryAt, wetRun.st.Tank.usedM]);
 check("a Double Axe's bleed is a quarter of a swing every half second, not hastened",
 	MY.Warrior.attack === "axe" && near(MY.Warrior.bleed, MY.Warrior.unit * S.AXE_BLEED_SHARE / S.AXE_BLEED_EVERY, 1e-9)
 	&& near(MY.Warrior.dps, MY.Warrior.unit / MY.Warrior.period + MY.Warrior.bleed, 1e-9), MY.Warrior);

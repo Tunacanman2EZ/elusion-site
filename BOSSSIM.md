@@ -53,7 +53,8 @@ in that file is typed.
 | Which orbs reach a boss | a boss's body is a 13 px circle. The sword's side orbs (18° apart, from 8 px ahead, a 3.5 px orb) pass 6.5 px from its middle at 28 px: all three land. The finisher's four gold orbs leave 28 px to either side and fly wider, and its burst never goes back into the boss it cut: none land on it. The healer's fan (16° either side, an 8 px orb, flying straight) reaches a boss only from within about 75 px; the healer fights from range, so it is not counted | `bossenemy.tscn` hurtbox; `bladeorb.gd` `RADIUS`; `warrior.gd` `SWORD_FAN_*`, `FINISHER_FAN_TIP`; `slashwave.gd`; `turretprojectile.tscn`; `healer.gd` `FAN_SPREAD_DEGREES` |
 | The healer's double | one main orb in five hits 2× (game 0.37.0) | `healer.gd` `DOUBLE_HIT_CHANCE`, `DOUBLE_HIT`; `combat.classes.healer.double_*` |
 | The healer's aura | 25 mana, every 8 s on its own clock: everyone it reaches gets a quarter of their health back (4 ticks of ceil(health × 0.25 ÷ 4)), and the boss under it takes 4 ticks of round(a shot × 2) (game 0.40.0) | `healer.gd` `AURA_*`; `healaura.gd` `HEAL_SHARE`, `TICK_FRAMES`; `combat.classes.healer.aura_*` |
-| Spell, shot, aura, Dynamite | 15 mana; 1 mana; 2 mana every 0.5 s; 3 mana a throw, every 0.75 s (game 0.14.0) | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
+| Spell, shot, aura | 15 mana; 1 mana; 2 mana every 0.5 s | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
+| Dynamite's mana | a fifth of the tank's mana bar at its level, before gear, rounded up — 82 at level 22 — so a full bar is five throws, a throw every 0.75 s (game 0.59.0; it was 3 a throw from 0.14.0) | `tank.gd` `DYNAMITE_THROWS_PER_BAR`, `dynamite_mana_cost_at()` |
 | The Meteorite's double cast | 10% | `combat.double_chance` |
 | Skills and agility | +1% damage a level of attack and of magic; cooldowns ÷ (1 + 1% a level of agility), at most ×2 | `combat.skill_step`, `agility_step`, `agility_cap` |
 | Weapons, armour, rings, amulets, iron to ember | damage, damage %, armour, health, mana, level | `gamedata.json` `items` |
@@ -256,7 +257,11 @@ numbers are skipped and the run says so.
    every one-step improvement. Nothing is NaN or out of range, the same party gets
    the same answer, and **no improvement** — more gear, level, skills, potions,
    dodging, resistance, time attacking, a pet, better rolls, a rest — **ever makes a
-   run worse**. Unknown options are refused, and the slowest run is timed.
+   run worse**. One exception, on purpose (game 0.59.0): a Dynamite tank's throw
+   costs a fifth of its bar at its level while a mana potion restores a fixed
+   amount, so where its mana is what runs short, a level or a skill up may take a
+   little longer — never downing fewer bosses. Unknown options are refused, and
+   the slowest run is timed.
 5. **The page**, in Chromium under the site's real Content-Security-Policy —
    every preset, every dial through every value, every button, every list: the
    page reads every dial as it is shown and shows the model's answer every time, no NaN on screen, no script error,

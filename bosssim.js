@@ -25,7 +25,7 @@
     Healer:  { base: 3,  cd: 0.10, hp: [140, 7],  mana: [220, 14], wear: "cloth" },
     Tank:    { base: 4,  cd: 0.25, hp: [260, 22], mana: [200, 10], wear: "plate" }
   };
-  var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2, dynamite: 3 };
+  var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2 };
   var WAVE_RATIO = 0.75;      // warrior wave_ratio
   // The sword since game 0.38.0-0.41.0 (warrior.gd, THE WARRIOR'S BLOWS): every
   // FINISHER_EVERY-th swing's wave is the gold finisher, FINISHER_MULT its
@@ -54,6 +54,14 @@
   // throw rolls (tank.gd, THE ROLL): BUNDLE_CHANCE of them are BUNDLE_STICKS
   // sticks, BARRAGE_CHANCE are BARRAGE_STICKS, the rest one - no double.
   var DYNAMITE_COOLDOWN = 0.75, DYNAMITE_STICK_TICKS = 1.5;
+  // Since game 0.59.0 (tank.gd, DYNAMITE'S MANA) a throw costs a share of the
+  // tank's bar at its level, before gear: the level's mana over
+  // DYNAMITE_THROWS_PER_BAR, rounded up - 82 at level 22. It was 3.
+  var DYNAMITE_THROWS_PER_BAR = 5;
+  function dynamiteCost(level) {
+    var bar = CLASS.Tank.mana[0] + CLASS.Tank.mana[1] * (Math.max(1, level) - 1);
+    return Math.max(1, Math.ceil(bar / DYNAMITE_THROWS_PER_BAR));
+  }
   var BUNDLE_CHANCE = 0.10, BUNDLE_STICKS = 3, BARRAGE_CHANCE = 0.01, BARRAGE_STICKS = 5;
   var SKILL_STEP = 0.01, AGILITY_STEP = 0.01, AGILITY_CAP = 2.0;
 
@@ -233,7 +241,7 @@
     CLASSES.forEach(function (k) {
       var c = CLASS[k], g = loadout(k, opts);
       var m = skills * (1 + g.pct / 100);
-      var unit = round((c.base + g.weapon) * m), period = c.cd / haste, dps, attack, bleed = 0, ring = 0;
+      var unit = round((c.base + g.weapon) * m), period = c.cd / haste, dps, attack, bleed = 0, ring = 0, throwCost = 0;
       var blade = 0, wave = 0, aura = 0, auraHit = 0;
       if (k === "Warrior") {
         if (g.mythic) { attack = "axe"; bleed = unit * AXE_BLEED_SHARE / AXE_BLEED_EVERY; dps = unit / period + bleed; }
@@ -262,7 +270,7 @@
       else if (g.mythic) {
         // The ring, a tick every period, then the sticks: unit and period
         // become a stick and a throw.
-        attack = "dynamite"; ring = unit / period;
+        attack = "dynamite"; ring = unit / period; throwCost = dynamiteCost(opts.level);
         period = DYNAMITE_COOLDOWN / haste; unit = round(unit * DYNAMITE_STICK_TICKS);
         var group = 1 + Math.floor(DYNAMITE_FUSE / period + 1e-9);
         var perThrow = 1 + BUNDLE_CHANCE * (BUNDLE_STICKS - 1) + BARRAGE_CHANCE * (BARRAGE_STICKS - 1);
@@ -270,7 +278,7 @@
       } else { attack = "aura"; dps = unit / period; }
       var hpMax = c.hp[0] + c.hp[1] * (opts.level - 1) + g.hp;
       out[k] = {
-        gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack, bleed: bleed, ring: ring,
+        gear: g, mult: m, unit: unit, period: period, dps: dps, attack: attack, bleed: bleed, ring: ring, throwCost: throwCost,
         blade: blade, wave: wave, aura: aura, auraHit: auraHit,
         // What the healer's aura gives this player back a second.
         mend: AURA_TICKS * Math.max(1, Math.ceil(hpMax * AURA_HEAL_SHARE / AURA_TICKS)) / AURA_COOLDOWN,
@@ -348,7 +356,7 @@
     function hurt(k, x) { st[k].hp -= x; st[k].taken += x; }
     function manaNeed(k) {
       var a = P[k].attack;
-      return a === "staff" || a === "meteor" ? COST.spell : a === "sword" ? COST.wave : a === "dynamite" ? COST.dynamite : a === "aura" ? 1 : a === "scepter" ? COST.shot : 0;
+      return a === "staff" || a === "meteor" ? COST.spell : a === "sword" ? COST.wave : a === "dynamite" ? P[k].throwCost : a === "aura" ? 1 : a === "scepter" ? COST.shot : 0;
     }
 
     var rows = [], waves = [], clock = 0, cleared = 0, wiped = false, firstDown = null, wipeWave = null, heldMost = 0;
@@ -404,8 +412,8 @@
             // The throws pay for the ring; with no mana to throw, both stop.
             // The ring reaches every boss standing on the tank, the sticks
             // the one being focused.
-            if (s.mana >= COST.dynamite) {
-              d = p.dps - p.ring; s.mana -= COST.dynamite / p.period * step;
+            if (s.mana >= p.throwCost) {
+              d = p.dps - p.ring; s.mana -= p.throwCost / p.period * step;
               (holder === "Tank" ? live : [focus]).forEach(function (x) { x.hp -= p.ring * step; s.dealt += p.ring * step; });
             }
           } else if (s.mana > 0) {
@@ -485,6 +493,7 @@
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP, AXE_BLEED_SHARE: AXE_BLEED_SHARE, AXE_BLEED_EVERY: AXE_BLEED_EVERY,
     DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS,
+    DYNAMITE_THROWS_PER_BAR: DYNAMITE_THROWS_PER_BAR, dynamiteCost: dynamiteCost,
     BUNDLE_CHANCE: BUNDLE_CHANCE, BUNDLE_STICKS: BUNDLE_STICKS, BARRAGE_CHANCE: BARRAGE_CHANCE, BARRAGE_STICKS: BARRAGE_STICKS,
     COST: COST, DOUBLE_CHANCE: DOUBLE_CHANCE, WAVE_RATIO: WAVE_RATIO,
     FINISHER_EVERY: FINISHER_EVERY, FINISHER_MULT: FINISHER_MULT, SWORD_FAN_ORBS: SWORD_FAN_ORBS, SWORD_FAN_SHARE: SWORD_FAN_SHARE,
