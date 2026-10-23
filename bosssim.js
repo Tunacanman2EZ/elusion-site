@@ -14,18 +14,28 @@
 (function (root) {
   "use strict";
 
-  var VERSION = "0.42.0";
+  var VERSION = "0.76.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
   // cadences from src/characters/<class>.gd.
   var CLASS = {
     Warrior: { base: 24, cd: 1.00, hp: [180, 12], mana: [180, 10], wear: "plate" },
-    Mage:    { base: 9,  cd: 0.45, hp: [110, 5],  mana: [250, 16], wear: "cloth" },
+    Mage:    { base: 30, cd: 1.00, hp: [110, 5],  mana: [250, 16], wear: "cloth" },
     Healer:  { base: 3,  cd: 0.10, hp: [140, 7],  mana: [220, 14], wear: "cloth" },
     Tank:    { base: 4,  cd: 0.25, hp: [260, 22], mana: [200, 10], wear: "plate" }
   };
-  var COST = { wave: 10, spell: 15, shot: 1, auraEvery: 0.5, aura: 2 };
+  var COST = { wave: 10, spell: 20, shot: 1, auraEvery: 0.5, aura: 2 };
+  // The mage since game 0.71.0 (mage.gd, THE HEAVY SPIKE and THE CRITICAL
+  // SPIKE): 20 mana for 30 a cast, once a second, and one cast in
+  // MAGE_CRIT_CHANCE hits MAGE_CRIT_MULT times as hard - the whole hit
+  // multiplied, then rounded. Every third cast and every critical one drops
+  // three spikes, but A MONSTER TAKES ONE SPIKE A CAST: on one boss it is one.
+  // The ice shards (frostring.gd, 0.71.1) circle the spike 24 px out (its 18 px
+  // circle and ORBIT_PAD 6), a 3.5 px shard, then fly straight out: a boss's
+  // 13 px body is never touched, so none are counted - as the healer's fan.
+  // The Meteorite is its own cast: no critical, the double and the crater.
+  var MAGE_CRIT_CHANCE = 0.2, MAGE_CRIT_MULT = 2.0;
   var WAVE_RATIO = 0.75;      // warrior wave_ratio
   // The sword since game 0.38.0-0.41.0 (warrior.gd, THE WARRIOR'S BLOWS): every
   // FINISHER_EVERY-th swing's wave is the gold finisher, FINISHER_MULT its
@@ -70,14 +80,14 @@
   // data/items/weapons: [damage, damage %] for tiers 1-5.
   var WEAPON = {
     Warrior: [[20, 0], [32, 2], [48, 3], [70, 5], [100, 8]],
-    Mage:    [[8, 0], [12, 2], [18, 3], [26, 5], [38, 8]],
+    Mage:    [[25, 0], [40, 2], [60, 3], [88, 5], [125, 8]],
     Healer:  [[2, 0], [3, 2], [4, 3], [6, 5], [8, 8]],
     Tank:    [[3, 0], [5, 2], [8, 3], [12, 5], [17, 8]]
   };
   var WEAPON_NAME = { Warrior: "sword", Mage: "staff", Healer: "scepter", Tank: "maul" };
   var MYTHIC = {
     Warrior: { name: "Double Axe", dmg: 140, pct: 15 },
-    Mage:    { name: "Meteorite", dmg: 53, pct: 15 },
+    Mage:    { name: "Meteorite", dmg: 175, pct: 15 },
     Tank:    { name: "Dynamite", dmg: 23, pct: 15 }
   };
   // The Double Axe left spinning climbs from a swing a second to AXE_SPIN_MAX
@@ -100,7 +110,9 @@
   // And every blast leaves its scorch smouldering: FIELD_SHARE of a stick
   // every FIELD_EVERY seconds on the boss in it (dynamite.gd FIELD_*; 0.13.0).
   var FIELD_SHARE = 0.15, FIELD_EVERY = 0.5;
-  var MYTHIC_LEVEL = 22;
+  // Worn from level 1 since game 0.69.0 (the general store gives one of each
+  // free); they were 22.
+  var MYTHIC_LEVEL = 1;
   var WEAPON_SPREAD = 0.25;   // damage_spread on every weapon
   // Worn pieces, tiers 1-5: [armour, health, mana, damage %]. The off hand is
   // the plate classes' shield and, since game 0.32.0, the cloth classes' wand
@@ -257,7 +269,13 @@
         }
       } else if (k === "Mage") {
         attack = g.mythic ? "meteor" : "staff";
-        dps = unit / period * (g.mythic ? 1 + DOUBLE_CHANCE : 1) + (g.mythic ? unit * METEOR_BURN_SHARE / METEOR_BURN_EVERY : 0);
+        if (g.mythic) dps = unit / period * (1 + DOUBLE_CHANCE) + unit * METEOR_BURN_SHARE / METEOR_BURN_EVERY;
+        else {
+          // The critical cast is the whole hit times MAGE_CRIT_MULT, rounded
+          // once, as mage.gd rounds it.
+          var critHit = round((c.base + g.weapon) * m * MAGE_CRIT_MULT);
+          dps = ((1 - MAGE_CRIT_CHANCE) * unit + MAGE_CRIT_CHANCE * critHit) / period;
+        }
       }
       else if (k === "Healer") {
         // The stream, its doubles counted in, and the aura's ticks on the boss
@@ -491,6 +509,7 @@
     wearableTier: wearableTier, phaseOf: phaseOf, spike: spike, melee: melee, trail: trail, scaleStat: scaleStat,
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
+    MAGE_CRIT_CHANCE: MAGE_CRIT_CHANCE, MAGE_CRIT_MULT: MAGE_CRIT_MULT,
     AXE_SPIN_MAX: AXE_SPIN_MAX, AXE_SPIN_RAMP: AXE_SPIN_RAMP, AXE_BLEED_SHARE: AXE_BLEED_SHARE, AXE_BLEED_EVERY: AXE_BLEED_EVERY,
     DYNAMITE_COOLDOWN: DYNAMITE_COOLDOWN, DYNAMITE_STICK_TICKS: DYNAMITE_STICK_TICKS,
     DYNAMITE_THROWS_PER_BAR: DYNAMITE_THROWS_PER_BAR, dynamiteCost: dynamiteCost,

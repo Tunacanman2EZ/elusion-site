@@ -1139,7 +1139,7 @@ footer {
 /* Where the coin goes, as four small tiles. */
 .coin-flow {
   list-style: none; margin: 2px 0 0; padding: 0;
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px;
 }
 .coin-flow li {
   padding: 12px 10px; text-align: center;
@@ -1283,6 +1283,8 @@ footer {
   .land-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .land-depth { display: none; }
   .coin-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Five since the smith (23 Oct): the last of an odd row across both columns. */
+  .coin-flow li:last-child:nth-child(odd) { grid-column: span 2; }
   .class-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step-row { grid-template-columns: 1fr; }
   .about-chapters { padding: 0 20px; }

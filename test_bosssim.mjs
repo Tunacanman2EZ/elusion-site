@@ -170,8 +170,8 @@ if (!GAME) {
 	const exp = async (file, name) => Number(((await read(file)).match(new RegExp(`@export var ${name}: (?:int|float) = ([0-9.]+)`)) || [])[1]);
 	const costs = [
 		["warrior slash wave", await exp("src/characters/warrior.gd", "slashwave_mana_cost"), 10],
-		["mage spell", await exp("src/characters/mage.gd", "spell_mana_cost"), 15],
-		["mage cadence", await exp("src/characters/mage.gd", "spell_cooldown"), 0.45],
+		["mage spell", await exp("src/characters/mage.gd", "spell_mana_cost"), S.COST.spell],
+		["mage cadence", await exp("src/characters/mage.gd", "spell_cooldown"), S.CLASS.Mage.cd],
 		["healer shot", await exp("src/characters/healer.gd", "mana_cost_per_shot"), 1],
 		["healer cadence", await exp("src/characters/healer.gd", "shot_cooldown"), 0.1],
 		["aura tick", await exp("src/characters/tank.gd", "aura_tick"), 0.25],
@@ -181,6 +181,25 @@ if (!GAME) {
 		["dynamite stick", await exp("src/characters/tank.gd", "dynamite_stick_ticks"), S.DYNAMITE_STICK_TICKS],
 	].filter(([, game, sim]) => !near(game, sim));
 	check("every mana cost and cadence is the class scripts' @export", !costs.length, costs);
+	// THE MAGE SINCE 0.71.0: the heavy spike's critical, one roll a cast, and
+	// what reaches a boss of a cast - one spike, no shards.
+	const mageSrc = await read("src/characters/mage.gd");
+	const frostSrc = await read("src/projectiles/frostring.gd");
+	const circleSrc = await read("src/projectiles/spelltargetcircle.gd");
+	const orbSrc = await read("src/projectiles/bladeorb.gd");
+	const spikedBoss = await read("scene/enemy/bossenemy.tscn");
+	check("the mage's critical spike is mage.gd's and the exported one: one cast in five, twice as hard (0.71.0)",
+		near(constOf(mageSrc, "CRIT_CHANCE"), S.MAGE_CRIT_CHANCE) && near(constOf(mageSrc, "CRIT_MULT"), S.MAGE_CRIT_MULT)
+		&& near(combat.classes.mage.crit_chance, S.MAGE_CRIT_CHANCE) && near(combat.classes.mage.crit_mult, S.MAGE_CRIT_MULT)
+		&& /\* \(CRIT_MULT if critical else 1\.0\)\)/.test(mageSrc),
+		[constOf(mageSrc, "CRIT_CHANCE"), constOf(mageSrc, "CRIT_MULT")]);
+	check("  a boss takes one spike a cast, however many fall (mage.gd: A MONSTER TAKES ONE SPIKE A CAST)",
+		/A MONSTER TAKES ONE SPIKE A CAST/.test(mageSrc));
+	const hurtR = Number((spikedBoss.match(/id="CapsuleShape2D_hurtbox"\]\nheight = [0-9.]+\nradius = ([0-9.]+)/) || [])[1]);
+	const orbit = Number((circleSrc.match(/^var circle_radius: float = ([0-9.]+)/m) || [])[1]) + constOf(frostSrc, "ORBIT_PAD");
+	check("  and none of its ice shards: they circle the spike clear of a boss's body, then fly out (0.71.1)",
+		orbit - constOf(orbSrc, "RADIUS") > hurtR + 3 && /fly straight out/.test(frostSrc),
+		{ orbit, shard: constOf(orbSrc, "RADIUS"), body: hurtR });
 	// Dynamite's mana since game 0.59.0 (tank.gd, DYNAMITE'S MANA): a share of
 	// the level's bar, before gear, rounded up.
 	const tankPriced = await read("src/characters/tank.gd");
@@ -513,6 +532,15 @@ check("a Double Axe's bleed is a quarter of a swing every half second, not haste
 const onOne = (P, k) => k === "Warrior" && P[k].attack === "axe" ? (P[k].dps - P[k].bleed) * S.AXE_SPIN_MAX + P[k].bleed : P[k].dps;
 const ratios = ["Warrior", "Mage", "Tank"].map((k) => onOne(MY, k) / onOne(PL, k));
 check("every mythic out-damages its class's Ember weapon on one boss (the axe spun up)", ratios.every((x) => x > 1), ratios);
+// THE MAGE ON ONE BOSS since 0.71.0 (mage.gd): one spike a cast, a critical one
+// cast in MAGE_CRIT_CHANCE for MAGE_CRIT_MULT of the whole hit, and nothing
+// else - not the third cast's spikes, not the ice shards.
+{
+	const M = PL.Mage, raw = (S.CLASS.Mage.base + M.gear.weapon) * M.mult;
+	const want = ((1 - S.MAGE_CRIT_CHANCE) * M.unit + S.MAGE_CRIT_CHANCE * Math.round(raw * S.MAGE_CRIT_MULT)) / M.period;
+	check("the mage's staff deals one spike a cast on a boss, its critical counted in, and nothing more (0.71.0)",
+		M.attack === "staff" && Math.abs(M.dps - want) < 1e-9 && S.COST.spell === 20, { dps: M.dps, want });
+}
 
 // 4e. The sword's and the healer's own arithmetic (0.38.0-0.42.0).
 const W = PL.Warrior, H = PL.Healer, plainSwings = (S.FINISHER_EVERY - 1) / S.FINISHER_EVERY;

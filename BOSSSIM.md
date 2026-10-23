@@ -47,19 +47,21 @@ in that file is typed.
 | Number | Value | Game file |
 |---|---|---|
 | Class health and mana (base, per level) | warrior 180+12 / 180+10, mage 110+5 / 250+16, healer 140+7 / 220+14, tank 260+22 / 200+10 | `data/gamedata.json` `classes` |
-| Class base damage and cadence | warrior 24 / 1.0 s, mage 9 / 0.45 s, healer 3 / 0.1 s, tank 4 / 0.25 s | `gamedata.json` `combat.classes` |
+| Class base damage and cadence | warrior 24 / 1.0 s, mage 30 / 1.0 s (the heavy spike, game 0.71.0; it was 9 / 0.45 s), healer 3 / 0.1 s, tank 4 / 0.25 s | `gamedata.json` `combat.classes` |
 | Slash wave | 0.75 of a swing, 10 mana, truncated | `combat.classes.warrior.wave_ratio`; `warrior.gd` `slashwave_mana_cost` |
 | The sword's orbs and finisher | every third swing's wave is the gold finisher, 1.5× (game 0.38.0); every other swing flings 3 steel orbs off the blade, 0.1 of the swing each, truncated, no mana (0.39.0; none on the finisher since 0.41.0) | `warrior.gd` `FINISHER_EVERY`, `FINISHER_MULT`, `SWORD_FAN_ORBS`, `SWORD_FAN_SHARE`; `combat.classes.warrior.finisher_*`, `sword_fan_*` |
 | Which orbs reach a boss | a boss's body is a 13 px circle. The sword's side orbs (18° apart, from 8 px ahead, a 3.5 px orb) pass 6.5 px from its middle at 28 px: all three land. The finisher's four gold orbs leave 28 px to either side and fly wider, and its burst never goes back into the boss it cut: none land on it. The healer's fan (16° either side, an 8 px orb, flying straight) reaches a boss only from within about 75 px; the healer fights from range, so it is not counted | `bossenemy.tscn` hurtbox; `bladeorb.gd` `RADIUS`; `warrior.gd` `SWORD_FAN_*`, `FINISHER_FAN_TIP`; `slashwave.gd`; `turretprojectile.tscn`; `healer.gd` `FAN_SPREAD_DEGREES` |
 | The healer's double | one main orb in five hits 2× (game 0.37.0) | `healer.gd` `DOUBLE_HIT_CHANCE`, `DOUBLE_HIT`; `combat.classes.healer.double_*` |
 | The healer's aura | 25 mana, every 8 s on its own clock: everyone it reaches gets a quarter of their health back (4 ticks of ceil(health × 0.25 ÷ 4)), and the boss under it takes 4 ticks of round(a shot × 2) (game 0.40.0) | `healer.gd` `AURA_*`; `healaura.gd` `HEAL_SHARE`, `TICK_FRAMES`; `combat.classes.healer.aura_*` |
-| Spell, shot, aura | 15 mana; 1 mana; 2 mana every 0.5 s | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
+| Spell, shot, aura | 20 mana (game 0.71.0; it was 15); 1 mana; 2 mana every 0.5 s | `mage.gd`, `healer.gd`, `tank.gd` `@export`s |
+| The mage's critical spike | one cast in five hits twice as hard, the whole hit multiplied and rounded once (game 0.71.0) | `mage.gd` `CRIT_CHANCE`, `CRIT_MULT`; `combat.classes.mage.crit_*` |
+| What reaches a boss of a cast | one spike: a monster takes one spike a cast however many fall (the third cast's three, the critical's three); no ice shards - they circle the spike 24 px out (its 18 px circle and `ORBIT_PAD` 6), a 3.5 px shard, then fly straight out, never touching a boss's 13 px body (game 0.71.1) | `mage.gd` A MONSTER TAKES ONE SPIKE A CAST; `frostring.gd` `ORBIT_PAD`; `spelltargetcircle.gd` `circle_radius`; `bladeorb.gd` `RADIUS`; `bossenemy.tscn` hurtbox |
 | Dynamite's mana | a fifth of the tank's mana bar at its level, before gear, rounded up — 82 at level 22 — so a full bar is five throws, a throw every 0.75 s (game 0.59.0; it was 3 a throw from 0.14.0) | `tank.gd` `DYNAMITE_THROWS_PER_BAR`, `dynamite_mana_cost_at()` |
 | The Meteorite's double cast | 10% | `combat.double_chance` |
 | Skills and agility | +1% damage a level of attack and of magic; cooldowns ÷ (1 + 1% a level of agility), at most ×2 | `combat.skill_step`, `agility_step`, `agility_cap` |
 | Weapons, armour, rings, amulets, iron to ember | damage, damage %, armour, health, mana, level | `gamedata.json` `items` |
 | The cloth classes' off hand | the tier's wand: mana 3 / 6 / 10 / 14 / 20 and damage 1 / 2 / 3 / 4 / 6% (game 0.32.0; the mage's and the healer's since 0.32.1). The tome, armour and mana instead of damage, is not offered | `data/items/armour/<tier>wand.tres` |
-| Mythic weapons | Double Axe 140, Meteorite 53, Dynamite 23; +15%; level 22 (raised in game 0.11.9) | `gamedata.json` `items` |
+| Mythic weapons | Double Axe 140, Meteorite 175 (game 0.71.0), Dynamite 23; +15%; level 1 (game 0.69.0, when the general store began giving one of each; it was 22) | `gamedata.json` `items` |
 | The Meteorite's crater | burns 0.2 of a hit every 0.5 s on the boss in it, one fire at a time (game 0.12.0) | `burningcrater.gd` `BURN_SHARE`, `BURN_EVERY`; `combat.classes.mage.meteor_burn_*` |
 | Dynamite's chain | fuse 1.2 s; thrown at one spot, sticks go up in groups of 1 + floor(fuse / throw period), all but the first 25% harder (game 0.12.0) | `dynamite.gd` `FUSE_SECONDS`, `CHAIN_BONUS`; `combat.classes.tank.dynamite_chain_bonus` |
 | Dynamite's smoulder | each blast's scorch bites 0.15 of a stick every 0.5 s on the boss in it (game 0.13.0) | `dynamite.gd` `FIELD_SHARE`, `FIELD_EVERY`; `combat.classes.tank.dynamite_field_*` |
@@ -117,21 +119,23 @@ What it showed, and what the tests now hold the data to:
 - **Light and Wind leave no puddles.** Water leaves the most (about 680 a minute at
   range in the first phase), then Fire, then Earth and Dark, then Ice.
 
-Raw damage a second on the stand-in, before any armour (measured 2026-10-14 on
-v0.42.0 — `bosssim-data.js` holds the current figures, and the page draws this
-table from it). The first measurement (2026-10-07, v0.11.4) came out within a
-few points of every figure: the bosses have not changed, and the rest is the
-patterns' own randomness.
+Raw damage a second on the stand-in, before any armour (measured 2026-10-23 on
+v0.76.0 — `bosssim-data.js` holds the current figures, and the page draws this
+table from it). The measurements before it (2026-10-07 on v0.11.4, 2026-10-14
+on v0.42.0) came out within a few points of every figure, and so did this one,
+after the bullets, the hit flash, the crowd seats and the jams that came
+between (a boss never waits for a seat): the bosses have not changed, and the
+rest is the patterns' own randomness. The pets measured the same to the shot.
 
 | Boss | In reach (phase 1 / 2 / 3) | At range (phase 1 / 2 / 3) |
 |---|---|---|
-| Light | 34 / 58 / 75 | 25 / 45 / 58 |
-| Wind | 31 / 50 / 63 | 20 / 37 / 46 |
-| Water | 46 / 70 / 88 | 31 / 51 / 66 |
-| Ice | 46 / 77 / 95 | 31 / 59 / 72 |
-| Earth | 74 / 149 / 185 | 59 / 126 / 148 |
-| Fire | 99 / 157 / 201 | 75 / 126 / 157 |
-| Crowned | 135 / 223 / 287 | 99 / 175 / 226 |
+| Light | 34 / 58 / 74 | 25 / 46 / 58 |
+| Wind | 31 / 50 / 63 | 20 / 36 / 46 |
+| Water | 45 / 70 / 89 | 31 / 52 / 66 |
+| Ice | 46 / 76 / 96 | 32 / 58 / 71 |
+| Earth | 75 / 148 / 184 | 58 / 123 / 151 |
+| Fire | 100 / 158 / 201 | 76 / 124 / 157 |
+| Crowned | 136 / 224 / 284 | 99 / 174 / 225 |
 
 ### The pets — `tools/petmeasure.gd`
 
@@ -273,7 +277,9 @@ a wrong boss number, a potion that hurts, dodging backwards, mana below zero, a
 random choice, a boss in the wrong wave, a pet dealing NaN, a hand-edited rate, the
 page dropping the pet, the page rounding its own way, a wrong defense tier, a wrong
 level for ember, controls overflowing a phone, a control without a name, and bad
-options let through. And for game 0.42.0, ten more: a finisher no stronger than a wave, no orbs off the
+options let through. And for game 0.76.0 the mage's new rules, three more: its
+critical spike, the one spike a boss takes a cast, and its ice shards clearing a
+boss's body - each read back out of the game's files. And for game 0.42.0, ten more: a finisher no stronger than a wave, no orbs off the
 blade, orbs off the finisher's blade too, no golden double, an aura that heals past
 full health, an aura that costs nothing, an aura that mends half, a tank that heals,
 a wrong wand, and the aura back in 6 seconds instead of 8.
