@@ -12,7 +12,7 @@
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#1b233f" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elusion RPG" />
   <meta property="og:title" content="Elusion RPG — a free action RPG you play in your browser" />
@@ -37,6 +37,7 @@
   <nav class="main-nav">
     <a href="index.html" class="active">Home</a>
     <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
     <a href="contribute.html">Support</a>
     <a href="join.html">Join the Team</a>
     <a href="simulator.html">Boss Sim</a>
@@ -44,21 +45,29 @@
     <a href="https://play.elusionrpg.com">Play</a>
   </nav>
 
+  <!-- ===== THE SKY (23 Oct): the owner's own picture, the first thing on the
+       page - the knight on his ledge, the path of floating stones, the
+       temple and its portal. Drawn at 640 x 360 and shown with its pixels
+       kept square (image-rendering: pixelated), covering the width; the
+       name and the way in sit in the empty sky between the two. The page's
+       one <h1> is here; the panel below says the rest. -->
+  <header class="sky-banner">
+    <div class="sky-title">
+      <h1>ELUSION</h1>
+      <a class="btn primary sky-play" href="https://play.elusionrpg.com">Play in browser</a>
+    </div>
+  </header>
+
   <!-- ===== HERO ===== -->
   <section class="hero home-hero">
     <div class="hero-text">
       <p class="hero-eyebrow">In development · Solo-built in Godot</p>
-      <h1>ELUSION</h1>
       <p class="tagline">A top-down action RPG set beyond a mysterious portal — four classes,
         seven elemental bosses, and a fight that only gets harder the deeper you go.</p>
-      <p class="sub">Built solo from zero coding experience, now with an old friend as co-owner. Fishing, cooking, pets, parties,
-        and player-to-player trading over a living, server-run economy.</p>
       <div class="cta-row">
-        <a class="btn primary" href="https://play.elusionrpg.com">Play in browser</a>
         <a class="btn ghost" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">View on GitHub</a>
         <a class="btn ghost" href="simulator.html">Explore the Boss Sim</a>
       </div>
-      <p class="platform-note">Play in your browser: on a PC with a keyboard and mouse, or on a phone held sideways with on-screen controls.</p>
     </div>
 
     <!-- THE GAME SCREEN, drawn the way the game draws it, not as a web card.
@@ -137,8 +146,8 @@
         </div>
       </div>
       <div class="playbar">
-        <span><span class="dot"></span>Play now at <a href="https://play.elusionrpg.com" style="color:#4fd1ff;">play.elusionrpg.com</a></span>
-        <span style="color:#6b7c84;">PC or phone · in your browser</span>
+        <span><span class="dot"></span>Plays in your browser</span>
+        <span style="color:#8a989e;">PC, or a phone held sideways</span>
       </div>
     </div>
   </section>
@@ -164,27 +173,22 @@
         <div class="team-mark"><img src="images/crown.png" alt="The owner's crown" width="78" height="45" /></div>
         <p class="team-role">Owner &middot; creator</p>
         <h3 class="team-name">Tunacan</h3>
-        <p>Built Elusion solo, from zero coding experience to launch &mdash; the code, the design and
-          the server.</p>
+        <p>Built Elusion from zero coding experience &mdash; the code, the design and the server.</p>
         <p class="team-real">Robert A. Clear</p>
       </div>
       <div class="team-card shine">
         <div class="team-mark"><span class="team-badge">CO&#8209;OWNER</span></div>
         <p class="team-role">Co-owner &middot; code</p>
         <h3 class="team-name">AllMind</h3>
-        <p>A self-taught coder, five years in. Gave Elusion its first push &mdash; some of the UI and the
-          first inventory &mdash; and now co-owns it.
+        <p>A self-taught coder, five years in, and Elusion's first push.
           <a href="https://allmind.dev/" target="_blank" rel="noopener">allmind.dev</a></p>
         <p class="team-real">Charles E. Clemmey Jr.</p>
       </div>
     </div>
-    <p class="team-story">We met in <strong>Mirage Realms</strong> and shared a guild, then played
-      <strong>Mystera Legacy</strong> and <strong>Darza's Dominion</strong> together &mdash; at least ten years
-      of friendship, and absolute trust. When I started Elusion, AllMind gave me a push: some of my UI and the
-      inventory. It wasn't much, but it was solid enough to carry the game while I rewrote the code twenty
-      times over just to see how it worked. I asked him to let me code alone for a year, then brought him back
-      to see the progress &mdash; and he liked what he saw. Now we develop Elusion together, professionally &mdash;
-      and maybe more after it.
+    <p class="team-story">We met in <strong>Mirage Realms</strong>, then played <strong>Mystera Legacy</strong>
+      and <strong>Darza's Dominion</strong> together &mdash; ten years of friendship and absolute trust. AllMind
+      gave Elusion its first push; after a year of me coding alone he came back, liked what he saw, and now we
+      build it together.
       <span>&mdash; Robert</span></p>
   </section>
 
@@ -199,42 +203,32 @@
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4l15.5 15.5M13 17l4-4M20 4L4.5 19.5M7 13l4 4"/></svg></span>
         <h3>Four classes</h3>
-        <p>Warrior, Mage, Healer, Tank — a sword that flings orbs, spells that fall from above,
-          ten-shots-a-second spellfire with a healing beam, and a burning aura. Each plays nothing like the others.</p>
+        <p>Warrior, Mage, Healer and Tank &mdash; each plays nothing like the others.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 10H5z"/><path d="M5 21h14"/></svg></span>
         <h3>Bullet hell and seven bosses</h3>
-        <p>Down in the Field every monster fires its own pattern of orbs around its own shot, and you
-          weave through them. Below that, the Crowned Beholder in seven flavors, one for every element,
-          with telegraphed patterns that erupt from the ground. Read them, or get read — and wear armour
-          that turns their element aside.</p>
+        <p>Weave through every monster's bullets, then face the Crowned Beholder in all seven elements.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 12c3.5-5.5 10.5-6 14.5 0-4 6-11 5.5-14.5 0z"/><path d="M17 12l4.5-3.5v7z"/><circle cx="7" cy="11" r="0.6" fill="currentColor"/></svg></span>
         <h3>A world to live in</h3>
-        <p>Fishing, cooking and pets, with a ten-key hotbar that holds what you carry. The game is
-          more than the fight.</p>
+        <p>Fishing, cooking, a smith and pets &mdash; more than the fight.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v17M8 20h8M4 7h16"/><path d="M4 7l-3 6a3 2.2 0 0 0 6 0z"/><path d="M20 7l-3 6a3 2.2 0 0 0 6 0z"/></svg></span>
         <h3>Trade with anyone</h3>
-        <p>Put items and gold on the table face to face. The kingdom takes a small cut, and Accept
-          only ever agrees to the offer on your screen — no last-second swaps.</p>
+        <p>Items and gold, face to face, and Accept only ever agrees to the offer on your screen.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.2 4.7 2.5 4.7 5.3"/></svg></span>
         <h3>Play together</h3>
-        <p>See everyone in your area walk, fight and bring their pets, live, and take on the
-          same monsters together, each with your own loot. Start a party of up to four with its own
-          chat and voice, your party's names lit blue and each of you on the map, or found a guild
-          and promote your officers.</p>
+        <p>Fight the same monsters live, each with your own loot, in a party with chat and voice, or a guild.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
         <h3>Built to be fair</h3>
-        <p>Every skill, coin and item is server-owned, the server watches every fight, staff have
-          a real moderation desk, and 9,000+ tests run the game as if every player is hostile.</p>
+        <p>Every coin and item is the server's, and 9,000+ tests treat every player as hostile.</p>
       </div>
     </div>
   </section>
@@ -358,731 +352,30 @@
     </div>
   </section>
 
-  <!-- ===== TUNACAN'S PUSHES (the owner's changelog: every game build) ===== -->
+  <!-- ===== THE LATEST PUSHES (23 Oct): the newest three of the owner's
+       log. Both logs in full, his and AllMind's, are on updates.html - add a
+       push there first, then copy it here and drop the oldest of these. ===== -->
   <section class="section wide">
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
-      <h2>Tunacan's pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.56.0.</p>
+      <h2>The latest pushes</h2>
+      <p>The road to launch, one build at a time. Now on v0.76.0.</p>
     </div>
-    <div class="updates">
+    <div class="updates updates-short">
       <div class="update-row latest">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.56.0</span></div>
-        <p>A big bug hunt. A pet you summon is saved right away, so it follows you through doors and comes back
-          after you close the tab. Going through any door saves you as you stand. If a shop, the bank or your bag
-          gets no answer from the server, the game asks again instead of letting you pay twice. On a phone: hold
-          your finger on something and let go to see what it is, tap a player's name for their menu, the chat no
-          longer pops the keyboard up or blocks the move stick, and tapping the game puts the keyboard away. In
-          fights, pets and the healer's orbs stop shooting at things they cannot hurt, quick clicks always attack,
-          and the tank's aura costs mana when you switch it on.</p>
+        <div class="update-when"><time datetime="2026-10-23">Oct 23, 2026</time><span class="update-version">v0.76.0</span></div>
+        <p>The stress test runs smooth at 16 times the monsters. At most 64 monsters fight you at once and the rest wait their turn, though anything you hit fights back straight away. Other players' attacks now reach you with everyone's steps, so a crowded fight costs the server a tenth of what it did, and a crowd walking into an area together no longer knocks out the player running its monsters.</p>
       </div>
       <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.55.0</span></div>
-        <p>Phones, part two. Hold your finger on anything in your bag to use it: drink a potion, put on gear or
-          summon a pet. Hold a piece in Gear to take it off, or an item in a loot bag to take it. The hotbar is bigger
-          on a phone. Options has a new slider for how bright attacks and bullets are, and Rest the screen: after
-          two minutes untouched the game dims and slows down, so a phone left on stays cool and nothing burns
-          into the screen. Phones start with the battery saver on. The welcome card now points new players to
-          Options first.</p>
+        <div class="update-when"><time datetime="2026-10-22">Oct 22, 2026</time><span class="update-version">v0.75.0</span></div>
+        <p>Bigger text, windows that fit. Change the text size and every window snaps to what it holds, bigger or smaller, with no gaps left behind. At the largest size the smith's window widens and scrolls instead of running off the screen.</p>
       </div>
       <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.54.2</span></div>
-        <p>A small one for my GM panel: the events calendar button is now a book from the game's own art.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.54.1</span></div>
-        <p>The phone buttons now use the game's own art. Attack, Use, Run and Aura are the same gold-framed slots
-          as your hotbar, holding the game's own stat icons - the sword, the chest of gold, the boot and the
-          heart - and the move stick is a hotbar slot with a gold coin for the knob.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.54.0</span></div>
-        <p>Phone controls that look like they belong: the buttons are the same gold-framed slots as your
-          hotbar. Options has a Brightness slider and a Battery saver switch, and on a phone the game now draws
-          only what a phone screen needs and never more than 60 frames a second, so it runs smoother and the
-          battery lasts longer.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-17">Oct 17, 2026</time><span class="update-version">v0.53.0</span></div>
-        <p>Elusion on your phone. Open it in your phone's browser and hold the phone sideways: a stick for
-          your left thumb, and Attack, Use and Run for your right (Aura too, for a healer). Attack aims at the
-          nearest enemy by itself - drag it, or tap where to strike, to aim it yourself - and holding it keeps
-          swinging. Tap a hotbar key to use it, and your phone's keyboard comes up to sign in and chat.
-          The windows are still sized for a PC screen; making them easy on a phone is next.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-16">Oct 16, 2026</time><span class="update-version">v0.52.0</span></div>
-        <p>A whole calendar. The events calendar now pages through any month of any year, and I can plan an
-          event up to a year ahead - next New Year's Double XP included. Days that already have an event sit
-          in hotbar boxes, so a busy week shows at a glance.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-16">Oct 16, 2026</time><span class="update-version">v0.51.0</span></div>
-        <p>A calendar for events. My GM panel can now plan events up to two months ahead from a month view,
-          with the days that already have an event marked - so a Double XP weekend or a land stirring on a
-          holiday can be set weeks before, on the right day.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-16">Oct 16, 2026</time><span class="update-version">v0.50.1</span></div>
-        <p>No more stale tabs. If the game is open in your browser when I put up a new version, it now
-          tells you within a few minutes and offers a Reload - no Ctrl+F5 needed. And when two events of
-          the same kind overlap, the top of the screen shows the one you are actually getting: two Double
-          XPs never made 4x, and it no longer looks like they do.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.50.0</span></div>
-        <p>A kinder world. The stirring lands no longer pick a land where a new player is still learning -
-          a stir makes its monsters tougher, and that is for players who are ready for it. My GM panel now
-          says which land stirs next and why, and a new Lands window shows every land's week - busy,
-          quiet or ignored - and the hours players are usually on.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.49.0</span></div>
-        <p>Events, measured. A new report in my GM panel charts who was online this week with every event on
-          it, and shows for each event the XP and gold an hour and the players online before, during and
-          after - so I can see which events bring people. A dry run says what an event would do before I set
-          it, and the server now refuses stacking that would flood the game: no kill pays more than triple
-          XP, triple loot, or six times the two together.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.48.0</span></div>
-        <p>World events. Double XP weekends, double loot nights, a land made to stir for a whole evening -
-          set ahead of time from my GM panel, no new build needed. Everyone online hears when one is coming
-          and again when it begins, a line at the top of the screen counts it down and names the next one,
-          and the server pays it at every kill.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.47.0</span></div>
-        <p>Player stats, for me. A new window in my GM panel shows how far new players get - making a
-          character, the first kill, level 5, coming back the next day - where the ones who stop stop, and
-          which monsters get hunted. It counts, it never names anyone, and it is how the next updates get
-          picked: by what keeps people playing.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.46.1</span></div>
-        <p>A steady aim. The ball on your aim ring no longer wobbles while you walk with the mouse
-          still - it was reading the mouse a fraction of a step behind your character. Your attacks
-          aim from the same steady point. And the GM panel's World tab now reports to Results.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-15">Oct 15, 2026</time><span class="update-version">v0.46.0</span></div>
-        <p>The stirring lands. Every three hours one of the seven lands - dark, light, ice, wind, earth,
-          fire or water - stirs, and the whole server hears about it. Its monsters glow in its colour, hit
-          25% harder, have half again their health, move faster and drop loot half again as often, and your
-          resistance to that element counts half again as much. The world picks the land nobody has been
-          hunting, and a line at the top of the screen counts down to the next one.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-14">Oct 14, 2026</time><span class="update-version">v0.45.1</span></div>
-        <p>The warrior's gold finisher is one clean crescent now. The glow behind it was a slightly bigger
-          copy that sat just ahead of the wave, so every third swing looked doubled.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-14">Oct 14, 2026</time><span class="update-version">v0.45.0</span></div>
-        <p>Voice settings, in the Party window. Turn everyone's voices up or down, or each player on their
-          own, up to 200% - set before they even join voice. Turn your own microphone up or down and watch it
-          on a live level bar. Open-mic sensitivity draws a line on that bar so only your voice goes out, not
-          your keyboard or the room. And switches for noise suppression and echo cancellation.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-14">Oct 14, 2026</time><span class="update-version">v0.44.0</span></div>
-        <p>Safer logins. Your login now belongs to the copy of the game you signed in on: if it is ever
-          used from anywhere else, every session on the account ends at once and the game tells you to sign
-          in again. Staff logins last 12 hours, end after half an hour away, and ask for the password again
-          before bans, ranks, gold or items. The game only talks to the server over HTTPS. Everyone signs in
-          once more after this update.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-14">Oct 14, 2026</time><span class="update-version">v0.43.0</span></div>
-        <p>Party voice. Switch Voice on in the Party window and talk to your party - open mic or push to
-          talk (V), a mute key (B) and a volume for each voice, with a speaker lit beside the name of
-          whoever is talking. It is the browser's own calling, through a relay, so nobody ever sees anyone
-          else's internet address. And click any name - over a player's head, in the Players list or in
-          chat - to whisper, add a friend, trade, invite them to your party or guild, or report them to staff.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.42.0</span></div>
-        <p>Parties are here. Invite anyone from the Players list, or from the new Party window under
-          Social, and play as a party of up to four. The window shows each member's class, level, where
-          they are and their health, and the leader can hand on the lead or remove someone. Party chat
-          has its own tab, your party's names show in light blue over their heads, and the map now shows
-          your party in your area and every monster on ground you have explored, in its element's colour.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.41.0</span></div>
-        <p>Attacks aim without a mouse. With the cursor off the game - playing on the keyboard in Chrome,
-          say - every attack used to swing toward the screen's top-left corner, so a warrior could only hit
-          left. Now an attack aims at your cursor only while it is on the game, and otherwise straight
-          ahead the way you face. The warrior's gold finisher is less cluttered, and other players wear
-          their aim ring and a health bar under their name, so you see them the way you see yourself.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.40.1</span></div>
-        <p>Fixed an error when changing area just as the connection dropped, and gave the healer back
-          its own attack - 0.40.0 had it playing a sword swing. Another tank's fire ring now draws under
-          the players standing in it, not over them, and a new Options switch hides everyone else's
-          attacks. A healer's aura still heals you while it is hidden.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.40.0</span></div>
-        <p>The healer heals. Right-click drops a beam of green light where you point: everyone inside the
-          ring gets back a quarter of their health, green orbs fly out to heal friends just outside it,
-          and monsters caught in it take damage. Every class now attacks with left-click, or Space.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.39.0</span></div>
-        <p>The warrior's sword throws the crypt's orbs. Every swing flings three steel orbs off the blade,
-          and the gold finisher wave flies with a fan of gold orbs and bursts into a ring of them where it
-          cuts a monster. The white arc and the trails from 0.38.0 are gone.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.38.0</span></div>
-        <p>The warrior's blows land harder. Sparks fly where the sword cuts, the first blow of a swing
-          holds for a heartbeat with a small shake, and every third swing throws a gold finisher wave,
-          bigger and half again as strong.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-13">Oct 13, 2026</time><span class="update-version">v0.37.0</span></div>
-        <p>The healer's orbs leave long glowing trails, and each main orb has a one-in-five chance to hit
-          for double. A doubled orb turns gold, so you can see it land.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.36.0</span></div>
-        <p>The healer's orbs got the crypt's look: a white-hot core, green wisps behind them and a splash
-          of sparks where they hit. Every fifth shot also throws two smaller orbs, one either side.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.35.0</span></div>
-        <p>The mage's ice spike has effects. Frost streams off the staff, the target ring frosts over with
-          a shadow growing under it as the spike falls, it shatters into shards and mist on impact, and it
-          leaves a patch of frost melting on the floor. The Meteorite throws embers instead.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.34.1</span></div>
-        <p>Fixed the boss rooms hiding what lies on the floor. Meteor craters, Dynamite scorch and the
-          mage's target circle were drawn under the floor tiles in the boss room and the gauntlet, so
-          nobody saw them. Now they show.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.34.0</span></div>
-        <p>The tank's aura burns. While it is lit, the floor inside the ring glows with small flames and
-          embers, and the ground it passes over stays scorched for a few seconds, so a walk leaves a burnt
-          path behind you.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.33.0</span></div>
-        <p>The mage and the tank get aim rings, so all four classes have one now. The mage's ball points
-          where the spell will come down, and the tank's where a stick of Dynamite will land.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.32.1</span></div>
-        <p>The healer can hold the new off hands too: the tomes, wands and grimoires are for mages and
-          healers both.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.32.0</span></div>
-        <p>The mage gets an off hand. A tome and a wand at every tier from iron to ember - tomes add armour
-          and mana, wands damage and mana - and three grimoires at tier 5. The store sells them up to
-          amethyst; the ember pair and the grimoires are finds.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.31.0</span></div>
-        <p>Monsters keep coming between attacks. They used to stop at the edge of their reach and shoot
-          from there for the whole fight; now they walk in closer while they reload. Bosses keep their
-          distance as before. Two new Options switches turn the aim rings and the range circles on and off.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.30.0</span></div>
-        <p>Monsters notice you close and chase you far. They used to spot you from off the screen; now one
-          comes for you when you are within 250, or the moment you hit it, and follows until you are past
-          its leash. Its circle on the floor shows both.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.29.1</span></div>
-        <p>Range circles. A faint dashed circle round every monster shows how far it will follow you, and a
-          warrior holding the Double Axe sees how far the axe reaches.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.28.0</span></div>
-        <p>Every monster shows who it is after: a faint red ring round its feet with a dot pointing at its
-          target, so in a group you can see which of you it picked. It turns full red once you are in its
-          reach and flashes as it attacks.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.27.0</span></div>
-        <p>The warrior gets the aim ring too. The ball around its feet follows your cursor, and the slash
-          wave - or the thrown Double Axe - goes exactly where it points. The ring flashes on every swing.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.26.0</span></div>
-        <p>The healer's aim is fixed, and you can see it. Its stream used to leave from its feet, so
-          aiming up-left or up-right went higher than you meant and crossed its own body. Now every orb
-          leaves from the middle of the healer, and a ring on the floor around it carries a ball that
-          shows exactly where the next one will go.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-12">Oct 12, 2026</time><span class="update-version">v0.25.4</span></div>
-        <p>Every potion is in the store now. The large and greater health, mana and stamina potions were
-          drops only; you can buy them alongside the tiny, small and medium ones. Ember gear and the
-          mythic weapons stay rare finds.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.25.3</span></div>
-        <p>More hits land in the Field. Every orb that reaches you now counts as its own hit - before,
-          one hit let the rest pass through for a tenth of a second - and an orb has to miss the middle of
-          your character, not a dot at its feet. Standing still in a pack of monsters, you now take about
-          twice as many hits. So don't stand still.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.25.2</span></div>
-        <p>Fixed the cooking fire. A burnt fish stayed charred while the next one cooked, picking a
-          different fish mid-stack showed it while the old kind kept cooking, and the bar flicked to the
-          burn chance between fish. Now the fire shows the fish actually cooking, the bar is only the cook,
-          the burn chance is written under the fish, and a burnt fish stays on the fire long enough to see.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.25.1</span></div>
-        <p>Slowed down the fastest characters. Agility added 10 speed a level and running doubled it, so
-          a level-99 warrior ran at over 2,000 - past anything in the game that could aim at it. Now agility
-          adds 1 a level and running is half as fast again: a level-99 warrior walks at 298 and runs at 447.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.25.0</span></div>
-        <p>Large slimes got dangerous. Their spray slows to a stop right where you were standing and stays
-          there as acid for a few seconds, and every other shot they lob their acid ball over everything
-          onto your spot - marked on the floor while it falls - where it bursts into a ring and leaves a
-          puddle. Standing still is no longer safe around a slime.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.24.0</span></div>
-        <p>The monsters' own shots are back. Every monster in the Field fires its artist-drawn arrow, orb
-          or acid ball again, with its pattern flying alongside rather than instead. The Bush Sniper's
-          arrow comes wound in a spiral of orbs and trails a V of them behind it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.23.0</span></div>
-        <p>Every monster in the Field has its own pattern: the Bush Mage a slow ring with a gap toward
-          you, the Fire Sprite a pincer that closes where you stood, the Electric Sprite a chain that
-          strings out as it flies, and the slimes twins, sprays and a burst as a big one splits. Each orb
-          is a share of the monster's shot, in its element's colour.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-11">Oct 11, 2026</time><span class="update-version">v0.22.0</span></div>
-        <p>The Field is now bullet hell. Down the ladder from the Big Field, monsters fire volleys of
-          glowing orbs to weave between, and walls stop them. The Big Field stays the RPG it was, so the
-          game has both kinds of fight. In a group, everyone sees the same volleys and each of you dodges
-          your own.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-10">Oct 10, 2026</time><span class="update-version">v0.21.2</span></div>
-        <p>Fixed kills going uncounted. A small slime hit in the first tenth of a second after it split
-          off - landing in a fire ring, say - lost health on your screen without the server ever hearing
-          of it. A monster's first hit now introduces it to the server.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-10">Oct 10, 2026</time><span class="update-version">v0.21.1</span></div>
-        <p>The Credits now read "a game by Robert and AllMind". AllMind built the first inventory and
-          helped with the UI when Elusion began, and his name belongs on it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-10">Oct 10, 2026</time><span class="update-version">v0.21.0</span></div>
-        <p>A head start for new players. While the game is in testing, I can set a character's level
-          from the GM tools, so someone who has just arrived can try the later weapons without hours of
-          levelling first. It goes on their record and can be undone. And AllMind is back on the team as
-          co-owner, with the GM tools beside mine.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-10">Oct 10, 2026</time><span class="update-version">v0.20.0</span></div>
-        <p>Every item and every coin I hand out is now written in a ledger, with what it was worth on the
-          day, so there is an honest record of how much of the game's gold came from me rather than from
-          playing. The gifts from before were read back out of the server's logs.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.19.1</span></div>
-        <p>Fixed a character that kept walking on its own. In Firefox, a running attack (Shift and
-          right-click) opened the browser's own menu, which swallowed the key you were holding, so you
-          walked that way until you pressed it again. The game now lets go of held keys whenever the
-          browser's menu, another window or a text box takes the keyboard.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.19.0</span></div>
-        <p>Playing together got a lot better. You now see each other's meteors, thrown axes, Dynamite,
-          slash waves and healing orbs, not just the swing - as pictures, so only the attacker's own hits
-          count. Pulling a boss gate's lever opens it for everyone in the area. And other players walk
-          past smoothly instead of surging and stalling.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.18.3</span></div>
-        <p>Walk and talk. Press Enter to open chat and type; Enter again sends the line and hands the
-          keys back, so you never have to stop. Left open, the chat window goes see-through over the world
-          and comes back whole when you type or point at it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.18.0</span></div>
-        <p>Every mythic has two rolls: a common one on one attack in ten, and a rare one on one in a
-          hundred. The Meteorite drops a second meteor, or, rarely, the pull. The Double Axe flies wide,
-          reaching half as far again, or, rarely, bloody, spattering the ground as it spins. Dynamite
-          throws a bundle of three, or, rarely, a barrage of five - in place of the old bundle on every
-          fifth throw. Each weapon's tooltip names its rolls.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.17.0</span></div>
-        <p>The Meteorite can pull. While the stone falls, its ring of fire drags the monsters around
-          it in toward the impact, so a pack bunches up to take the hit; bosses stand their ground. Since
-          v0.17.2 it is one meteor in a hundred - watch for the wider ring.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-09">Oct 9, 2026</time><span class="update-version">v0.16.0</span></div>
-        <p>Monsters that had no death of their own - the sprites, bush mages and bush snipers - no
-          longer just vanish. They flash white and break apart into pixels, thrown up in their element's
-          colour.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.15.1</span></div>
-        <p>The portal you arrive through now closes behind you as soon as you walk away, instead of
-          hanging around until you happen to step back over it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.15.0</span></div>
-        <p>Step through the town's portal and you land in the Big Field: one long road with ten packed
-          fields off it, a different element in each and harder the further you go. The ladder at the far
-          end takes you down to the Field, then on to the gauntlet, the Crowned Beholder, and the
-          teleporter home.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.14.0</span></div>
-        <p>The mythics get louder. Dynamite blasts as wide as a meteor, throws faster, keeps the tank's
-          fire ring burning while you throw, and every fifth throw is a bundle of three that goes up in a
-          chain. The Double Axe whips up a whirlwind that reaches further the longer it spins, and every cut
-          leaves its target bleeding. The Meteorite falls wrapped in a fire vortex, with a ring of flame
-          swirling in on the ground where it is about to land.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.13.0</span></div>
-        <p>Dynamite leaves the ground smouldering. Every blast's scorch keeps crackling with sparks and
-          smoke for a second and a half, burning everything that stays in it - about a quarter more damage
-          on a boss that stands its ground.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.12.0</span></div>
-        <p>The Meteorite lands twice as wide and leaves its crater on fire: flames, a glowing floor, and a burn
-          on anything that stays in it for a couple of seconds. Dynamite chains: a blast sets off any lit stick
-          near it, a beat later and a quarter harder, so sticks thrown at one spot go up one after another.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.11.9</span></div>
-        <p>Mythic weapons hit like the rarest drops in the game should. The Double Axe goes from 110 to
-          140, the Meteorite from 41 to 53 and Dynamite from 18 to 23, and each adds 15% damage instead of
-          9%. Leave the Double Axe spinning and it speeds up, to twice as fast after four seconds.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.11.7</span></div>
-        <p>Beat the last Crowned Beholder and a teleporter now opens in its room to take you
-          home to town. Before, the only way out was the ladder back up to the Field. Pets also
-          say how to bring them out: right-click one in your bag to summon it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-08">Oct 8, 2026</time><span class="update-version">v0.11.6</span></div>
-        <p>The bosses go by their real name now: the Crowned Beholder. There are seven of them,
-          one for every element, from Light The Crowned Beholder to the Dark one at the bottom. You'll
-          see the name in the Kills window, on the town sign, and when somebody finds a mythic on one.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.11.5</span></div>
-        <p>The Electric Sprite pet hits from a distance now. Its orb faded out after about 80
-          pixels, so unless the pet was right beside what it was aiming at, the shot never
-          landed. It flies as far as every other pet's shot now.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.11.4</span></div>
-        <p>The Credits' Support tab now just asks for a hot cocoa: put your name in the PayPal
-          note and I'll add it to the list.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.11.2</span></div>
-        <p>Times are right across the clocks changing. In the browser, every chat line, notice and
-          log shows the hour it really happened, even from before a daylight-saving change, and a
-          game left running picks up the new hour when the clocks go forward or back. The Kills
-          window's "counted since" date is your own date now, not the server's. And leap years
-          are checked: Feb 29 is a Tuesday in 2028, and 2100 doesn't have one.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.11.1</span></div>
-        <p>Credits, under Options. Who drew the art, who made the sound, everyone who has bought
-          me a hot cocoa, and the engine the game is built on — each on its own tab, with links
-          to the artists' own pages.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.11.0</span></div>
-        <p>Armour resists an element. Every piece of armour now rolls one of the seven
-          elements and a share of its harm to take away — a few percent on iron, more the deeper
-          the tier, and the top of the range on a Perfect piece. Pieces that share an element add
-          up, to half a hit at most, so a set built against fire makes the fire boss a different
-          fight. The shop shows "?" until you buy, the Gear window adds up everything you wear,
-          and weapons never carry an element: what you hit for is still your own.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.10.0</span></div>
-        <p>The server watches every fight now. Until today it took your game's word that a
-          monster died. Now it keeps its own count of every monster's health from the hits it
-          sees, checks each hit against what your character could really do with the gear and
-          skills you have, and writes down any kill it can't account for. Nothing changes in
-          play yet: kills pay exactly as before. After a week of seeing what honest fights look
-          like, a kill will only pay when the server's count agrees. Also fixed: when you play
-          with others, a large slime no longer shows a second copy of itself for a moment as
-          it splits.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.9.0</span></div>
-        <p>A kill record. Kills, under Social or on the K key, lists every monster in the game
-          with its picture, how many of each your character has killed and when the last one
-          fell. The Everyone tab adds up every player's kills and shows who has killed the most
-          of each. Monsters you haven't killed yet are greyed out, so it's also a list of what's
-          left to find.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.8.0</span></div>
-        <p>Bigger text and new fonts. Options can make all the text bigger, up to 150%, and
-          change the font to one of five that suit the game. And you can change your keys:
-          open Controls (H), pick Change keys, click an action and press the key you want.
-          Every action takes two keys, and every key can move except Esc.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-07">Oct 7, 2026</time><span class="update-version">v0.7.6</span></div>
-        <p>For the downloaded game on a PC with more than one screen: Options has a Window mode
-          (windowed, borderless fullscreen or exclusive fullscreen) and lets you pick which
-          screen to play on, listed by size and refresh rate. The game opens where you left it,
-          and a frame cap can match your screen. If the game stutters on one of your screens,
-          exclusive fullscreen is the one to try.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.7.5</span></div>
-        <p>Better tools for looking after players. The server keeps the last few snapshots of
-          every character, so if something goes badly wrong with yours I can put it back the
-          way it was. I can also send an item straight to a player, see who's online in a list,
-          and Go to puts me right beside you instead of at the area's entrance.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.7.3</span></div>
-        <p>Esc closes every window now, including the shop, loot bags, the trade window, the
-          kingdom board and the players list. Closing the trade window still doesn't cancel
-          the trade. And monsters no longer ignore you when you back up against a wall:
-          standing flush against some walls hid you from every enemy in range, so they'd
-          crowd around you and never attack. They see you now, and their shots aim at you
-          rather than at the wall behind you.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.7.0</span></div>
-        <p>You fight the same monsters now. Everyone in an area sees the same slimes, the same
-          boss and the same spikes coming up out of the floor, and can take them on together.
-          The loot stays yours: when a monster dies, everyone who landed a hit on it gets their
-          own bag and their own XP, and nobody else sees what's in yours. And if someone leaves
-          in the middle of a fight, nothing resets; the monsters carry on right where they were.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.6.1</span></div>
-        <p>Loot bags can be picked up from much further away. They also stopped catching
-          enemy shots: a bag on the floor used to soak up arrows meant for you. And nobody on
-          staff can create items any more. Only I can, to test things.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.6.0</span></div>
-        <p>Rare finds wait two days before they can change hands. A mythic, or a Perfect piece
-          from a bag or the shop, can't be traded for 48 hours after you get it. And I can pause
-          trading for everyone with one switch if something looks wrong; a trade that's already
-          open always gets to finish. Trading everything else works exactly as before. It's there
-          so that if someone ever cheats their way to loot, it stays with them while I look.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.5.1</span></div>
-        <p>In the browser, the little online dots in front of names were showing up as boxes
-          with codes in them, in the Friends, Guild, Trade and Staff windows. The game's font
-          doesn't have those symbols, and a browser has nowhere to borrow them from. They're
-          drawn properly now.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-06">Oct 6, 2026</time><span class="update-version">v0.5.0</span></div>
-        <p>You can see each other now. Everyone in the same area shows up on your screen, live:
-          walking and turning, swinging their weapon, the tank's aura lit, their pet trailing
-          behind, and their name over their head in the colour they chose, with their guild and
-          the crown or staff badge. It's company, not shared combat yet. Each of you still fights
-          your own monsters, so a friend swinging at nothing is swinging at something only they
-          can see. Shared fights are next.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-05">Oct 5, 2026</time></div>
-        <p>Gear rolls its stats now. Every piece that drops, and every piece you buy, rolls each
-          of its stats between 85% and 115% of normal, and one in a hundred is Perfect: 120% on
-          everything, in a gold frame. The shop shows a "?" where the stats go, and you find out
-          what you got when you buy it. Two jade swords aren't the same sword any more.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-05">Oct 5, 2026</time></div>
-        <p>You can sell to the shop. It pays a twentieth of what a piece is worth: enough to
-          clear out a bag, never enough to beat hunting. Prices went up across the board too.
-          Gear costs twice what it did and potions four times, so a potion now costs about what
-          the cooked fish of its tier is worth.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-05">Oct 5, 2026</time></div>
-        <p>The three spike gates by the ladder down to the bosses have levers now, one on each
-          side. Pull either one and all three drop; pull it again and they rise. And going
-          through the town portal no longer plays its sound twice.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-04">Oct 4, 2026</time></div>
-        <p>You can play Elusion in your browser now, at
-          <a href="https://play.elusionrpg.com" style="color:#8fe38a; font-weight:600;">play.elusionrpg.com</a>.
-          Your characters live on the game's own server, not in your browser, so they're
-          there whenever you sign in again. Bring a keyboard and mouse.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-02">Oct 2, 2026</time></div>
-        <p>Every enemy in the game can now drop a mythic weapon, and the tougher it is, the better
-          your odds. The Crowned is about one in 150 kills. A light slime is one in two million, a
-          real lottery ticket. It's always your own class's weapon. When one drops, the bag lands
-          under a tall red pillar of light and the screen flashes red, and everyone online gets a
-          banner saying who found it and on what. The bag stays on the ground for five minutes, so a
-          boss fight can't cost you it.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-02">Oct 2, 2026</time></div>
-        <p>Three new weapons from
-          <a href="https://ahvassa.itch.io/" target="_blank" rel="noopener" style="color:#8fe38a; font-weight:600;">Ahvassa</a>,
-          and each one changes how your class attacks. The mage's Meteorite brings a meteor down
-          where you aim. It comes in at an angle, its shadow grows until it lands, and it leaves a
-          crater. The warrior's Double Axe is thrown to a spot and spins there, cutting everything
-          near it, until you call it back. The tank's Dynamite replaces the aura with a lit stick on
-          a fuse. One meteor or throw in ten comes twice. They need level 22.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-01">Oct 1, 2026</time></div>
-        <p>I played Elusion as a brand-new player for the first time, and it was rough. Nothing told
-          me that Space attacks, Shift sprints or E opens the bank, nothing said which way the Field
-          was, and the bar along the bottom was fourteen tiny buttons. Now the first time you stand in
-          town, a welcome card shows you the way out and every key, and H brings the keys back whenever
-          you want them. The bar is down to eight: Friends, Players, Guild, Trade and the Kingdom board
-          live under Social, and Options and logging out under Menu.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-10-01">Oct 1, 2026</time></div>
-        <p>A round of polish. The bank's Deposit and Withdraw, the level on Character Stats and all
-          eight gear slots now use the same sockets as the hotbar, so the whole game reads as one set.
-          The cooking window used to open stuck in the top-left corner with twelve empty boxes; it
-          opens in the middle now, with one row of six, one per kind of fish. And Character Stats is
-          two columns with short numbers: 1M, not 1,007,892.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
-        <p>Trading got a proper overhaul, and testing it with two accounts found the nasty one:
-          whoever pressed Accept first could lose the item they'd just traded for, the next time
-          they so much as moved a potion. Their game never heard the trade had finished, so it saved
-          the old bag over the new one. Fixed. Accept now only agrees to the offer you actually saw,
-          so nobody can swap a sword for a stick at the last second. You're told when someone wants
-          to trade with you, items show their icons and worth, and your recent trades are listed.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
-        <p>Guild chat works. The tab said "Guilds are not in the game yet" long after guilds were in
-          the game — the server had guild chat the whole time, and the game never asked it. A player
-          typed "oi bruv" into it, nothing happened, and that was the bug report.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
-        <p>My mods have a proper desk now: every player's record, a log of every ban, kick and
-          warning, and staff-only notes, so whoever is on can pick up where the last person left off
-          when I'm not around. When somebody says they got scammed, staff can look up exactly what
-          was traded, with whom, and on which character.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-29">Sep 29, 2026</time></div>
-        <p>The name colour you pick in Options finally shows everywhere — chat, friends, guilds and
-          the players list, not just over your own head. Rank became a badge instead (the crown, MOD,
-          DEV), because once colours are free, a colour can't prove anyone is staff. Guilds got a
-          cleaner panel too: online members first, what everyone is playing, and a short history of
-          who joined, got promoted or left.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
-        <p>I died, came back with full health, logged out, and logged back in on 52 HP out of 504.
-          My own server had been catching it for weeks and I hadn't looked — the client was healing
-          itself, and the check that watches for unexplained healing was trimming it back to what
-          regeneration could really produce. It was right. Accepting death was still a decision made
-          on the player's machine rather than a request the server had to agree to. Both ways out of
-          the death screen go through the server now, and the gold you were carrying is properly
-          destroyed rather than just vanishing off your screen and coming back at the next login.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
-        <p>A switch that makes me hostile. Flip it and the whole world is told — and it stays on
-          screen for as long as it's true, rather than scrolling away like any other message.
-          There's also a Players menu anyone can open: who is online, what they're playing, and
-          where they are. One day I want to be the world boss.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
-        <p>Every line of chat and every notice from the server now says when it happened, in your
-          own local time. That sounds small. It wasn't: the server had been sending the time all
-          along and the game was throwing it away, so anyone logging in was handed a week of old
-          announcements, every one of them claiming to be happening right now.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-27">Sep 27, 2026</time></div>
-        <p>The Kingdom's Coffers counts every gold piece that leaves the world for good — and it
-          now says how much of a player's contribution was given and how much was simply lost when
-          they died. Deaths are counted too. Dying still climbs the board; the board just admits
-          what it's made of.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
-        <p>Elusion is getting a sound. It took me over a year of asking to get
-          <a href="https://www.youtube.com/@Horizon_Sounds" target="_blank" rel="noopener" style="color:#8fe38a; font-weight:600;">Horizon</a>
-          into my Discord — he's 17, has been writing music since he was 15, plays football, and is a genuinely
-          busy guy. He's working on the intro theme in secret and has assured me it's no problem. A placeholder
-          is in for now; the real track is on the way.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
-        <p>Every skill is now server-owned. Attack, defense, agility, magic, fishing and cooking
-          are granted and checked on the server — no client can claim or edit its way to level 99.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-09-23">Sep 23, 2026</time></div>
-        <p>Security pass across the board: saves, inventory, gold and the economy are all
-          reconciled against what the server actually granted, backed by 3,400+ automated tests.</p>
-      </div>
-      <div class="update-row soon">
-        <div class="update-when">Up next</div>
-        <p>The server refereeing every fight: once it has watched a week of honest play, a kill
-          only pays when its own count agrees. Then bosses the server runs itself — the backbone
-          for real, coordinated raids.</p>
+        <div class="update-when"><time datetime="2026-10-22">Oct 22, 2026</time><span class="update-version">v0.74.2</span></div>
+        <p>Play could sit on "Loading the world..." until you restarted the game. The real cause was two of Godot's loading threads waiting on each other; the town now loads on one, so it cannot happen.</p>
       </div>
     </div>
-  </section>
-
-  <!-- ===== ALLMIND'S PUSHES (the co-owner's own changelog) =====
-       One row per push or pull request AllMind lands, newest at the top.
-       To add one: copy the first row below, paste it above it, change the
-       date (datetime="YYYY-MM-DD" and the words), the pill (a game version
-       like v0.22.0, or a PR number like PR #12) and the sentence - then take
-       "latest" off the row that had it, so only the newest is lit. -->
-  <section class="section wide">
-    <div class="section-head coowner-head">
-      <p class="eyebrow">Co-owner log</p>
-      <h2>AllMind's pushes</h2>
-      <p>What AllMind adds to Elusion, one push at a time.</p>
-    </div>
-    <div class="updates coowner-log">
-      <div class="update-row latest">
-        <div class="update-when"><time datetime="2026-10-10">Oct 10, 2026</time><span class="update-version">Co&#8209;owner</span></div>
-        <p>Back on the team. AllMind joins Elusion as co-owner, with the GM tools beside mine, and
-          every push he makes from here gets a line in this log.</p>
-      </div>
-      <div class="update-row soon">
-        <div class="update-when">Up next</div>
-        <p>His first push since coming back.</p>
-      </div>
-    </div>
+    <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
   </section>
 
   <!-- ===== THE PORTAL IS OPEN ===== -->

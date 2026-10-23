@@ -29,6 +29,8 @@ const REQUIRED = [
 	"contribute.html",
 	"join.html",
 	"lore.html",
+	// Every push, both logs in full (23 Oct): the home page keeps the latest three.
+	"updates.html",
 	"login.html",
 	"simulator.html",
 	"bosssim.js",

@@ -6,7 +6,7 @@ html, body {
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
-  background-color: #111;
+  background-color: #1b233f;
   color: #f5f5f5;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -35,7 +35,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  background: #111;
+  background: #1b233f;
   padding: 10px 20px;
   border-bottom: 1px solid #333;
 }
@@ -51,7 +51,7 @@ h1 {
 
 .main-nav a:hover {
   background: #4fd1ff;
-  color: #111;
+  color: #1b233f;
 }
 
 /* HERO (home page) */
@@ -65,7 +65,7 @@ h1 {
   margin-top: 20px;
   padding: 10px 18px;
   background: #4fd1ff;
-  color: #111;
+  color: #1b233f;
   text-decoration: none;
   border-radius: 4px;
 }
@@ -145,7 +145,7 @@ h1 {
   display: block;
   margin: 8px auto 0;
   max-width: 200px;
-  color: #111;
+  color: #1b233f;
   background: #4fd1ff;
   padding: 6px 12px;
   border-radius: 4px;
@@ -199,12 +199,12 @@ footer {
   margin: 0;
   padding: 7px 20px 5px;
   text-align: center;
-  color: #8a939a;
+  color: #8f979e;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: #0d0d0d;
-  border-bottom: 1px solid #222;
+  background: #171f3b;
+  border-bottom: 1px solid #2c3450;
 }
 
 .visit-count {
@@ -245,7 +245,7 @@ footer {
   padding: 6px 10px;
   border: 1px solid #4fd1ff;
   border-radius: 4px;
-  background-color: #181818;
+  background-color: #222a46;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -254,7 +254,7 @@ footer {
 #applicants-list li button {
   margin-left: 10px;
   background: #4fd1ff;
-  color: #111;
+  color: #1b233f;
   border: none;
   padding: 4px 8px;
   border-radius: 4px;
@@ -269,13 +269,13 @@ footer {
 
 /* =====================================================================
    LANDING + SHARED TEMPLATE  (added in the tidy pass)
-   Theme stays: dark #111 ground, cyan #4fd1ff accent, Arial.
+   Theme stays: dark #1b233f ground, cyan #4fd1ff accent, Arial.
    ===================================================================== */
 
 /* active nav link — marks the page you're on */
 .main-nav a.active {
   background: #4fd1ff;
-  color: #111;
+  color: #1b233f;
   font-weight: bold;
 }
 
@@ -310,12 +310,12 @@ footer {
   border: 1px solid #4fd1ff;
   transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
-.btn.primary { background: #4fd1ff; color: #111; }
+.btn.primary { background: #4fd1ff; color: #1b233f; }
 .btn.primary:hover { background: #7fe2ff; }
 .btn.ghost { background: transparent; color: #4fd1ff; }
 .btn.ghost:hover { background: rgba(79, 209, 255, 0.12); }
 .btn.soon {
-  background: #181818; color: #6b7c84; border-color: #2c3b41;
+  background: #222a46; color: #8a989e; border-color: #2c3b41;
   cursor: default; position: relative;
 }
 .badge-soon {
@@ -360,7 +360,7 @@ footer {
 .hero-text {
   border: 1px solid #2c3b41;
   border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   /* A shade softer than the game screen's glow. Two equally lit panels fight;
      the screen is the one meant to draw the eye. */
   box-shadow: 0 0 40px rgba(79, 209, 255, 0.06), inset 0 0 60px rgba(0, 0, 0, 0.5);
@@ -394,7 +394,7 @@ footer {
 .game-screen {
   border: 1px solid #2c3b41;
   border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   box-shadow: 0 0 40px rgba(79, 209, 255, 0.08), inset 0 0 60px rgba(0,0,0,0.5);
   overflow: hidden;
 }
@@ -403,7 +403,7 @@ footer {
   display: flex; align-items: center; justify-content: center;
   background:
     radial-gradient(circle at 50% 45%, rgba(79,209,255,0.06), transparent 60%),
-    #0b0b0b;
+    #151d39;
   position: relative;
   overflow: hidden;              /* keep sprites + effects clipped inside the box */
 }
@@ -417,9 +417,9 @@ footer {
    edge colours) where the screen has gold. Square, flat, no glow. Home only;
    the other pages' heroes keep their panel. */
 .home-hero .hero-text {
-  border: 3px solid #1a1820;
+  border: 3px solid #242a4e;
   border-radius: 0;
-  background: #18171c;
+  background: #22294a;
   box-shadow: inset 3px 3px 0 #5c4f66, inset -3px -3px 0 #292637, 6px 6px 0 rgba(0, 0, 0, 0.55);
 }
 
@@ -528,7 +528,7 @@ footer {
 .screen-tag { color: #b8a888; font-size: 0.88rem; line-height: 1.2; }
 .screen-ctrl { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .screen-count {
-  color: #8a7d6a; font-size: 0.95rem; min-width: 2.4em; text-align: center;
+  color: #9f9485; font-size: 0.95rem; min-width: 2.4em; text-align: center;
   font-variant-numeric: tabular-nums;
 }
 .screen-btn {
@@ -574,7 +574,7 @@ footer {
 }
 .game-screen .playbar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 14px; border-top: 1px solid #2c3b41; background: #141414;
+  padding: 11px 14px; border-top: 1px solid #2c3b41; background: #1e2642;
   font-size: 0.9rem; color: #cfd6da;
 }
 .game-screen .playbar .dot {
@@ -601,7 +601,7 @@ footer {
   position: relative;
   border: 1px solid #2c3b41;
   border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   padding: 22px 22px 20px;
 }
 /* a thread of cyan along the top edge, brightest in the middle */
@@ -636,11 +636,11 @@ footer {
      you reach that end. The two "local" layers scroll with the posts and cover
      the two fixed hazes when there is nothing more beyond them. */
   background:
-    linear-gradient(#141414 30%, rgba(20, 20, 20, 0)) center top / 100% 36px no-repeat local,
-    linear-gradient(rgba(20, 20, 20, 0), #141414 70%) center bottom / 100% 36px no-repeat local,
+    linear-gradient(#1e2642 30%, rgba(20, 20, 20, 0)) center top / 100% 36px no-repeat local,
+    linear-gradient(rgba(20, 20, 20, 0), #1e2642 70%) center bottom / 100% 36px no-repeat local,
     radial-gradient(farthest-side at 50% 0, rgba(79, 209, 255, 0.28), transparent) center top / 100% 22px no-repeat scroll,
     radial-gradient(farthest-side at 50% 100%, rgba(79, 209, 255, 0.28), transparent) center bottom / 100% 22px no-repeat scroll,
-    #141414;
+    #1e2642;
 }
 .updates::-webkit-scrollbar { width: 8px; }
 .updates::-webkit-scrollbar-track { background: transparent; }
@@ -659,7 +659,7 @@ footer {
 .update-row::before {
   content: ""; position: absolute; left: -7px; top: 15px;
   width: 8px; height: 8px; border-radius: 50%;
-  background: #141414; border: 2px solid #3a4a52;
+  background: #1e2642; border: 2px solid #3a4a52;
 }
 .update-row.latest { border-left-color: #4fd1ff; }
 .update-row.latest::before {
@@ -672,7 +672,7 @@ footer {
 }
 .update-version {
   display: inline-block; margin-top: 6px; padding: 1px 8px; border-radius: 20px;
-  border: 1px solid #2c3b41; background: #101010;
+  border: 1px solid #2c3b41; background: #1a223e;
   color: #9aa4ab; font-size: 0.68rem; letter-spacing: 0.06em;
   text-transform: none; font-weight: 600;
 }
@@ -680,7 +680,7 @@ footer {
 .update-row p { margin: 0; color: #cdd4d9; font-size: 0.95rem; line-height: 1.55; }
 .update-row.soon { border-left-style: dashed; border-left-color: #3b2a63; }
 .update-row.soon::before { border-color: #8b5cf6; box-shadow: 0 0 8px rgba(139, 92, 246, 0.6); }
-.update-row.soon p { color: #8a939a; }
+.update-row.soon p { color: #8f979e; }
 .update-row.soon .update-when { color: #a78bfa; }
 /* on a phone the 124px date column squeezed each post into a 12-word-wide
    strip; the date sits above the post instead, its version beside it */
@@ -700,11 +700,11 @@ footer {
   border-color: rgba(255, 199, 89, 0.35);
   box-shadow: 0 0 22px rgba(255, 199, 89, 0.08);
   background:
-    linear-gradient(#141414 30%, rgba(20, 20, 20, 0)) center top / 100% 36px no-repeat local,
-    linear-gradient(rgba(20, 20, 20, 0), #141414 70%) center bottom / 100% 36px no-repeat local,
+    linear-gradient(#1e2642 30%, rgba(20, 20, 20, 0)) center top / 100% 36px no-repeat local,
+    linear-gradient(rgba(20, 20, 20, 0), #1e2642 70%) center bottom / 100% 36px no-repeat local,
     radial-gradient(farthest-side at 50% 0, rgba(255, 199, 89, 0.24), transparent) center top / 100% 22px no-repeat scroll,
     radial-gradient(farthest-side at 50% 100%, rgba(255, 199, 89, 0.24), transparent) center bottom / 100% 22px no-repeat scroll,
-    #141414;
+    #1e2642;
   scrollbar-color: #4a3d22 transparent;
 }
 .updates.coowner-log::-webkit-scrollbar-thumb { background: #4a3d22; }
@@ -738,14 +738,14 @@ footer {
 }
 .element-chip {
   border: 1px solid #2c3b41; border-radius: 20px; padding: 6px 14px;
-  font-size: 0.85rem; color: #cdd4d9; background: #161616;
+  font-size: 0.85rem; color: #cdd4d9; background: #202844;
 }
 
 /* ---- LOGIN placeholder ---- */
 .login-card {
   max-width: 420px; margin: 30px auto; text-align: center;
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #101010);
+  background: linear-gradient(160deg, #242c48, #1a223e);
   padding: 32px 26px;
 }
 .login-card h2 { color: #4fd1ff; margin: 0 0 10px; }
@@ -769,7 +769,7 @@ footer {
 .apply-card {
   max-width: 640px; margin: 0 auto 40px;
   border: 1px solid #2c3b41; border-radius: 18px;
-  background: linear-gradient(160deg, #1a1a1a, #121212);
+  background: linear-gradient(160deg, #242c48, #1c2440);
   padding: 28px 28px 24px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   text-align: left;
@@ -785,21 +785,21 @@ footer {
 .apply-field select,
 .apply-field textarea {
   width: 100%; box-sizing: border-box;
-  background: #0e0e0e; color: #f5f5f5;
+  background: #18203c; color: #f5f5f5;
   border: 1px solid #2c3b41; border-radius: 8px;
   padding: 11px 13px; font-family: inherit; font-size: 0.95rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .apply-field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
 .apply-field input::placeholder,
-.apply-field textarea::placeholder { color: #6b7c84; }
+.apply-field textarea::placeholder { color: #8a989e; }
 .apply-field input:focus,
 .apply-field select:focus,
 .apply-field textarea:focus {
   outline: none; border-color: #4fd1ff;
   box-shadow: 0 0 0 3px rgba(79, 209, 255, 0.15);
 }
-.apply-field .hint { color: #7c858c; font-size: 0.78rem; margin: 5px 0 0; }
+.apply-field .hint { color: #90979d; font-size: 0.78rem; margin: 5px 0 0; }
 .apply-field.invalid input,
 .apply-field.invalid select,
 .apply-field.invalid textarea { border-color: #ff6b6b; }
@@ -820,7 +820,7 @@ footer {
 .apply-actions { text-align: center; }
 .apply-submit {
   display: inline-block; padding: 12px 30px; border-radius: 8px;
-  background: #4fd1ff; color: #111; font-weight: bold; font-size: 1rem;
+  background: #4fd1ff; color: #1b233f; font-weight: bold; font-size: 1rem;
   border: 1px solid #4fd1ff; cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
 }
@@ -851,7 +851,7 @@ footer {
 .ledger {
   max-width: 460px; margin: 0 auto;
   border: 1px solid #2c3b41; border-radius: 14px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   box-shadow: 0 0 30px rgba(79, 209, 255, 0.06);
   padding: 6px 20px 14px; text-align: left;
 }
@@ -863,18 +863,18 @@ footer {
 .ledger-raised .n { color: #4fd1ff; font-size: 1.7rem; font-weight: bold; }
 .ledger-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 0; font-size: 0.92rem; border-bottom: 1px solid #1e1e1e;
+  padding: 9px 0; font-size: 0.92rem; border-bottom: 1px solid #28304c;
 }
 .ledger-row:last-child { border-bottom: 0; }
 .ledger-row .l { color: #cdd4d9; }
 .ledger-row .n { color: #e6ebee; font-variant-numeric: tabular-nums; }
-.ledger-updated { color: #7c858c; font-size: 0.76rem; margin: 12px 0 0; text-align: center; }
-.ledger-empty { color: #8a939a; text-align: center; padding: 12px 0 0; margin: 0; font-size: 0.85rem; }
+.ledger-updated { color: #90979d; font-size: 0.76rem; margin: 12px 0 0; text-align: center; }
+.ledger-empty { color: #8f979e; text-align: center; padding: 12px 0 0; margin: 0; font-size: 0.85rem; }
 
 /* The hot cocoa line: present, so the total is complete — and visibly not
    part of the art money above it. */
 .ledger-personal { border-top: 1px solid #2c3b41; margin-top: 4px; }
-.ledger-personal .l { color: #8a939a; font-size: 0.84rem; }
+.ledger-personal .l { color: #8f979e; font-size: 0.84rem; }
 .ledger-personal .n { color: #a8b0b6; }
 
 /* ---- the hot cocoa: the home page's hero, holding one thing ---- */
@@ -896,7 +896,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .cocoa-mug .puff { animation: none; opacity: 0.7; }
 }
-.game-screen .playbar .playbar-quiet { color: #6b7c84; }
+.game-screen .playbar .playbar-quiet { color: #8a989e; }
 
 /* ---- the art: two artists, what a piece costs, a bigger gift ---- */
 .artist-grid {
@@ -905,7 +905,7 @@ footer {
 }
 .artist-card {
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   box-shadow: 0 0 30px rgba(79, 209, 255, 0.05);
   padding: 20px 22px;
 }
@@ -931,7 +931,7 @@ footer {
 .art-prices li {
   display: flex; flex-direction: column-reverse; align-items: center; gap: 4px;
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   padding: 16px 10px;
 }
 .art-prices .n {
@@ -939,7 +939,7 @@ footer {
 }
 .art-prices .k { color: #9aa4ab; font-size: 0.85rem; }
 .art-prices-note {
-  text-align: center; color: #8a939a; font-size: 0.82rem; max-width: 62ch;
+  text-align: center; color: #8f979e; font-size: 0.82rem; max-width: 62ch;
   margin: 0 auto; line-height: 1.55;
 }
 .art-callout { max-width: 820px; margin-top: 30px; flex-wrap: nowrap; }
@@ -971,7 +971,7 @@ footer {
 }
 .monster-tile {
   margin: 0; border: 1px solid #2c3b41; border-radius: 12px;
-  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.08), transparent 65%), #0b0b0b;
+  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.08), transparent 65%), #151d39;
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
   padding: 12px 6px 9px;
 }
@@ -1055,7 +1055,7 @@ footer {
 .lore-chapter { position: relative; padding: 18px 0 24px; color: #cdd4d9; line-height: 1.7; }
 .lore-chapter::before {
   content: ""; position: absolute; left: -32px; top: 19px; width: 12px; height: 12px;
-  border-radius: 50%; background: #111; border: 2px solid #4fd1ff;
+  border-radius: 50%; background: #1b233f; border: 2px solid #4fd1ff;
   box-shadow: 0 0 10px rgba(79, 209, 255, 0.5);
 }
 .lore-chapter .eyebrow { margin-bottom: 4px; }
@@ -1072,7 +1072,7 @@ footer {
 .lore-art {
   margin: 30px 0 0; padding: 20px 14px 12px; text-align: center;
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.10), transparent 65%), #0b0b0b;
+  background: radial-gradient(circle at 50% 42%, rgba(79, 209, 255, 0.10), transparent 65%), #151d39;
   box-shadow: 0 0 40px rgba(79, 209, 255, 0.08);
 }
 .lore-art img {
@@ -1084,7 +1084,7 @@ footer {
 /* The seven lands, gentlest to deepest, each in its element's colour. */
 .land-depth {
   position: relative; display: flex; justify-content: space-between;
-  margin: 20px 2px 8px; color: #6b7c84;
+  margin: 20px 2px 8px; color: #8a989e;
   font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
 }
 .land-depth::after {
@@ -1099,18 +1099,18 @@ footer {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   padding: 12px 4px 10px; text-align: center;
   border: 1px solid #2c3b41; border-top: 3px solid var(--el); border-radius: 10px;
-  background: #121212; box-shadow: inset 0 24px 30px -26px var(--el);
+  background: #1c2440; box-shadow: inset 0 24px 30px -26px var(--el);
 }
 .land .g { color: var(--el); font-size: 1.3rem; line-height: 1.25; text-shadow: 0 0 12px var(--el); }
 .land .n { color: #f5f5f5; font-weight: bold; font-size: 0.9rem; }
-.land .t { color: #8a939a; font-size: 0.72rem; line-height: 1.3; }
+.land .t { color: #8f979e; font-size: 0.72rem; line-height: 1.3; }
 
 /* Seven crowns, one for every element; the seventh, the Crowned's own, is the
    dark - larger, and lit in the dark land's violet. */
 .crown-row {
   display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px;
   margin: 2px 0 0; padding: 12px 16px;
-  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #1e2642;
 }
 .crown { color: var(--el); font-size: 1.5rem; line-height: 1; text-shadow: 0 0 10px var(--el); }
 .crown.seventh {
@@ -1129,7 +1129,7 @@ footer {
 .mythic-row li {
   display: flex; flex-direction: column; gap: 2px; padding: 12px 10px; text-align: center;
   border: 1px solid rgba(255, 90, 90, 0.45); border-radius: 10px;
-  background: linear-gradient(160deg, rgba(255, 70, 70, 0.10), rgba(255, 70, 70, 0.02)), #121212;
+  background: linear-gradient(160deg, rgba(255, 70, 70, 0.10), rgba(255, 70, 70, 0.02)), #1c2440;
   box-shadow: 0 0 22px rgba(255, 70, 70, 0.08);
 }
 .mythic-row .k { color: #ff8a8a; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: bold; }
@@ -1143,7 +1143,7 @@ footer {
 }
 .coin-flow li {
   padding: 12px 10px; text-align: center;
-  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #1e2642;
 }
 .coin-flow .k { display: block; color: #9aa4ab; font-size: 0.78rem; line-height: 1.35; }
 .coin-flow .v { display: block; color: #ffd76a; font-weight: bold; margin-top: 4px; }
@@ -1156,7 +1156,7 @@ footer {
   border: 1px solid #3b2a63; border-radius: 12px;
   background:
     radial-gradient(ellipse at 50% 130%, rgba(139, 92, 246, 0.22), transparent 70%),
-    linear-gradient(180deg, #141414, #0a0a0e);
+    linear-gradient(180deg, #1e2642, #141c3c);
   box-shadow: 0 0 40px rgba(139, 92, 246, 0.10);
 }
 .lore-chapter.deep::before { left: -33px; top: 26px; border-color: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.7); }
@@ -1170,7 +1170,7 @@ footer {
 }
 .class-grid li {
   padding: 16px 12px 14px; text-align: center;
-  border: 1px solid #4fd1ff; border-radius: 12px; background: #161616;
+  border: 1px solid #4fd1ff; border-radius: 12px; background: #202844;
 }
 .class-grid .ic { color: #4fd1ff; font-size: 1.5rem; line-height: 1.2; }
 .class-grid h3 { margin: 4px 0; color: #f5f5f5; font-size: 1.05rem; }
@@ -1179,14 +1179,14 @@ footer {
   max-width: 46ch; margin: 6px auto 0; text-align: center;
   color: #e6ebee; font-size: 1.15rem; font-style: italic; line-height: 1.6;
 }
-.lore-footnote { color: #8a939a; font-size: 0.9rem; text-align: center; margin: 22px 0 6px; }
+.lore-footnote { color: #8f979e; font-size: 0.9rem; text-align: center; margin: 22px 0 6px; }
 .lore-callout, .about-callout { max-width: 820px; margin-top: 26px; }
 
 /* ---- JOIN THE TEAM ---- */
 /* The open roles, on a notice board where the game screen would be. */
 .board-screen .board {
   padding: 22px 22px 18px;
-  background: radial-gradient(circle at 50% 0%, rgba(79, 209, 255, 0.07), transparent 60%), #0b0b0b;
+  background: radial-gradient(circle at 50% 0%, rgba(79, 209, 255, 0.07), transparent 60%), #151d39;
 }
 .board-head {
   color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.16em;
@@ -1195,7 +1195,7 @@ footer {
 .board-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .board-list li {
   display: flex; align-items: center; gap: 12px; padding: 9px 12px;
-  border: 1px solid #2c3b41; border-radius: 8px; background: #141414;
+  border: 1px solid #2c3b41; border-radius: 8px; background: #1e2642;
   color: #e6ebee; font-size: 0.95rem;
 }
 .board-list .ic { width: 1.6em; text-align: center; font-size: 1.1rem; }
@@ -1208,7 +1208,7 @@ footer {
 .step-row li {
   padding: 20px 20px 18px;
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
 }
 .step-n {
   display: inline-flex; align-items: center; justify-content: center;
@@ -1235,12 +1235,12 @@ footer {
 /* The numbers, as four tiles where the game screen would be. */
 .stats-screen .stat-tiles {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 18px;
-  background: radial-gradient(circle at 50% 40%, rgba(79, 209, 255, 0.06), transparent 60%), #0b0b0b;
+  background: radial-gradient(circle at 50% 40%, rgba(79, 209, 255, 0.06), transparent 60%), #151d39;
 }
 .stat-tile {
   display: flex; flex-direction: column; justify-content: center;
   min-height: 104px; padding: 18px 10px; text-align: center;
-  border: 1px solid #2c3b41; border-radius: 10px; background: #141414;
+  border: 1px solid #2c3b41; border-radius: 10px; background: #1e2642;
 }
 .stat-tile .n {
   font-size: 2rem; font-weight: bold; line-height: 1.1; color: #4fd1ff;
@@ -1329,7 +1329,7 @@ footer {
 }
 .home-stats .stat-tile {
   min-height: 0; padding: 16px 12px 14px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
 }
 .home-stats .n { display: block; font-size: 1.75rem; }
 .home-stats .l { display: block; line-height: 1.35; }
@@ -1340,7 +1340,7 @@ footer {
   background:
     radial-gradient(ellipse at 100% 120%, rgba(139, 92, 246, 0.14), transparent 55%),
     radial-gradient(ellipse at 0% -20%, rgba(253, 230, 138, 0.06), transparent 50%),
-    linear-gradient(160deg, #161616, #0d0d0d);
+    linear-gradient(160deg, #202844, #171f3b);
 }
 .home-lands .land-depth { margin-top: 16px; }
 .home-lands-more { margin: 16px 0 0; text-align: center; font-size: 0.92rem; }
@@ -1355,7 +1355,7 @@ footer {
 .explore-card, .follow-tile {
   text-decoration: none; color: inherit;
   border: 1px solid #2c3b41; border-radius: 12px;
-  background: linear-gradient(160deg, #1a1a1a, #0e0e0e);
+  background: linear-gradient(160deg, #242c48, #18203c);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .explore-card { display: flex; flex-direction: column; overflow: hidden; }
@@ -1367,7 +1367,7 @@ footer {
 .explore-art {
   display: flex; align-items: center; justify-content: center; height: 150px;
   border-bottom: 1px solid #2c3b41;
-  background: radial-gradient(circle at 50% 50%, rgba(79, 209, 255, 0.10), transparent 65%), #0b0b0b;
+  background: radial-gradient(circle at 50% 50%, rgba(79, 209, 255, 0.10), transparent 65%), #151d39;
 }
 /* Shown at whole multiples of their pixels: the portal at 4x, the Crowned at
    its own size, the two drawings at 3x. */
@@ -1389,7 +1389,7 @@ footer {
   padding: 20px 28px; border: 1px solid rgba(79, 209, 255, 0.55); border-radius: 14px;
   background:
     radial-gradient(ellipse at 0% 50%, rgba(79, 209, 255, 0.16), transparent 50%),
-    linear-gradient(135deg, rgba(79, 209, 255, 0.07), rgba(79, 209, 255, 0.01)), #101010;
+    linear-gradient(135deg, rgba(79, 209, 255, 0.07), rgba(79, 209, 255, 0.01)), #1a223e;
   box-shadow: 0 0 40px rgba(79, 209, 255, 0.08);
 }
 .portal-cta img {
@@ -1413,9 +1413,9 @@ footer {
 }
 .follow-tile .ic { margin-bottom: 10px; }
 .follow-tile .name { color: #f5f5f5; font-weight: bold; }
-.follow-tile .what { color: #8a939a; font-size: 0.82rem; overflow-wrap: anywhere; }
+.follow-tile .what { color: #8f979e; font-size: 0.82rem; overflow-wrap: anywhere; }
 .follow-tile:hover .what { color: #7fe2ff; }
-.home-thanks { text-align: center; color: #8a939a; margin: 26px 0 0; font-size: 0.92rem; }
+.home-thanks { text-align: center; color: #8f979e; margin: 26px 0 0; font-size: 0.92rem; }
 .home-thanks span { color: #4fd1ff; }
 
 @media (max-width: 900px) {
@@ -1456,7 +1456,7 @@ footer {
   border: 1px solid rgba(255, 199, 89, 0.45); border-radius: 14px;
   background:
     radial-gradient(circle at 50% 0, rgba(255, 199, 89, 0.12), transparent 62%),
-    linear-gradient(160deg, #1a1a1a, #0e0e0e);
+    linear-gradient(160deg, #242c48, #18203c);
   box-shadow: 0 0 26px rgba(255, 199, 89, 0.14);
   padding: 24px 22px 18px;
 }
@@ -1488,7 +1488,7 @@ footer {
 .team-card p:not(.team-role):not(.team-real) { margin-bottom: 14px; }
 .team-card p.team-real {
   margin-top: auto; padding-top: 10px; border-top: 1px solid #2c3b41;
-  color: #8b959c; font-size: 0.82rem; letter-spacing: 0.04em;
+  color: #8d979e; font-size: 0.82rem; letter-spacing: 0.04em;
 }
 .team-story {
   max-width: 760px; margin: 20px auto 0; text-align: center;
@@ -1504,5 +1504,130 @@ footer {
   50%      { box-shadow: 0 0 40px rgba(255, 199, 89, 0.30); }
 }
 /* A real name under a handle, on the About page's credits. */
-.artist-card p.artist-realname { margin-top: 10px; color: #8b959c; font-size: 0.82rem; }
+.artist-card p.artist-realname { margin-top: 10px; color: #8d979e; font-size: 0.82rem; }
 .artist-card p.artist-realname a { color: #8fd8f2; }
+
+/* ===== THE SKY: the home page's banner (23 Oct) =====
+   The owner's own picture, 640 x 360, across the whole width. Cover keeps it
+   filling the banner at any width; pixelated keeps every pixel square instead
+   of smudged. As tall as the picture is at that width (16:9), never more than
+   most of a screen, so the top of the panels below still shows on a laptop -
+   the page has more to it. On a phone it keeps 260 px and crops the sides a
+   little, the knight and the temple kept in. flex-shrink 0: the body is a
+   column that fits the window, and without it the banner shrank to its least. */
+.sky-banner {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  height: min(56.25vw, 72vh);
+  min-height: 260px;
+  background: #2a4497 url("images/sky-portal.png") center 42% / cover no-repeat;
+  image-rendering: pixelated;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 3px solid #0d0b09;
+}
+.sky-title {
+  text-align: center;
+  padding: clamp(18px, 6vh, 64px) 16px 0;
+}
+.sky-banner h1 {
+  font-family: "Pixelify Sans", Arial, sans-serif;
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  line-height: 1;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  /* A hard drop in the sky's darkest blue, the way the game draws its own
+     titles, and a soft glow in the site's cyan so it reads on the clouds. */
+  text-shadow: 0 4px 0 #1b2550, 0 0 22px rgba(79, 209, 255, 0.55);
+}
+.sky-play {
+  margin-top: 18px;
+  box-shadow: 0 4px 0 #1b2550;
+}
+
+/* THE LOGS AT FULL LENGTH (23 Oct). The home page shows the latest three and
+   the Updates page every push, so neither is a box to scroll inside. */
+.updates.updates-short, .updates.updates-full { max-height: none; overflow: visible; }
+.updates-more { text-align: center; margin: 16px 0 0; }
+.updates-more a { color: #4fd1ff; text-decoration: none; font-weight: bold; }
+.updates-more a:hover { text-decoration: underline; }
+
+/* Eight links since the Updates page (23 Oct): a little tighter on a phone,
+   so the nav stays two rows instead of leaving Play alone on a third. */
+@media (max-width: 480px) {
+  .main-nav { gap: 6px; padding: 8px 10px; }
+  .main-nav a { padding: 5px 8px; font-size: 0.92rem; }
+}
+
+/* ===== THE SKY ON EVERY PAGE (23 Oct) =====
+   The owner, of the home page's picture: "we can reuse that image for the
+   other pages so they are not so stale". One picture, one strip across the top
+   of each page with the page's name in it, each page looking at a different
+   part of it: Lore the temple, About the sign post, Support the knight, Join
+   the Team the stepping stones, the Boss Sim the portal itself, Updates the
+   whole view. Shorter than the home banner, so the page starts on screen. The
+   zoom is a whole picture's width times a number, pixels kept square. */
+.sky-strip {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: clamp(170px, 20vw, 280px);
+  background: #2a4497 url("images/sky-portal.png") no-repeat;
+  image-rendering: pixelated;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid #0d0b09;
+  overflow: hidden;
+}
+/* A soft band of the night sky behind the name, so it reads on the clouds. */
+.sky-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 46% 62% at 50% 50%, rgba(20, 28, 60, 0.55), rgba(20, 28, 60, 0));
+  pointer-events: none;
+}
+.sky-strip .sky-title { position: relative; text-align: center; padding: 0 16px; }
+.sky-strip h1 {
+  font-family: "Pixelify Sans", Arial, sans-serif;
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-shadow: 0 4px 0 #1b2550, 0 0 22px rgba(79, 209, 255, 0.55);
+}
+.sky-strip .sky-eyebrow {
+  margin: 0 0 8px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-shadow: 0 2px 0 #1b2550;
+}
+.sky-wide     { background-size: cover;      background-position: 50% 38%; }
+/* Each crop worked out from where its subject should sit: the temple at 78%
+   across, the sign post and the knight on the left, the stones in the middle,
+   the portal at 84% - so the name in the middle never covers it. */
+.sky-temple   { background-size: 170% auto;  background-position: 97% 17%; }
+.sky-signpost { background-size: 150% auto;  background-position: 19% 52%; }
+.sky-knight   { background-size: 170% auto;  background-position: 29% 48%; }
+.sky-stones   { background-size: 170% auto;  background-position: 54% 80%; }
+.sky-portal   { background-size: 240% auto;  background-position: 87% 21%; }
+/* On a narrow screen a width-relative zoom would show too thin a band of the
+   picture; it is sized to the strip's height there instead, the whole view
+   covering it. */
+@media (max-width: 760px) {
+  .sky-strip { height: 190px; }
+  .sky-wide     { background-size: cover; background-position: 50% 45%; }
+  .sky-temple   { background-size: auto 230%; background-position: 100% 6%; }
+  .sky-signpost { background-size: auto 189%; background-position: 19% 50%; }
+  .sky-knight   { background-size: auto 227%; background-position: 28% 48%; }
+  .sky-stones   { background-size: auto 189%; background-position: 54% 97%; }
+  .sky-portal   { background-size: auto 303%; background-position: 87% 13%; }
+}

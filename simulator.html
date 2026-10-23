@@ -12,7 +12,7 @@
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#1b233f" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elusion RPG" />
   <meta property="og:title" content="Boss Sim • Elusion RPG" />
@@ -28,8 +28,8 @@
     /* ===== Boss Sim — scoped to .sim, themed to the site (dark + #4fd1ff) ===== */
     .sim{
       --accent:#4fd1ff; --accent-dim:#2f88a6; --accent-soft:#14323d;
-      --panel:#181818; --panel-2:#1e1e1e; --raise:#252b2e;
-      --line:#2b3238; --ink:#f5f5f5; --muted:#a6afb6; --faint:#727c83;
+      --panel:#222a46; --panel-2:#28304c; --raise:#252b2e;
+      --line:#2b3238; --ink:#f5f5f5; --muted:#a6afb6; --faint:#8f989e;
       --good:#4bbf7a; --warn:#e0a13a; --crit:#e5544b;
       --warrior:#e5544b; --mage:#3b82c4; --healer:#35a95c; --tank:#a978e0;
       /* The game's element colours (src/shared/element.gd); earth and dark
@@ -63,15 +63,15 @@
     .sim input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;
       background:var(--line);border-radius:3px;outline:none;margin:8px 0 2px}
     .sim input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;
-      border-radius:50%;background:var(--accent);border:2px solid #111;cursor:pointer}
+      border-radius:50%;background:var(--accent);border:2px solid #1b233f;cursor:pointer}
     .sim input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;
-      background:var(--accent);border:2px solid #111;cursor:pointer}
-    .sim .seg{display:flex;gap:4px;background:#0e0e0e;border:1px solid var(--line);border-radius:8px;padding:3px}
+      background:var(--accent);border:2px solid #1b233f;cursor:pointer}
+    .sim .seg{display:flex;gap:4px;background:#18203c;border:1px solid var(--line);border-radius:8px;padding:3px}
     .sim .seg button{flex:1;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;
       color:var(--muted);background:transparent;border:none;border-radius:5px;padding:8px 4px;cursor:pointer;transition:.12s}
     .sim .seg button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent);
       box-shadow:inset 0 0 0 1px var(--accent-dim)}
-    .sim select{width:100%;background:#0e0e0e;color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    .sim select{width:100%;background:#18203c;color:var(--ink);border:1px solid var(--line);border-radius:8px;
       padding:7px 10px;font-size:13px;margin-bottom:4px}
     .sim .hint{font-size:11.5px;color:var(--faint);margin-top:6px;min-height:1.2em}
     .sim .hint.warn{color:var(--warn)}
@@ -101,12 +101,12 @@
     .sim .wavehead:first-child{margin-top:0}
     .sim .bossrow{display:grid;grid-template-columns:64px 1fr 50px;gap:10px;align-items:center;margin-bottom:8px}
     .sim .bn{font-size:12.5px;font-weight:700;color:var(--ink)}
-    .sim .track{height:14px;background:#0e0e0e;border-radius:5px;overflow:hidden}
+    .sim .track{height:14px;background:#18203c;border-radius:5px;overflow:hidden}
     .sim .fill{height:100%;border-radius:5px;transition:width .35s cubic-bezier(.3,.9,.35,1);min-width:2px}
     .sim .bt{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-align:right}
     .sim .bt.dead{color:var(--crit)}
 
-    .sim .stack{height:24px;display:flex;gap:2px;border-radius:6px;overflow:hidden;margin-bottom:16px;background:#0e0e0e}
+    .sim .stack{height:24px;display:flex;gap:2px;border-radius:6px;overflow:hidden;margin-bottom:16px;background:#18203c}
     .sim .stack span{transition:width .35s cubic-bezier(.3,.9,.35,1);min-width:0}
     .sim .legend{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}
     .sim .lg{display:flex;align-items:center;gap:9px;font-size:13px}
@@ -126,7 +126,7 @@
     .sim .cc .role{font-size:12px;color:var(--faint);margin-bottom:10px;min-height:3.2em}
     .sim .stat{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:3px 0;color:var(--muted)}
     .sim .stat b{font-family:var(--mono);color:var(--ink);font-weight:700;text-align:right}
-    .sim .manabar{height:6px;background:#0e0e0e;border-radius:4px;overflow:hidden;margin-top:4px}
+    .sim .manabar{height:6px;background:#18203c;border-radius:4px;overflow:hidden;margin-top:4px}
     .sim .manabar i{display:block;height:100%;border-radius:4px;transition:width .35s}
 
     .sim .bosstable{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -202,6 +202,7 @@
   <nav class="main-nav">
     <a href="index.html">Home</a>
     <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
     <a href="contribute.html">Support</a>
     <a href="join.html">Join the Team</a>
     <a href="simulator.html" class="active">Boss Sim</a>
@@ -209,10 +210,17 @@
     <a href="https://play.elusionrpg.com">Play</a>
   </nav>
 
+  <!-- THE SKY (23 Oct): the home page's picture, cropped for this page -
+       styles.css, "THE SKY ON EVERY PAGE". The page's <h1> lives here. -->
+  <header class="sky-strip sky-portal">
+    <div class="sky-title">
+      <h1>Crowned Beholder — Balance Console</h1>
+    </div>
+  </header>
+
   <div class="page-wrapper">
     <div class="sim">
       <header class="page-header">
-        <h1>Crowned Beholder — Balance Console</h1>
         <p class="lead">A tick-by-tick simulation of a four-class party — Warrior, Mage, Healer, Tank — running
           the boss arena's three waves (one Crowned, then two at once, then three) and then the Crowned Beholder
           itself. What the bosses deal was measured in the game itself; everything else is the game's own
