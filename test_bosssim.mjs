@@ -10,10 +10,12 @@
 //      says so (a skip) rather than passing.
 //   2. THE MEASURED DATA. bosssim-data.js is generated from the game itself;
 //      this holds it to what the game's rules say it must show - swings only in
-//      reach, one every 1.5 s; no stalkers before phase 2; no puddles from Light
-//      or Wind; every hit the size its attack deals.
+//      reach, one every 1.5 s in phase 1; stalkers only the Crowned's, from
+//      phase 2; no puddles from Light or Wind; every boss's volley and effect;
+//      dodging always taking less; every hit the size its attack deals.
 //   3. CALIBRATION. At 0% dodging the sim deals exactly the measured damage of a
-//      player who never moves - the one point where the model and the game meet.
+//      player who holds their ground - the one point where the model and the
+//      game meet.
 //   4. EVERY OPTION. Every combination of the sim's choices, every value of every
 //      dial from several starting parties, and thousands of random parties:
 //      nothing is NaN, nothing is out of range, the same party always gets the
@@ -162,6 +164,24 @@ if (!GAME) {
 		/const MELEE_SHARE := 45\.0 \/ 34\.0/.test(enemy) && /const TRAIL_SHARE := 22\.0 \/ 34\.0/.test(enemy));
 	check("the phases change at 66% and 33% of health",
 		/const PHASE_TWO_AT := 0\.66/.test(enemy) && /const PHASE_THREE_AT := 0\.33/.test(enemy));
+	// THE KITS (game 0.77.0): each boss's three stalagmite shapes and its
+	// volleys, as bossenemy.gd's KITS lists them, and its element's effect, as
+	// statuseffects.gd's FOR_ELEMENT gives it.
+	const effects = await read("src/characters/statuseffects.gd");
+	const wrongKit = [];
+	for (const id of IDS) {
+		const b = S.BOSS[id], EL = b.el.toUpperCase();
+		const kit = enemy.match(new RegExp(`Element\\.Type\\.${EL}: \\{\\n\\t\\t"shapes": \\[([^\\]]*)\\],\\n\\t\\t"volleys": \\[([\\s\\S]*?)\\]\\],`));
+		const names = (t) => [...t.matchAll(/&"(\w+)"/g)].map((m) => m[1]);
+		const volleys = kit ? [...new Set(names(kit[2]))] : [];
+		const fx = (effects.match(new RegExp(`Element\\.Type\\.${EL}: (\\w+),`)) || [])[1];
+		const word = fx ? (effects.match(new RegExp(`^const ${fx} := &"(\\w+)"`, "m")) || [])[1] : null;
+		if (!kit || JSON.stringify(names(kit[1])) !== JSON.stringify(b.shapes) || JSON.stringify(volleys) !== JSON.stringify(b.volleys) || word !== b.effect)
+			wrongKit.push([id, kit && names(kit[1]), volleys, word]);
+	}
+	check("each boss's stalagmite shapes, volleys and effect are bossenemy.gd's KITS and statuseffects.gd's (0.77.0)", !wrongKit.length, wrongKit);
+	check("  an orb is ORB_SHARE of the boss's spike, and a boulder the whole spike",
+		new RegExp(`const ORB_SHARE := ${S.ORB_SHARE}\\n`).test(enemy) && /spike_damage\(\),\n\t+int\(BOULDER_ROCKS\[phase\]\)/.test(enemy));
 
 	const stats = await read("src/characters/playerstats.gd");
 	const tiers = [...stats.matchAll(/\{"min_level": (\d+),\s*"name": "(\w+)",\s*"reduction": ([0-9.]+)\}/g)].map((m) => [Number(m[1]), Number(m[3]), m[2]]);
@@ -289,29 +309,52 @@ if (!GAME) {
 section("2. the measured data");
 // ---------------------------------------------------------------------------
 check("all seven bosses were measured", JSON.stringify(Object.keys(D.bosses).sort()) === JSON.stringify([...IDS].sort()), Object.keys(D.bosses));
+const STANCES = ["melee", "range", "dodge"], KINDS = ["swing", "spike", "pillar", "puddle", "orb", "impact"];
 const holes = [];
-for (const id of IDS) for (const s of ["melee", "range"]) for (let p = 0; p < 3; p++) {
+for (const id of IDS) for (const s of STANCES) for (let p = 0; p < 3; p++) {
 	const r = D.bosses[id][s][p];
-	if (!r || ["swing", "spike", "pillar", "puddle"].some((k) => typeof r[k] !== "number" || !isFinite(r[k]) || r[k] < 0)) holes.push(`${id} ${s} ${p}`);
+	if (!r || KINDS.some((k) => typeof r[k] !== "number" || !isFinite(r[k]) || r[k] < 0) || typeof r.burns !== "object"
+		|| Object.values(r.burns).some((x) => !(x >= 0)) || !(r.total >= 0)) holes.push(`${id} ${s} ${p}`);
 }
 check("every boss, stance and phase has a finite, non-negative rate for every attack", !holes.length, holes);
-check("every hit was the size its attack deals (spike, swing, pillar from the game's arithmetic)",
-	IDS.every((id) => D.bosses[id].spike === S.spike(S.BOSS[id]) && D.bosses[id].swing === S.melee(S.BOSS[id]) && D.bosses[id].pillar === S.trail(S.BOSS[id])),
-	IDS.map((id) => [id, D.bosses[id].spike, S.spike(S.BOSS[id]), D.bosses[id].swing, S.melee(S.BOSS[id]), D.bosses[id].pillar, S.trail(S.BOSS[id])]));
-const swings = IDS.flatMap((id) => [0, 1, 2].map((p) => D.bosses[id].melee[p].swing));
-check("a boss in reach swings once every 1.5 s (attack_cooldown), within 2%", swings.every((x) => Math.abs(x - 1 / 1.5) / (1 / 1.5) < 0.02), swings);
+check("every hit was the size its attack deals (spike, swing, pillar, orb and boulder from the game's arithmetic)",
+	IDS.every((id) => D.bosses[id].spike === S.spike(S.BOSS[id]) && D.bosses[id].swing === S.melee(S.BOSS[id]) && D.bosses[id].pillar === S.trail(S.BOSS[id])
+		&& D.bosses[id].orb === S.orb(S.BOSS[id]) && D.bosses[id].impact === S.impact(S.BOSS[id])),
+	IDS.map((id) => [id, D.bosses[id].spike, S.spike(S.BOSS[id]), D.bosses[id].swing, S.melee(S.BOSS[id]), D.bosses[id].orb, S.orb(S.BOSS[id])]));
+check("and what each stand-in took adds up to its total, burns included",
+	IDS.every((id) => STANCES.every((s) => [0, 1, 2].every((p) => {
+		const r = D.bosses[id][s][p], m = D.bosses[id];
+		const sum = r.swing * m.swing + r.spike * m.spike + r.pillar * m.pillar + (m.puddle ? r.puddle * m.puddle : 0) + r.orb * m.orb + r.impact * m.impact
+			+ Object.entries(r.burns).reduce((a, [n, x]) => a + n * x, 0);
+		return Math.abs(sum - r.total) <= 0.05 + r.total * 0.002;
+	}))));
+const swings = IDS.map((id) => D.bosses[id].melee[0].swing);
+check("a boss in reach swings once every 1.5 s (attack_cooldown) in phase 1, within 2%", swings.every((x) => Math.abs(x - 1 / 1.5) / (1 / 1.5) < 0.02), swings);
+check("  and from phase 2 a run of swings ends in a cast at point blank: fewer swings, and orbs in reach (SWINGS_BEFORE_CAST)",
+	IDS.every((id) => [1, 2].every((p) => D.bosses[id].melee[p].swing < D.bosses[id].melee[0].swing && D.bosses[id].melee[p].floor.orbs > 0)
+		&& D.bosses[id].melee[0].floor.orbs === 0));
 check("a boss nobody is in reach of never swings", IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].range[p].swing === 0)));
-check("no stalker pillars in the first phase (stalkers come from phase 2)", IDS.every((id) => ["melee", "range"].every((s) => D.bosses[id][s][0].pillar === 0)));
-check("more stalker pillars in phase 3 than phase 2 (one every 5.5 s, not 9)", IDS.every((id) => ["melee", "range"].every((s) => D.bosses[id][s][2].pillar > D.bosses[id][s][1].pillar)));
-const stalkers = IDS.flatMap((id) => ["melee", "range"].flatMap((s) => [D.bosses[id][s][1].floor.stalkers, D.bosses[id][s][2].floor.stalkers]));
-check("stalkers come out about every 9 s, then every 5.5 s", stalkers.every((n, i) => Math.abs(n - (i % 2 ? 60 / 5.5 : 60 / 9)) <= 1), stalkers);
+check("  and the dodging stand-in, which keeps out of reach, is hardly ever caught by one (a root or a pull can leave it there)",
+	IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].dodge[p].swing < 0.05)), IDS.map((id) => D.bosses[id].dodge.map((r) => r.swing)));
+check("only the Crowned keeps stalkers, and only from phase 2 (0.77.0)",
+	IDS.every((id) => STANCES.every((s) => [0, 1, 2].every((p) => (id === "crowned" && p > 0) === (D.bosses[id][s][p].floor.stalkers > 0)))));
+const stalkers = STANCES.flatMap((s) => [D.bosses.crowned[s][1].floor.stalkers, D.bosses.crowned[s][2].floor.stalkers]);
+check("  about one every 9 s, then every 5.5 s", stalkers.every((n, i) => Math.abs(n - (i % 2 ? 60 / 5.5 : 60 / 9)) <= 1), stalkers);
 check("Light and Wind leave no puddles; every other boss does",
 	D.bosses.light.puddle === null && D.bosses.wind.puddle === null && IDS.filter((id) => !["light", "wind"].includes(id)).every((id) => D.bosses[id].puddle > 0));
-check("in reach, the only pillars are the stalkers' (the boss swings instead of casting its pillar track)",
-	IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].melee[p].floor.pillars <= D.bosses[id].melee[p].floor.stalkers * 15)));
-check("at range the pillar track adds hundreds of pillars a minute",
-	IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].range[p].floor.pillars - D.bosses[id].melee[p].floor.pillars > 500)));
-check("the spike track runs either way", IDS.every((id) => ["melee", "range"].every((s) => [0, 1, 2].every((p) => D.bosses[id][s][p].floor.spikes > 0))));
+check("every boss raises its stalagmites in every stance and phase", IDS.every((id) => STANCES.every((s) => [0, 1, 2].every((p) => D.bosses[id][s][p].floor.spikes + D.bosses[id][s][p].floor.pillars > 0))));
+check("  the pillar ones (ring, cage, gate) only for the bosses whose kit has one",
+	IDS.every((id) => S.BOSS[id].shapes.some((x) => ["ring", "cage", "gate"].includes(x)) === STANCES.some((s) => [0, 1, 2].some((p) => D.bosses[id][s][p].floor.pillars > (id === "crowned" ? D.bosses[id][s][p].floor.stalkers * 15 : 0)))));
+check("at range every boss throws its volley, in every phase, and more of it in phase 3 than phase 1",
+	IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].range[p].floor.orbs > 40) && D.bosses[id].range[2].floor.orbs > D.bosses[id].range[0].floor.orbs),
+	IDS.map((id) => D.bosses[id].range.map((r) => r.floor.orbs)));
+check("each boss's effect lands on the stand-in at range (0.77.0)", IDS.every((id) => [0, 1, 2].some((p) => (D.bosses[id].range[p].effects[S.BOSS[id].effect] || 0) > 0)),
+	IDS.map((id) => [id, S.BOSS[id].effect, D.bosses[id].range.map((r) => r.effects)]));
+check("a stand-in that dodges takes less than one holding its ground, for every boss and phase",
+	IDS.every((id) => [0, 1, 2].every((p) => D.bosses[id].dodge[p].total < D.bosses[id].range[p].total)),
+	IDS.map((id) => [id, D.bosses[id].range.map((r) => r.total), D.bosses[id].dodge.map((r) => r.total)]));
+check("and every boss hits a player at range harder in phase 3 than in phase 1",
+	IDS.every((id) => D.bosses[id].range[2].total > D.bosses[id].range[0].total), IDS.map((id) => D.bosses[id].range.map((r) => r.total)));
 check("all seven pets were measured", Object.keys(S.PETS).every((id) => D.pets[id]));
 check("every pet fires at least as often at higher attack speed",
 	Object.values(D.pets).every((p) => ["melee", "range"].every((s) => p[s].shots.every((x, i, a) => i === 0 || x >= a[i - 1] - 0.02))));
@@ -330,17 +373,18 @@ section("3. calibration: 0% dodging is the measured damage");
 // ---------------------------------------------------------------------------
 const raw = (n) => n;
 const calib = [];
+const seen = (q, m) => (m.puddle ? q.puddle * m.puddle : 0) + q.orb * m.orb + q.impact * m.impact + Object.entries(q.burns).reduce((a, [n, x]) => a + n * x, 0);
 for (const id of IDS) for (const held of [true, false]) for (let p = 0; p < 3; p++) {
 	const r = D.bosses[id][held ? "melee" : "range"][p], m = D.bosses[id];
-	const measured = r.swing * m.swing + r.spike * m.spike + r.pillar * m.pillar + (m.puddle ? r.puddle * m.puddle : 0);
+	const measured = r.swing * m.swing + r.spike * m.spike + r.pillar * m.pillar + seen(r, m);
 	const sim = S.bossRate(id, held, p, 0, raw);
 	if (!near(sim.swing + sim.hazards, measured, 1e-9)) calib.push([id, held, p, measured, sim]);
 }
 check("at 0% dodging, every boss, stance and phase deals exactly what it dealt the stand-in", !calib.length, calib);
-check("dodging lets through (1 - dodging) ^ telegraph of the rings and 1 - dodging of the puddles; the swing always lands",
+check("dodging lets through (1 - dodging) ^ telegraph of the rings and 1 - dodging of what is seen coming - orbs, boulders, puddles and the burns they light; the swing always lands",
 	IDS.every((id) => [0.5, 0.85, 0.99].every((d) => {
 		const r = S.bossRate(id, true, 2, d, raw), m = D.bosses[id], q = m.melee[2];
-		const want = (q.spike * m.spike + q.pillar * m.pillar) * Math.pow(1 - d, S.BOSS[id].tel) + (m.puddle ? q.puddle * m.puddle * (1 - d) : 0);
+		const want = (q.spike * m.spike + q.pillar * m.pillar) * Math.pow(1 - d, S.BOSS[id].tel) + seen(q, m) * (1 - d);
 		return near(r.swing, q.swing * m.swing) && near(r.hazards, want);
 	})));
 check("a fast ring (Light) lets more through than a slow one (Ice) at the same dodging",
@@ -432,6 +476,12 @@ const DIALS = {
 function noWorse(a, b, dial) {
 	// b is a party that is better in one way than a. It must down at least as
 	// many bosses, and, if both clear, not take longer.
+	// ONE EXCEPTION FIRST (seen with game 0.77.0's data): more time attacking
+	// is more mana spent a second, and mana never comes back on its own. A
+	// party whose casters run dry spends its bar sooner with more of it and can
+	// reach a wave with less left - so where somebody ran dry, more time
+	// attacking may down fewer bosses.
+	if (dial === "uptime" && S.CLASSES.some((k) => b.st[k].dryAt !== null)) return true;
 	if (b.cleared < a.cleared) return false;
 	// ONE KNOWN EXCEPTION (game 0.59.0, tank.gd DYNAMITE'S MANA): a Dynamite
 	// throw costs a fifth of the tank's bar AT ITS LEVEL, and a mana potion

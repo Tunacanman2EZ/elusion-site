@@ -167,6 +167,8 @@
     .sim .doctable td{font-family:var(--mono);text-align:right;padding:6px;border-bottom:1px solid #22282c;color:var(--ink)}
     .sim .doctable th:first-child,.sim .doctable td:first-child{text-align:left;padding-left:0;font-family:inherit;font-weight:700}
     .sim .doctable tr:last-child td{border-bottom:0}
+    .sim .doctable.kits th,.sim .doctable.kits td{text-align:left;font-family:inherit;vertical-align:top;line-height:1.45}
+    .sim .doctable.kits td b{color:var(--ink)}
     .sim .byline a{color:var(--accent)}
     .sim input[type=range]:disabled{opacity:.35}
 
@@ -376,8 +378,9 @@
         <h2>How it works</h2>
         <p class="how-lead">Everything the sim knows, and where it came from. Two kinds of number: the game's own
           (its data files and scripts, read and checked by the sim's test suite), and what the game was
-          <b>measured</b> doing — each boss fought a stand-in player that never moves, for five minutes per phase,
-          in the game engine itself, and everything that landed was counted.</p>
+          <b>measured</b> doing — each boss fought three stand-in players, two holding their ground and one
+          dodging, for three minutes per phase, in the game engine itself, and everything that landed was
+          counted.</p>
 
         <details open>
           <summary>The run</summary>
@@ -389,40 +392,51 @@
         </details>
 
         <details>
-          <summary>How a boss fights — two tracks, stalkers and puddles</summary>
-          <p>A boss attacks on <b>two clocks at once</b>. The <b>spike track</b> opens the floor under whoever it
-            is on, a pattern at a time, for as long as it is fighting — even while it swings. The second clock
-            is its <b>attack</b>, every 1.5 seconds: with a player in reach (40 px) it <b>swings</b>, hitting
-            everyone in reach; otherwise it <b>casts a pillar pattern</b> — rings, cages and gates. From the second
-            phase it also releases <b>stalkers</b>, one every 9 s and then every 5.5 s, each walking after its
-            target for 7 seconds and raising a pillar under them every half second.</p>
-          <p>Some pillars leave a <b>puddle</b> that ticks on whoever stands in it every half second:</p>
+          <summary>How a boss fights — seven kits, one effect each</summary>
+          <p>Since v0.77.0 every boss fights its own way. Each has <b>three stalagmite shapes</b> of its own
+            (two from the start, the third from the second phase), a <b>signature volley</b> of bullets thrown from
+            its cast, and its <b>element's effect</b>, which its stalagmites, its bullets and some of its puddles
+            put on you:</p>
+          <table class="doctable kits" id="kitTable"></table>
+          <p>Every attack <b>takes turns round the fight</b>: each goes at whoever has gone longest without one,
+            never the one just attacked while anyone else is there. With a player in reach (40 px) the boss
+            <b>swings</b>, hitting everyone in reach; from the second phase a run of swings ends in a cast at point
+            blank. Each phase is faster and throws more. In a wave of two or three, each boss attacks more slowly
+            while its partners stand. Only the <b>Crowned</b> keeps the <b>stalkers</b>, one every 9 s and then
+            every 5.5 s from its second phase.</p>
+          <p>The effects are capped so a fight stays clearable: nothing slows you more than 40%, nothing holds
+            you twice in a row, nothing lasts more than 3 s, and you can always attack.</p>
+          <p>Some stalagmites leave a <b>puddle</b> that ticks on whoever stands in it every half second:</p>
           <table class="doctable" id="puddleTable"></table>
           <p class="small">Light and Wind leave none. Water leaves three pools at a time, on half the usual
-            chance. A pillar leaves one on 35% × the element's chance; it lasts its element's time × 0.6.</p>
+            chance. A stalagmite leaves one on 35% × the element's chance; it lasts its element's time × 0.6.
+            Fire's and the Crowned's pincers leave one where they shut, and Earth's boulders where they land.</p>
         </details>
 
         <details>
-          <summary>What a player who never moves takes — measured</summary>
-          <p>Raw damage a second, before armour, on a stand-in standing still: in the boss's reach (the swing, the
-            spike track, stalkers and puddles), and at range (no swing; the pillar track instead). Phases 1 / 2 / 3.
-            At 0% dodging this is exactly what the sim deals.</p>
+          <summary>What a player takes — measured, standing and dodging</summary>
+          <p>Raw damage a second, before armour, measured in the game itself on a stand-in carrying the bosses'
+            effects: holding its ground in the boss's reach, holding its ground at range, and at range dodging —
+            stepping each moment to the least dangerous spot nearby. Phases 1 / 2 / 3. At 0% dodging the sim deals
+            exactly the first two.</p>
           <table class="doctable" id="standTable"></table>
         </details>
 
         <details>
           <summary>Dodging, holding, and who gets hit</summary>
-          <p><b>Dodging</b> is how much of what you could step out of, you do. Telegraphed hits — spikes and
-            pillars — land <span class="mono">(1 − dodging) ^ telegraph</span>, so the same dodging counts for more
-            against a slow ring (Ice 1.35, Earth 1.30) than a fast one (Light 0.55, Wind 0.60). Puddles lie there to
-            be seen and land <span class="mono">1 − dodging</span>. The swing is the holder's job and always lands.</p>
-          <p><b>Tank holds:</b> every boss is on the tank. Each swings at everyone in its reach — the tank, and a
-            warrior beside it with a sword — and aims its spike track, stalkers and puddles at the tank. The tank's
-            aura hits every boss standing there. If the tank goes down, a sword warrior takes over; then nobody.
-            <b>Spread out:</b> nobody stands in reach, so the bosses cast their pillar patterns instead of swinging,
-            and their attacks fall across the party as their target moves.</p>
-          <p>The <b>Crowned's dark rings are dim</b> (a fifth of the others' strength) and harder to read. The game
-            has no number for how much harder, so the sim does not invent one: lower your dodging to try it.</p>
+          <p><b>Dodging</b> is how much of what you could step out of, you do. Stalagmites land
+            <span class="mono">(1 − dodging) ^ telegraph</span>, so the same dodging counts for more against a slow
+            ring (Ice 1.35, Earth 1.30) than a fast one (Light 0.55, Wind 0.60). Everything else is seen coming as it
+            comes — bullets in flight, a boulder's crater, a puddle lying there — and lands
+            <span class="mono">1 − dodging</span>, and so do the burns they light. The swing is the holder's job and
+            always lands.</p>
+          <p><b>Tank holds:</b> each boss swings at everyone in its reach — the tank, and a warrior beside it with a
+            sword — and the tank's aura hits every boss standing there. If the tank goes down, a sword warrior takes
+            over; then nobody. <b>Spread out:</b> nobody stands in reach, so the bosses cast instead of swinging.
+            Either way their stalagmites and volleys take turns round the whole party.</p>
+          <p>The <b>Crowned's dark rings are dim</b> (a fifth of the others' strength) and harder to read, and its
+            <b>wither</b> halves healing for a moment. The game has no number for how much harder the one makes it
+            or how much healing the other costs, so the sim counts neither: lower your dodging to try it.</p>
         </details>
 
         <details>
@@ -556,7 +570,7 @@
       else ph.textContent = "≈" + fmt(S.petDps(o.pet, P.Tank, "melee")) + " damage a second each, beside the tank" + (o.pet === "petboss" ? " — puddles included" : "");
       $("dodgeVal").textContent = Math.round(o.dodge * 100) + "%";
       $("dodgeHint").textContent = "Rings land " + Math.round(Math.pow(1 - o.dodge, S.BOSS.light.tel) * 100) + "% (Light) to " +
-        Math.round(Math.pow(1 - o.dodge, S.BOSS.ice.tel) * 100) + "% (Ice); puddles " + Math.round((1 - o.dodge) * 100) + "%";
+        Math.round(Math.pow(1 - o.dodge, S.BOSS.ice.tel) * 100) + "% (Ice); bullets and puddles " + Math.round((1 - o.dodge) * 100) + "%";
       $("uptimeVal").textContent = Math.round(o.uptime * 100) + "%";
       $("uptimeHint").textContent = o.uptime >= 0.95 ? "Never stops to move — rarely true" : "The rest is spent moving";
       $("formHint").textContent = o.hold ? "Every boss swings at the tank; the aura hits them all" :
@@ -675,12 +689,12 @@
     }
 
     function tables(){
-      var h = "<tr><th>Boss</th><th>Health</th><th>Spike</th><th>Swing</th><th>Pillar</th><th class=\"rings\">Rings</th></tr>";
+      var h = "<tr><th>Boss</th><th>Health</th><th>Spike</th><th>Swing</th><th>Bullet</th><th class=\"rings\">Rings</th></tr>";
       S.WAVES.forEach(function(w){
         w.bosses.forEach(function(id){
           var b = S.BOSS[id];
           h += '<tr><td><span style="color:' + b.col + '">' + b.name + '</span><span class="w">' + w.label + '</span></td>' +
-            "<td>" + fmt(b.hp) + "</td><td>" + S.spike(b) + "</td><td>" + S.melee(b) + "</td><td>" + S.trail(b) + "</td><td class=\"rings\">" +
+            "<td>" + fmt(b.hp) + "</td><td>" + S.spike(b) + "</td><td>" + S.melee(b) + "</td><td>" + S.orb(b) + "</td><td class=\"rings\">" +
             (b.tel < 1 ? "fast" : b.tel > 1 ? "slow" : "—") + "</td></tr>";
         });
       });
@@ -695,12 +709,26 @@
       });
       $("puddleTable").innerHTML = pt;
 
-      var st = "<tr><th>Boss</th><th>In reach</th><th>At range</th></tr>";
+      var kt = "<tr><th>Boss</th><th>Stalagmites</th><th>Volley</th><th>Effect</th></tr>";
+      S.WAVES.forEach(function(w){
+        w.bosses.forEach(function(id){
+          var b = S.BOSS[id];
+          var volley = b.volleys.length > 2 ? "one of each of the others', more each phase" :
+            b.volleys.map(function(v){ return "<b>" + v + "</b>: " + S.VOLLEY_WORDS[v]; }).join("; ");
+          kt += '<tr><td><span style="color:' + b.col + '">' + b.name + "</span></td><td>" + b.shapes.join(", ") +
+            (id === "crowned" ? ", and stalkers" : "") + "</td><td>" + volley + "</td><td><b>" + b.effect + "</b>: " +
+            S.EFFECT_WORDS[b.effect] + "</td></tr>";
+        });
+      });
+      $("kitTable").innerHTML = kt;
+
+      var st = "<tr><th>Boss</th><th>In reach</th><th>At range</th><th>Dodging</th></tr>";
       S.WAVES.forEach(function(w){
         w.bosses.forEach(function(id){
           var m = D.bosses[id];
-          function dps(s){ return m[s].map(function(r){ return fmt(r.swing * m.swing + r.spike * m.spike + r.pillar * m.pillar + (m.puddle ? r.puddle * m.puddle : 0)); }).join(" / "); }
-          st += '<tr><td><span style="color:' + S.BOSS[id].col + '">' + S.BOSS[id].name + "</span></td><td>" + dps("melee") + "</td><td>" + dps("range") + "</td></tr>";
+          function dps(s){ return m[s].map(function(r){ return fmt(r.total); }).join(" / "); }
+          st += '<tr><td><span style="color:' + S.BOSS[id].col + '">' + S.BOSS[id].name + "</span></td><td>" + dps("melee") + "</td><td>" + dps("range") +
+            "</td><td>" + dps("dodge") + "</td></tr>";
         });
       });
       $("standTable").innerHTML = st;

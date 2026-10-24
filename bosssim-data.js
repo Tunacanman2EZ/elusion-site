@@ -2,603 +2,1430 @@
 //
 // What the game's bosses and pets were measured doing, in the game itself:
 // tools/bossmeasure.gd and tools/petmeasure.gd, run headless against the game
-// project (BOSSSIM.md says how). Per boss, per stance (the player in its reach,
-// or at range) and per phase: hits a second on a player who never moves, by
-// what dealt them, and what the boss put on the floor a minute. Per pet: shots
-// a second into a boss at five attack speeds, and anything else it dealt.
+// project (BOSSSIM.md says how). Per boss, per stance (the player in its reach
+// holding its ground, at range holding its ground, or at range dodging) and
+// per phase: hits a second by what dealt them, damage a second in all, the
+// effects that started a minute, and what the boss put on the floor a minute.
+// Per pet: shots a second into a boss at five attack speeds, and anything else
+// it dealt.
 globalThis.BOSSSIM_DATA = {
- "game": "0.76.0",
+ "game": "0.77.0",
  "measured": "2026-10-23",
  "seconds": {
-  "boss": 300,
+  "boss": 180,
   "pet": 120
  },
  "bosses": {
   "light": {
    "element": "Light",
    "maxHp": 4576,
+   "effect": "dazzle",
    "spike": 24,
    "swing": 28,
    "pillar": 16,
    "puddle": null,
+   "orb": 6,
+   "impact": 21,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.65,
+     "swing": 0.661,
+     "spike": 0.589,
      "pillar": 0,
      "puddle": 0,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 351,
-      "pillars": 0,
+      "spikes": 114,
+      "pillars": 901,
       "stalkers": 0,
-      "puddles": 0
-     }
+      "puddles": 0,
+      "orbs": 0
+     },
+     "effects": {
+      "dazzle": 0.7
+     },
+     "total": 32.644
     },
     {
-     "swing": 0.663,
-     "spike": 0.71,
-     "pillar": 1.403,
+     "swing": 0.283,
+     "spike": 0.822,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 0.889,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 596,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 0
-     }
+      "spikes": 184,
+      "pillars": 867,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 448
+     },
+     "effects": {
+      "dazzle": 0.7
+     },
+     "total": 33
     },
     {
-     "swing": 0.663,
-     "spike": 0.803,
-     "pillar": 2.26,
+     "swing": 0.222,
+     "spike": 1.094,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.383,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 734,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 0
-     }
+      "spikes": 279,
+      "pillars": 1037,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 821
+     },
+     "effects": {
+      "dazzle": 0.3
+     },
+     "total": 40.789
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.03,
+     "spike": 0.589,
      "pillar": 0,
      "puddle": 0,
+     "orb": 0.589,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 338,
-      "pillars": 925,
+      "spikes": 115,
+      "pillars": 901,
       "stalkers": 0,
-      "puddles": 0
-     }
+      "puddles": 0,
+      "orbs": 1060
+     },
+     "effects": {
+      "dazzle": 0.3
+     },
+     "total": 17.667
     },
     {
      "swing": 0,
-     "spike": 1.043,
-     "pillar": 1.293,
+     "spike": 0.839,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 0.606,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 579,
-      "pillars": 926,
-      "stalkers": 7,
-      "puddles": 0
-     }
+      "spikes": 203,
+      "pillars": 731,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 816
+     },
+     "effects": {
+      "dazzle": 0.3
+     },
+     "total": 23.767
     },
     {
      "swing": 0,
-     "spike": 1.017,
-     "pillar": 2.083,
+     "spike": 1.089,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.117,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 728,
-      "pillars": 980,
-      "stalkers": 11,
-      "puddles": 0
-     }
+      "spikes": 267,
+      "pillars": 1054,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 2168
+     },
+     "effects": {
+      "dazzle": 0.3
+     },
+     "total": 32.833
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.389,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.133,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 116,
+      "pillars": 901,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 1060
+     },
+     "effects": {
+      "dazzle": 17.7
+     },
+     "total": 10.133
+    },
+    {
+     "swing": 0,
+     "spike": 0.428,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.367,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 184,
+      "pillars": 850,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 1314
+     },
+     "effects": {
+      "dazzle": 14.3
+     },
+     "total": 12.467
+    },
+    {
+     "swing": 0,
+     "spike": 0.594,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.394,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 265,
+      "pillars": 1105,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 1460
+     },
+     "effects": {
+      "dazzle": 10
+     },
+     "total": 16.633
     }
    ]
   },
   "wind": {
    "element": "Wind",
    "maxHp": 4992,
+   "effect": "shove",
    "spike": 19,
    "swing": 28,
    "pillar": 13,
    "puddle": null,
+   "orb": 6,
+   "impact": 21,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.65,
+     "swing": 0.661,
+     "spike": 0.717,
      "pillar": 0,
      "puddle": 0,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 348,
+      "spikes": 303,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 0
-     }
+      "puddles": 0,
+      "orbs": 0
+     },
+     "effects": {},
+     "total": 32.128
     },
     {
-     "swing": 0.663,
-     "spike": 0.717,
-     "pillar": 1.403,
+     "swing": 0.233,
+     "spike": 0.733,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.417,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 577,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 0
-     }
+      "spikes": 598,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 331
+     },
+     "effects": {
+      "shove": 106.7
+     },
+     "total": 28.967
     },
     {
-     "swing": 0.663,
-     "spike": 0.813,
-     "pillar": 2.26,
+     "swing": 0.161,
+     "spike": 1.022,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.3,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 707,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 0
-     }
+      "spikes": 845,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 468
+     },
+     "effects": {
+      "pull": 5.7,
+      "shove": 115.7
+     },
+     "total": 31.733
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.03,
+     "spike": 0.489,
      "pillar": 0,
      "puddle": 0,
+     "orb": 1.033,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 341,
-      "pillars": 925,
+      "spikes": 303,
+      "pillars": 0,
       "stalkers": 0,
-      "puddles": 0
-     }
+      "puddles": 0,
+      "orbs": 315
+     },
+     "effects": {
+      "shove": 80.7
+     },
+     "total": 15.489
     },
     {
      "swing": 0,
-     "spike": 1.033,
-     "pillar": 1.293,
+     "spike": 0.678,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.439,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 595,
-      "pillars": 919,
-      "stalkers": 7,
-      "puddles": 0
-     }
+      "spikes": 598,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 578
+     },
+     "effects": {
+      "shove": 125.3
+     },
+     "total": 21.511
     },
     {
      "swing": 0,
-     "spike": 1.017,
-     "pillar": 2.083,
+     "spike": 0.967,
+     "pillar": 0,
      "puddle": 0,
+     "orb": 1.122,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 711,
-      "pillars": 994,
-      "stalkers": 11,
-      "puddles": 0
-     }
+      "spikes": 847,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 746
+     },
+     "effects": {
+      "pull": 9.3,
+      "shove": 119.3
+     },
+     "total": 25.1
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.333,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.411,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 303,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 310
+     },
+     "effects": {
+      "shove": 44.7
+     },
+     "total": 8.8
+    },
+    {
+     "swing": 0,
+     "spike": 0.278,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.428,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 585,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 532
+     },
+     "effects": {
+      "shove": 42.3
+     },
+     "total": 7.844
+    },
+    {
+     "swing": 0,
+     "spike": 0.4,
+     "pillar": 0,
+     "puddle": 0,
+     "orb": 0.344,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 830,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 0,
+      "orbs": 636
+     },
+     "effects": {
+      "pull": 7.7,
+      "shove": 44.7
+     },
+     "total": 9.667
     }
    ]
   },
   "water": {
    "element": "Water",
    "maxHp": 5616,
+   "effect": "soaked",
    "spike": 26,
    "swing": 40,
    "pillar": 16,
    "puddle": 2,
+   "orb": 9,
+   "impact": 30,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.643,
+     "swing": 0.661,
+     "spike": 0.567,
      "pillar": 0,
-     "puddle": 1.093,
+     "puddle": 0.689,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 345,
-      "pillars": 0,
+      "spikes": 170,
+      "pillars": 527,
       "stalkers": 0,
-      "puddles": 183
-     }
+      "puddles": 355,
+      "orbs": 0
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 42.556
     },
     {
-     "swing": 0.663,
-     "spike": 0.697,
-     "pillar": 1.4,
-     "puddle": 1.407,
+     "swing": 0.217,
+     "spike": 0.7,
+     "pillar": 0,
+     "puddle": 1.5,
+     "orb": 1.761,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 623,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 320
-     }
+      "spikes": 347,
+      "pillars": 444,
+      "stalkers": 0,
+      "puddles": 407,
+      "orbs": 364
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 45.717
     },
     {
-     "swing": 0.663,
-     "spike": 0.863,
-     "pillar": 2.253,
-     "puddle": 1.8,
+     "swing": 0.178,
+     "spike": 0.889,
+     "pillar": 0,
+     "puddle": 1.428,
+     "orb": 2.8,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 730,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 400
-     }
+      "spikes": 418,
+      "pillars": 620,
+      "stalkers": 0,
+      "puddles": 537,
+      "orbs": 546
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 58.278
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 0.567,
      "pillar": 0,
-     "puddle": 2.303,
+     "puddle": 1.361,
+     "orb": 1.733,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 352,
-      "pillars": 929,
+      "spikes": 170,
+      "pillars": 527,
       "stalkers": 0,
-      "puddles": 668
-     }
+      "puddles": 334,
+      "orbs": 920
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 33.056
     },
     {
      "swing": 0,
-     "spike": 1.027,
-     "pillar": 1.29,
-     "puddle": 2.25,
+     "spike": 0.711,
+     "pillar": 0,
+     "puddle": 1.306,
+     "orb": 2.6,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 595,
-      "pillars": 924,
-      "stalkers": 7,
-      "puddles": 752
-     }
+      "spikes": 397,
+      "pillars": 362,
+      "stalkers": 0,
+      "puddles": 408,
+      "orbs": 1232
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 44.5
     },
     {
      "swing": 0,
-     "spike": 1.047,
-     "pillar": 2.077,
-     "puddle": 2.767,
+     "spike": 0.917,
+     "pillar": 0,
+     "puddle": 1.328,
+     "orb": 3.128,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 715,
-      "pillars": 980,
-      "stalkers": 11,
-      "puddles": 799
-     }
+      "spikes": 460,
+      "pillars": 548,
+      "stalkers": 0,
+      "puddles": 532,
+      "orbs": 1449
+     },
+     "effects": {
+      "soaked": 0.3
+     },
+     "total": 54.639
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.178,
+     "pillar": 0,
+     "puddle": 0.422,
+     "orb": 0.15,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 170,
+      "pillars": 527,
+      "stalkers": 0,
+      "puddles": 349,
+      "orbs": 480
+     },
+     "effects": {
+      "soaked": 6.7
+     },
+     "total": 6.817
+    },
+    {
+     "swing": 0,
+     "spike": 0.156,
+     "pillar": 0,
+     "puddle": 0.511,
+     "orb": 0.244,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 350,
+      "pillars": 444,
+      "stalkers": 0,
+      "puddles": 396,
+      "orbs": 588
+     },
+     "effects": {
+      "soaked": 7.7
+     },
+     "total": 7.267
+    },
+    {
+     "swing": 0,
+     "spike": 0.172,
+     "pillar": 0,
+     "puddle": 0.556,
+     "orb": 0.256,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 447,
+      "pillars": 579,
+      "stalkers": 0,
+      "puddles": 543,
+      "orbs": 665
+     },
+     "effects": {
+      "soaked": 6
+     },
+     "total": 7.889
     }
    ]
   },
   "ice": {
    "element": "Ice",
    "maxHp": 6188,
+   "effect": "chill",
    "spike": 27,
    "swing": 40,
    "pillar": 17,
    "puddle": 2,
+   "orb": 9,
+   "impact": 30,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.65,
+     "swing": 0.661,
+     "spike": 0.506,
      "pillar": 0,
-     "puddle": 1.18,
+     "puddle": 0.906,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 344,
-      "pillars": 0,
+      "spikes": 230,
+      "pillars": 475,
       "stalkers": 0,
-      "puddles": 98
-     }
+      "puddles": 194,
+      "orbs": 0
+     },
+     "effects": {
+      "chill": 13.3,
+      "frozen": 7
+     },
+     "total": 41.906
     },
     {
-     "swing": 0.663,
-     "spike": 0.867,
-     "pillar": 1.4,
-     "puddle": 1.16,
+     "swing": 0.422,
+     "spike": 0.672,
+     "pillar": 0,
+     "puddle": 1.267,
+     "orb": 1.667,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 581,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 162
-     }
+      "spikes": 528,
+      "pillars": 434,
+      "stalkers": 0,
+      "puddles": 272,
+      "orbs": 167
+     },
+     "effects": {
+      "chill": 12.7,
+      "frozen": 10.7
+     },
+     "total": 52.572
     },
     {
-     "swing": 0.663,
-     "spike": 1.037,
-     "pillar": 2.253,
-     "puddle": 1.36,
+     "swing": 0.433,
+     "spike": 0.872,
+     "pillar": 0,
+     "puddle": 1.522,
+     "orb": 4.856,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 738,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 204
-     }
+      "spikes": 732,
+      "pillars": 527,
+      "stalkers": 0,
+      "puddles": 336,
+      "orbs": 473
+     },
+     "effects": {
+      "chill": 12,
+      "frozen": 11.3
+     },
+     "total": 87.628
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.03,
+     "spike": 0.506,
      "pillar": 0,
-     "puddle": 1.9,
+     "puddle": 0.883,
+     "orb": 0.367,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 344,
-      "pillars": 925,
+      "spikes": 230,
+      "pillars": 475,
       "stalkers": 0,
-      "puddles": 360
-     }
+      "puddles": 196,
+      "orbs": 201
+     },
+     "effects": {
+      "chill": 13,
+      "frozen": 10.3
+     },
+     "total": 18.717
     },
     {
      "swing": 0,
-     "spike": 1.223,
-     "pillar": 1.29,
-     "puddle": 1.73,
+     "spike": 0.672,
+     "pillar": 0,
+     "puddle": 1.367,
+     "orb": 0.433,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 604,
-      "pillars": 931,
-      "stalkers": 7,
-      "puddles": 392
-     }
+      "spikes": 535,
+      "pillars": 403,
+      "stalkers": 0,
+      "puddles": 262,
+      "orbs": 520
+     },
+     "effects": {
+      "chill": 11.7,
+      "frozen": 11
+     },
+     "total": 24.783
     },
     {
      "swing": 0,
-     "spike": 1.21,
-     "pillar": 2.077,
-     "puddle": 1.76,
+     "spike": 0.867,
+     "pillar": 0,
+     "puddle": 1.7,
+     "orb": 2.967,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 702,
-      "pillars": 989,
-      "stalkers": 11,
-      "puddles": 428
-     }
+      "spikes": 683,
+      "pillars": 537,
+      "stalkers": 0,
+      "puddles": 348,
+      "orbs": 1102
+     },
+     "effects": {
+      "chill": 11.7,
+      "frozen": 11.7
+     },
+     "total": 53.5
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.117,
+     "pillar": 0,
+     "puddle": 0.294,
+     "orb": 0.522,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 230,
+      "pillars": 475,
+      "stalkers": 0,
+      "puddles": 203,
+      "orbs": 189
+     },
+     "effects": {
+      "chill": 16,
+      "frozen": 6
+     },
+     "total": 8.439
+    },
+    {
+     "swing": 0,
+     "spike": 0.372,
+     "pillar": 0,
+     "puddle": 0.683,
+     "orb": 0.383,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 608,
+      "pillars": 341,
+      "stalkers": 0,
+      "puddles": 278,
+      "orbs": 373
+     },
+     "effects": {
+      "chill": 13.3,
+      "frozen": 8.3
+     },
+     "total": 14.867
+    },
+    {
+     "swing": 0,
+     "spike": 0.467,
+     "pillar": 0,
+     "puddle": 1.178,
+     "orb": 0.3,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 663,
+      "pillars": 568,
+      "stalkers": 0,
+      "puddles": 341,
+      "orbs": 395
+     },
+     "effects": {
+      "chill": 14.3,
+      "frozen": 8.3
+     },
+     "total": 17.656
     }
    ]
   },
   "earth": {
    "element": "Earth",
    "maxHp": 7384,
+   "effect": "root",
    "spike": 53,
    "swing": 56,
    "pillar": 34,
    "puddle": 4,
+   "orb": 13,
+   "impact": 42,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.66,
+     "swing": 0.661,
+     "spike": 1.178,
      "pillar": 0,
-     "puddle": 0.717,
+     "puddle": 0.367,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 334,
-      "pillars": 0,
+      "spikes": 345,
+      "pillars": 392,
       "stalkers": 0,
-      "puddles": 121
-     }
+      "puddles": 257,
+      "orbs": 0
+     },
+     "effects": {
+      "root": 9.7
+     },
+     "total": 100.911
     },
     {
-     "swing": 0.663,
-     "spike": 1.143,
-     "pillar": 1.4,
-     "puddle": 0.77,
+     "swing": 0.383,
+     "spike": 1.561,
+     "pillar": 0,
+     "puddle": 1.106,
+     "orb": 0,
+     "impact": 0.122,
+     "burns": {},
      "floor": {
-      "spikes": 603,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 213
-     }
+      "spikes": 539,
+      "pillars": 375,
+      "stalkers": 0,
+      "puddles": 330,
+      "orbs": 161
+     },
+     "effects": {
+      "root": 11.3
+     },
+     "total": 113.761
     },
     {
-     "swing": 0.663,
-     "spike": 1.267,
-     "pillar": 2.253,
-     "puddle": 0.663,
+     "swing": 0.389,
+     "spike": 2.294,
+     "pillar": 0,
+     "puddle": 1.617,
+     "orb": 0,
+     "impact": 0.189,
+     "burns": {},
      "floor": {
-      "spikes": 725,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 253
-     }
+      "spikes": 785,
+      "pillars": 408,
+      "stalkers": 0,
+      "puddles": 447,
+      "orbs": 442
+     },
+     "effects": {
+      "root": 12
+     },
+     "total": 157.783
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 1.178,
      "pillar": 0,
-     "puddle": 1.013,
+     "puddle": 1.75,
+     "orb": 0,
+     "impact": 0.344,
+     "burns": {},
      "floor": {
-      "spikes": 353,
-      "pillars": 929,
+      "spikes": 345,
+      "pillars": 392,
       "stalkers": 0,
-      "puddles": 446
-     }
+      "puddles": 269,
+      "orbs": 186
+     },
+     "effects": {
+      "root": 10.3
+     },
+     "total": 83.889
     },
     {
      "swing": 0,
-     "spike": 1.4,
-     "pillar": 1.29,
-     "puddle": 1.15,
+     "spike": 1.778,
+     "pillar": 0,
+     "puddle": 2.161,
+     "orb": 0,
+     "impact": 0.394,
+     "burns": {},
      "floor": {
-      "spikes": 586,
-      "pillars": 904,
-      "stalkers": 7,
-      "puddles": 502
-     }
+      "spikes": 598,
+      "pillars": 325,
+      "stalkers": 0,
+      "puddles": 365,
+      "orbs": 521
+     },
+     "effects": {
+      "root": 12
+     },
+     "total": 119.433
     },
     {
      "swing": 0,
-     "spike": 1.433,
-     "pillar": 2.077,
-     "puddle": 1.19,
+     "spike": 2.172,
+     "pillar": 0,
+     "puddle": 2.478,
+     "orb": 0,
+     "impact": 0.45,
+     "burns": {},
      "floor": {
-      "spikes": 744,
-      "pillars": 975,
-      "stalkers": 11,
-      "puddles": 550
-     }
+      "spikes": 723,
+      "pillars": 458,
+      "stalkers": 0,
+      "puddles": 490,
+      "orbs": 1053
+     },
+     "effects": {
+      "root": 12
+     },
+     "total": 143.939
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.25,
+     "pillar": 0,
+     "puddle": 0.606,
+     "orb": 0.233,
+     "impact": 0.128,
+     "burns": {},
+     "floor": {
+      "spikes": 345,
+      "pillars": 392,
+      "stalkers": 0,
+      "puddles": 268,
+      "orbs": 186
+     },
+     "effects": {
+      "root": 9.3
+     },
+     "total": 24.072
+    },
+    {
+     "swing": 0,
+     "spike": 0.367,
+     "pillar": 0,
+     "puddle": 0.767,
+     "orb": 0.406,
+     "impact": 0.078,
+     "burns": {},
+     "floor": {
+      "spikes": 559,
+      "pillars": 358,
+      "stalkers": 0,
+      "puddles": 363,
+      "orbs": 403
+     },
+     "effects": {
+      "root": 9.3
+     },
+     "total": 31.039
+    },
+    {
+     "swing": 0.017,
+     "spike": 0.472,
+     "pillar": 0,
+     "puddle": 0.878,
+     "orb": 0.406,
+     "impact": 0.022,
+     "burns": {},
+     "floor": {
+      "spikes": 722,
+      "pillars": 458,
+      "stalkers": 0,
+      "puddles": 464,
+      "orbs": 572
+     },
+     "effects": {
+      "root": 9.3
+     },
+     "total": 35.678
     }
    ]
   },
   "fire": {
    "element": "Fire",
    "maxHp": 9200,
+   "effect": "burn",
    "spike": 60,
    "swing": 79,
    "pillar": 39,
    "puddle": 5,
+   "orb": 18,
+   "impact": 60,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.65,
+     "swing": 0.661,
+     "spike": 0.894,
      "pillar": 0,
-     "puddle": 1.7,
+     "puddle": 2.217,
+     "orb": 0,
+     "impact": 0,
+     "burns": {
+      "5": 1.967
+     },
      "floor": {
-      "spikes": 349,
+      "spikes": 685,
       "pillars": 0,
       "stalkers": 0,
-      "puddles": 159
-     }
+      "puddles": 305,
+      "orbs": 0
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 126.811
     },
     {
-     "swing": 0.663,
-     "spike": 0.703,
-     "pillar": 1.4,
-     "puddle": 1.737,
+     "swing": 0.383,
+     "spike": 1.061,
+     "pillar": 0,
+     "puddle": 3.6,
+     "orb": 0.489,
+     "impact": 0,
+     "burns": {
+      "5": 1.944
+     },
      "floor": {
-      "spikes": 601,
-      "pillars": 84,
-      "stalkers": 7,
-      "puddles": 282
-     }
+      "spikes": 789,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 355,
+      "orbs": 44
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 130.472
     },
     {
-     "swing": 0.663,
-     "spike": 0.83,
-     "pillar": 2.253,
-     "puddle": 2.22,
+     "swing": 0.389,
+     "spike": 1.439,
+     "pillar": 0,
+     "puddle": 4.95,
+     "orb": 1.889,
+     "impact": 0,
+     "burns": {
+      "5": 1.967
+     },
      "floor": {
-      "spikes": 730,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 329
-     }
+      "spikes": 1072,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 498,
+      "orbs": 136
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 185.639
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.027,
+     "spike": 0.406,
      "pillar": 0,
-     "puddle": 2.777,
+     "puddle": 4.156,
+     "orb": 1.378,
+     "impact": 0,
+     "burns": {
+      "1": 0.017,
+      "5": 1.967
+     },
      "floor": {
-      "spikes": 348,
-      "pillars": 929,
+      "spikes": 695,
+      "pillars": 0,
       "stalkers": 0,
-      "puddles": 590
-     }
+      "puddles": 327,
+      "orbs": 83
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 79.761
     },
     {
      "swing": 0,
-     "spike": 1.023,
-     "pillar": 1.29,
-     "puddle": 2.52,
+     "spike": 0.6,
+     "pillar": 0,
+     "puddle": 4.817,
+     "orb": 2.4,
+     "impact": 0,
+     "burns": {
+      "1": 0.017,
+      "5": 1.961
+     },
      "floor": {
-      "spikes": 615,
-      "pillars": 924,
-      "stalkers": 7,
-      "puddles": 650
-     }
+      "spikes": 774,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 365,
+      "orbs": 144
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 113.106
     },
     {
      "swing": 0,
-     "spike": 1.027,
-     "pillar": 2.077,
-     "puddle": 2.82,
+     "spike": 0.783,
+     "pillar": 0,
+     "puddle": 5.844,
+     "orb": 5.4,
+     "impact": 0,
+     "burns": {
+      "1": 0.011,
+      "5": 1.967
+     },
      "floor": {
-      "spikes": 711,
-      "pillars": 963,
-      "stalkers": 11,
-      "puddles": 697
-     }
+      "spikes": 1050,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 493,
+      "orbs": 326
+     },
+     "effects": {
+      "burn": 0.3
+     },
+     "total": 183.267
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.161,
+     "pillar": 0,
+     "puddle": 0.511,
+     "orb": 0.122,
+     "impact": 0,
+     "burns": {
+      "1": 0.256,
+      "5": 1.156
+     },
+     "floor": {
+      "spikes": 709,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 348,
+      "orbs": 83
+     },
+     "effects": {
+      "burn": 6.7
+     },
+     "total": 20.456
+    },
+    {
+     "swing": 0,
+     "spike": 0.139,
+     "pillar": 0,
+     "puddle": 0.883,
+     "orb": 0.256,
+     "impact": 0,
+     "burns": {
+      "1": 0.411,
+      "5": 1.267
+     },
+     "floor": {
+      "spikes": 782,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 381,
+      "orbs": 140
+     },
+     "effects": {
+      "burn": 5
+     },
+     "total": 24.094
+    },
+    {
+     "swing": 0,
+     "spike": 0.228,
+     "pillar": 0,
+     "puddle": 0.678,
+     "orb": 0.144,
+     "impact": 0,
+     "burns": {
+      "1": 0.172,
+      "5": 1.544
+     },
+     "floor": {
+      "spikes": 1032,
+      "pillars": 0,
+      "stalkers": 0,
+      "puddles": 501,
+      "orbs": 280
+     },
+     "effects": {
+      "burn": 4.3
+     },
+     "total": 27.55
     }
    ]
   },
   "crowned": {
    "element": "Dark",
    "maxHp": 13800,
+   "effect": "wither",
    "spike": 91,
    "swing": 110,
    "pillar": 59,
    "puddle": 4,
+   "orb": 25,
+   "impact": 83,
    "melee": [
     {
-     "swing": 0.663,
-     "spike": 0.66,
+     "swing": 0.661,
+     "spike": 0.511,
      "pillar": 0,
-     "puddle": 0.747,
+     "puddle": 0.811,
+     "orb": 0,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 326,
-      "pillars": 0,
+      "spikes": 0,
+      "pillars": 1257,
       "stalkers": 0,
-      "puddles": 111
-     }
+      "puddles": 429,
+      "orbs": 0
+     },
+     "effects": {
+      "wither": 0.3
+     },
+     "total": 122.478
     },
     {
-     "swing": 0.663,
-     "spike": 0.707,
-     "pillar": 1.4,
-     "puddle": 0.92,
+     "swing": 0.317,
+     "spike": 0.506,
+     "pillar": 1.372,
+     "puddle": 0.633,
+     "orb": 1.478,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 598,
-      "pillars": 84,
+      "spikes": 0,
+      "pillars": 1345,
       "stalkers": 7,
-      "puddles": 202
-     }
+      "puddles": 428,
+      "orbs": 306
+     },
+     "effects": {
+      "wither": 1
+     },
+     "total": 201.278
     },
     {
-     "swing": 0.663,
-     "spike": 0.81,
-     "pillar": 2.253,
-     "puddle": 1.08,
+     "swing": 0.311,
+     "spike": 0.589,
+     "pillar": 2.183,
+     "puddle": 1.1,
+     "orb": 2.422,
+     "impact": 0.033,
+     "burns": {},
      "floor": {
-      "spikes": 743,
-      "pillars": 136,
-      "stalkers": 11,
-      "puddles": 257
-     }
+      "spikes": 0,
+      "pillars": 1631,
+      "stalkers": 10,
+      "puddles": 518,
+      "orbs": 482
+     },
+     "effects": {
+      "wither": 1.3
+     },
+     "total": 284.35
     }
    ],
    "range": [
     {
      "swing": 0,
-     "spike": 1.023,
+     "spike": 0.506,
      "pillar": 0,
-     "puddle": 1.393,
+     "puddle": 0.511,
+     "orb": 1.183,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 350,
-      "pillars": 925,
+      "spikes": 0,
+      "pillars": 1257,
       "stalkers": 0,
-      "puddles": 445
-     }
+      "puddles": 448,
+      "orbs": 980
+     },
+     "effects": {
+      "wither": 0.3
+     },
+     "total": 77.633
     },
     {
      "swing": 0,
-     "spike": 1.01,
-     "pillar": 1.29,
-     "puddle": 1.507,
+     "spike": 0.489,
+     "pillar": 1.267,
+     "puddle": 0.806,
+     "orb": 1.661,
+     "impact": 0,
+     "burns": {},
      "floor": {
-      "spikes": 599,
-      "pillars": 908,
+      "spikes": 0,
+      "pillars": 1311,
       "stalkers": 7,
-      "puddles": 493
-     }
+      "puddles": 434,
+      "orbs": 1005
+     },
+     "effects": {
+      "wither": 0.3
+     },
+     "total": 163.972
     },
     {
      "swing": 0,
-     "spike": 1.063,
-     "pillar": 2.077,
-     "puddle": 1.453,
+     "spike": 0.567,
+     "pillar": 2.011,
+     "puddle": 1.628,
+     "orb": 2.233,
+     "impact": 0.067,
+     "burns": {},
      "floor": {
-      "spikes": 709,
-      "pillars": 1009,
-      "stalkers": 11,
-      "puddles": 538
-     }
+      "spikes": 0,
+      "pillars": 1634,
+      "stalkers": 10,
+      "puddles": 553,
+      "orbs": 1196
+     },
+     "effects": {
+      "wither": 0.3
+     },
+     "total": 238.1
+    }
+   ],
+   "dodge": [
+    {
+     "swing": 0,
+     "spike": 0.406,
+     "pillar": 0,
+     "puddle": 0.494,
+     "orb": 0.3,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 0,
+      "pillars": 1257,
+      "stalkers": 0,
+      "puddles": 430,
+      "orbs": 660
+     },
+     "effects": {
+      "wither": 6
+     },
+     "total": 46.383
+    },
+    {
+     "swing": 0,
+     "spike": 0.283,
+     "pillar": 0.089,
+     "puddle": 0.661,
+     "orb": 0.272,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 0,
+      "pillars": 1312,
+      "stalkers": 7,
+      "puddles": 424,
+      "orbs": 669
+     },
+     "effects": {
+      "wither": 5
+     },
+     "total": 40.478
+    },
+    {
+     "swing": 0,
+     "spike": 0.428,
+     "pillar": 0.111,
+     "puddle": 0.633,
+     "orb": 0.356,
+     "impact": 0,
+     "burns": {},
+     "floor": {
+      "spikes": 0,
+      "pillars": 1594,
+      "stalkers": 10,
+      "puddles": 541,
+      "orbs": 705
+     },
+     "effects": {
+      "wither": 2.7
+     },
+     "total": 56.906
     }
    ]
   }

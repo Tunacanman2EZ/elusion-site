@@ -6,15 +6,16 @@
 //     it came from) - classes, gear, potions, the bosses' health and hits;
 //   - what the game was MEASURED doing, which is bosssim-data.js, generated
 //     from the game itself and never typed: how often each boss's swing,
-//     spikes, stalker pillars and puddles land on a player who never moves,
-//     and how often each pet fires into a boss.
+//     stalagmites, orbs, boulders, burns, stalker pillars and puddles land on
+//     a player who holds their ground (and on one who dodges), and how often
+//     each pet fires into a boss.
 // BOSSSIM.md lists every number, where it came from and how to refresh it.
 // test_bosssim.mjs checks them against the game when it is given the game's
 // folder, and checks the model with every option.
 (function (root) {
   "use strict";
 
-  var VERSION = "0.76.0";
+  var VERSION = "0.77.0";
   var CLASSES = ["Warrior", "Mage", "Healer", "Tank"];
 
   // data/gamedata.json "classes" and "combat.classes"; mana costs and
@@ -149,16 +150,45 @@
   // The bosses: gamedata.json max_hp; data/enemies/<boss>.tres
   // projectile_damage; bossprojectile.gd ELEMENT_PROFILE's damage and
   // telegraph for the boss's element; bossenemy.gd's shares for the swing and
-  // a stalker's pillar.
+  // a stalker's pillar. Since game 0.77.0 each has a kit (bossenemy.gd, THE
+  // KITS): its three stalagmite shapes, its volley and its element's effect
+  // (statuseffects.gd FOR_ELEMENT).
   var BOSS = {
-    light:   { name: "Light",   el: "Light", hp: 4576,  pd: 21, dmg: 1.15, tel: 0.55, col: "var(--el-light)" },
-    wind:    { name: "Wind",    el: "Wind",  hp: 4992,  pd: 21, dmg: 0.90, tel: 0.60, col: "var(--el-wind)" },
-    water:   { name: "Water",   el: "Water", hp: 5616,  pd: 30, dmg: 0.85, tel: 1.00, col: "var(--el-water)" },
-    ice:     { name: "Ice",     el: "Ice",   hp: 6188,  pd: 30, dmg: 0.90, tel: 1.35, col: "var(--el-ice)" },
-    earth:   { name: "Earth",   el: "Earth", hp: 7384,  pd: 42, dmg: 1.25, tel: 1.30, col: "var(--el-earth)" },
-    fire:    { name: "Fire",    el: "Fire",  hp: 9200,  pd: 60, dmg: 1.00, tel: 1.00, col: "var(--el-fire)" },
-    crowned: { name: "Crowned", el: "Dark",  hp: 13800, pd: 83, dmg: 1.10, tel: 1.00, col: "var(--el-dark)" }
+    light:   { name: "Light",   el: "Light", hp: 4576,  pd: 21, dmg: 1.15, tel: 0.55, col: "var(--el-light)",
+      shapes: ["lance", "ring", "arc"], volleys: ["prism"], effect: "dazzle" },
+    wind:    { name: "Wind",    el: "Wind",  hp: 4992,  pd: 21, dmg: 0.90, tel: 0.60, col: "var(--el-wind)",
+      shapes: ["arc", "snare", "sweep"], volleys: ["gale", "vortex"], effect: "shove" },
+    water:   { name: "Water",   el: "Water", hp: 5616,  pd: 30, dmg: 0.85, tel: 1.00, col: "var(--el-water)",
+      shapes: ["cage", "snare", "ladder"], volleys: ["tide"], effect: "soaked" },
+    ice:     { name: "Ice",     el: "Ice",   hp: 6188,  pd: 30, dmg: 0.90, tel: 1.35, col: "var(--el-ice)",
+      shapes: ["ladder", "cage", "checker"], volleys: ["frost"], effect: "chill" },
+    earth:   { name: "Earth",   el: "Earth", hp: 7384,  pd: 42, dmg: 1.25, tel: 1.30, col: "var(--el-earth)",
+      shapes: ["gate", "triwall", "rake"], volleys: ["boulder"], effect: "root" },
+    fire:    { name: "Fire",    el: "Fire",  hp: 9200,  pd: 60, dmg: 1.00, tel: 1.00, col: "var(--el-fire)",
+      shapes: ["cross", "spiral", "carpet"], volleys: ["pincer"], effect: "burn" },
+    crowned: { name: "Crowned", el: "Dark",  hp: 13800, pd: 83, dmg: 1.10, tel: 1.00, col: "var(--el-dark)",
+      shapes: ["ring", "cage", "gate"], volleys: ["prism", "tide", "frost", "gale", "boulder", "pincer"], effect: "wither" }
   };
+  // What each volley and each effect is, in the page's words (bossenemy.gd's
+  // VOLLEYS and statuseffects.gd's effects).
+  var VOLLEY_WORDS = {
+    prism: "spokes of light that turn as they leave", gale: "fast fans of wind that shove you back",
+    vortex: "a pull toward the boss through a ring with one door (phase 3)", tide: "walls of orbs, each with one gap that moves",
+    frost: "shards that stop and lie as mines across your spot", boulder: "its stalagmite thrown where you stood, bursting into rocks",
+    pincer: "orbs that curve shut on your spot and leave it burning"
+  };
+  var EFFECT_WORDS = {
+    dazzle: "a flash, and the edges of your screen go dark for 2 s",
+    shove: "knocked back about 40 px along the hit",
+    soaked: "no sprint for 3 s",
+    chill: "20% slower a hit, 40% at two; a third hit freezes you for 0.8 s",
+    root: "held where you stand for 0.6 s",
+    burn: "8% of the hit every half second for 3 s, refreshed, never stacked",
+    wither: "your healing halved for 3 s"
+  };
+  // Each orb is this share of the boss's spike (bossenemy.gd ORB_SHARE); a
+  // boulder lands for the whole spike.
+  var ORB_SHARE = 0.3;
   // scene/bossarena.tscn's gates (wave 1, 2, 3), then scene/boss.tscn.
   var WAVES = [
     { label: "Wave 1", bosses: ["light"] },
@@ -202,6 +232,8 @@
   function spike(b) { return round(b.pd * b.dmg); }
   function melee(b) { return round(b.pd * MELEE_SHARE); }
   function trail(b) { return round(round(b.pd * TRAIL_SHARE) * b.dmg); }
+  function orb(b) { return Math.max(1, round(b.pd * ORB_SHARE)); }
+  function impact(b) { return b.pd; }
   function defense(skill) {
     for (var i = 0; i < DEFENSE_TIERS.length; i++) if (skill >= DEFENSE_TIERS[i][0]) return DEFENSE_TIERS[i];
     return DEFENSE_TIERS[DEFENSE_TIERS.length - 1];
@@ -321,23 +353,27 @@
   }
 
   // What one boss puts into one player a second, for a phase: `swing` lands on
-  // everyone in its reach, `hazards` on whoever it is on - its spike track,
-  // its stalkers' pillars and its puddles, at the measured rate for a player
-  // who never moves, times the share dodging lets through. size(n) is what a
-  // hit of n raw damage leaves; the identity gives the raw damage.
+  // everyone in its reach, `hazards` on whoever it is on - its stalagmites,
+  // its orbs and boulders, the burns they light, its stalkers' pillars and its
+  // puddles, at the measured rate for a player who holds their ground, times
+  // the share dodging lets through. size(n) is what a hit of n raw damage
+  // leaves; the identity gives the raw damage.
   function bossRate(id, held, phase, dodge, size) {
     var b = BOSS[id], m = data().bosses[id];
     var r = m[held ? "melee" : "range"][phase];
-    // Telegraphed hits land (1 - dodging) ^ telegraph: everything a player who
-    // never moves takes at 0%, nothing at 100%, and between them your dodging
+    // Rings land (1 - dodging) ^ telegraph: everything a player who holds
+    // their ground takes at 0%, nothing at 100%, and between them your dodging
     // counts for more against a slow ring (Ice 1.35) than a fast one (Light
-    // 0.55). Puddles have no ring - they lie there to be seen - so they land
-    // at 1 - dodging.
+    // 0.55). Everything else is seen coming as it comes - an orb in flight, a
+    // boulder's crater, a puddle lying there - so it lands at 1 - dodging, and
+    // so do the burns it would have lit.
     var landT = Math.pow(1 - dodge, b.tel), landP = 1 - dodge;
+    var burn = 0;
+    for (var n in r.burns) burn += r.burns[n] * size(+n);
     return {
       swing: r.swing * size(m.swing),
       hazards: (r.spike * size(m.spike) + r.pillar * size(m.pillar)) * landT +
-        (m.puddle ? r.puddle * size(m.puddle) * landP : 0)
+        ((m.puddle ? r.puddle * size(m.puddle) : 0) + r.orb * size(m.orb) + r.impact * size(m.impact) + burn) * landP
     };
   }
 
@@ -455,19 +491,18 @@
           if (x.dead || !team.length) return;
           var b = x.b, held = !!(holder && st[holder].alive), phase = phaseOf(x.hp / b.hp);
           function rate(k) { return bossRate(x.id, held, phase, dodge, function (n) { return perHit(k, n, b); }); }
+          // EVERY ATTACK TAKES TURNS ROUND THE FIGHT (game 0.77.0, bossenemy.gd
+          // NOBODY IS LOCKED ON): each stalagmite cast and each volley goes at
+          // whoever has gone longest without one, so they fall across the
+          // party whether or not somebody holds the boss.
           if (held) {
-            // The boss is on the holder: its swing lands on everyone in reach
-            // (the holder, and a sword warrior beside a tank), and its spike
-            // track, stalkers and puddles are aimed at the holder.
+            // Held, its swing lands on everyone in reach (the holder, and a
+            // sword warrior beside a tank), at the rates measured in reach.
             var reach = [holder];
             if (holder === "Tank" && st.Warrior.alive && P.Warrior.attack === "sword") reach.push("Warrior");
             reach.forEach(function (k) { hurt(k, rate(k).swing * DT); });
-            hurt(holder, rate(holder).hazards * DT);
-          } else {
-            // Nobody in reach: the boss is on whoever is nearest, which moves,
-            // so its attacks fall across the party.
-            team.forEach(function (k) { hurt(k, rate(k).hazards * DT / team.length); });
           }
+          team.forEach(function (k) { hurt(k, rate(k).hazards * DT / team.length); });
         });
 
         CLASSES.forEach(function (k) {
@@ -506,7 +541,8 @@
 
   var api = {
     simulate: simulate, party: party, petDps: petDps, bossRate: bossRate, validate: validate, potion: potion, defense: defense,
-    wearableTier: wearableTier, phaseOf: phaseOf, spike: spike, melee: melee, trail: trail, scaleStat: scaleStat,
+    wearableTier: wearableTier, phaseOf: phaseOf, spike: spike, melee: melee, trail: trail, orb: orb, impact: impact, scaleStat: scaleStat,
+    ORB_SHARE: ORB_SHARE, VOLLEY_WORDS: VOLLEY_WORDS, EFFECT_WORDS: EFFECT_WORDS,
     data: data, VERSION: VERSION, CLASSES: CLASSES, CLASS: CLASS, BOSS: BOSS, WAVES: WAVES,
     TIER_NAMES: TIER_NAMES, TIER_LEVEL: TIER_LEVEL, WEAPON: WEAPON, MYTHIC: MYTHIC, MYTHIC_LEVEL: MYTHIC_LEVEL,
     MAGE_CRIT_CHANCE: MAGE_CRIT_CHANCE, MAGE_CRIT_MULT: MAGE_CRIT_MULT,
