@@ -98,7 +98,7 @@
         submitBtn.textContent = "Send application";
         if (formError) {
           formError.textContent =
-            "That didn't send. If it keeps happening, email ElusionStudios@gmail.com and I'll sort it out.";
+            "That didn't send. If it keeps happening, email elusionrpg@gmail.com and I'll sort it out.";
         }
       });
   });
