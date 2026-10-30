@@ -36,6 +36,7 @@
 
   <nav class="main-nav">
     <a href="index.html" class="active">Home</a>
+    <a href="guide.html">Guide</a>
     <a href="lore.html">Lore</a>
     <a href="updates.html">Updates</a>
     <a href="contribute.html">Free to play</a>
@@ -208,7 +209,7 @@
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 10H5z"/><path d="M5 21h14"/></svg></span>
         <h3>Bullet hell and seven bosses</h3>
-        <p>Weave through every monster's bullets, then face the Crowned Beholder in all seven elements.</p>
+        <p>Weave through every monster's bullets, then face the seven Crowned &mdash; seven different fights, each growing with the party that takes it on.</p>
       </div>
       <div class="feature-card">
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 12c3.5-5.5 10.5-6 14.5 0-4 6-11 5.5-14.5 0z"/><path d="M17 12l4.5-3.5v7z"/><circle cx="7" cy="11" r="0.6" fill="currentColor"/></svg></span>
@@ -233,8 +234,50 @@
     </div>
   </section>
 
+  <!-- ===== EVERY DAY (30 Oct): what is new since the features above were
+       written - the Endless (0.93), the stirring lands (0.46) and the Big
+       Field's wings (0.94). Pictures are the site's own monster pictures;
+       each card opens its part of the guide. ===== -->
+  <section class="section wide">
+    <div class="section-head">
+      <p class="eyebrow">Every day</p>
+      <h2>Always something stirring</h2>
+      <p>The world does not sit still: a horde to outlast, a land that wakes, and a map worth exploring.</p>
+    </div>
+    <div class="explore-grid three">
+      <a class="explore-card" href="guide.html#endless">
+        <span class="explore-art" aria-hidden="true"><img src="images/enemies/skeleton.gif" alt="" width="114" height="82" /></span>
+        <span class="explore-body">
+          <span class="explore-kicker">Minigame</span>
+          <span class="explore-title">The Endless</span>
+          <span class="explore-text">Once a day, alone or with three friends: a horde of up to 3,000 slimes, a new land every minute, elites and bosses filling your chest. Fall, and you wake beside it.</span>
+          <span class="explore-go">How it works&nbsp;&rarr;</span>
+        </span>
+      </a>
+      <a class="explore-card" href="guide.html#lands">
+        <span class="explore-art" aria-hidden="true"><img src="images/enemies/firesprite.gif" alt="" width="116" height="136" /></span>
+        <span class="explore-body">
+          <span class="explore-kicker">The lands stir</span>
+          <span class="explore-title">A land wakes</span>
+          <span class="explore-text">Every few hours the least-hunted land stirs: its monsters glow, hit harder and move faster, and drop more. Everyone is told which.</span>
+          <span class="explore-go">What it does&nbsp;&rarr;</span>
+        </span>
+      </a>
+      <a class="explore-card" href="guide.html#lands">
+        <span class="explore-art" aria-hidden="true"><img src="images/enemies/bushsniper.gif" alt="" width="86" height="74" /></span>
+        <span class="explore-body">
+          <span class="explore-kicker">The Big Field</span>
+          <span class="explore-title">Six wings, seven lands</span>
+          <span class="explore-text">From the Crossroads: the courts, a chasm crossed by three bridges, the caverns, a fortress, the descent and the crypt. Press M for the whole map.</span>
+          <span class="explore-go">The lands&nbsp;&rarr;</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
   <!-- ===== THE SEVEN ELEMENTS =====
-       Not seven places: one Field, with a patch for each element's monsters.
+       Not seven places: one Big Field, with a wing for each element's
+       monsters round the Crossroads (0.94.0).
        The lore page's row, in the game's own element colours
        (src/shared/element.gd; dark lifted a shade to show on black). -->
   <section class="section wide">
@@ -242,7 +285,7 @@
       <p class="eyebrow">The world</p>
       <h2>Seven elements, gentlest to deepest</h2>
       <p>Every monster past the portal belongs to one of seven elements, from light, the gentlest,
-        to dark, the deepest. Each has its own patch of the Field, and each pays back what it
+        to dark, the deepest. Each has its own wing of the Big Field, and each pays back what it
         costs you — the deeper the element, the better the gear.</p>
     </div>
     <div class="home-lands">
@@ -266,7 +309,16 @@
       <p class="eyebrow">Explore</p>
       <h2>Go deeper</h2>
     </div>
-    <div class="explore-grid">
+    <div class="explore-grid five">
+      <a class="explore-card" href="guide.html">
+        <span class="explore-art" aria-hidden="true"><img src="images/enemies/bushmage.gif" alt="" width="86" height="114" /></span>
+        <span class="explore-body">
+          <span class="explore-kicker">Guide</span>
+          <span class="explore-title">Things to know</span>
+          <span class="explore-text">What dying costs, what drops, what each land does to you, and every shortcut.</span>
+          <span class="explore-go">Read the guide&nbsp;&rarr;</span>
+        </span>
+      </a>
       <a class="explore-card" href="lore.html">
         <span class="explore-art" aria-hidden="true"><img src="images/portal.gif" alt="" width="128" height="128" /></span>
         <span class="explore-body">

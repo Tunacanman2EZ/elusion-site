@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide • Elusion RPG</title>
+  <!-- SEARCH AND SHARING: what Google and link previews show. The canonical
+       address and the sitemap.xml entry are the same URL; test_seo.mjs
+       holds them together. -->
+  <meta name="description" content="The Elusion RPG player guide: dying and reviving, loot and gear tiers, the seven lands, the Endless, the shop, trading, parties and every shortcut." />
+  <link rel="canonical" href="https://elusionrpg.com/guide.html" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#1b233f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elusion RPG" />
+  <meta property="og:title" content="Guide • Elusion RPG" />
+  <meta property="og:description" content="The Elusion RPG player guide: dying and reviving, loot and gear tiers, the seven lands, the Endless, the shop, trading, parties and every shortcut." />
+  <meta property="og:url" content="https://elusionrpg.com/guide.html" />
+  <meta property="og:image" content="https://elusionrpg.com/images/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elusion RPG: the Crowned Beholder standing in its crypt arena, beside the game's name" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html" class="active">Guide</a>
+    <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
+    <a href="contribute.html">Free to play</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <!-- THE SKY: the home page's picture, cropped for this page - styles.css,
+       "THE SKY ON EVERY PAGE". The page's <h1> lives here. -->
+  <header class="sky-strip sky-guide">
+    <div class="sky-title">
+      <p class="sky-eyebrow">Player guide</p>
+      <h1>Things to Know</h1>
+    </div>
+  </header>
+
+  <!-- THE GUIDE (30 Oct): the owner's doc "Elusion RPG: Things to Know",
+       as a page. Numbers the owner can change from the GM panel (how hard a
+       stirring land hits, say) are left out on purpose: the page would go
+       stale the day he turned a dial. -->
+  <div class="page-wrapper">
+
+    <p class="lore-opening">Everything a new player asks in the first hour, in one place: what dying costs,
+      what drops, what each land does to you, how the Endless works, and the shortcuts that save you clicks.</p>
+
+    <nav class="guide-toc" aria-label="On this page">
+      <a href="#basics">The basics</a>
+      <a href="#classes">Classes and skills</a>
+      <a href="#dying">Falling and dying</a>
+      <a href="#loot">Loot</a>
+      <a href="#lands">The lands</a>
+      <a href="#endless">The Endless</a>
+      <a href="#shop">Shop, bank, trading</a>
+      <a href="#together">Playing together</a>
+      <a href="#keys">Shortcuts</a>
+      <a href="#help">When something goes wrong</a>
+    </nav>
+
+    <div class="lore-path guide">
+
+      <section class="lore-chapter" id="basics">
+        <p class="eyebrow">Start here</p>
+        <h2>The basics</h2>
+        <p>Elusion is free to play, and your progress lives on the server, not on your computer. Play in the
+          browser at <a href="https://play.elusionrpg.com">play.elusionrpg.com</a> or in the desktop game; the
+          same account works in both.</p>
+        <ul class="guide-list">
+          <li><strong>The server keeps what matters.</strong> Your level, XP, gold, bag, bank and every loot roll
+            are the server's, so a lost save or a new computer loses nothing.</li>
+          <li><strong>One game per account at a time.</strong> Signing in somewhere else signs the other game out.</li>
+          <li><strong>Four character slots, one per class.</strong> Deleting a character asks you to type its name.
+            Your bank, lusions, friends and guild belong to the account and stay.</li>
+          <li><strong>Lusions are earned, never sold.</strong> A pet you already own turns into lusions when you
+            pick it up again.</li>
+          <li><strong>A new character starts with potions:</strong> five Tiny Health Potions on hotbar key 1 and five
+            Tiny Mana Potions on key 2.</li>
+        </ul>
+      </section>
+
+      <section class="lore-chapter" id="classes">
+        <p class="eyebrow">Your character</p>
+        <h2>Classes, skills and levels</h2>
+        <p>There are four classes, and each trains one skill half again as fast as the others do. Levels come
+          from kills; about eight hours of play takes a character to level 22.</p>
+        <div class="guide-table-wrap">
+          <table class="guide-table">
+            <thead><tr><th>Class</th><th>Fights with</th><th>Trains faster</th></tr></thead>
+            <tbody>
+              <tr><td>Warrior</td><td>Sword swings and waves; every third swing is a stronger finisher</td><td>Attack</td></tr>
+              <tr><td>Mage</td><td>Spells; one cast in five is a critical spike</td><td>Magic</td></tr>
+              <tr><td>Tank</td><td>A burning aura ring, and dynamite</td><td>Defence</td></tr>
+              <tr><td>Healer</td><td>Orbs, and an aura that heals everyone standing in it</td><td>Magic</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Six skills level up by doing them, up to 99:</p>
+        <ul class="guide-list">
+          <li><strong>Attack:</strong> killing monsters.</li>
+          <li><strong>Magic:</strong> casting.</li>
+          <li><strong>Defence:</strong> taking hits.</li>
+          <li><strong>Agility:</strong> sprinting and covering ground.</li>
+          <li><strong>Fishing:</strong> catching fish.</li>
+          <li><strong>Cooking:</strong> cooking what you catch and gather.</li>
+        </ul>
+        <p>Gear shows the level it needs. The shop sells a piece to anyone, but you can only wear it once you
+          reach that level.</p>
+      </section>
+
+      <section class="lore-chapter" id="dying">
+        <p class="eyebrow">When you fall</p>
+        <h2>Falling and dying</h2>
+        <p>When your health reaches zero you choose: pay to revive and keep everything, or return to character
+          select and lose what you carried and wore. Your bank is never touched either way.</p>
+        <div class="guide-table-wrap">
+          <table class="guide-table">
+            <thead><tr><th></th><th>Revive</th><th>Return (a full death)</th></tr></thead>
+            <tbody>
+              <tr><td>Cost</td><td>80% of all the gold you hold, purse and bank together; at least 100</td><td>Nothing in gold</td></tr>
+              <tr><td>Your bag and hotbar</td><td>Kept</td><td>Lost</td></tr>
+              <tr><td>Gold in your purse</td><td>Kept, less the cost</td><td>Lost</td></tr>
+              <tr><td>Gear you are wearing</td><td>Kept</td><td>Lost, mythic weapons included</td></tr>
+              <tr><td>Your pet</td><td>Kept</td><td>Put away, unless the bank holds one</td></tr>
+              <tr><td>Your bank</td><td>Safe</td><td>Safe</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="guide-list">
+          <li><strong>Bank what you cannot bear to lose.</strong> The bank is shared by all four of your characters,
+            and no death reaches it.</li>
+          <li><strong>The Endless is different:</strong> falling there is not a death. You wake by your chest on
+            1 health, keeping everything (see <a href="#endless">The Endless</a>).</li>
+        </ul>
+      </section>
+
+      <section class="lore-chapter" id="loot">
+        <p class="eyebrow">What drops</p>
+        <h2>Loot</h2>
+        <p>A kill drops a bag only you can open, and it lasts 45 seconds on the ground (5 minutes if it holds a
+          mythic). The timer pauses while the bag is open. In a party, everyone who hit the monster gets a bag of
+          their own.</p>
+        <ul class="guide-list">
+          <li><strong>Opening:</strong> walk over it and press the interact key; press it again to take everything,
+            or double-click one cell.</li>
+          <li><strong>Materials</strong> (ore, essences, produce, bones) drop beside the gear and go into cooking and
+            smithing.</li>
+          <li><strong>Every dropped piece of gear rolls its stats,</strong> each from 85% to 115% of normal. One drop
+            in 100 is <strong class="perfect">Perfect</strong>: every stat at 120%.</li>
+          <li><strong>Armour rolls a resistance</strong> to one land's element. Pieces resisting the same element add
+            up, to at most 50%.</li>
+          <li><strong>Shop gear rolls at the till.</strong> Its stats show &ldquo;?&rdquo; until you buy it.</li>
+        </ul>
+        <p>Gear comes in six tiers:</p>
+        <div class="guide-table-wrap">
+          <table class="guide-table">
+            <thead><tr><th>Tier</th><th>Name</th><th>How you get it</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Iron</td><td>Drops, or the shop</td></tr>
+              <tr><td>2</td><td>Jade</td><td>Drops, or the shop</td></tr>
+              <tr><td>3</td><td>Cobalt</td><td>Drops, or the shop</td></tr>
+              <tr><td>4</td><td>Amethyst</td><td>Drops, or the shop</td></tr>
+              <tr><td>5</td><td>Ember (legendary)</td><td>Drops only, and rare</td></tr>
+              <tr><td>6</td><td>Mythic</td><td>Very rare drops; a plain copy is free in the shop</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The mythic weapons are the Double Axe (warrior), the Meteorite (mage) and Dynamite (tank); the healer has
+          none yet. Finding one off a monster puts a red banner on every player's screen.</p>
+      </section>
+
+      <section class="lore-chapter" id="lands">
+        <p class="eyebrow">The world</p>
+        <h2>The lands and their elements</h2>
+        <p>The world has seven lands, each with its own element, monsters and boss. Their attacks put effects on
+          you, and armour that resists a land's element takes some of its hits away.</p>
+        <div class="guide-table-wrap">
+          <table class="guide-table">
+            <thead><tr><th>Land</th><th>Effect</th><th>You feel it as</th></tr></thead>
+            <tbody>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#FDE68A"></span>Light</span></td><td>Dazzle</td><td>A flash; the screen's edges go dark for 2 s</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#A7F3D0"></span>Wind</span></td><td>Shove</td><td>Pushed back across the ground</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#3B82F6"></span>Water</span></td><td>Soaked</td><td>Your defence halved</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#67E8F9"></span>Ice</span></td><td>Chill, then freeze</td><td>20% slower, 40% at two; a third freezes you solid for 1 s: no moving, no attacking</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#A16207"></span>Earth</span></td><td>Root</td><td>Held where you stand for 0.6 s</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#FF6A1F"></span>Fire</span></td><td>Burn</td><td>Damage over 3 s</td></tr>
+              <tr><td><span class="nowrap"><span class="land-dot" style="--el:#8B5CF6"></span>Dark</span></td><td>Wither</td><td>Healing halved and damage taken doubled, for 2 s</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Effects are always escapable: nothing slows you past 40%, nothing lasts over 3 seconds, and nothing
+          holds you twice in a row.</p>
+        <p><strong>A land stirs every few hours.</strong> The least-hunted land wakes for a while, and every player
+          is told which. Its monsters glow in its colour, hit harder, have more health and move faster, but drop
+          loot more often, and your resistance to that land counts for more while it stirs.</p>
+      </section>
+
+      <section class="lore-chapter" id="endless">
+        <p class="eyebrow">The minigame</p>
+        <h2>The Endless</h2>
+        <p>The Endless is a once-a-day horde run, alone or with up to three party members, and its elites and
+          bosses fill a chest with loot. Open the <strong>Minigames</strong> button on the bar and press
+          <strong>Go</strong>; your day starts the moment you press it.</p>
+        <ol class="guide-list guide-steps">
+          <li><strong>The corridor.</strong> You arrive in a corridor with a crypt door at its end. The door only
+            opens one way: once through, you cannot walk back out.</li>
+          <li><strong>The run.</strong> Step through the door and the clock starts (a party gets a 5-second
+            countdown, with the door held open). Every minute is a new stage in the next land, and the horde grows,
+            up to 3,000 slimes, each faster and tougher than the last.</li>
+          <li><strong>Elites and bosses.</strong> From stage 2, elites come in waves that get faster and bigger;
+            every fifth stage brings that land's boss.</li>
+          <li><strong>Each land is felt.</strong> The swarm's touch carries the land's effect. In wind stages, paths
+            of spikes rise near you: step out on the faint warning, or take three hits. Standing still in a crowd is
+            deadly: every slime pressed around you bites.</li>
+          <li><strong>A fall is not a death.</strong> You wake by your chest on 1 health, keeping everything. In a
+            party the run goes on, and the door opens for 3 seconds at each new stage so you can walk back in. The
+            corridor heals nobody; your health comes back as it always does.</li>
+        </ol>
+        <p><strong>The chest.</strong> Every elite and boss you kill rolls its own loot (gold, gear, materials, even
+          its pet and mythic chances) into your chest in the corridor, beside the ladder. These kills give no
+          experience. Walk up and press the interact key to open it; press it again to take everything.</p>
+        <ul class="guide-list">
+          <li><strong>It keeps until your next Go,</strong> which empties it. Take it before you leave.</li>
+          <li><strong>Leaving:</strong> the Minigames card's <strong>Leave</strong>, or the ladder in the corridor.
+            With loot still in the chest, both ask twice.</li>
+        </ul>
+      </section>
+
+      <section class="lore-chapter" id="shop">
+        <p class="eyebrow">Money</p>
+        <h2>Shop, bank and trading</h2>
+        <p>The shop sells iron to amethyst gear and buys back almost anything at 5% of its value. The bank is
+          shared by every character on the account. Trades between players carry a small tax.</p>
+        <h3>The shop</h3>
+        <ul class="guide-list">
+          <li>Sells every iron, jade, cobalt and amethyst weapon and armour piece, plus fishing worms and rods.
+            Ember is never sold; it only drops.</li>
+          <li><strong>The mythic weapons are free:</strong> one plain copy of each per character, wearable from
+            level 1. A free copy cannot be sold or traded; a dropped one can.</li>
+          <li><strong>Selling:</strong> with the shop open, double-click an item in your bag to sell one. Legendary,
+            mythic and Perfect pieces ask twice. Money, pets and quest items cannot be sold.</li>
+        </ul>
+        <h3>The bank</h3>
+        <ul class="guide-list">
+          <li>Every character on your account shares it, and no death reaches it.</li>
+          <li>With the bank open, double-click an item in your bag to deposit it. <strong>Deposit</strong> with no
+            amount typed banks all the gold you carry.</li>
+        </ul>
+        <h3>Trading</h3>
+        <ul class="guide-list">
+          <li>You can only trade with someone who is online. They get a card saying you want to trade, with
+            <strong>See offer</strong> and <strong>No thanks</strong>.</li>
+          <li>Add items by double-clicking them in your bag or dragging them onto your side. A change to the offer
+            un-accepts both sides, so you never accept something different from what you saw.</li>
+          <li><strong>The tax:</strong> each side pays 5% of the value it receives, in gold, rounded up.</li>
+          <li><strong>The 48-hour hold:</strong> a mythic or Perfect piece you got from loot or the shop cannot be
+            traded for 48 hours.</li>
+        </ul>
+      </section>
+
+      <section class="lore-chapter" id="together">
+        <p class="eyebrow">Together</p>
+        <h2>Playing with others</h2>
+        <p>Everyone in an area sees each other and fights the same monsters, and each player who lands a hit gets
+          their own loot bag.</p>
+        <ul class="guide-list">
+          <li><strong>Parties</strong> hold up to four. Click a player to invite them; an invitation lasts
+            2 minutes. Logging off leaves the party, and a party of one ends. Party members get their own chat and
+            appear on your map.</li>
+          <li><strong>Party voice chat</strong> runs through a relay, so nobody in the call learns your address.</li>
+          <li><strong>Clicking a player</strong> lets you add them as a friend, invite them to your guild or party,
+            or report them.</li>
+          <li><strong>Friends and guilds</strong> each have their own list and their own chat.</li>
+          <li><strong>Your name's colour is yours</strong> to pick in Options. Staff wear a crown or a MOD or DEV
+            badge, which no player can choose. A name in your own colour proves nothing; the badge does.</li>
+        </ul>
+        <h3>Staying safe in chat</h3>
+        <ul class="guide-list">
+          <li><strong>Ignore</strong> someone and their lines, whispers, friend requests and trades stop reaching
+            you. Staff cannot be ignored.</li>
+          <li><strong>Report</strong> a chat line or a player; staff see every report, grouped by player.</li>
+          <li>Staff can mute, kick or ban, always with a reason, and every action is logged.</li>
+        </ul>
+      </section>
+
+      <section class="lore-chapter" id="keys">
+        <p class="eyebrow">Keys</p>
+        <h2>Handy shortcuts</h2>
+        <p>The rule to remember: with a window open beside your bag, double-clicking an item in the bag sends it to
+          that window. Keys can be changed in Controls.</p>
+        <div class="guide-table-wrap">
+          <table class="guide-table">
+            <thead><tr><th>Key or action</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td>WASD or the arrow keys</td><td>Move</td></tr>
+              <tr><td>Space</td><td>Attack</td></tr>
+              <tr><td>Shift</td><td>Sprint</td></tr>
+              <tr><td>E</td><td>Interact: open a bag, a chest, a door; press again on an open bag or chest to take everything</td></tr>
+              <tr><td>1 to 0</td><td>Use the item on that hotbar key</td></tr>
+              <tr><td>I</td><td>Your bag</td></tr>
+              <tr><td>M</td><td>The map: the whole area, with a mouse wheel to zoom and a drag to look around</td></tr>
+              <tr><td>- and =, or the mouse wheel</td><td>Zoom the camera out and back in</td></tr>
+              <tr><td>H</td><td>The Controls card: every key, each one a button to change it</td></tr>
+              <tr><td>Escape</td><td>Close the open window</td></tr>
+              <tr><td>Right-click an item</td><td>Use it; on your gear doll, take it off</td></tr>
+              <tr><td>Double-click in your bag, shop open</td><td>Sell one</td></tr>
+              <tr><td>Double-click in your bag, bank open</td><td>Deposit it</td></tr>
+              <tr><td>Double-click in your bag, trade open</td><td>Offer it</td></tr>
+              <tr><td>Drag an item onto a hotbar key</td><td>Keep it on that key</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>On a touch screen, holding a finger on an item does what a right-click or a double-click would. Every
+          item's tooltip says how it is used.</p>
+      </section>
+
+      <section class="lore-chapter" id="help">
+        <p class="eyebrow">Help</p>
+        <h2>When something goes wrong</h2>
+        <p>The game tells you when it loses the server, and nothing the server has saved is lost by a dropped
+          connection.</p>
+        <ul class="guide-list">
+          <li><strong>Lost connection:</strong> after 25 seconds without an answer, a banner says so and counts down.
+            It clears by itself when the server answers. After 90 seconds the game signs you out rather than letting
+            you play on unsaved.</li>
+          <li><strong>Signed out without warning:</strong> usually your account signed in somewhere else. If that was
+            not you, change your password.</li>
+          <li><strong>Maintenance:</strong> a notice counts down before the server closes.</li>
+          <li><strong>Bag full:</strong> a take from a loot bag or chest that will not fit stays where it was. Make
+            room and take it again; coins and lusions always fit.</li>
+          <li><strong>Bugs and help:</strong> <a href="mailto:elusionrpg@gmail.com">email elusionrpg@gmail.com</a>
+            &mdash; a bug report is worth more than you think. The game also reports its own errors to the team.</li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="lore-footnote">Elusion is still being built, so a number here can change with an update &mdash;
+      <a href="updates.html">the updates page</a> says what moved.</p>
+
+    <div class="sim-callout lore-callout">
+      <div class="t">
+        <h3>Ready to try it?</h3>
+        <p>Free, in your browser &mdash; on a PC with a keyboard and mouse, or on a phone held sideways.</p>
+      </div>
+      <a class="btn primary" href="https://play.elusionrpg.com">Play now</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

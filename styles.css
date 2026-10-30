@@ -1354,6 +1354,12 @@ footer {
 /* Four ways deeper, each card a link with its own picture: the portal, the
    Crowned, a notice board, and the support page's cocoa. */
 .explore-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+/* Three across (every day) and five (go deeper, with the guide, 30 Oct). */
+.explore-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.explore-grid.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1040px) {
+  .explore-grid.five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 .explore-card, .follow-tile {
   text-decoration: none; color: inherit;
   border: 1px solid #2c3b41; border-radius: 12px;
@@ -1421,7 +1427,7 @@ footer {
 .home-thanks span { color: #4fd1ff; }
 
 @media (max-width: 900px) {
-  .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .explore-grid, .explore-grid.three, .explore-grid.five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
   .home-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 400px; }
@@ -1622,6 +1628,7 @@ footer {
 .sky-knight   { background-size: 170% auto;  background-position: 29% 48%; }
 .sky-stones   { background-size: 170% auto;  background-position: 54% 80%; }
 .sky-portal   { background-size: 240% auto;  background-position: 87% 21%; }
+.sky-guide    { background-size: 200% auto;  background-position: 6% 4%; }
 /* On a narrow screen a width-relative zoom would show too thin a band of the
    picture; it is sized to the strip's height there instead, the whole view
    covering it. */
@@ -1633,4 +1640,41 @@ footer {
   .sky-knight   { background-size: auto 227%; background-position: 28% 48%; }
   .sky-stones   { background-size: auto 189%; background-position: 54% 97%; }
   .sky-portal   { background-size: auto 303%; background-position: 87% 13%; }
+  .sky-guide    { background-size: auto 400%; background-position: 4% 0%; }
+}
+
+/* ---- THE GUIDE (30 Oct) ----
+   guide.html, the owner's "Things to Know": the lore page's chapters on their
+   line, with a row of links to each, lists, and tables in the site's colours. */
+.guide-toc {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  max-width: 820px; margin: 18px auto 0;
+}
+.guide-toc a {
+  padding: 5px 12px; border: 1px solid #2c3b41; border-radius: 20px;
+  color: #a8e9ff; text-decoration: none; font-size: 0.85rem; background: #18203c;
+}
+.guide-toc a:hover, .guide-toc a:focus-visible { border-color: #4fd1ff; color: #ffffff; }
+.guide .lore-chapter { scroll-margin-top: 16px; }
+.guide .lore-chapter h3 { color: #f5f5f5; font-size: 1.05rem; margin: 18px 0 6px; }
+.guide .lore-chapter a { color: #4fd1ff; }
+.guide-list { margin: 0 0 16px; padding-left: 20px; }
+.guide-list li { margin: 0 0 8px; }
+.guide-list li::marker { color: #4fd1ff; }
+.guide-table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.guide-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; line-height: 1.5; }
+.guide-table th {
+  text-align: left; color: #7fe2ff; text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 0.7rem; padding: 8px 10px; border-bottom: 1px solid #2c3b41;
+}
+.guide-table td { padding: 8px 10px; border-bottom: 1px solid #222b40; vertical-align: top; }
+.guide-table td:first-child { color: #f5f5f5; font-weight: bold; white-space: nowrap; }
+.guide-table tr:last-child td { border-bottom: 0; }
+.guide-table .nowrap { white-space: nowrap; }
+.land-dot {
+  display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%;
+  background: var(--el); box-shadow: 0 0 8px var(--el); vertical-align: 1px;
+}
+@media (max-width: 560px) {
+  .guide-table td:first-child { white-space: normal; }
 }

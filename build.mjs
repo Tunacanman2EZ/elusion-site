@@ -29,6 +29,8 @@ const REQUIRED = [
 	"contribute.html",
 	"join.html",
 	"lore.html",
+	// The player guide (30 Oct): the owner's "Things to Know" doc, as a page.
+	"guide.html",
 	// Every push, both logs in full (23 Oct): the home page keeps the latest three.
 	"updates.html",
 	"login.html",
