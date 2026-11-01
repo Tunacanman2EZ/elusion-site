@@ -35,6 +35,8 @@ const REQUIRED = [
 	"updates.html",
 	"login.html",
 	"simulator.html",
+	// What Elusion keeps and why (31 Oct): Google's sign-in asks for it.
+	"privacy.html",
 	"bosssim.js",
 	"bosssim-data.js",
 	"styles.css",

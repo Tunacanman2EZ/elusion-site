@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy • Elusion RPG</title>
+  <!-- SEARCH AND SHARING: what Google and link previews show. The canonical
+       address and the sitemap.xml entry are the same URL; test_seo.mjs
+       holds them together. -->
+  <meta name="description" content="What Elusion RPG keeps about you and why: your account, signing in with Google, what the game records while you play, who can see it, and how to delete it." />
+  <link rel="canonical" href="https://elusionrpg.com/privacy.html" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#1b233f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elusion RPG" />
+  <meta property="og:title" content="Privacy • Elusion RPG" />
+  <meta property="og:description" content="What Elusion RPG keeps about you and why: your account, signing in with Google, what the game records while you play, who can see it, and how to delete it." />
+  <meta property="og:url" content="https://elusionrpg.com/privacy.html" />
+  <meta property="og:image" content="https://elusionrpg.com/images/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elusion RPG: the Crowned Beholder standing in its crypt arena, beside the game's name" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ABOVE THE NAV, so it is the first thing on the page rather
+       than the last. Hidden until visits.js has a real number, so an
+       unreachable counter costs no space at all. -->
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html">Guide</a>
+    <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
+    <a href="contribute.html">Free to play</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <!-- THE SKY (23 Oct): the home page's picture, cropped for this page -
+       styles.css, "THE SKY ON EVERY PAGE". The page's <h1> lives here. -->
+  <header class="sky-strip sky-signpost">
+    <div class="sky-title">
+      <p class="sky-eyebrow">Privacy &middot; In plain words</p>
+      <h1>Privacy</h1>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">The short version</p>
+        <h2>What Elusion keeps, and why</h2>
+        <p>Elusion RPG is free and made by one person. It keeps what it needs to run your account and keep the game fair, nothing is sold, and there are no ads or outside trackers. Updated 31 October 2026.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Your account</p>
+        <h2>What you give us</h2>
+      </div>
+      <ul>
+        <li><strong>Your name in the game</strong> - the one other players see.</li>
+        <li><strong>Your password</strong>, if you make one - kept only as a scrambled hash that nobody, us included, can turn back into the password.</li>
+        <li><strong>A recovery email</strong>, if you add one - used only to send you codes: to get back into your account, and for staff, to sign in.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Signing in with Google</p>
+        <h2>What Google tells us</h2>
+      </div>
+      <ul>
+        <li>When you sign in with Google, Google tells us an ID for your Google account and your email address, which Google has checked is yours. We keep both: the ID to know it is you next time, and the email as your recovery address.</li>
+        <li>We never see your Google password. We do not keep your Google name or picture - in the game you go by the name you pick.</li>
+        <li>One Google account opens one Elusion account.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">While you play</p>
+        <h2>What the game records</h2>
+      </div>
+      <ul>
+        <li><strong>Your characters</strong>: their levels, skills, gold, items and progress.</li>
+        <li><strong>Chat</strong>: messages are kept for a day; a message someone reports is kept with the report for the moderators.</li>
+        <li><strong>Where you sign in from</strong>: the internet addresses and the copy of the game you use, so a banned player cannot simply make a new account, and so a stolen login can be spotted.</li>
+        <li><strong>Sign-in attempts</strong>, so password guessing can be stopped.</li>
+        <li><strong>Fights and where your character stands</strong>, so the server can check that kills and loot are fair. Positions are kept for two weeks.</li>
+        <li><strong>Party voice chat</strong> travels through a relay between the players in your party. It is never recorded.</li>
+        <li><strong>This website</strong> counts visits, with no outside trackers and no ad cookies.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Who sees it</p>
+        <h2>You, and the people who keep the game running</h2>
+      </div>
+      <p>You see your own account. Moderators see what they need to keep the game fair and friendly - reports, chat, and the history of your account's sign-ins and actions. Nothing is sold or shared for advertising.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Deleting it</p>
+        <h2>Your account is yours to delete</h2>
+      </div>
+      <p>In the game, open Options, then Account, then Delete account. Your characters, items, chat, sign-in records and Google link are deleted. A few records that are also other players' stay with your name taken out: trades you made with them, and the game's gold ledgers. If you made your account with Google, use "Forgot password" on the sign-in screen first: a code goes to your Google email and lets you set the password the delete asks for.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2>Ask me</h2>
+      </div>
+      <p>Email <a href="mailto:elusionrpg@gmail.com" style="color:#5fd4ff">elusionrpg@gmail.com</a> with anything about your data, or to ask for it deleted.</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG. All rights reserved. · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>
