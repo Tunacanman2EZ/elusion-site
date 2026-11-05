@@ -11,7 +11,8 @@ way it does in the game's repository (`assetlicense.md` in Elusion_RPG).
 ## Elusion Studios' art - all rights reserved
 
 Everything under `images/`, and `favicon.ico`: the monsters and their deaths,
-the Crowned, the arena, the portals, the crown, the cursors, the icons and the
+the four heroes on the minigames cards, the Crowned, the arena, the portals,
+the crown, the cursors, the icons, the hotbar's frame on the buttons and the
 social card.
 
 (c) 2026 Elusion Studios. Commissioned from Ahvassa (https://ahvassa.itch.io/)
