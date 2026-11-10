@@ -451,20 +451,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.136.0.</p>
+      <p>The road to launch, one build at a time. Now on v0.137.0.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-09">Nov 9, 2026</time><span class="update-version">v0.137.0</span></div>
+        <p>The performance readout gains an Uncap switch for the owner's testing. With V-Sync on, the game never draws more frames than the screen shows - 60 on most - so the readout could never say how much room is left. Uncap turns V-Sync and the frame cap off while the readout is open, to see the game's real top speed, and puts them back the moment it closes. Nothing is saved, and the game still slows right down when it is behind another window.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-09">Nov 9, 2026</time><span class="update-version">v0.136.0</span></div>
         <p>The owner's performance readout is remade: a tidy panel instead of a wall of text over the game. Big frame numbers that turn amber and red when a frame runs long, a graph of the last few seconds, one coloured bar showing where each frame's time goes - physics, the game's code, drawing, and waiting on the screen - the world's counts in a grid, and the latest stutters each tagged with their cause. A Copy button puts the whole readout on the clipboard, ready to share.</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-09">Nov 9, 2026</time><span class="update-version">v0.135.8</span></div>
         <p>The map no longer slows the game down in a crowd. While it was open it looked up every monster on the field and drew its dot again every single frame - fine with a few hundred, but with thousands of monsters it dropped the game to 17 frames a second. Now it gathers them a few at a time and only redraws the parts of the map where something moved; the sleeping ones stay as they are. It looks exactly the same, and the game stays smooth with the map open.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-09">Nov 9, 2026</time><span class="update-version">v0.135.7</span></div>
-        <p>A tidy-up behind the scenes: the game's code raised a pile of warnings as it loaded - sixty-nine small things, none of them a real problem, but enough noise that a real one could hide among them. All fixed, and nothing about how the game plays has changed.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
