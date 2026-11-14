@@ -184,6 +184,10 @@ footer {
   padding: 1rem 0;
   border-top: 1px solid #333;
 }
+/* The footer's links in the site's gold (14 Nov) - the browser's blue was
+   hard to read on the dark. */
+footer a { color: #dab363; text-underline-offset: 3px; }
+footer a:hover { color: #f0d08a; }
 
 /* The visitor count, above the nav — the first thing on the page.
 

@@ -451,20 +451,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.156.0.</p>
+      <p>The road to launch, one build at a time. Now on v0.157.0.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-14">Nov 14, 2026</time><span class="update-version">v0.157.0</span></div>
+        <p>Security work. Every minigame now shares one daily allowance of gold per account - the Healer's Run, Cut the Cloth and the coins that drop into the Endless and Forge chests, counted together - so a tampered game can never take more than an honest great day; when the day is full, the Leave message says how much was held back, and the chest says it once. A deleted account now stays deleted even if an older backup of the server is ever restored. When staff put a character back to an earlier save, an item it has since traded, banked or handed to another character is no longer copied back. And the server can now hold what other players see of you to what your character could really walk, ready to be switched on.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-13">Nov 13, 2026</time><span class="update-version">v0.156.0</span></div>
         <p>Fewer freezes the first time something happens in a fight. The first hit flash, the first monster to crumble, a burst of sparks or a boss arena's fog and snow used to be prepared by the graphics card at the very moment it first appeared, which on a phone could stall the screen mid-fight; now everything the game draws with is drawn once, out of sight, as you arrive, so a fight never waits for it. The Endless's slime horde also costs less every physics step, most of all on phones and in an empty arena. And the performance readout now counts the screen's own draw calls, showing a redraw of its own picture apart instead of adding it in.</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-13">Nov 13, 2026</time><span class="update-version">v0.155.1</span></div>
         <p>Dragging an item off the hotbar works again. Since the bottom bar became one picture, the item's icon was drawn inside that picture and vanished on the way to the bag; it now stays on top of everything on screen. Behind the scenes, the Testing Ground's panel also steps out of the way while you drag, so an item dropped on the bag beneath it lands there. And on phones, attacks no longer lock onto the nearest monster by themselves: drag the Attack button, or tap where you want to strike, to aim. Phones also run lighter in the Endless: the slime horde thinks half as often there while still moving just as smoothly, and the performance readout no longer adds hundreds of draws of its own to what it measures.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-13">Nov 13, 2026</time><span class="update-version">v0.155.0</span></div>
-        <p>Crowds and the screen draw much faster. Every monster's health bar and number used to be drawn on its own; now all the bars are drawn together and then all the numbers, so a crowd of twenty costs about a fifth fewer draws a frame, and health bars show above walls and monsters in front, the way names do. The buttons and hotbar along the bottom are now drawn once as a single picture and redrawn only when something on them changes, which cuts what an empty area costs to draw by about three quarters - they look and work exactly as before. The healer's orbs are drawn together too, at less than half the cost on other players' screens. And phones now move the world 40 times a second instead of 60 - the picture stays smooth - leaving more of the phone for the fight; Options > Physics has the new Lightest choice.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
@@ -521,7 +521,7 @@
   </section>
 
   <footer>
-    <p>© 2026 Elusion RPG &middot; ElusionRPG &middot; elusionrpg.com. All rights reserved. · <a href="privacy.html">Privacy</a></p>
+    <p>© 2026 Elusion RPG &middot; ElusionRPG &middot; elusionrpg.com. All rights reserved. · <a href="built.html">How it's built</a> · <a href="privacy.html">Privacy</a></p>
   </footer>
 
   <script src="script.js"></script>
