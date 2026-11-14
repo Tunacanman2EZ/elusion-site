@@ -451,20 +451,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.154.0.</p>
+      <p>The road to launch, one build at a time. Now on v0.155.0.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-13">Nov 13, 2026</time><span class="update-version">v0.155.0</span></div>
+        <p>Crowds and the screen draw much faster. Every monster's health bar and number used to be drawn on its own; now all the bars are drawn together and then all the numbers, so a crowd of twenty costs about a fifth fewer draws a frame, and health bars show above walls and monsters in front, the way names do. The buttons and hotbar along the bottom are now drawn once as a single picture and redrawn only when something on them changes, which cuts what an empty area costs to draw by about three quarters - they look and work exactly as before. The healer's orbs are drawn together too, at less than half the cost on other players' screens. And phones now move the world 40 times a second instead of 60 - the picture stays smooth - leaving more of the phone for the fight; Options > Physics has the new Lightest choice.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-13">Nov 13, 2026</time><span class="update-version">v0.154.0</span></div>
         <p>Behind the scenes: the Testing Ground's Find the limit now measures shots and effects as well as monsters. Every kind of monster shot and bullet orb is held in the air in growing numbers, and every party attack, spark, hit and death is fired faster and faster, until the game's work reaches 80% of a frame, so what a fight's projectiles and effects cost is measured on each PC and phone instead of guessed. Making a monster in the Testing Ground is also about five times quicker: it no longer reads the monster from disk again every time.</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-11">Nov 11, 2026</time><span class="update-version">v0.153.0</span></div>
         <p>The healer's orbs are much lighter on the computer: every orb in the air used to check every monster in the area many times a second, and now they share one list each moment - the same hits, a fraction of the work. Behind the scenes, the performance readout and the Testing Ground's panel each fold out of the way with a Less button, and the Testing Ground's Clear all now clears everything a test leaves behind, slimes' twins and puddles included.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-11">Nov 11, 2026</time><span class="update-version">v0.152.0</span></div>
-        <p>Behind the scenes: the Testing Ground can now find the limit on its own. Pick a monster - or every kind, or every monster in the game - and it brings more and more of it into the arena, measuring the game's own work at each step until the work reaches 80% of a frame's budget. It works out what one of that monster costs and how many fit. The performance readout can also measure any spot in the world with one button. Every result is kept and copies out as rows ready for a spreadsheet. And the minigames run smoother: the monsters each one brings are loaded before they arrive, a big wave comes in over a few frames instead of all at once, and the Forge readies its floods ahead of time, so a new kind of monster no longer makes the game stutter the first time it appears.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
