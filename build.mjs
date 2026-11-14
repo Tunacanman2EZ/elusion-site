@@ -37,6 +37,12 @@ const REQUIRED = [
 	"simulator.html",
 	// What Elusion keeps and why (31 Oct): Google's sign-in asks for it.
 	"privacy.html",
+	// How it's built (13 Nov): the architecture and the security model, for
+	// the public; the detail is in the API repository.
+	"built.html",
+	// For AI assistants (13 Nov): what the game is called, every way it is
+	// written, and its pages - the owner: "ai has a hard time finding my website".
+	"llms.txt",
 	"bosssim.js",
 	"bosssim-data.js",
 	"styles.css",

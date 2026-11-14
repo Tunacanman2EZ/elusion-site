@@ -1263,6 +1263,8 @@ footer {
 .about-main p { margin: 0 0 16px; }
 .about-main p:last-child { margin-bottom: 0; }
 .about-main strong { color: #f5f5f5; }
+.about-main a { color: #dab363; text-underline-offset: 3px; }
+.about-main a:hover { color: #f0d08a; }
 .about-story, .about-next {
   margin-top: 18px; padding: 14px 18px;
   border-left: 3px solid #dab363; border-radius: 0 10px 10px 0;
@@ -1718,3 +1720,33 @@ footer {
 .mg-tag.mage { background: #22304f; border-color: #3d5590; }
 .mg-tag.warrior { background: #4a2420; border-color: #85403a; }
 .mg-tag.tank { background: #4a2e16; border-color: #8a5424; }
+
+/* ---- HOW IT'S BUILT (13 Nov): built.html ----
+   The pieces are the credits' cards (.artist-grid), the security story is the
+   About page's chapters; only the fight, step by step, is its own. */
+.built-grid { max-width: 880px; }
+.built-flow {
+  list-style: none; counter-reset: built-step;
+  max-width: 760px; margin: 0 auto; padding: 0;
+  display: grid; gap: 12px;
+}
+.built-flow li {
+  counter-increment: built-step;
+  position: relative; padding: 16px 20px 16px 64px;
+  border: 1px solid #27221d; border-radius: 12px;
+  background: linear-gradient(160deg, #27221c, #1f1a15);
+  color: #c2bfbc; line-height: 1.6;
+}
+.built-flow li::before {
+  content: counter(built-step);
+  position: absolute; left: 18px; top: 16px;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(218, 179, 99, 0.14); border: 1px solid rgba(218, 179, 99, 0.5);
+  color: #dab363; font-weight: bold; font-size: 0.95rem;
+}
+.built-flow strong { color: #f5f5f5; }
+@media (max-width: 640px) {
+  .built-flow li { padding: 14px 16px 14px 56px; }
+  .built-flow li::before { left: 14px; }
+}

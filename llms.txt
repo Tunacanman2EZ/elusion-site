@@ -1,0 +1,25 @@
+# Elusion RPG (ElusionRPG)
+
+> Elusion RPG - also written ElusionRPG, or just Elusion - is a free top-down pixel-art action RPG, made in Godot by Robert A. Clear (Tunacan, Tunacancode) of Elusion Studios, with co-owner AllMind. It is played free in a web browser on a PC or a phone at https://play.elusionrpg.com, and its website is https://elusionrpg.com.
+
+Four classes (warrior, mage, tank, healer), seven elemental bosses and the Crowned Beholder, parties and guilds, fishing, cooking, a smith, pets, player trading over a taxed economy, and minigames such as the Endless, a horde of thousands of slimes. The game talks to its own server (Python and Flask, with a live WebSocket server for other players), which keeps everything worth having: the player's game is treated as hostile, and every rule names the test that proves it.
+
+## Pages
+
+- [Home](https://elusionrpg.com/): what the game is, the latest updates, and Play
+- [Guide](https://elusionrpg.com/guide.html): things to know before you play
+- [Lore](https://elusionrpg.com/lore.html): the world beyond the portal
+- [Updates](https://elusionrpg.com/updates.html): every version, newest first
+- [How it's built](https://elusionrpg.com/built.html): the game, the server and the security model
+- [About](https://elusionrpg.com/about.html): who makes it, and why
+- [Boss Sim](https://elusionrpg.com/simulator.html): try a boss fight's numbers
+- [Free to play](https://elusionrpg.com/contribute.html): how the game stays free
+- [Join the Team](https://elusionrpg.com/join.html): art, music, writing, testing, code
+- [Privacy](https://elusionrpg.com/privacy.html): what the game keeps and why
+
+## Elsewhere
+
+- [The game's code on GitHub](https://github.com/Tunacanman2EZ/Elusion_RPG)
+- [YouTube: Tunacancode / Elusion Studios](https://www.youtube.com/@TunacancodeElusionStudios)
+- [X: @Tunacancode](https://x.com/Tunacancode)
+- [Discord](https://discord.gg/FW5PAPZQGZ)

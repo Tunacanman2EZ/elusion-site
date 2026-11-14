@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How it's built • Elusion RPG</title>
+  <!-- SEARCH AND SHARING: what Google and link previews show. The canonical
+       address and the sitemap.xml entry are the same URL; test_seo.mjs
+       holds them together. -->
+  <meta name="description" content="How Elusion RPG is built: the Godot game, the Flask server and its live socket, who owns what, and a security model that assumes every player's game is hostile." />
+  <link rel="canonical" href="https://elusionrpg.com/built.html" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#211c17" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elusion RPG" />
+  <meta property="og:title" content="How it's built • Elusion RPG" />
+  <meta property="og:description" content="How Elusion RPG is built: the Godot game, the Flask server and its live socket, who owns what, and a security model that assumes every player's game is hostile." />
+  <meta property="og:url" content="https://elusionrpg.com/built.html" />
+  <meta property="og:image" content="https://elusionrpg.com/images/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elusion RPG: the Crowned Beholder standing in its crypt arena, beside the game's name" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html">Guide</a>
+    <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
+    <a href="contribute.html">Free to play</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <header class="sky-strip sky-signpost">
+    <div class="sky-title">
+      <p class="sky-eyebrow">The engineering &middot; v0.156.0</p>
+      <h1>How Elusion is built</h1>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <section class="hero about-hero">
+      <div class="hero-text">
+        <p class="tagline">A game on your machine, a server that doesn't believe it.</p>
+        <p class="sub">Elusion is two programs that talk all the time: the <strong>game</strong>, made in Godot,
+          running on your PC, your phone or in a browser tab, and the <strong>server</strong>, which keeps
+          everything worth having. This page is how they fit together, who is in charge of what, and how I make
+          sure a player who edits their copy of the game gets nothing for it.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">The game on GitHub</a>
+          <a class="btn ghost" href="about.html">The story behind it</a>
+        </div>
+      </div>
+
+      <div class="game-screen stats-screen">
+        <div class="stat-tiles">
+          <div class="stat-tile"><div class="n">14,161</div><div class="l">automated checks</div></div>
+          <div class="stat-tile"><div class="n">39</div><div class="l">server areas</div></div>
+          <div class="stat-tile"><div class="n">22</div><div class="l">audit findings</div></div>
+          <div class="stat-tile"><div class="n">1</div><div class="l">small server</div></div>
+        </div>
+        <div class="playbar">
+          <span><span class="dot"></span>Measured, not guessed</span>
+          <span class="playbar-quiet">13 Nov 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THE PIECES ===== -->
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">The pieces</p>
+        <h2>What runs where</h2>
+        <p>Six parts, most of them on one small rented server. Each one has a single job.</p>
+      </div>
+      <div class="artist-grid built-grid">
+        <div class="artist-card">
+          <p class="artist-role">On your machine</p>
+          <h3>The game</h3>
+          <p>Godot 4.7 and GDScript. The same code builds for Windows and for the browser, where it runs on WebGL 2
+            with no threads &mdash; and on a phone it plays at 30 frames, moves the world 40 times a second and
+            draws its busiest panels once instead of every frame.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">The rules</p>
+          <h3>The API</h3>
+          <p>Python and Flask. A small shared core and 39 areas &mdash; accounts, saves, the bag, kills and loot,
+            the shop and the smith, trades, parties, guilds, chat, moderation, the minigames &mdash; each in its own
+            folder with the same three layers: the route, the rules, the database.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">The live world</p>
+          <h3>The presence server</h3>
+          <p>One more Python process, holding every player's live connection. It passes on where everyone stands
+            ten times a second, who leads each area's monsters, attacks, levers and party runs &mdash; and keeps its
+            own count of every monster's health.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">What lasts</p>
+          <h3>The database</h3>
+          <p>SQLite: one file, in write-ahead mode, backed up every night with its own safe copy. Gold lives in a
+            double-entry ledger, so every coin that exists can be traced to where it came from.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">The front door</p>
+          <h3>Caddy</h3>
+          <p>Takes every connection, handles the encryption and renews its own certificates, and sends each request
+            to the right program. The browser version of the game is served from the same address, so it needs no
+            special rules to reach the server.</p>
+        </div>
+        <div class="artist-card">
+          <p class="artist-role">This page</p>
+          <h3>The website</h3>
+          <p>Plain HTML on Netlify, kept apart from the game's server entirely. The update log, the guide, the Boss
+            Sim and the visit counter all live here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW THEY TALK ===== -->
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">How they talk</p>
+        <h2>One fight, end to end</h2>
+      </div>
+      <ol class="built-flow">
+        <li><strong>You sign in.</strong> The game sends your password (or finishes a Google sign-in in your web
+          browser) to the API, and gets back a session. The session is a row on the server: log out, get banned
+          or sign in somewhere else, and that row is gone &mdash; every request after it is refused.</li>
+        <li><strong>You walk into an area.</strong> The game asks the API for a short-lived ticket and hands it to the
+          presence server. That server never sees a password: who you are on other players' screens &mdash; your
+          name, rank, colour, guild, pets &mdash; comes from the server's own records, not from your game.</li>
+        <li><strong>You fight.</strong> One game in each area runs its monsters and says what they do; everyone
+          else's game draws them and sends its hits there. While that happens, the presence server keeps its own
+          books: every hit checked against what your character could actually do, every death judged.</li>
+        <li><strong>A monster dies.</strong> Your game reports the kill. The API pays it only if the server's own
+          count of that fight agrees, rolls the loot itself with a secure random number source, and adds the XP
+          and gold through the ledger.</li>
+        <li><strong>You pick up the loot.</strong> Every item moves one cell at a time, by a request the server
+          carries out. Your game never writes its own bag.</li>
+      </ol>
+    </section>
+
+    <!-- ===== THE SECURITY MODEL ===== -->
+    <div class="about-chapters">
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">Security</p>
+          <h2>The player's machine is hostile</h2>
+        </div>
+        <div class="about-main">
+          <p>That is the one sentence the whole server is built on. The attacker I plan for is not a stranger
+            breaking in &mdash; that door is shut. It's a <strong>real player, logged in properly, running a modified
+            copy of the game</strong>. Anything the game works out, they can fake. So the question is never "can
+            somebody get in", it's <strong>"how much can a real player lie to the server about what happened?"</strong>
+            &mdash; and the answer is written down, one rule at a time.</p>
+          <div class="about-story">
+            <p class="eyebrow">What the server keeps for itself</p>
+            <p>Level and XP. Gold, through the ledger. Your health, mana and stamina limits, worked out fresh from
+              your class, level and gear every time. Every loot roll. Every bag, bank and worn item. A kill's pay,
+              held to the server's own count of the fight. What a minigame pays, held to its day and to how long the
+              run could really have taken. Even the staff ranks: the owner isn't a row in the database at all, so no
+              request can ever make anyone the owner.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">Proof</p>
+          <h2>Every rule names its test</h2>
+        </div>
+        <div class="about-main">
+          <p>The server's security page lists <strong>47 rules</strong> &mdash; a ban ends every session on every
+            device at once, two requests sent together can't both spend the same gold, a staff route answers
+            "not found" rather than "forbidden" so the ranks stay hidden, deleting your account takes everything
+            that was yours and nothing that is anybody else's &mdash; and every rule ends by naming the exact checks
+            that prove it. A separate test reads the page and fails if any check it names doesn't exist. If the page
+            and the tests ever disagree, the page is wrong.</p>
+          <p>Behind that: <strong>14,161 automated checks</strong> &mdash; 7,173 against the server and
+            6,988 inside a real copy of Godot &mdash; a <strong>red-team bot</strong> that attacks a running
+            server to prove money, items and stats can't be forged, and a <strong>self-audit</strong> of my own API:
+            twenty-two findings, nineteen closed, two held to a bound and named in the open, and one area audited
+            that turned up nothing.</p>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">Honest limits</p>
+          <h2>What isn't solved yet</h2>
+        </div>
+        <div class="about-main">
+          <p>The security page has a section for what is still open, because a list of only the good news isn't a
+            security model. Two examples. The monsters in an area are run by one player's game, so a modified game
+            can move them strangely on other people's screens &mdash; but it can't hurt anyone's health, bag or gold,
+            and their health is the server's count, not its word. And a minigame is played on your machine, so a
+            modified game can claim a better run than it had &mdash; up to what the time allows, inside its day. The
+            next step for both is the same: the server running more of the game itself.</p>
+        </div>
+      </section>
+
+      <section class="about-chapter">
+        <div class="about-side">
+          <p class="eyebrow">Limits, measured</p>
+          <h2>What one small server holds</h2>
+        </div>
+        <div class="about-main">
+          <p>I'd rather measure than guess. A bot swarm plays the game against a test copy of the server: with
+            <strong>128 players fighting in one area</strong>, the live server used about an eighth of one processor
+            core, and with 256 about a quarter. The real limit isn't the processor, it's the network &mdash; what has
+            to be sent grows with the square of a crowd in one place &mdash; so every game is only sent the players near
+            it, and the server watches its own monthly data and gently tightens itself if a crowd would run past
+            what it can afford.</p>
+          <div class="about-next">
+            <p class="eyebrow">What comes next</p>
+            <p>The two halves of the server only share the database, so the live-world process can move to its own
+              machine the day one isn't enough. More writers than SQLite allows would mean Postgres, and nothing before
+              launch needs it. And the big one: the server running more of each fight itself, which the books it keeps
+              today are the first step toward.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="sim-callout about-callout">
+        <div class="t">
+          <h3>Found something?</h3>
+          <p>Please don't post it publicly &mdash; use <em>Report a vulnerability</em> on the game's GitHub Security
+            tab. It reaches me privately and stays hidden until it's fixed.</p>
+        </div>
+        <a class="btn primary" href="https://github.com/Tunacanman2EZ/Elusion_RPG/security" target="_blank" rel="noopener">Report privately</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2026 Elusion RPG &middot; ElusionRPG &middot; elusionrpg.com. All rights reserved. · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

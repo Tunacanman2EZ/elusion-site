@@ -8,4 +8,20 @@
 User-agent: *
 Disallow: /.netlify/
 
+# AI ASSISTANTS AND THEIR SEARCH ARE WELCOME (13 Nov). The owner: "ai has a
+# hard time finding my website". Each is let in by name as well as by the
+# rule above, and llms.txt is a short page written for them.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /.netlify/
+
 Sitemap: https://elusionrpg.com/sitemap.xml
