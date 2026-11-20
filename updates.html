@@ -66,10 +66,14 @@
       <div class="section-head">
         <p class="eyebrow">Owner log</p>
         <h2>Tunacan's pushes</h2>
-        <p>The road to launch, one build at a time. Now on v0.168.10.</p>
+        <p>The road to launch, one build at a time. Now on v0.168.11.</p>
       </div>
       <div class="updates updates-full">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-19">Nov 19, 2026</time><span class="update-version">v0.168.11</span></div>
+        <p>Crownfall's bricks stay put. Hitting a brick could make another brick flash somewhere it shouldn't be for a split second. The game smooths movement between its physics steps, but Crownfall moves everything itself every frame, so a brick drawn fresh for its first hit started from the corner of the screen for one frame. Crownfall now skips the smoothing, as the Beholder's Table already did.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-19">Nov 19, 2026</time><span class="update-version">v0.168.10</span></div>
         <p>Cut the Cloth runs lighter: the cloth - its weave, its map lines and its frayed edges - was drawn piece by piece every frame, over a thousand draws even when nothing on it changed. Now it is drawn once into a picture each time you cut, and the game shows that picture: about 35 draws a frame instead of about 1,000, with nothing looking different. A big help on phones.</p>
       </div>
