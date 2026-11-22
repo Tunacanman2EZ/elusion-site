@@ -461,20 +461,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.174.2.</p>
+      <p>The road to launch, one build at a time. Now on v0.174.3.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.3</span></div>
+        <p>Swinging into a huge Endless horde stutters less. The horde moves in steps shared over several frames, and when your attacks made a frame run long it used to cram the rest of its step into the next one. Now it shares what is left over the frames still to come, and if it is ever behind it simply takes a frame longer: with 5,000 slimes its slowest frames came down by about a fifth. Also fixed for testing: the Testing Ground's Every effect sweep left its warrior axes spinning, which spoiled every effect measured after them.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.2</span></div>
         <p>Big hordes and bullet storms no longer stutter in the browser. Every time the number of slimes, bullets or spike flashes being drawn changed, the browser rebuilt part of its drawing - about 20 ms each time, up to twenty times a second while the Endless's horde poured in. Now that number only changes in big steps, and the spare places are drawn as nothing. With 1,000 slimes walking onto the screen, slow frames went from about 50 to under 10. (v0.173.2 had guessed a different cause; this is the real one.)</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.1</span></div>
         <p>A monster's health number now shows once it is hurt (a boss's always). A full bar already says it - and a crowd at full health with a number on every bar was most of what the graphics card had to draw: 300 fighting skeletons went from 628 draws a frame to 28.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.0</span></div>
-        <p>Monsters no longer catch your graphics card off guard. When you arrive somewhere, the game now quietly draws one of each monster that can show up there, out of sight and for a split second, so the browser has its drawing ready before the fight instead of building it the moment the first one appears. It helps most on a first visit after an update, and on phones.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
