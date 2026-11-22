@@ -461,20 +461,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.174.1.</p>
+      <p>The road to launch, one build at a time. Now on v0.174.2.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.2</span></div>
+        <p>Big hordes and bullet storms no longer stutter in the browser. Every time the number of slimes, bullets or spike flashes being drawn changed, the browser rebuilt part of its drawing - about 20 ms each time, up to twenty times a second while the Endless's horde poured in. Now that number only changes in big steps, and the spare places are drawn as nothing. With 1,000 slimes walking onto the screen, slow frames went from about 50 to under 10. (v0.173.2 had guessed a different cause; this is the real one.)</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.1</span></div>
         <p>A monster's health number now shows once it is hurt (a boss's always). A full bar already says it - and a crowd at full health with a number on every bar was most of what the graphics card had to draw: 300 fighting skeletons went from 628 draws a frame to 28.</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.174.0</span></div>
         <p>Monsters no longer catch your graphics card off guard. When you arrive somewhere, the game now quietly draws one of each monster that can show up there, out of sight and for a split second, so the browser has its drawing ready before the fight instead of building it the moment the first one appears. It helps most on a first visit after an update, and on phones.</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-21">Nov 21, 2026</time><span class="update-version">v0.173.2</span></div>
-        <p>Aimed at smoother fights with lots on screen. Bullets, the Endless's horde, the boss spikes' rings and the Healer's Run shots now send the graphics card only what is in use, and never rewrite the copy it is still drawing from. In the browser that rewrite looked like the slow frames behind archers' arrow storms and big hordes.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
