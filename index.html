@@ -461,20 +461,20 @@
     <div class="section-head">
       <p class="eyebrow">Owner log</p>
       <h2>The latest pushes</h2>
-      <p>The road to launch, one build at a time. Now on v0.176.2.</p>
+      <p>The road to launch, one build at a time. Now on v0.176.3.</p>
     </div>
     <div class="updates updates-short">
       <div class="update-row latest">
+        <div class="update-when"><time datetime="2026-11-24">Nov 24, 2026</time><span class="update-version">v0.176.3</span></div>
+        <p>Zooming is quick again. Each turn of the mouse wheel or press of a zoom key searched the whole map for the camera before moving it - up to 17 ms a notch in the Big Field on our test machine, a stutter while you zoom. Now the game remembers its cameras as they arrive, and a notch takes under a millisecond.</p>
+      </div>
+      <div class="update-row">
         <div class="update-when"><time datetime="2026-11-24">Nov 24, 2026</time><span class="update-version">v0.176.2</span></div>
         <p>The Big Field comes and goes quicker. Its 4,555 wall pieces are now drawn straight from their chunks, with one body a chunk for everything they block - about 14,000 fewer things to set up and take down - and its floor's 136,000 tiles are kept once instead of twice, with its map drawn ahead of time. Arriving is about 170 ms quicker and leaving about 150 ms quicker on our test machine, and the walls, the floor and the map look and work exactly as they did.</p>
       </div>
       <div class="update-row">
         <div class="update-when"><time datetime="2026-11-23">Nov 23, 2026</time><span class="update-version">v0.176.1</span></div>
         <p>Lighter on the way in, and every minigame measured. Each area now arrives about 10 ms quicker: the Minigames card's tiles are made the first time you open it, not every time you walk through a door. And from the last build, which went out with more than its note said: the Forge's island and lava load in pieces as you arrive (its arrival went from about 89 ms of work to 57 on our test machine, and a 70 ms stutter a few seconds in is gone), Crownfall redraws only the bricks round a hit instead of the whole wall (about 1,050 draws in that frame down to a handful), and the Mage's Stand draws its craters, falling meteors and arrow in one go (170 draws a frame down to 88). And the Testing Ground's Find the limit can now sweep every elemental boss's arena: each arena whole, and each of its effects alone - the Earth boss's faults, its falling rock and pits, the Ice boss's frost, walls and hail, the Light Keeper's flares, the Wind boss's gusts, the Water boss's rain, the Fire boss's embers and vent sweeps. Fixed: in the Boss Arena, the Fire boss's rising lava was drawn over anyone standing in the top half of the room - it stays on the floor now. And the shopkeeper's talk - his greeting, a conversation, the Trade / Talk / Goodbye menu - ends at the shop's door instead of following you into the street. The shop no longer stutters as you trade: selling and switching between Buy and Sell went from up to 80 ms to about 2. A copy of the game the browser kept from an older version now refreshes itself at the sign-in screen. And Crownfall's top bar and side panels are drawn in one go (204 draws each time they are painted, now 23).</p>
-      </div>
-      <div class="update-row">
-        <div class="update-when"><time datetime="2026-11-22">Nov 22, 2026</time><span class="update-version">v0.176.0</span></div>
-        <p>The final boss, measured and made lighter. The Crowned's Trap no longer stutters as its horde pours in (the stand-ins its slimes are hit through now arrive a few at a time - its worst frame went from 22 ms to 6 on our test machine), the Tear's broken floor is drawn in one go instead of up to 214 separate draws, and the decoy eyes are made a moment before they appear instead of all in the frame they do. Fixed: a dark laser cage begun near a wall stopped everything flying over the floor from being drawn. And the Testing Ground's Find the limit can now sweep every boss attack on its own - each volley, each stalagmite shape, the floor's hazards, the lasers, the weathers, the lava, the holes, the rift and the horde - and the Crowned's fight part by part, alone or with a party of four. Every shot now has the pets' shots too, and Every effect the Gold Staff's beam.</p>
       </div>
     </div>
     <p class="updates-more"><a href="updates.html">Every push, mine and AllMind's&nbsp;&rarr;</a></p>
