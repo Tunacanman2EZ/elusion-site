@@ -1850,6 +1850,9 @@ footer a:hover { color: #f0d08a; }
    headings at the left. */
 .r-role { margin: 0 0 14px; color: var(--w-gold); font-size: 0.95rem; font-weight: 600; }
 .resume-page .r-thesis { max-width: 26ch; }
+/* The buttons carry their icons, a little apart from the word. */
+.resume-page .w-actions .btn { display: inline-flex; align-items: center; gap: 10px; }
+.r-ic { display: block; flex: none; }
 .r-status { margin: 18px 0 0; max-width: 64ch; color: var(--w-muted); font-size: 1rem; line-height: 1.55; }
 .r-status strong { color: var(--w-gold); font-weight: 600; }
 /* Three numbers, right under what he's looking for (26 Nov). */

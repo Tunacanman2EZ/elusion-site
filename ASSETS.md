@@ -28,13 +28,14 @@ Clear. A copy taken from this repository is not a licensed copy.
 
 Enquiries: elusionrpg@gmail.com
 
-## The four follow icons - their companies' trademarks
+## The service icons - their companies' trademarks
 
 `images/social/` holds the Discord, X, YouTube and Facebook icons on the home
-page's follow tiles. They are not Elusion Studios' and not covered by any
-licence in this repository. Each is the company's own file from its brand
-page, only scaled down (its empty edge trimmed), never redrawn or recoloured,
-and used only to link to Elusion's page on that service:
+page's follow tiles, and the GitHub and LinkedIn icons on the resume page's
+buttons. They are not Elusion Studios' and not covered by any licence in this
+repository. Each is the company's own file from its brand page, only scaled
+down (its empty edge trimmed), never redrawn or recoloured, and used only to
+link to Elusion's or Robert's page on that service:
 
 - Discord symbol - Discord Inc., https://discord.com/branding
 - X logo - X Corp., https://docs.x.com/x-for-websites/web-intents/image-resources
@@ -42,8 +43,14 @@ and used only to link to Elusion's page on that service:
   https://www.youtube.com/howyoutubeworks/resources/brand-resources/
 - Facebook logo - Meta Platforms, Inc.,
   https://www.meta.com/brand/resources/facebook/logo/
+- GitHub Invertocat - GitHub, Inc., https://github.com/logos
+- LinkedIn "In" logo - LinkedIn Corporation,
+  https://www.brand.linkedin.com/in-logo
 
-Each name sits under its icon (Discord asks for that). Don't put them anywhere
+The envelope on the resume's email button is not Gmail's logo: Google allows
+its logos only with its permission, so it is a plain shape drawn in the page.
+
+Each name sits beside or under its icon (Discord asks for that). Don't put them anywhere
 else, into Elusion's own logo, or on merchandise.
 
 ## The screenshot on the resume page
