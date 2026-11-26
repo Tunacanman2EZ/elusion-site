@@ -55,8 +55,9 @@ else, into Elusion's own logo, or on merchandise.
 
 ## The screenshot on the resume page
 
-`images/resume/profiler.jpg` is a screenshot of Elusion running, with its
-performance profiler open. It shows the game's art as the game draws it, which
+`images/resume/horde.webp` is a picture of Elusion running: 10,000 slimes in
+the Endless's Testing Ground, taken on the owner's PC. It shows the game's art
+as the game draws it, which
 can include tiles from the Clockwork Raven pack: art by Caio Carlos of Clockwork
 Raven Studios (https://www.clockworkravenstudios.com/), used in the game under
 their asset licence and credited in the game's `assetlicense.md`. It is a
