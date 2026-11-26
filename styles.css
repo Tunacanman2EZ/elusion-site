@@ -1844,10 +1844,90 @@ footer a:hover { color: #f0d08a; }
 .w-links span { line-height: 1.55; }
 .w-mail { font-size: 1.3rem; }
 
+/* ---- RESUME (26 Nov): the owner's portfolio on his own site ----
+   The owner: "i clicked it and it pulled up claude i do not want it too". It
+   wears the Work page's look (above): no boxes, rows parted by hairlines,
+   headings at the left. */
+.r-role { margin: 0 0 14px; color: var(--w-gold); font-size: 0.95rem; font-weight: 600; }
+.resume-page .r-thesis { max-width: 26ch; }
+.r-status { margin: 18px 0 0; color: var(--w-muted); font-size: 0.95rem; }
+.r-status strong { color: var(--w-gold); font-weight: 600; }
+.r-title {
+  margin: 0; max-width: 30ch; font-size: 1.45rem; line-height: 1.3; font-weight: 600;
+  color: var(--w-head);
+}
+.r-go { display: flex; flex-wrap: wrap; gap: 20px; margin: 12px 0 0; }
+.r-go a, .r-tools a {
+  color: var(--w-gold); font-weight: 600; text-decoration: underline;
+  text-decoration-color: rgba(218, 179, 99, 0.4); text-underline-offset: 4px;
+}
+.r-go a:hover, .r-tools a:hover { color: #f0d08a; }
+.r-facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px 24px;
+  margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--w-rule);
+}
+.r-facts div { margin: 0; }
+.r-facts dt, .r-rows dt { color: var(--w-muted); font-size: 0.85rem; }
+.r-facts dd { margin: 4px 0 0; color: var(--w-head); font-size: 0.98rem; line-height: 1.45; }
+/* The picture runs the page's full width, framed by one hairline. */
+.r-shot { margin: 40px 0 8px; }
+.r-shot img {
+  display: block; width: 100%; height: auto; border: 1px solid var(--w-rule); border-radius: 6px;
+}
+.r-shot figcaption { margin-top: 10px; color: var(--w-muted); font-size: 0.88rem; line-height: 1.5; }
+/* Label left, words right, a hairline between rows. */
+.r-rows { margin: 32px 0 0; }
+.r-rows div {
+  display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px;
+  padding: 16px 0; border-top: 1px solid rgba(59, 52, 44, 0.6);
+}
+.r-rows div:first-child { border-top: 0; }
+.r-rows dt { padding-top: 2px; }
+.r-rows dd { margin: 0; max-width: 66ch; font-size: 1rem; line-height: 1.65; }
+.r-rows strong { color: var(--w-head); font-weight: 600; }
+.r-rows .r-result dt { color: var(--w-gold); font-weight: 600; }
+.r-rows .r-result dd { color: var(--w-head); }
+.r-compact { margin: 0; }
+.r-compact div { grid-template-columns: 170px minmax(0, 1fr); gap: 24px; padding: 12px 0; }
+.r-compact div:first-child { padding-top: 4px; }
+/* More work: the status at the left, the story at the right. */
+.r-item {
+  display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px;
+  padding: 32px 0 0; margin-top: 32px; border-top: 1px solid rgba(59, 52, 44, 0.6);
+}
+.w-heading + .r-item { border-top: 0; margin-top: 24px; padding-top: 0; }
+.r-label { margin: 0; color: var(--w-muted); font-size: 0.9rem; line-height: 1.5; }
+.r-stat { color: var(--w-head); }
+.r-stat span { color: var(--w-gold); font-size: 1.6rem; font-weight: 700; margin-right: 4px; }
+.r-code {
+  margin: 0 0 12px; padding: 12px 14px; overflow-x: auto;
+  background: #1a1612; border: 1px solid var(--w-rule); border-radius: 6px;
+  font: 0.85rem/1.5 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--w-text);
+}
+.r-code span { color: var(--w-gold); font-weight: 600; }
+.r-tools { color: var(--w-muted); font-size: 0.92rem; }
+/* Courses: a plain table, code and grade in their own columns. */
+.r-degree { margin: 0 0 18px; line-height: 1.6; }
+.r-degree strong { color: var(--w-head); font-weight: 600; }
+.r-courses { width: 100%; max-width: 640px; border-collapse: collapse; font-size: 0.95rem; }
+.r-courses th {
+  text-align: left; padding: 0 12px 8px 0; color: var(--w-muted); font-weight: 400; font-size: 0.85rem;
+  border-bottom: 1px solid var(--w-rule);
+}
+.r-courses td { padding: 8px 12px 8px 0; border-bottom: 1px solid rgba(59, 52, 44, 0.45); }
+.r-courses td:first-child { color: var(--w-gold); font-size: 0.85rem; white-space: nowrap; }
+.r-courses td:last-child, .r-courses th:last-child { text-align: right; padding-right: 0; white-space: nowrap; }
+.r-courses td:nth-child(2) { color: var(--w-head); }
+.r-courses .r-now td { color: var(--w-muted); }
+.r-courses .r-now td:first-child { color: var(--w-gold); }
+.r-updated { color: var(--w-muted); font-size: 0.9rem; }
+
 @media (max-width: 760px) {
   .work-page { padding: 0 20px 40px; }
   .w-intro { padding: 40px 0 40px; }
   .w-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .w-case, .w-split { grid-template-columns: 1fr; gap: 16px; }
   .w-links li { grid-template-columns: 1fr; gap: 4px; }
+  .r-rows div, .r-compact div, .r-item { grid-template-columns: 1fr; gap: 6px; }
+  .r-item { gap: 10px; }
 }

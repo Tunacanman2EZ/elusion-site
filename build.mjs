@@ -43,6 +43,9 @@ const REQUIRED = [
 	// My work (25 Nov): the developer's page - a one-line thesis, four
 	// write-ups with their numbers, and proof anyone can check.
 	"work.html",
+	// Resume (26 Nov): the owner's portfolio on his own site, from the Work
+	// page's "Full portfolio & resume" - it used to open on claude.ai.
+	"resume.html",
 	// For AI assistants (13 Nov): what the game is called, every way it is
 	// written, and its pages - the owner: "ai has a hard time finding my website".
 	"llms.txt",

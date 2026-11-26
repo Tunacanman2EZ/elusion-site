@@ -19,7 +19,8 @@ social card.
 (c) 2026 Elusion Studios. Commissioned from Ahvassa (https://ahvassa.itch.io/)
 with rights assigned to Elusion Studios, plus original work by Robert Ashley
 Clear. The arena is built from the game's own floor and crypt art. Nothing on
-this site comes from the purchased Clockwork Raven pack.
+this site comes from the purchased Clockwork Raven pack, except what may show
+in the one screenshot below.
 
 It may **not** be used, copied, redistributed, or put into other projects -
 commercial or non-commercial - without written permission from Robert Ashley
@@ -44,6 +45,15 @@ and used only to link to Elusion's page on that service:
 
 Each name sits under its icon (Discord asks for that). Don't put them anywhere
 else, into Elusion's own logo, or on merchandise.
+
+## The screenshot on the resume page
+
+`images/resume/profiler.jpg` is a screenshot of Elusion running, with its
+performance profiler open. It shows the game's art as the game draws it, which
+can include tiles from the Clockwork Raven pack: art by Caio Carlos of Clockwork
+Raven Studios (https://www.clockworkravenstudios.com/), used in the game under
+their asset licence and credited in the game's `assetlicense.md`. It is a
+picture of the game, not the assets, and none of it is offered for reuse.
 
 ## The font - SIL Open Font License 1.1
 

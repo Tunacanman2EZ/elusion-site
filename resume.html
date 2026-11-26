@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robert Clear, resume • Elusion RPG</title>
+  <!-- SEARCH AND SHARING: what Google and link previews show. The canonical
+       address and the sitemap.xml entry are the same URL; test_seo.mjs
+       holds them together. -->
+  <meta name="description" content="Resume of Robert Clear, who builds Elusion RPG: backend work, projects, courses, skills, and how to reach him." />
+  <link rel="canonical" href="https://elusionrpg.com/resume.html" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#211c17" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Elusion RPG" />
+  <meta property="og:title" content="Robert Clear, resume • Elusion RPG" />
+  <meta property="og:description" content="Resume of Robert Clear, who builds Elusion RPG: backend work, projects, courses, skills, and how to reach him." />
+  <meta property="og:url" content="https://elusionrpg.com/resume.html" />
+  <meta property="og:image" content="https://elusionrpg.com/images/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elusion RPG: the Crowned Beholder standing in its crypt arena, beside the game's name" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html">Guide</a>
+    <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
+    <a href="contribute.html">Free to play</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <header class="sky-strip sky-signpost">
+    <div class="sky-title">
+      <h1>Robert Clear</h1>
+    </div>
+  </header>
+
+  <!-- THE RESUME (26 Nov): the owner's portfolio, moved onto his own site -
+       "i clicked it and it pulled up claude i do not want it too". Same
+       words as the portfolio; the Work page's look (styles.css, MY WORK and
+       RESUME). Reached from the Work page's "Full portfolio & resume". -->
+  <main class="work-page resume-page">
+
+    <section class="w-intro">
+      <p class="r-role">AI Software Engineering &middot; Maestro College</p>
+      <p class="w-thesis r-thesis">I build backends that don't trust the client.</p>
+      <p class="w-lede">Taught myself to code by shipping a real-time multiplayer RPG from nothing &mdash; now finishing
+        a software engineering degree, building a second backend from scratch, and learning to design real
+        silicon.</p>
+      <p class="r-status"><strong>Open to internships</strong> &middot; Los Lunas, NM &middot; remote or on-site</p>
+      <div class="w-actions">
+        <a class="btn primary" href="mailto:elusionrpg@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://github.com/Tunacanman2EZ" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/robert-clear-82a06910b/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+
+    <section class="w-section w-split" aria-labelledby="r-summary">
+      <h2 id="r-summary" class="w-heading">Summary</h2>
+      <div class="w-prose">
+        <p>I taught myself to code by building Elusion, a multiplayer RPG I built solo from an empty folder into a
+          live game with real players. The backend validates everything server-side, so the in-game economy can't
+          be edited through a modified client. I'm finishing an AI Software Engineering degree now and building a
+          second backend project from scratch alongside it.</p>
+      </div>
+    </section>
+
+    <!-- THE FEATURED PROJECT: its facts, the profiler picture, then the six
+         parts of the story in rows, not boxes. -->
+    <section class="w-section" aria-labelledby="r-featured">
+      <div class="w-split">
+        <h2 id="r-featured" class="w-heading">Featured project</h2>
+        <div>
+          <h3 class="r-title">Keeping a multiplayer economy honest when the client can't be trusted</h3>
+          <p class="r-go"><a href="https://play.elusionrpg.com">Play it</a>
+            <a href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">Read the source</a></p>
+          <dl class="r-facts">
+            <div><dt>Status</dt><dd>Live, shipped with real players</dd></div>
+            <div><dt>Project</dt><dd>Elusion RPG &mdash; personal project, not coursework</dd></div>
+            <div><dt>Team</dt><dd>Solo</dd></div>
+            <div><dt>How long</dt><dd>14+ months, ongoing since Sep 2025</dd></div>
+            <div><dt>In numbers</dt><dd>128-player stress test, 3,000-monster horde, live players</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <figure class="r-shot">
+        <img src="images/resume/profiler.jpg" width="1190" height="583" loading="lazy"
+             alt="Elusion's performance profiler during a 900+ monster stress test" />
+        <figcaption>Live profiler during a stress test: frame time, the physics, script and drawing breakdown,
+          and the monster count under load.</figcaption>
+      </figure>
+
+      <dl class="r-rows">
+        <div><dt>The problem</dt>
+          <dd>A browser and desktop multiplayer RPG needs an economy and combat system a modified game client can't
+            edit &mdash; the standard exploit path in online games.</dd></div>
+        <div><dt>What I did</dt>
+          <dd>Built a Flask + SQLite backend that owns every XP gain, loot roll, and gold amount, and validates each
+            hit against what a character should actually be able to deal.</dd></div>
+        <div><dt>Tools I used</dt>
+          <dd>Godot, GDScript, Flask, SQLite, WebSockets</dd></div>
+        <div><dt>My decision</dt>
+          <dd>One player's game simulates the shared monsters, for performance, but the server stays the only source
+            of truth for their health and kill payouts &mdash; a modified leader can move monsters around but can't
+            pay itself, or anyone else, an illegitimate kill.</dd></div>
+        <div><dt>What was hard</dt>
+          <dd>A peer security review flagged a missing token-lifecycle defense. The fix meant binding every login to
+            a random per-install id, so a stolen session token used from a different copy of the game is caught and
+            signed out instead of just trusted.</dd></div>
+        <div class="r-result"><dt>The result</dt>
+          <dd>Shipped and live with real players. A 128-player stress test showed the server handling it at 11% of
+            one CPU core &mdash; data volume, not processor power, turned out to be the actual scaling limit.</dd></div>
+      </dl>
+    </section>
+
+    <section class="w-section" aria-labelledby="r-more">
+      <h2 id="r-more" class="w-heading">More work</h2>
+
+      <article class="r-item">
+        <div class="r-side">
+          <p class="r-label">In development &middot; class project, Maestro College &mdash; current coursework</p>
+        </div>
+        <div class="w-body">
+          <h3>Studio Cost Raid &mdash; JWT-authenticated Flask API</h3>
+          <p class="r-stat"><span>100%</span> of real attack attempts (bad password, missing token, expired token)
+            correctly blocked</p>
+          <p>A Flask + SQLite backend with JWT login and token-protected routes, deployed live on Render. Found and
+            fixed a bug where a <em>valid</em> token crashed the server while bad ones worked fine.</p>
+          <pre class="r-code"><code>$ curl -i .../protected-test
+<span>401</span> AUTH_REQUIRED</code></pre>
+          <p class="r-tools">Flask, JWT, SQLAlchemy, Render &middot;
+            <a href="https://github.com/Tunacanman2EZ" target="_blank" rel="noopener">Source</a></p>
+        </div>
+      </article>
+
+      <article class="r-item">
+        <div class="r-side">
+          <p class="r-label">In progress &middot; self-directed, not yet shipped</p>
+        </div>
+        <div class="w-body">
+          <h3>Learning chip design with Tiny Tapeout</h3>
+          <p>Working through an open hobbyist program that fabricates real custom chips on shared silicon wafers.
+            Repo is set up from their template; running and studying working Verilog demos before designing an
+            original circuit.</p>
+          <p class="r-tools">Verilog, digital design</p>
+        </div>
+      </article>
+
+      <article class="r-item">
+        <div class="r-side">
+          <p class="r-label">Finished &middot; self-directed</p>
+        </div>
+        <div class="w-body">
+          <h3>Real-time VTuber streaming setup</h3>
+          <p>Built a real-time VTuber streaming setup: full-body and face motion tracking (XR Animator, VSeeFace)
+            feeding VNyan over the VMC protocol, with hotkey-triggered expressions and OBS capture.</p>
+          <p class="r-tools">OBS, VMC protocol, motion tracking</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="w-section w-split" aria-labelledby="r-courses">
+      <h2 id="r-courses" class="w-heading">Courses at Maestro College</h2>
+      <div>
+        <p class="r-degree"><strong>Associate of Applied Science, AI Software Engineering</strong><br />
+          In progress &middot; 16 courses passed, expected 2027</p>
+        <table class="r-courses">
+          <thead><tr><th scope="col">Course</th><th scope="col">Name</th><th scope="col">Grade</th></tr></thead>
+          <tbody>
+            <tr><td>PY101</td><td>Introduction to Python programming</td><td>B</td></tr>
+            <tr><td>PY104</td><td>Software engineering principles</td><td>B</td></tr>
+            <tr><td>PSYC100</td><td>General psychology</td><td>A</td></tr>
+            <tr><td>PY102</td><td>Data structures &amp; algorithms</td><td>A</td></tr>
+            <tr><td>HIST200</td><td>American history since World War II</td><td>A</td></tr>
+            <tr><td>PY103</td><td>Object-oriented programming</td><td>A</td></tr>
+            <tr><td>FE101</td><td>Introduction to modern JavaScript &amp; TypeScript</td><td>A</td></tr>
+            <tr><td>ENGL100</td><td>English composition</td><td>A</td></tr>
+            <tr><td>BE101</td><td>Web fundamentals</td><td>A</td></tr>
+            <tr><td>FE102</td><td>Building interactive UIs</td><td>A</td></tr>
+            <tr><td>ENVR200</td><td>Global environmental change</td><td>B</td></tr>
+            <tr><td>BE102</td><td>RESTful API development</td><td>A</td></tr>
+            <tr><td>BE103</td><td>Databases: SQL &amp; NoSQL basics</td><td>B</td></tr>
+            <tr><td>SPCH100</td><td>Essentials of public speaking</td><td>A</td></tr>
+            <tr><td>BE104</td><td>Authentication, authorization &amp; middleware</td><td>C</td></tr>
+            <tr><td>BE105</td><td>Advanced backend concepts &amp; microservices</td><td>C</td></tr>
+            <tr class="r-now"><td>BE106</td><td>Backend project</td><td>in progress</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="w-section w-split" aria-labelledby="r-skills">
+      <h2 id="r-skills" class="w-heading">Skills</h2>
+      <dl class="r-rows r-compact">
+        <div><dt>Languages</dt><dd>Python, JavaScript, GDScript, HTML, CSS</dd></div>
+        <div><dt>Backend</dt><dd>Flask, SQLAlchemy, SQLite, JWT auth, REST APIs, Node.js, WebSockets, WebRTC</dd></div>
+        <div><dt>Games and audio</dt><dd>Godot, Reaper</dd></div>
+        <div><dt>Tools and hosting</dt><dd>Git, GitHub Actions, Netlify, Render, DigitalOcean, Caddy, Cloudflare,
+          PowerShell</dd></div>
+      </dl>
+    </section>
+
+    <section class="w-section w-split" aria-labelledby="r-background">
+      <h2 id="r-background" class="w-heading">Education and experience</h2>
+      <dl class="r-rows r-compact">
+        <div><dt>Education</dt><dd><strong>High School Diploma</strong>, Highland High School, Albuquerque, NM
+          &mdash; Gold Seal distinction</dd></div>
+        <div><dt>Experience</dt><dd><strong>Subway</strong>, 7 years &mdash; day-to-day operations and customer
+          service</dd></div>
+        <div><dt>Languages</dt><dd>English, fluent</dd></div>
+      </dl>
+    </section>
+
+    <section class="w-section w-split w-contact" aria-labelledby="r-talk">
+      <h2 id="r-talk" class="w-heading">Hiring a Software Engineering Intern?</h2>
+      <div class="w-prose">
+        <p><a class="w-mail" href="mailto:elusionrpg@gmail.com">elusionrpg@gmail.com</a></p>
+        <p class="r-updated">Los Lunas, NM &middot; resume last updated November 2026</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Elusion RPG &middot; ElusionRPG &middot; elusionrpg.com. All rights reserved. · <a href="built.html">How it's built</a> · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>
