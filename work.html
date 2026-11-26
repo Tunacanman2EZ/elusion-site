@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My work • Elusion RPG</title>
+  <!-- SEARCH AND SHARING: what Google and link previews show. The canonical
+       address and the sitemap.xml entry are the same URL; test_seo.mjs
+       holds them together. -->
+  <meta name="description" content="The developer behind Elusion RPG: four problems measured and solved, how I build with AI, and proof you can check yourself." />
+  <link rel="canonical" href="https://elusionrpg.com/work.html" />
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#211c17" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elusion RPG" />
+  <meta property="og:title" content="My work • Elusion RPG" />
+  <meta property="og:description" content="The developer behind Elusion RPG: four problems measured and solved, how I build with AI, and proof you can check yourself." />
+  <meta property="og:url" content="https://elusionrpg.com/work.html" />
+  <meta property="og:image" content="https://elusionrpg.com/images/social-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elusion RPG: the Crowned Beholder standing in its crypt arena, beside the game's name" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <p class="visit-line" id="visit-line" hidden><span class="visit-count" id="visit-count"></span> <span id="visit-word">visits</span></p>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="guide.html">Guide</a>
+    <a href="lore.html">Lore</a>
+    <a href="updates.html">Updates</a>
+    <a href="contribute.html">Free to play</a>
+    <a href="join.html">Join the Team</a>
+    <a href="simulator.html">Boss Sim</a>
+    <a href="about.html">About</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="https://play.elusionrpg.com">Play</a>
+  </nav>
+
+  <header class="sky-strip sky-signpost">
+    <div class="sky-title">
+      <h1>My work</h1>
+    </div>
+  </header>
+
+  <main class="work-page">
+
+    <!-- THE THESIS: one line, who is saying it, and where to check it. -->
+    <section class="w-intro">
+      <p class="w-thesis">A free online RPG that runs thousands of monsters for four players on a $6&nbsp;server,
+        built solo by a first-time coder.</p>
+      <p class="w-lede">I'm Robert Clear (Tunacan). I started coding in September 2025 with no experience, and
+        Elusion is what I've built since: a Godot game, a Python server that trusts nothing the game says, and the
+        tests and measurements that prove both work.</p>
+      <div class="w-actions">
+        <a class="btn primary" href="https://play.elusionrpg.com">Play it now</a>
+        <a class="btn ghost" href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">Read the code</a>
+      </div>
+      <dl class="w-facts">
+        <div><dt>Automated checks</dt><dd>14,000+</dd></div>
+        <div><dt>Server cost</dt><dd>$6 a month</dd></div>
+        <div><dt>Largest horde</dt><dd>10,000 slimes</dd></div>
+        <div><dt>Current version</dt><dd>v0.176</dd></div>
+      </dl>
+    </section>
+
+    <!-- THE WRITE-UPS: each led by its result, in the game's own type. -->
+    <section class="w-section" aria-labelledby="w-cases">
+      <h2 id="w-cases" class="w-heading">Four problems, measured and solved</h2>
+      <p class="w-section-lede">Each one the same way: time it first, change one thing, then time it again the same
+        way.</p>
+
+      <article class="w-case">
+        <p class="w-figure"><span class="w-num">10,000</span><span class="w-unit">slimes in one horde</span></p>
+        <div class="w-body">
+          <h3>A horde of thousands, for a party of four</h3>
+          <p><strong>The problem.</strong> The Endless is a survival minigame where the crowd keeps growing. As
+            ordinary monsters, each one an object with its own physics, a few hundred is already heavy, and I wanted
+            thousands, on a phone, for four players at once.</p>
+          <p><strong>What I did.</strong> A slime isn't an object at all: it's one row of numbers in a few packed
+            arrays, moved 20 times a second and drawn all at once. Invisible stand-ins move onto the slimes nearest
+            the fighting, so every weapon in the game still hits them. In a party, every game grows the same slimes
+            from a shared seed, so no slime's position is ever sent over the network.</p>
+          <p><strong>The result.</strong> The Testing Ground holds 10,000. A step of 3,000 takes under 7&nbsp;ms on my
+            test machine, and phones keep the crowd at 1,000.</p>
+        </div>
+      </article>
+
+      <article class="w-case">
+        <p class="w-figure"><span class="w-num">504&thinsp;&rarr;&thinsp;52</span><span class="w-unit">a false heal, trimmed by the server</span></p>
+        <div class="w-body">
+          <h3>A server that doesn't believe the game</h3>
+          <p><strong>The problem.</strong> Anyone can edit their own copy of a game. In an online game, that means
+            every number the game reports could be a lie.</p>
+          <p><strong>What I did.</strong> The server keeps everything worth having: level and XP, gold in a
+            double-entry ledger, every loot roll, every bag. A kill pays only if the server's own count of that
+            fight agrees, and a heal it can't explain is trimmed back to what regeneration could honestly give.</p>
+          <p><strong>The result.</strong> In September a bug of my own healed characters on the player's machine.
+            The server caught it every time, trimming 504 health back to 52 with a line in the log, until I read the
+            log and fixed the game. There are 47 written security rules, and each names the test that proves it.</p>
+        </div>
+      </article>
+
+      <article class="w-case">
+        <p class="w-figure"><span class="w-num">170&nbsp;ms</span><span class="w-unit">faster into the biggest area</span></p>
+        <div class="w-body">
+          <h3>The Big Field, faster to arrive and to leave</h3>
+          <p><strong>The problem.</strong> The Big Field is the largest map: 4,555 wall pieces, each a small scene
+            of four or five objects, and a floor of 136,000 tiles that was being kept twice.</p>
+          <p><strong>What I did.</strong> I timed arriving and leaving part by part before changing anything. The
+            walls became plain pictures with one collision body per chunk of the map, taking 18,846 objects down to
+            about 4,600, and the floor is now kept once, with the map's picture made ahead of time.</p>
+          <p><strong>The result.</strong> About 170&nbsp;ms faster to arrive and 150&nbsp;ms faster to leave on my test
+            machine, and nothing looks different: the floor and the map match the old ones to the pixel.</p>
+        </div>
+      </article>
+
+      <article class="w-case">
+        <p class="w-figure"><span class="w-num">17&thinsp;&rarr;&thinsp;0.8&nbsp;ms</span><span class="w-unit">per notch of the zoom</span></p>
+        <div class="w-body">
+          <h3>Zooming without the stutter</h3>
+          <p><strong>The problem.</strong> Zooming in and out felt heavy. Each notch of the mouse wheel took up to
+            17&nbsp;ms in the Big Field, a stutter you could feel.</p>
+          <p><strong>What I did.</strong> I measured it first: almost all of that time was the game searching all
+            16,700 objects in the map to find its one camera. Now it remembers each camera as it appears.</p>
+          <p><strong>The result.</strong> 0.3 to 0.8&nbsp;ms a notch, most of it saving the setting, and a test makes
+            sure the search can't come back.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- HOW I WORK -->
+    <section class="w-section w-split" aria-labelledby="w-how">
+      <h2 id="w-how" class="w-heading">How I work</h2>
+      <div class="w-prose">
+        <p>I build with AI as my hands. Claude writes most of the code; I decide what gets built, play every change,
+          and don't accept anything that isn't measured. Every speed-up on this page has a before and an after,
+          taken the same way. Every rule on the server names the test that proves it, and every new test is watched
+          failing on purpose before it's trusted.</p>
+        <p>My notes are the project's memory: an engineering log of every lesson that cost an afternoon, written rules
+          for how a change reaches my machine, and one script that ships every release the same way. That's the skill
+          I'm proudest of: steering a big system with AI without letting it drift.</p>
+      </div>
+    </section>
+
+    <!-- OUTSIDE PROOF: what anyone can check without trusting me. -->
+    <section class="w-section w-split" aria-labelledby="w-proof">
+      <h2 id="w-proof" class="w-heading">Check it yourself</h2>
+      <ul class="w-links">
+        <li><a href="https://play.elusionrpg.com">Play it</a>
+          <span>Live and free in your browser, on a PC or a phone. Nothing to download.</span></li>
+        <li><a href="https://github.com/Tunacanman2EZ/Elusion_RPG" target="_blank" rel="noopener">Read the code</a>
+          <span>The game's code is public on GitHub, under the MIT licence.</span></li>
+        <li><a href="https://github.com/Tunacanman2EZ/Elusion_RPG/actions" target="_blank" rel="noopener">Watch the tests run</a>
+          <span>Every push runs the full suite on a fresh copy, on GitHub's machines, not mine.</span></li>
+        <li><a href="updates.html">Every change, dated</a>
+          <span>300+ updates, newest first, each saying what changed and why.</span></li>
+        <li><a href="built.html">How it's built</a>
+          <span>The architecture and the security model, rule by rule.</span></li>
+        <li><a href="about.html">The story</a>
+          <span>Who I am, and why I make it.</span></li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="w-section w-split w-contact" aria-labelledby="w-talk">
+      <h2 id="w-talk" class="w-heading">Want to talk?</h2>
+      <div class="w-prose">
+        <p>I'm looking for a team to grow with: remote, on games or the servers behind them.</p>
+        <p><a class="w-mail" href="mailto:elusionrpg@gmail.com">elusionrpg@gmail.com</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Elusion RPG &middot; ElusionRPG &middot; elusionrpg.com. All rights reserved. · <a href="built.html">How it's built</a> · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="visits.js"></script>
+</body>
+</html>

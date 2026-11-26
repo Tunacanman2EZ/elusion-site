@@ -12,6 +12,7 @@ Four classes (warrior, mage, tank, healer), seven elemental bosses and the Crown
 - [Updates](https://elusionrpg.com/updates.html): every version, newest first
 - [How it's built](https://elusionrpg.com/built.html): the game, the server and the security model
 - [About](https://elusionrpg.com/about.html): who makes it, and why
+- [My work](https://elusionrpg.com/work.html): the developer's write-ups, with their numbers, and proof to check
 - [Boss Sim](https://elusionrpg.com/simulator.html): try a boss fight's numbers
 - [Free to play](https://elusionrpg.com/contribute.html): how the game stays free
 - [Join the Team](https://elusionrpg.com/join.html): art, music, writing, testing, code

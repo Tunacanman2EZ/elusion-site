@@ -40,6 +40,9 @@ const REQUIRED = [
 	// How it's built (13 Nov): the architecture and the security model, for
 	// the public; the detail is in the API repository.
 	"built.html",
+	// My work (25 Nov): the developer's page - a one-line thesis, four
+	// write-ups with their numbers, and proof anyone can check.
+	"work.html",
 	// For AI assistants (13 Nov): what the game is called, every way it is
 	// written, and its pages - the owner: "ai has a hard time finding my website".
 	"llms.txt",
