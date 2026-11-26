@@ -1852,6 +1852,17 @@ footer a:hover { color: #f0d08a; }
 .resume-page .r-thesis { max-width: 26ch; }
 /* The buttons carry their icons, a little apart from the word. */
 .resume-page .w-actions .btn { display: inline-flex; align-items: center; gap: 10px; }
+/* Ovals (26 Nov, the owner: "make these ovals"): these three drop the game's
+   pixel frame for a plain round-ended border; email filled, the others lines. */
+.resume-page .w-actions .btn {
+  border: 1.5px solid #dab363; border-image: none; border-radius: 999px;
+  padding: 10px 22px; box-shadow: none;
+}
+.resume-page .w-actions .btn.primary,
+.resume-page .w-actions .btn.primary:hover { background: #dab363; color: #211c17; }
+.resume-page .w-actions .btn.ghost,
+.resume-page .w-actions .btn.ghost:hover { background: transparent; color: #e9cf8f; }
+.resume-page .w-actions .btn:hover { filter: brightness(1.12); }
 .r-ic { display: block; flex: none; }
 .r-status { margin: 18px 0 0; max-width: 64ch; color: var(--w-muted); font-size: 1rem; line-height: 1.55; }
 .r-status strong { color: var(--w-gold); font-weight: 600; }
