@@ -1478,27 +1478,26 @@ footer a:hover { color: #f0d08a; }
    The owner's crown and the co-owner's badge, in the gold the game paints them
    (Api.RANK_COLOURS "owner" and "coowner", 1.0 / 0.78 / 0.35), each card
    glowing slowly, the second half a beat behind the first. */
+/* No boxes since 25 Nov: two columns and a gold line fading out at both
+   ends between them (across them, on a phone). */
 .team-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;
-  max-width: 760px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 800px; margin: 8px auto 0;
+}
+.team-card { position: relative; text-align: center; padding: 6px 40px 4px; }
+.team-card + .team-card::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 199, 89, 0.55), transparent);
 }
 @media (max-width: 640px) {
   .team-grid { grid-template-columns: 1fr; }
+  .team-card { padding: 22px 8px; }
+  .team-card + .team-card::before {
+    top: 0; bottom: auto; left: 10%; right: 10%; width: auto; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 199, 89, 0.55), transparent);
+  }
 }
-.team-card {
-  position: relative; text-align: center;
-  border: 1px solid rgba(255, 199, 89, 0.45); border-radius: 14px;
-  background:
-    radial-gradient(circle at 50% 0, rgba(255, 199, 89, 0.12), transparent 62%),
-    linear-gradient(160deg, #27221c, #1f1a15);
-  box-shadow: 0 0 26px rgba(255, 199, 89, 0.14);
-  padding: 24px 22px 18px;
-}
-.team-card::before {
-  content: ""; position: absolute; left: 22px; right: 22px; top: -1px; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 199, 89, 0.85), transparent);
-}
-.team-mark { height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+.team-mark { height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
 .team-mark img { image-rendering: pixelated; filter: drop-shadow(0 0 10px rgba(255, 199, 89, 0.55)); }
 .team-badge {
   display: inline-block; font-weight: bold; font-size: 0.82rem; letter-spacing: 0.14em;
@@ -1506,36 +1505,23 @@ footer a:hover { color: #f0d08a; }
   padding: 6px 10px; background: rgba(255, 199, 89, 0.08);
   text-shadow: 0 0 8px rgba(255, 199, 89, 0.6);
 }
-.team-role {
-  color: #ffd88a; text-transform: uppercase; letter-spacing: 0.16em;
-  font-size: 0.68rem; font-weight: bold; margin: 0 0 4px;
-}
 .team-card h3.team-name {
-  margin: 0 0 10px; font-size: 1.7rem; color: #ffc759;
-  text-shadow: 0 0 16px rgba(255, 199, 89, 0.45);
+  margin: 0; font-size: 2rem; line-height: 1.15; color: #ffc759;
+  text-shadow: 0 0 16px rgba(255, 199, 89, 0.4);
 }
-.team-card p { color: #c2bfbc; font-size: 0.92rem; line-height: 1.55; margin: 0; }
+.team-card p { color: #c2bfbc; font-size: 0.95rem; line-height: 1.6; margin: 0 auto; max-width: 34ch; }
+.team-card p.team-who { margin: 4px auto 14px; color: #a6a39f; font-size: 0.85rem; max-width: none; }
 .team-card a { color: #dab363; }
-/* The real names sit on one line across the two cards, whatever the text
-   above them runs to: the card is a column and the name takes the slack. */
-.team-card { display: flex; flex-direction: column; }
-.team-card p:not(.team-role):not(.team-real) { margin-bottom: 14px; }
-.team-card p.team-real {
-  margin-top: auto; padding-top: 10px; border-top: 1px solid #27221d;
-  color: #999692; font-size: 0.82rem; letter-spacing: 0.04em;
-}
+/* Robert's own words, as a quote: a short measure, a gold rule, signed. */
 .team-story {
-  max-width: 760px; margin: 20px auto 0; text-align: center;
-  color: #b2afac; font-size: 0.95rem; line-height: 1.65;
+  max-width: 620px; margin: 40px auto 0; padding: 2px 0 2px 22px;
+  border-left: 2px solid rgba(255, 199, 89, 0.6);
 }
-.team-story span { color: #dec28c; white-space: nowrap; }
-@media (prefers-reduced-motion: no-preference) {
-  .team-card.shine { animation: team-shine 4s ease-in-out infinite; }
-  .team-card.shine + .team-card.shine { animation-delay: 2s; }
-}
-@keyframes team-shine {
-  0%, 100% { box-shadow: 0 0 22px rgba(255, 199, 89, 0.10); }
-  50%      { box-shadow: 0 0 40px rgba(255, 199, 89, 0.30); }
+.team-story p { margin: 0; color: #c2bfbc; font-size: 1rem; line-height: 1.7; }
+.team-story strong { color: #e8e4df; }
+.team-story footer {
+  margin: 10px 0 0; padding: 0; border: 0; background: none; text-align: left;
+  color: #dec28c; font-size: 0.92rem;
 }
 /* A real name under a handle, on the About page's credits. */
 .artist-card p.artist-realname { margin-top: 10px; color: #999692; font-size: 0.82rem; }
