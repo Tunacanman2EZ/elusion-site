@@ -10,7 +10,8 @@ way it does in the game's repository (`assetlicense.md` in Elusion_RPG).
 
 ## Elusion Studios' art - all rights reserved
 
-Everything under `images/`, and `favicon.ico`: the monsters and their deaths,
+Everything under `images/` except `images/social/`, and `favicon.ico`: the
+monsters and their deaths,
 the four heroes on the minigames cards, the Crowned, the arena, the portals,
 the crown, the cursors, the icons, the hotbar's frame on the buttons and the
 social card.
@@ -25,6 +26,24 @@ commercial or non-commercial - without written permission from Robert Ashley
 Clear. A copy taken from this repository is not a licensed copy.
 
 Enquiries: elusionrpg@gmail.com
+
+## The four follow icons - their companies' trademarks
+
+`images/social/` holds the Discord, X, YouTube and Facebook icons on the home
+page's follow tiles. They are not Elusion Studios' and not covered by any
+licence in this repository. Each is the company's own file from its brand
+page, only scaled down (its empty edge trimmed), never redrawn or recoloured,
+and used only to link to Elusion's page on that service:
+
+- Discord symbol - Discord Inc., https://discord.com/branding
+- X logo - X Corp., https://docs.x.com/x-for-websites/web-intents/image-resources
+- YouTube icon - Google LLC,
+  https://www.youtube.com/howyoutubeworks/resources/brand-resources/
+- Facebook logo - Meta Platforms, Inc.,
+  https://www.meta.com/brand/resources/facebook/logo/
+
+Each name sits under its icon (Discord asks for that). Don't put them anywhere
+else, into Elusion's own logo, or on merchandise.
 
 ## The font - SIL Open Font License 1.1
 

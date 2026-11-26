@@ -1106,11 +1106,15 @@ footer a:hover { color: #f0d08a; }
   list-style: none; margin: 0; padding: 0;
   display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px;
 }
+/* Circles (25 Nov, the owner): each land a round stone ringed in its
+   element's colour, lit a little from above. */
 .land {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 12px 4px 10px; text-align: center;
-  border: 1px solid #2c3b41; border-top: 3px solid var(--el); border-radius: 10px;
-  background: #1c2440; box-shadow: inset 0 24px 30px -26px var(--el);
+  justify-self: center; width: 100%; max-width: 124px; aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 6px; text-align: center; box-sizing: border-box;
+  border: 2px solid color-mix(in srgb, var(--el) 75%, transparent); border-radius: 50%;
+  background: radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--el) 22%, #1c2440), #1c2440 68%);
+  box-shadow: 0 0 22px -8px var(--el);
 }
 .land .g { color: var(--el); font-size: 1.3rem; line-height: 1.25; text-shadow: 0 0 12px var(--el); }
 .land .n { color: #f5f5f5; font-weight: bold; font-size: 0.9rem; }
@@ -1293,7 +1297,9 @@ footer a:hover { color: #f0d08a; }
 @media (max-width: 760px) {
   .lore-chapter.has-art { display: block; }
   .lore-art { max-width: 240px; margin: 0 auto 16px; }
-  .land-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* Four, then three centred under them. */
+  .land-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .land { width: calc((100% - 24px) / 4); max-width: 104px; }
   .land-depth { display: none; }
   .coin-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* Five since the smith (23 Oct): the last of an odd row across both columns. */
@@ -1423,7 +1429,8 @@ footer a:hover { color: #f0d08a; }
 .portal-cta-btns { display: flex; flex-direction: column; gap: 10px; }
 .portal-cta-btns .btn { text-align: center; }
 
-/* Where to follow along: framed tiles with plain line icons. */
+/* Where to follow along: framed tiles, each with its service's own icon
+   (25 Nov, the owner; ASSETS.md credits them). */
 .follow-grid-home {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;
   max-width: 860px; margin: 0 auto;
@@ -1433,6 +1440,7 @@ footer a:hover { color: #f0d08a; }
   padding: 20px 12px 18px; text-align: center;
 }
 .follow-tile .ic { margin-bottom: 10px; }
+.follow-tile .ic img { display: block; height: auto; }
 .follow-tile .name { color: #f5f5f5; font-weight: bold; }
 .follow-tile .what { color: #9a9793; font-size: 0.82rem; overflow-wrap: anywhere; }
 .follow-tile:hover .what { color: #dec28c; }
@@ -1460,6 +1468,11 @@ footer a:hover { color: #f0d08a; }
   .explore-go { font-size: 0.8rem; }
   .home-lands { padding: 2px 12px 14px; }
   .home-lands .land-row { gap: 6px; }
+  .home-lands .land { width: calc((100% - 18px) / 4); }
+  .land { padding: 4px; gap: 0; }
+  .land .g { font-size: 1.05rem; }
+  .land .n { font-size: 0.8rem; }
+  .land .t { font-size: 0.64rem; max-width: 76%; }
 }
 /* ---- THE TEAM (home): the two of us, the way the game shows us ----
    The owner's crown and the co-owner's badge, in the gold the game paints them
