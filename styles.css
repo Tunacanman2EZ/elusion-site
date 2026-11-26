@@ -682,6 +682,11 @@ footer a:hover { color: #f0d08a; }
   text-transform: none; font-weight: 600;
 }
 .update-row.latest .update-version { border-color: rgba(218, 179, 99, 0.5); color: #dec28c; }
+/* Who made the push, under its version (25 Nov, the owner: every push is his). */
+.update-by {
+  display: block; margin-top: 6px; color: #a6a39f; font-size: 0.7rem;
+  letter-spacing: 0.04em; text-transform: none; font-weight: 600;
+}
 .update-row p { margin: 0; color: #d6d3d0; font-size: 0.95rem; line-height: 1.55; }
 .update-row.soon { border-left-style: dashed; border-left-color: #3b2a63; }
 .update-row.soon::before { border-color: #8b5cf6; box-shadow: 0 0 8px rgba(139, 92, 246, 0.6); }
@@ -694,6 +699,7 @@ footer a:hover { color: #f0d08a; }
   .update-row { flex-direction: column; gap: 6px; padding-left: 16px; }
   .update-when { min-width: 0; padding-top: 0; flex-direction: row; align-items: center; gap: 8px; }
   .update-version { margin-top: 0; }
+  .update-by { margin-top: 0; }
 }
 /* ---- ALLMIND'S PUSHES: the same strip in the co-owner's gold ----
    The gold the game paints a co-owner's name and badge (Api.RANK_COLOURS
@@ -1759,9 +1765,9 @@ footer a:hover { color: #f0d08a; }
    The owner: "less squares and more of a genuine professional website". So
    no cards here: the page reads left to right like a written portfolio, the
    sections parted by space and one hairline, and the one loud thing is each
-   write-up's result, set in Pixelify Sans, the game's own type, the way the
-   game shows a number. Text is the system's UI face (Segoe UI on Windows), not
-   Arial. */
+   write-up's result, large and in gold. Text is the system's UI face (Segoe UI
+   on Windows), not Arial. The results were in Pixelify Sans at first; the
+   owner: "it is hard to read these use real letters". */
 .work-page {
   --w-ink: #211c17;
   --w-head: #efe8dc;
@@ -1811,9 +1817,9 @@ footer a:hover { color: #f0d08a; }
 .w-section > .w-case:first-of-type { border-top: 0; padding-top: 8px; }
 .w-figure { margin: 0; }
 .w-num {
-  display: block; font-family: "Pixelify Sans", Arial, sans-serif;
-  font-size: clamp(2.2rem, 4.4vw, 3.1rem); line-height: 1; color: var(--w-gold);
-  text-shadow: 0 0 18px rgba(218, 179, 99, 0.22); white-space: nowrap;
+  display: block; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.05;
+  font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: lining-nums;
+  color: var(--w-gold); white-space: nowrap;
 }
 .w-unit { display: block; margin-top: 10px; color: var(--w-muted); font-size: 0.95rem; line-height: 1.4; }
 .w-body h3 { margin: 0 0 12px; font-size: 1.25rem; line-height: 1.3; font-weight: 600; color: var(--w-head); }
